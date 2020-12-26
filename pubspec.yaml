@@ -1,0 +1,34 @@
+name: crypto_app
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0-0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http:
+    git:
+      url: https://github.com/dart-lang/http.git
+      ref: master
+    #^0.12.2
+  intl: ^0.17.0-nullsafety.2
+  decimal: 1.0.0-nullsafety
+  cupertino_icons: ^1.0.1+1
+  fl_chart: ^0.12.1
+  provider: ^5.0.0-nullsafety.1
+  # dart_rss: ^1.0.1
+
+  # sembast: ^3.0.0-nullsafety.3
+  path_provider: ^1.6.24
+  sqflite: ^2.0.0-nullsafety.2
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
