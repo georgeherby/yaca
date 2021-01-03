@@ -13,28 +13,52 @@ Future<Assets> fetchAssetsList(http.Client client, [limit = 100]) async {
   return Assets.fromJson(jsonDecode(response.body));
 }
 
-Future<AssetHisotrySplits> fetchFullAssetHistory(http.Client client, String asset) async {
-  return AssetHisotrySplits(
-      last24Hours: (await _fetchLast23HoursHistory(client, asset)).history,
-      all: (await _fetchAllHistory(client, asset)).history);
+Future<AssetHistorySplits> fetchFullAssetHistory(http.Client client, String asset) async {
+  debugPrint("fetchFullAssetHistory called");
+
+  return AssetHistorySplits(
+      last24Hours: (await _fetchLast24HoursHistory(client, asset)).history,
+      last7Days: (await _fetch7dHistory(client, asset)).history,
+      last1Month: (await _fetch1mHistory(client, asset)).history,
+      last6Month: (await _fetch6mHistory(client, asset)).history,
+      last12Months: (await _fetch1yHistory(client, asset)).history);
 }
 
-Future<AssetHistory> _fetchAllHistory(http.Client client, String asset) async {
-  debugPrint("fetchLast7DaysHistory called");
+Future<AssetHistory> _fetch1yHistory(http.Client client, String asset) async {
+  debugPrint("_fetch1yHistory called");
+
+  final response = await client.get('https://api.coincap.io/v2/assets/$asset/history?interval=h12');
+
+  return AssetHistory.fromJson(jsonDecode(response.body));
+}
+
+Future<AssetHistory> _fetch6mHistory(http.Client client, String asset) async {
+  debugPrint("_fetch6mHistory called");
+
+  final response = await client.get('https://api.coincap.io/v2/assets/$asset/history?interval=h6');
+
+  return AssetHistory.fromJson(jsonDecode(response.body));
+}
+
+Future<AssetHistory> _fetch1mHistory(http.Client client, String asset) async {
+  debugPrint("_fetch1mHistory called");
+
+  final response = await client.get('https://api.coincap.io/v2/assets/$asset/history?interval=h1');
+
+  return AssetHistory.fromJson(jsonDecode(response.body));
+}
+
+Future<AssetHistory> _fetch7dHistory(http.Client client, String asset) async {
+  debugPrint("_fetch7dHistory called");
 
   final response = await client.get('https://api.coincap.io/v2/assets/$asset/history?interval=m15');
 
   return AssetHistory.fromJson(jsonDecode(response.body));
 }
 
-Future<AssetHistory> _fetchLast23HoursHistory(http.Client client, String asset) async {
-  debugPrint("fetchLast24HoursHistory called");
-
-  int from = DateTime.now()
-      .subtract(Duration(hours: 23, minutes: 55))
-      .millisecondsSinceEpoch; //24 Hours exceeded the API max opf 1 day...
-  int to = DateTime.now().millisecondsSinceEpoch;
-  String url = 'https://api.coincap.io/v2/assets/$asset/history?interval=m1&start=$from&end=$to';
+Future<AssetHistory> _fetchLast24HoursHistory(http.Client client, String asset) async {
+  debugPrint("_fetchLast24HoursHistory called");
+  String url = 'https://api.coincap.io/v2/assets/$asset/history?interval=m1';
   debugPrint(url);
   final response = await client.get(url);
 

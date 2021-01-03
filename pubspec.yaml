@@ -22,8 +22,7 @@ dependencies:
   fl_chart: ^0.12.1
   provider: ^5.0.0-nullsafety.1
   # dart_rss: ^1.0.1
-
-  # sembast: ^3.0.0-nullsafety.3
+  shared_preferences: ^0.5.12+4
   path_provider: ^1.6.24
   sqflite: ^2.0.0-nullsafety.2
 dev_dependencies:

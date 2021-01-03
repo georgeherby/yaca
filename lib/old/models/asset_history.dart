@@ -1,8 +1,17 @@
-class AssetHisotrySplits {
+class AssetHistorySplits {
   final List<HistoricalData> last24Hours;
-  final List<HistoricalData> all;
+  final List<HistoricalData> last7Days;
+  final List<HistoricalData> last1Month;
+  final List<HistoricalData> last6Month;
+  final List<HistoricalData> last12Months;
 
-  AssetHisotrySplits({required this.last24Hours, required this.all});
+  AssetHistorySplits({
+    required this.last24Hours,
+    required this.last7Days,
+    required this.last1Month,
+    required this.last6Month,
+    required this.last12Months,
+  });
 }
 
 class AssetHistory {

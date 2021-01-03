@@ -16,6 +16,10 @@ class AssetGraph extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color _dashColour =
+        (Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white)
+            .withOpacity(0.6);
+
     double maxPrice = history.map((e) => e.priceUsd).reduce(max);
     double minPrice = history.map((e) => e.priceUsd).reduce(min);
 
@@ -23,7 +27,7 @@ class AssetGraph extends StatelessWidget {
       height: 250,
       width: double.infinity,
       child: Padding(
-        padding: const EdgeInsets.only(top: 64.0),
+        padding: const EdgeInsets.only(top: 24.0),
         child: LineChart(
           LineChartData(
             gridData: FlGridData(
@@ -66,9 +70,10 @@ class AssetGraph extends StatelessWidget {
                     var timeString = formatTime.format(_date);
 
                     return LineTooltipItem(
-                      '${coinCurrencyFormat(price).format(price)}\n$timeString\n$dateString',
-                      const TextStyle(color: Colors.black),
-                    );
+                        '${coinCurrencyFormat(price).format(price)}\n$timeString\n$dateString',
+                        Theme.of(context).textTheme.bodyText1
+                        // const TextStyle(color: Theme.of(context).brightness == Brightness.Light ? Colors.black),
+                        );
                   }).toList();
                 },
               ),
@@ -76,18 +81,23 @@ class AssetGraph extends StatelessWidget {
             lineBarsData: [
               LineChartBarData(
                 isCurved: true,
-                colors: [Theme.of(context).primaryColor],
+                colors: [
+                  Theme.of(context).primaryColor,
+                ],
                 barWidth: 3,
                 isStrokeCapRound: true,
                 dotData: FlDotData(
                   show: false,
                 ),
                 belowBarData: BarAreaData(
-                  show: true,
-                  colors: [Theme.of(context).primaryColor]
-                      .map((color) => color.withOpacity(0.3))
-                      .toList(),
-                ),
+                    show: true,
+                    colors: [
+                      Theme.of(context).scaffoldBackgroundColor,
+                      Theme.of(context).primaryColor,
+                    ].map((color) => color.withOpacity(0.3)).toList(),
+                    gradientFrom: Offset(0, 1),
+                    gradientTo: Offset(0, 0),
+                    gradientColorStops: [0.6, 0.7, 1]),
                 spots: List.generate(
                     history.length,
                     (index) => FlSpot(
@@ -99,11 +109,12 @@ class AssetGraph extends StatelessWidget {
             extraLinesData: ExtraLinesData(horizontalLines: [
               HorizontalLine(
                   y: maxPrice,
-                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                  color: _dashColour,
                   strokeWidth: 1.5,
                   dashArray: [5, 2],
                   label: HorizontalLineLabel(
                     show: true,
+                    style: Theme.of(context).textTheme.bodyText1,
                     alignment: Alignment.topLeft,
                     labelResolver: (HorizontalLine line) {
                       return "max - ${coinCurrencyFormat(maxPrice).format(maxPrice)}";
@@ -111,11 +122,12 @@ class AssetGraph extends StatelessWidget {
                   )),
               HorizontalLine(
                   y: minPrice,
-                  color: Theme.of(context).accentColor.withOpacity(0.8),
+                  color: _dashColour,
                   strokeWidth: 1.5,
                   dashArray: [5, 2],
                   label: HorizontalLineLabel(
                     show: true,
+                    style: Theme.of(context).textTheme.bodyText1,
                     alignment: Alignment.bottomLeft,
                     labelResolver: (HorizontalLine line) {
                       return "min - ${coinCurrencyFormat(minPrice).format(minPrice)}";

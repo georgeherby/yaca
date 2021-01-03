@@ -1,3 +1,4 @@
+import 'package:crypto_app/old/models/asset_overview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,8 @@ import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 
 class AssetsDataTable extends StatelessWidget {
-  final List<Asset> assetsList;
-  final Function(Asset, bool) onFavourite;
+  final List<AssetData> assetsList;
+  final Function(AssetData, bool) onFavourite;
   const AssetsDataTable({
     Key? key,
     required this.assetsList,
@@ -45,8 +46,11 @@ class AssetsDataTable extends StatelessWidget {
             DataColumn(
                 label: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
             DataColumn(
-                label: Text('Change', style: TextStyle(fontWeight: FontWeight.w600)),
-                numeric: true),
+                label: Text('7d', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+            DataColumn(
+                label: Text('24h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+            DataColumn(
+                label: Text('1h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
             DataColumn(
                 label: Text('', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
           ],
@@ -58,7 +62,7 @@ class AssetsDataTable extends StatelessWidget {
     );
   }
 
-  DataRow buildDataRow(Asset a, BuildContext context) {
+  DataRow buildDataRow(AssetData a, BuildContext context) {
     return DataRow(
         onSelectChanged: (value) {
           debugPrint(a.name);
@@ -69,7 +73,7 @@ class AssetsDataTable extends StatelessWidget {
                 builder: (context) {
                   return SingleAssetView(
                     asset: a,
-                    onFavourite: (String id, bool isChecked) {
+                    onFavourite: (int id, bool isChecked) {
                       if (a.isFavourited) {
                         print("Unfaovouriting ${a.name}");
                       } else {
@@ -83,7 +87,7 @@ class AssetsDataTable extends StatelessWidget {
         },
         cells: [
           DataCell(
-            Text(a.rank),
+            Text(a.cmcRank.toString()),
           ),
           DataCell(
             Row(
@@ -115,10 +119,20 @@ class AssetsDataTable extends StatelessWidget {
               ],
             ),
           ),
-          DataCell(Text(readableCurrencyFormat.format(a.marketCapUsd))),
-          DataCell(Text(coinCurrencyFormat(a.priceUsd).format(a.priceUsd))),
-          DataCell(a.changePercent24Hr != null
-              ? PercentageChangeBox(a.changePercent24Hr!)
+          DataCell(a.quote.gbp != null
+              ? Text(readableCurrencyFormat.format(a.quote.gbp!.marketCap))
+              : Container()),
+          DataCell(a.quote.gbp != null
+              ? Text(coinCurrencyFormat(a.quote.gbp!.price).format(a.quote.gbp!.price))
+              : Container()),
+          DataCell(a.quote.gbp?.percentChange7d != null
+              ? PercentageChangeBox(a.quote.gbp!.percentChange7d!)
+              : Container()),
+          DataCell(a.quote.gbp?.percentChange24h != null
+              ? PercentageChangeBox(a.quote.gbp!.percentChange24h!)
+              : Container()),
+          DataCell(a.quote.gbp?.percentChange1h != null
+              ? PercentageChangeBox(a.quote.gbp!.percentChange1h!)
               : Container()),
           DataCell(
             InkWell(

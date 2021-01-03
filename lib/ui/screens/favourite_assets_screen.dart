@@ -1,6 +1,7 @@
 import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
-import 'package:crypto_app/old/models/assets.dart';
+import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
+import 'package:crypto_app/old/models/asset_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,15 +13,16 @@ class FavouriteAssetsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBarStatic(),
         body: Consumer<AssetViewModel>(builder: (BuildContext context, AssetViewModel ase, _) {
-      return ase.favourites.length > 0
-          ? AssetsDataTable(
-              assetsList: ase.favourites,
-              onFavourite: (Asset a, bool isChecked) => ase.setFavourite(a, isChecked),
-            )
-          : Center(
-              child: Text("No favourites"),
-            );
-    }));
+          return ase.favourites.length > 0
+              ? AssetsDataTable(
+                  assetsList: ase.favourites,
+                  onFavourite: (AssetData a, bool isChecked) => ase.setFavourite(a, isChecked),
+                )
+              : Center(
+                  child: Text("No favourites"),
+                );
+        }));
   }
 }

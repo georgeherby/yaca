@@ -1,17 +1,16 @@
 import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
 import 'package:crypto_app/old/market/widgets/app_bar_data_block.dart';
-import 'package:crypto_app/old/models/market_details.dart';
+import 'package:crypto_app/old/models/market_overview.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/utils/percentage_formatters.dart';
-import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
-  final MarketDetails marketDetails;
+  final bool showMarletOverview;
 
-  const AppBarStatic({Key? key, required this.marketDetails}) : super(key: key);
+  const AppBarStatic({Key? key, this.showMarletOverview = false}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,35 +24,98 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
           Expanded(
             flex: 150,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               // mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppBarDataBlock(
-                      label: 'Market Cap',
-                      amount: readableCurrencyFormat.format(marketDetails.marketCapUsd),
-                      changePer24Hours: PercentageChangeBox(marketDetails.marketCapChange24h),
-                    ),
-                    AppBarDataBlock(
-                      label: 'Asset Count',
-                      amount: marketDetails.cryptocurrenciesNumber.toString(),
-                    ),
-                    AppBarDataBlock(
-                      label: 'BTC Dominance',
-                      amount:
-                          percetnageFormat.format(marketDetails.bitcoinDominancePercentage / 100),
-                    ),
-                    AppBarDataBlock(
-                      label: '24h Volume',
-                      amount: readableCurrencyFormat.format(marketDetails.volume24hUsd),
-                      changePer24Hours: PercentageChangeBox(marketDetails.volume24hChange24h),
-                    ),
-                  ],
-                ),
+                showMarletOverview
+                    ? Consumer<AssetViewModel>(
+                        builder: (BuildContext context, AssetViewModel ase, _) {
+                        return ase.hasGlobalLoaded && ase.marketOverview != null
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Expanded(
+                                    child: Column(children: [
+                                      Text(
+                                        "Market Cap",
+                                        style: Theme.of(context).textTheme.headline6,
+                                      ),
+                                      Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            AppBarDataBlock(
+                                              label: 'All coins',
+                                              amount: readableCurrencyFormat.format(ase
+                                                  .marketOverview!.data.quote.usd.totalMarketCap),
+                                            ),
+                                            AppBarDataBlock(
+                                              label: 'Altcoins coins',
+                                              amount: readableCurrencyFormat.format(ase
+                                                  .marketOverview!.data.quote.usd.altcoinMarketCap),
+                                            ),
+                                          ])
+                                    ]),
+                                  ),
+                                  Spacer(),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Dominance",
+                                          style: Theme.of(context).textTheme.headline6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            AppBarDataBlock(
+                                              label: 'Bitcoin',
+                                              amount: percetnageFormat.format(
+                                                  ase.marketOverview!.data.btcDominance / 100),
+                                            ),
+                                            AppBarDataBlock(
+                                              label: 'Ethereum',
+                                              amount: percetnageFormat.format(
+                                                  ase.marketOverview!.data.ethDominance / 100),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Expanded(
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "24h Volume",
+                                          style: Theme.of(context).textTheme.headline6,
+                                        ),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            AppBarDataBlock(
+                                              label: 'All coins',
+                                              amount: readableCurrencyFormat.format(ase
+                                                  .marketOverview!.data.quote.usd.totalVolume24h),
+                                            ),
+                                            AppBarDataBlock(
+                                              label: 'Altcoin only',
+                                              amount: readableCurrencyFormat.format(ase
+                                                  .marketOverview!.data.quote.usd.totalVolume24h),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Center(child: CupertinoActivityIndicator());
+                      })
+                    : Container(),
                 Spacer(),
               ],
             ),

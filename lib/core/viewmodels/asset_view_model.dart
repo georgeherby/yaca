@@ -1,35 +1,45 @@
-import 'package:crypto_app/old/api/assets_api.dart';
+import 'package:crypto_app/old/api/coinmarketcap/assets_overview_api.dart';
+import 'package:crypto_app/old/api/coinmarketcap/market_overview_api.dart';
 import 'package:crypto_app/old/data/dao/favourites_dao.dart';
 import 'package:crypto_app/old/data/models/favourites.dart';
-import 'package:crypto_app/old/models/assets.dart';
+import 'package:crypto_app/old/models/asset_overview.dart';
+import 'package:crypto_app/old/models/market_overview.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AssetViewModel extends ChangeNotifier {
-  List<Asset> _assets = <Asset>[];
-  bool _hasLoaded = true;
+  List<AssetData> _assets = <AssetData>[];
+  GlobalMarketOverview? _marketOverview;
+  bool _hasGlobalMarketOverviewLoaded = true;
+  bool _hasAssetsOverviewLoaded = true;
   FavouritesDao _favouriteDao = FavouritesDao();
   AssetViewModel() {
     fetchAssets();
   }
 
+  http.Client _client = http.Client();
+
   void fetchAssets() async {
-    _hasLoaded = false;
+    _hasGlobalMarketOverviewLoaded = false;
+    _hasAssetsOverviewLoaded = false;
     notifyListeners();
 
-    //Is Loading?
     debugPrint("Clear");
     _assets.clear();
     debugPrint("Adding");
 
+    fetchMarketOverview(_client).then((GlobalMarketOverview value) {
+      _marketOverview = value;
+      _hasGlobalMarketOverviewLoaded = true;
+      notifyListeners();
+    });
     List<Favourites> usersFavourites = await _favouriteDao.getAll();
     usersFavourites.forEach((element) {
       print(element.toMap());
     });
-    List<Asset> assetData = (await fetchAssetsList(http.Client())).data;
+    List<AssetData> asset = (await fetchAssetsOverview(_client)).data;
 
-    _assets.addAll(assetData.map((assetData) {
-      debugPrint("Checking ${assetData.name}  ${assetData.symbol}");
+    _assets.addAll(asset.map((assetData) {
       Iterable<Favourites> favs = (usersFavourites.where((Favourites fav) =>
           fav.name.toLowerCase() == assetData.name.toLowerCase() &&
           fav.symbol.toLowerCase() == assetData.symbol.toLowerCase()));
@@ -40,25 +50,33 @@ class AssetViewModel extends ChangeNotifier {
       }
       return assetData;
     }));
-    _hasLoaded = true;
     debugPrint("Added");
+    _hasAssetsOverviewLoaded = true;
     notifyListeners();
   }
 
-  List<Asset> get assetList {
+  List<AssetData> get assetList {
     return _assets;
   }
 
-  List<Asset> get favourites {
+  GlobalMarketOverview? get marketOverview {
+    return _marketOverview;
+  }
+
+  List<AssetData> get favourites {
     return _assets.where((element) => element.isFavourited).toList();
   }
 
-  bool get hasLoaded {
-    return _hasLoaded;
+  bool get hasGlobalLoaded {
+    return _hasGlobalMarketOverviewLoaded;
   }
 
-  void setFavourite(Asset asset, bool isChecked) async {
-    Asset a = _assets.firstWhere((item) => item.id == asset.id);
+  bool get hasAssetsLoaded {
+    return _hasAssetsOverviewLoaded;
+  }
+
+  void setFavourite(AssetData asset, bool isChecked) async {
+    AssetData a = _assets.firstWhere((item) => item.id == asset.id);
 
     if (isChecked) {
       int idForRecord =
