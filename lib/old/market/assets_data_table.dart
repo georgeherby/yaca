@@ -44,13 +44,13 @@ class AssetsDataTable extends StatelessWidget {
                 label: Text('Market Cap', style: TextStyle(fontWeight: FontWeight.w600)),
                 numeric: true),
             DataColumn(
-                label: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
-            DataColumn(
                 label: Text('7d', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
             DataColumn(
                 label: Text('24h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
             DataColumn(
                 label: Text('1h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+            DataColumn(
+                label: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
             DataColumn(
                 label: Text('', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
           ],
@@ -98,7 +98,18 @@ class AssetsDataTable extends StatelessWidget {
                   height: 44,
                   errorBuilder: (context, error, stackTrace) {
                     debugPrint(error.toString());
-                    return Container();
+                    return CircleAvatar(
+                      minRadius: 22,
+                      maxRadius: 22,
+                      backgroundColor: Theme.of(context).accentColor,
+                      child: Text(
+                        a.symbol.toUpperCase(),
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    );
                   },
                 ),
                 VerticalDivider(
@@ -122,9 +133,6 @@ class AssetsDataTable extends StatelessWidget {
           DataCell(a.quote.gbp != null
               ? Text(readableCurrencyFormat.format(a.quote.gbp!.marketCap))
               : Container()),
-          DataCell(a.quote.gbp != null
-              ? Text(coinCurrencyFormat(a.quote.gbp!.price).format(a.quote.gbp!.price))
-              : Container()),
           DataCell(a.quote.gbp?.percentChange7d != null
               ? PercentageChangeBox(a.quote.gbp!.percentChange7d!)
               : Container()),
@@ -133,6 +141,9 @@ class AssetsDataTable extends StatelessWidget {
               : Container()),
           DataCell(a.quote.gbp?.percentChange1h != null
               ? PercentageChangeBox(a.quote.gbp!.percentChange1h!)
+              : Container()),
+          DataCell(a.quote.gbp != null
+              ? Text(coinCurrencyFormat(a.quote.gbp!.price).format(a.quote.gbp!.price))
               : Container()),
           DataCell(
             InkWell(

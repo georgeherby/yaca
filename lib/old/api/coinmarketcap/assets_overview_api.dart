@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 Future<AssetOverview> fetchAssetsOverview(
   http.Client client, [
-  bool sanbox = true,
+  bool sanbox = false,
 ]) async {
   debugPrint("fetchAssetsOverview called");
   if (sanbox) {

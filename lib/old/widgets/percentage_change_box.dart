@@ -11,23 +11,29 @@ class PercentageChangeBox extends StatelessWidget {
   Widget build(BuildContext context) {
     Color color = changePercent24Hr < 0 ? Colors.red : Color(0xFF18C683);
 
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(4)), color: color.withOpacity(0.2)),
-          child: Text(
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(4)), color: color.withOpacity(0.2)),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
             percetnageFormat.format(changePercent24Hr / 100),
-            style: TextStyle(color: color, fontSize: 14, fontWeight: FontWeight.w500),
+            style: TextStyle(color: color),
           ),
-        ),
-        Icon(
-          changePercent24Hr < 0 ? CupertinoIcons.arrow_down : CupertinoIcons.arrow_up,
-          color: color,
-        )
-      ],
+          SizedBox(
+            width: 2,
+          ),
+          Icon(
+            changePercent24Hr < 0
+                ? CupertinoIcons.arrowtriangle_down_fill
+                : CupertinoIcons.arrowtriangle_up_fill,
+            color: color,
+            size: 12,
+          )
+        ],
+      ),
     );
   }
 }

@@ -18,9 +18,6 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
       color: Colors.transparent,
       child: Row(
         children: [
-          Spacer(
-            flex: 50,
-          ),
           Expanded(
             flex: 150,
             child: Column(
@@ -38,37 +35,54 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Expanded(
-                                    child: Column(children: [
-                                      Text(
-                                        "Market Cap",
-                                        style: Theme.of(context).textTheme.headline6,
-                                      ),
-                                      Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            AppBarDataBlock(
-                                              label: 'All coins',
-                                              amount: readableCurrencyFormat.format(ase
-                                                  .marketOverview!.data.quote.usd.totalMarketCap),
-                                            ),
-                                            AppBarDataBlock(
-                                              label: 'Altcoins coins',
-                                              amount: readableCurrencyFormat.format(ase
-                                                  .marketOverview!.data.quote.usd.altcoinMarketCap),
-                                            ),
-                                          ])
-                                    ]),
+                                    flex: 2,
+                                    child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "Market Cap",
+                                            style: Theme.of(context).textTheme.headline6,
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Divider(color: Colors.transparent, height: 8),
+                                          Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                AppBarDataBlock(
+                                                  label: 'All',
+                                                  amount: readableCurrencyFormat.format(ase
+                                                      .marketOverview!
+                                                      .data
+                                                      .quote
+                                                      .usd
+                                                      .totalMarketCap),
+                                                ),
+                                                AppBarDataBlock(
+                                                  label: 'Altcoins',
+                                                  amount: readableCurrencyFormat.format(ase
+                                                      .marketOverview!
+                                                      .data
+                                                      .quote
+                                                      .usd
+                                                      .altcoinMarketCap),
+                                                ),
+                                              ])
+                                        ]),
                                   ),
                                   Spacer(),
                                   Expanded(
+                                    flex: 2,
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Dominance",
                                           style: Theme.of(context).textTheme.headline6,
+                                          textAlign: TextAlign.center,
                                         ),
+                                        Divider(color: Colors.transparent, height: 8),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             AppBarDataBlock(
                                               label: 'Bitcoin',
@@ -87,24 +101,28 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                   ),
                                   Spacer(),
                                   Expanded(
+                                    flex: 2,
                                     child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
                                       children: [
                                         Text(
                                           "24h Volume",
                                           style: Theme.of(context).textTheme.headline6,
+                                          textAlign: TextAlign.center,
                                         ),
+                                        Divider(color: Colors.transparent, height: 8),
                                         Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             AppBarDataBlock(
-                                              label: 'All coins',
+                                              label: 'All',
                                               amount: readableCurrencyFormat.format(ase
                                                   .marketOverview!.data.quote.usd.totalVolume24h),
                                             ),
                                             AppBarDataBlock(
-                                              label: 'Altcoin only',
+                                              label: 'Altcoin',
                                               amount: readableCurrencyFormat.format(ase
-                                                  .marketOverview!.data.quote.usd.totalVolume24h),
+                                                  .marketOverview!.data.quote.usd.altcoinVolume24h),
                                             ),
                                           ],
                                         ),
@@ -121,7 +139,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
             ),
           ),
           Spacer(
-            flex: 40,
+            flex: 5,
           ),
           IconButton(
             icon: Icon(CupertinoIcons.arrow_clockwise),
