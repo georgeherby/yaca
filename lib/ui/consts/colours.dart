@@ -39,3 +39,9 @@ class DarkThemeColors implements ThemeColours {
   @override
   Color appBarColour = const Color(0xFF121212);
 }
+
+extension PositiveNegativeColor on double {
+  Color toPositiveNegativeColor({double opacity = 1.0}) {
+    return this < 0 ? Colors.red : Color(0xFF18C683).withOpacity(opacity);
+  }
+}

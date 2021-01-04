@@ -41,8 +41,18 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
 
   @override
   Widget build(BuildContext context) {
+    List<HistoricalData> data = applyFilter(widget.allHistory, _chips[_index].duration);
+
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      AssetGraph(history: applyFilter(widget.allHistory, _chips[_index].duration)),
+      data.length > 0
+          ? AssetGraph(history: data, currencyRate: widget.allHistory.usdRate)
+          : SizedBox(
+              height: 250,
+              width: double.infinity,
+              child: Center(
+                child: Text("No historical data found."),
+              ),
+            ),
       Divider(
         thickness: 8,
         color: Colors.transparent,

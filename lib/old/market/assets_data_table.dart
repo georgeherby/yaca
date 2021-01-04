@@ -1,8 +1,8 @@
 import 'package:crypto_app/old/models/asset_overview.dart';
+import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import 'package:crypto_app/old/models/assets.dart';
 import 'package:crypto_app/old/single_asset/single_asset_view.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
@@ -134,17 +134,37 @@ class AssetsDataTable extends StatelessWidget {
               ? Text(readableCurrencyFormat.format(a.quote.gbp!.marketCap))
               : Container()),
           DataCell(a.quote.gbp?.percentChange7d != null
-              ? PercentageChangeBox(a.quote.gbp!.percentChange7d!)
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PercentageChangeBox(a.quote.gbp!.percentChange7d!),
+                    SizedBox(height: 2),
+                    PriceDelta(a.quote.gbp!.priceChange7d!)
+                  ],
+                )
               : Container()),
           DataCell(a.quote.gbp?.percentChange24h != null
-              ? PercentageChangeBox(a.quote.gbp!.percentChange24h!)
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PercentageChangeBox(a.quote.gbp!.percentChange24h!),
+                    SizedBox(height: 2),
+                    PriceDelta(a.quote.gbp!.priceChange24h!)
+                  ],
+                )
               : Container()),
           DataCell(a.quote.gbp?.percentChange1h != null
-              ? PercentageChangeBox(a.quote.gbp!.percentChange1h!)
+              ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    PercentageChangeBox(a.quote.gbp!.percentChange1h!),
+                    SizedBox(height: 2),
+                    PriceDelta(a.quote.gbp!.priceChange1h!)
+                  ],
+                )
               : Container()),
-          DataCell(a.quote.gbp != null
-              ? Text(coinCurrencyFormat(a.quote.gbp!.price).format(a.quote.gbp!.price))
-              : Container()),
+          DataCell(
+              a.quote.gbp != null ? Text(a.quote.gbp!.price.coinCurrencyFormat()) : Container()),
           DataCell(
             InkWell(
               onTap: () {

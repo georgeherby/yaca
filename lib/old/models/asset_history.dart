@@ -4,13 +4,14 @@ class AssetHistorySplits {
   final List<HistoricalData> last1Month;
   final List<HistoricalData> last6Month;
   final List<HistoricalData> last12Months;
-
+  final double usdRate;
   AssetHistorySplits({
     required this.last24Hours,
     required this.last7Days,
     required this.last1Month,
     required this.last6Month,
     required this.last12Months,
+    required this.usdRate,
   });
 }
 

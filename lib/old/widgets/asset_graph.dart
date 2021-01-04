@@ -8,10 +8,11 @@ import 'package:intl/intl.dart';
 
 class AssetGraph extends StatelessWidget {
   final List<HistoricalData> history;
-
+  final double currencyRate;
   const AssetGraph({
     Key? key,
     required this.history,
+    required this.currencyRate,
   }) : super(key: key);
 
   @override
@@ -20,8 +21,8 @@ class AssetGraph extends StatelessWidget {
         (Theme.of(context).brightness == Brightness.light ? Colors.black : Colors.white)
             .withOpacity(0.6);
 
-    double maxPrice = history.map((e) => e.priceUsd).reduce(max);
-    double minPrice = history.map((e) => e.priceUsd).reduce(min);
+    double maxPrice = history.map((e) => e.priceUsd).reduce(max) / currencyRate;
+    double minPrice = history.map((e) => e.priceUsd).reduce(min) / currencyRate;
 
     return SizedBox(
       height: 250,
@@ -58,11 +59,10 @@ class AssetGraph extends StatelessWidget {
                     if (flSpot.x == 0 || flSpot.x == 6) {
                       return null;
                     }
-
                     HistoricalData _asset =
                         history.firstWhere((element) => element.time == flSpot.x.toInt());
                     DateTime _date = new DateTime.fromMillisecondsSinceEpoch(_asset.time);
-                    double price = _asset.priceUsd;
+                    double price = _asset.priceUsd / currencyRate;
 
                     var formatDate = DateFormat("dd MMM yy");
                     var formatTime = DateFormat("h:mma");
@@ -70,7 +70,7 @@ class AssetGraph extends StatelessWidget {
                     var timeString = formatTime.format(_date);
 
                     return LineTooltipItem(
-                        '${coinCurrencyFormat(price).format(price)}\n$timeString\n$dateString',
+                        '${price.coinCurrencyFormat()}\n$timeString\n$dateString',
                         Theme.of(context).textTheme.bodyText1
                         // const TextStyle(color: Theme.of(context).brightness == Brightness.Light ? Colors.black),
                         );
@@ -80,12 +80,12 @@ class AssetGraph extends StatelessWidget {
             ),
             lineBarsData: [
               LineChartBarData(
-                isCurved: true,
+                isCurved: false,
                 colors: [
                   Theme.of(context).primaryColor,
                 ],
-                barWidth: 3,
-                isStrokeCapRound: true,
+                barWidth: 2,
+                isStrokeCapRound: false,
                 dotData: FlDotData(
                   show: false,
                 ),
@@ -102,7 +102,7 @@ class AssetGraph extends StatelessWidget {
                     history.length,
                     (index) => FlSpot(
                           history[index].time.toDouble(),
-                          history[index].priceUsd,
+                          history[index].priceUsd / currencyRate,
                         )),
               ),
             ],
@@ -117,7 +117,7 @@ class AssetGraph extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                     alignment: Alignment.topLeft,
                     labelResolver: (HorizontalLine line) {
-                      return "max - ${coinCurrencyFormat(maxPrice).format(maxPrice)}";
+                      return "max - ${maxPrice.coinCurrencyFormat()}";
                     },
                   )),
               HorizontalLine(
@@ -130,7 +130,7 @@ class AssetGraph extends StatelessWidget {
                     style: Theme.of(context).textTheme.bodyText1,
                     alignment: Alignment.bottomLeft,
                     labelResolver: (HorizontalLine line) {
-                      return "min - ${coinCurrencyFormat(minPrice).format(minPrice)}";
+                      return "min - ${minPrice.coinCurrencyFormat()}";
                     },
                   )),
             ]),

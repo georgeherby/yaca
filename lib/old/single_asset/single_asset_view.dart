@@ -1,6 +1,8 @@
 import 'package:crypto_app/old/models/asset_overview.dart';
+import 'package:crypto_app/old/single_asset/app_bar_bottom.dart';
 import 'package:crypto_app/old/widgets/asset_graph_with_switcher.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
+import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -24,10 +26,16 @@ class SingleAssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          asset.name,
-        ),
+        title: Text(asset.name),
         elevation: 0,
+        bottom: AppBarBottom(
+            rank: asset.cmcRank,
+            symbol: asset.symbol,
+            circulatingSupply: asset.circulatingSupply,
+            percentageChange24h: asset.quote.gbp?.percentChange24h,
+            priceChange24h: asset.quote.gbp?.priceChange24h,
+            marketCap: asset.quote.gbp?.marketCap,
+            volume24: asset.quote.gbp?.volume24h),
         brightness: Theme.of(context).brightness,
         leading: IconButton(
           icon: Icon(CupertinoIcons.xmark),
@@ -62,72 +70,16 @@ class SingleAssetView extends StatelessWidget {
               ? Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Card(
                         clipBehavior: Clip.antiAlias,
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
+                          padding: const EdgeInsets.only(bottom: 16.0),
                           child: AssetGraphWithSwitcher(allHistory: snapshot.data!),
                         ),
                       ),
-                      Card(
-                          child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Market Data (24h)",
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                                Text(
-                                  "#" + asset.cmcRank.toString(),
-                                  style: Theme.of(context).textTheme.headline6,
-                                )
-                              ],
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text("Market Cap", style: Theme.of(context).textTheme.subtitle1),
-                                Row(
-                                  children: [
-                                    Text(asset.quote.gbp?.marketCap.toString() ?? "-"),
-                                    asset.quote.gbp?.percentChange24h != null
-                                        ? PercentageChangeBox(asset.quote.gbp!.percentChange24h!)
-                                        : Container()
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Wrap(
-                              alignment: WrapAlignment.start,
-                              spacing: 8.0,
-                              runSpacing: 4.0,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Volumne", style: Theme.of(context).textTheme.subtitle1),
-                                    Text(asset.quote.gbp?.volume24h.toString() ?? "-"),
-                                  ],
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("Circulation Supply",
-                                        style: Theme.of(context).textTheme.subtitle1),
-                                    Text("${asset.symbol} ${asset.circulatingSupply}"),
-                                  ],
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ))
                     ],
                   ),
                 )

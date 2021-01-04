@@ -1,4 +1,5 @@
 import 'package:crypto_app/old/utils/percentage_formatters.dart';
+import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -9,8 +10,7 @@ class PercentageChangeBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = changePercent24Hr < 0 ? Colors.red : Color(0xFF18C683);
-
+    Color color = changePercent24Hr.toPositiveNegativeColor();
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
       decoration: BoxDecoration(

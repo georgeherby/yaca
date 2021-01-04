@@ -208,6 +208,13 @@ class GBP {
     data['last_updated'] = this.lastUpdated;
     return data;
   }
+
+  double? get priceChange1h =>
+      this.percentChange1h != null ? (this.percentChange1h! / 100) * this.price : null;
+  double? get priceChange24h =>
+      this.percentChange24h != null ? (this.percentChange24h! / 100) * this.price : null;
+  double? get priceChange7d =>
+      this.percentChange7d != null ? (this.percentChange7d! / 100) * this.price : null;
 }
 
 class Status {
