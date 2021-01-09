@@ -27,7 +27,7 @@ class _MyAppState extends State<MyApp> {
     getCurrentAppTheme();
   }
 
-  void getCurrentAppTheme() async {
+  Future getCurrentAppTheme() async {
     themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
     debugPrint("getCurrentAppTheme =  ${themeChangeProvider.darkTheme}");
   }
@@ -59,14 +59,33 @@ class _MyAppState extends State<MyApp> {
                 brightness: Brightness.light,
                 iconTheme: IconThemeData(color: Colors.black),
               ),
-              primaryTextTheme: TextTheme(headline6: TextStyle(color: Colors.black)),
               navigationRailTheme: NavigationRailThemeData(
                 backgroundColor: LightThemeColors().scaffoldBackground,
+                unselectedIconTheme: IconThemeData(color: Colors.black54),
+                unselectedLabelTextStyle: TextStyle(color: Colors.black54),
                 selectedIconTheme: IconThemeData(color: LightThemeColors().primary),
                 selectedLabelTextStyle: TextStyle(color: LightThemeColors().primary),
               ),
               scaffoldBackgroundColor: LightThemeColors().scaffoldBackground,
               iconTheme: IconThemeData(color: Colors.black),
+              chipTheme: ChipThemeData(
+                padding: EdgeInsets.all(0),
+                elevation: 0,
+                pressElevation: 0,
+                brightness: Brightness.light,
+                secondaryLabelStyle: TextStyle(),
+                labelStyle: TextStyle(color: Colors.black),
+                disabledColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+                selectedColor: LightThemeColors().primary,
+                secondarySelectedColor: LightThemeColors().primary,
+                shadowColor: Colors.transparent,
+                selectedShadowColor: Colors.transparent,
+              ),
+              // This makes the visual density adapt to the platform that you run
+              // the app on. For desktop platforms, the controls will be smaller and
+              // closer together (more dense) than on mobile platforms.
+              visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             darkTheme: ThemeData(
               brightness: Brightness.dark,
@@ -79,12 +98,31 @@ class _MyAppState extends State<MyApp> {
                   iconTheme: IconThemeData(color: Colors.white)),
               navigationRailTheme: NavigationRailThemeData(
                 backgroundColor: DarkThemeColors().scaffoldBackground,
+                unselectedIconTheme: IconThemeData(color: Colors.white54),
+                unselectedLabelTextStyle: TextStyle(color: Colors.white54),
                 selectedIconTheme: IconThemeData(color: DarkThemeColors().primary),
                 selectedLabelTextStyle: TextStyle(color: DarkThemeColors().primary),
               ),
               scaffoldBackgroundColor: DarkThemeColors().scaffoldBackground,
-              primaryTextTheme: TextTheme(headline6: TextStyle(color: Colors.white)),
               iconTheme: IconThemeData(color: Colors.white),
+              chipTheme: ChipThemeData(
+                padding: EdgeInsets.all(0),
+                elevation: 0,
+                pressElevation: 0,
+                brightness: Brightness.dark,
+                secondaryLabelStyle: TextStyle(),
+                labelStyle: TextStyle(color: Colors.white),
+                disabledColor: Colors.transparent,
+                backgroundColor: Colors.transparent,
+                selectedColor: LightThemeColors().primary,
+                secondarySelectedColor: LightThemeColors().primary,
+                shadowColor: Colors.transparent,
+                selectedShadowColor: Colors.transparent,
+              ),
+              // This makes the visual density adapt to the platform that you run
+              // the app on. For desktop platforms, the controls will be smaller and
+              // closer together (more dense) than on mobile platforms.
+              visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             home: MyHomePage(key: const Key("home_screen_key"), title: 'Cryptocurrency'),
           );
@@ -126,10 +164,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 labelType: NavigationRailLabelType.all,
                 destinations: [
                   NavigationRailDestination(
-                      icon: Icon(CupertinoIcons.graph_square),
-                      selectedIcon: Icon(CupertinoIcons.graph_square_fill),
+                      icon: Icon(CupertinoIcons.money_dollar_circle),
+                      selectedIcon: Icon(CupertinoIcons.money_dollar_circle_fill),
                       label: Text(
-                        "Top 100",
+                        "Prices",
                       )),
                   NavigationRailDestination(
                       icon: Icon(CupertinoIcons.star),
@@ -143,12 +181,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     label: Text(
                   //       "Portfolio",
                   //     )),
-                  NavigationRailDestination(
-                      icon: Icon(CupertinoIcons.news),
-                      selectedIcon: Icon(CupertinoIcons.news_solid),
-                      label: Text(
-                        "News",
-                      ))
+                  // NavigationRailDestination(
+                  //     icon: Icon(CupertinoIcons.news),
+                  //     selectedIcon: Icon(CupertinoIcons.news_solid),
+                  //     label: Text(
+                  //       "News",
+                  //     ))
                 ],
               ),
             ),
@@ -171,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (index) {
       case 0:
         return Expanded(
-          child: Top100Screen(),
+          child: PricesScreen(),
         );
       case 1:
         return Expanded(

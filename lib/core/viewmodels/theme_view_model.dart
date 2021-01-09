@@ -13,12 +13,11 @@ class ThemeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void invertTheme() {
+  void invertTheme() async {
     debugPrint("invertTheme was = $_darkThemeEnabled");
     _darkThemeEnabled = !_darkThemeEnabled;
-    darkThemePreference.setDarkTheme(_darkThemeEnabled);
+    await darkThemePreference.setDarkTheme(_darkThemeEnabled);
     debugPrint("invertTheme was = $_darkThemeEnabled");
-
     notifyListeners();
   }
 }

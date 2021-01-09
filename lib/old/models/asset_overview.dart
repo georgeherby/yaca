@@ -1,3 +1,5 @@
+import 'package:crypto_app/old/models/currency.dart';
+
 class AssetOverview {
   late List<AssetData> data;
   late Status status;
@@ -125,7 +127,7 @@ class Quote {
   }
 }
 
-class USD {
+class USD implements Currency {
   late double price;
   late double volume24h;
   late double percentChange1h;
@@ -164,9 +166,13 @@ class USD {
     data['last_updated'] = this.lastUpdated;
     return data;
   }
+
+  @override
+  // TODO: implement
+  String get currencySymbol => "\$";
 }
 
-class GBP {
+class GBP implements Currency {
   late double price;
   late double volume24h;
   late double? percentChange1h;
@@ -215,6 +221,9 @@ class GBP {
       this.percentChange24h != null ? (this.percentChange24h! / 100) * this.price : null;
   double? get priceChange7d =>
       this.percentChange7d != null ? (this.percentChange7d! / 100) * this.price : null;
+
+  @override
+  String get currencySymbol => "\£";
 }
 
 class Status {

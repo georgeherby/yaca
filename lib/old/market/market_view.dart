@@ -1,6 +1,7 @@
 import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
+import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/models/asset_overview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -12,24 +13,34 @@ class MarketView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarStatic(showMarletOverview: true),
+      appBar: AppBarStatic(showMarketOverview: true),
       body: LayoutBuilder(
         builder: (context, constraint) {
+          debugPrint("MarketView layoutbuilder");
           return SingleChildScrollView(
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: constraint.maxWidth),
+                constraints:
+                    BoxConstraints(minWidth: constraint.maxWidth, minHeight: constraint.maxHeight),
                 child: IntrinsicWidth(
                   child: Consumer<AssetViewModel>(
                     builder: (BuildContext context, AssetViewModel ase, _) {
+                      debugPrint("Consumer AssetViewModel");
+
                       return ase.hasAssetsLoaded
                           ? AssetsDataTable(
-                              assetsList: ase.assetList,
-                              onFavourite: (AssetData a, bool isChecked) =>
+                              marketCoins: ase.assetList,
+                              onFavourite: (MarketCoin a, bool isChecked) =>
                                   ase.setFavourite(a, isChecked),
                             )
-                          : Center(child: CupertinoActivityIndicator());
+                          : Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CupertinoActivityIndicator(),
+                              ],
+                            );
                     },
                   ),
                 ),

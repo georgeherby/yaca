@@ -4,36 +4,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PercentageChangeBox extends StatelessWidget {
-  final double changePercent24Hr;
+  final double? changePercent24Hr;
+  final double? textSize;
 
-  PercentageChangeBox(this.changePercent24Hr);
+  PercentageChangeBox(this.changePercent24Hr, {Key? key, this.textSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Color color = changePercent24Hr.toPositiveNegativeColor();
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(4)), color: color.withOpacity(0.2)),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            percetnageFormat.format(changePercent24Hr / 100),
-            style: TextStyle(color: color),
-          ),
-          SizedBox(
-            width: 2,
-          ),
-          Icon(
-            changePercent24Hr < 0
-                ? CupertinoIcons.arrowtriangle_down_fill
-                : CupertinoIcons.arrowtriangle_up_fill,
-            color: color,
-            size: 12,
-          )
-        ],
-      ),
-    );
+    if (changePercent24Hr != null) {
+      Color color = changePercent24Hr!.toPositiveNegativeColor();
+      return Container(
+        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(4)), color: color.withOpacity(0.2)),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              percetnageFormat.format(changePercent24Hr! / 100),
+              style: TextStyle(
+                  color: color,
+                  fontSize: textSize ?? Theme.of(context).textTheme.caption!.fontSize),
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Icon(
+              changePercent24Hr! < 0
+                  ? CupertinoIcons.arrowtriangle_down_fill
+                  : CupertinoIcons.arrowtriangle_up_fill,
+              color: color,
+              size: 12,
+            )
+          ],
+        ),
+      );
+    } else {
+      return Container(child: Text("-"));
+    }
   }
 }

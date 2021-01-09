@@ -20,11 +20,17 @@ class AppBarDataBlock extends StatelessWidget {
       children: <Widget>[
         Text(
           label,
-          style: TextStyle(fontSize: 16),
+          style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.w300,
+              color: Theme.of(context).textTheme.bodyText1?.color),
         ),
         Text(
           amount,
-          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Theme.of(context).textTheme.bodyText1?.color),
         ),
         changePer24Hours ?? Container()
       ],

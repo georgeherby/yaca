@@ -1,15 +1,15 @@
-import 'package:crypto_app/old/api/coinmarketcap/assets_overview_api.dart';
-import 'package:crypto_app/old/api/coinmarketcap/market_overview_api.dart';
+import 'package:crypto_app/old/api/coingecko/global_stats.dart';
+import 'package:crypto_app/old/api/coingecko/market_overview_api.dart';
 import 'package:crypto_app/old/data/dao/favourites_dao.dart';
 import 'package:crypto_app/old/data/models/favourites.dart';
-import 'package:crypto_app/old/models/asset_overview.dart';
-import 'package:crypto_app/old/models/market_overview.dart';
+import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
+import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class AssetViewModel extends ChangeNotifier {
-  List<AssetData> _assets = <AssetData>[];
-  GlobalMarketOverview? _marketOverview;
+  List<MarketCoin> _marketCoins = <MarketCoin>[];
+  GlobalMarket? _globalMarket;
   bool _hasGlobalMarketOverviewLoaded = true;
   bool _hasAssetsOverviewLoaded = true;
   FavouritesDao _favouriteDao = FavouritesDao();
@@ -25,11 +25,11 @@ class AssetViewModel extends ChangeNotifier {
     notifyListeners();
 
     debugPrint("Clear");
-    _assets.clear();
+    _marketCoins.clear();
     debugPrint("Adding");
 
-    fetchMarketOverview(_client).then((GlobalMarketOverview value) {
-      _marketOverview = value;
+    fetchMarketOverview(_client).then((GlobalMarket value) {
+      _globalMarket = value;
       _hasGlobalMarketOverviewLoaded = true;
       notifyListeners();
     });
@@ -37,34 +37,34 @@ class AssetViewModel extends ChangeNotifier {
     usersFavourites.forEach((element) {
       print(element.toMap());
     });
-    List<AssetData> asset = (await fetchAssetsOverview(_client)).data;
+    List<MarketCoin> marketCoinsResponse = (await fetchCoinMarkets(_client));
 
-    _assets.addAll(asset.map((assetData) {
+    _marketCoins.addAll(marketCoinsResponse.map((coinData) {
       Iterable<Favourites> favs = (usersFavourites.where((Favourites fav) =>
-          fav.name.toLowerCase() == assetData.name.toLowerCase() &&
-          fav.symbol.toLowerCase() == assetData.symbol.toLowerCase()));
+          fav.name.toLowerCase() == coinData.name.toLowerCase() &&
+          fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
 
       if (favs.isNotEmpty) {
-        debugPrint("Cached fav found for ${assetData.name}");
-        assetData.favouriteCacheId = favs.first.id;
+        debugPrint("Cached fav found for ${coinData.name}");
+        coinData.favouriteCacheId = favs.first.id;
       }
-      return assetData;
+      return coinData;
     }));
     debugPrint("Added");
     _hasAssetsOverviewLoaded = true;
     notifyListeners();
   }
 
-  List<AssetData> get assetList {
-    return _assets;
+  List<MarketCoin> get assetList {
+    return _marketCoins;
   }
 
-  GlobalMarketOverview? get marketOverview {
-    return _marketOverview;
+  GlobalMarket? get marketOverview {
+    return _globalMarket;
   }
 
-  List<AssetData> get favourites {
-    return _assets.where((element) => element.isFavourited).toList();
+  List<MarketCoin> get favourites {
+    return _marketCoins.where((element) => element.isFavourited).toList();
   }
 
   bool get hasGlobalLoaded {
@@ -75,12 +75,12 @@ class AssetViewModel extends ChangeNotifier {
     return _hasAssetsOverviewLoaded;
   }
 
-  void setFavourite(AssetData asset, bool isChecked) async {
-    AssetData a = _assets.firstWhere((item) => item.id == asset.id);
+  void setFavourite(MarketCoin mc, bool isChecked) async {
+    MarketCoin a = _marketCoins.firstWhere((item) => item.id == mc.id);
 
     if (isChecked) {
       int idForRecord =
-          await _favouriteDao.insertIgnore(Favourites(name: asset.name, symbol: asset.symbol));
+          await _favouriteDao.insertIgnore(Favourites(name: mc.name, symbol: mc.symbol));
       a.favouriteCacheId = idForRecord;
     } else {
       if (a.favouriteCacheId != null) {

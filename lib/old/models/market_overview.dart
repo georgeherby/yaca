@@ -1,3 +1,5 @@
+import 'package:crypto_app/old/models/currency.dart';
+
 class GlobalMarketOverview {
   late MarketData data;
   late Status status;
@@ -65,31 +67,39 @@ class MarketData {
     data['active_exchanges'] = this.activeExchanges;
     data['total_exchanges'] = this.totalExchanges;
     data['last_updated'] = this.lastUpdated;
-    if (this.quote != null) {
-      data['quote'] = this.quote.toJson();
-    }
+    data['quote'] = this.quote.toJson();
+
     return data;
   }
 }
 
 class Quote {
-  late USD usd;
+  USD? usd;
+  GBP? gbp;
 
-  Quote({required this.usd});
+  Quote({
+    this.usd,
+    this.gbp,
+  });
 
   Quote.fromJson(Map<String, dynamic> json) {
-    usd = USD.fromJson(json['USD']);
+    usd = json['USD'] != null ? new USD.fromJson(json['USD']) : null;
+    gbp = json['GBP'] != null ? new GBP.fromJson(json['GBP']) : null;
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['USD'] = this.usd.toJson();
-
+    if (this.usd != null) {
+      data['USD'] = this.usd!.toJson();
+    }
+    if (this.gbp != null) {
+      data['GBP'] = this.gbp!.toJson();
+    }
     return data;
   }
 }
 
-class USD {
+class USD implements Currency {
   late double totalMarketCap;
   late double totalVolume24h;
   late double totalVolume24hReported;
@@ -128,6 +138,53 @@ class USD {
     data['last_updated'] = this.lastUpdated;
     return data;
   }
+
+  @override
+  String get currencySymbol => "\$";
+}
+
+class GBP implements Currency {
+  late double totalMarketCap;
+  late double totalVolume24h;
+  late double totalVolume24hReported;
+  late double altcoinVolume24h;
+  late double altcoinVolume24hReported;
+  late double altcoinMarketCap;
+  late String lastUpdated;
+
+  GBP(
+      {required this.totalMarketCap,
+      required this.totalVolume24h,
+      required this.totalVolume24hReported,
+      required this.altcoinVolume24h,
+      required this.altcoinVolume24hReported,
+      required this.altcoinMarketCap,
+      required this.lastUpdated});
+
+  GBP.fromJson(Map<String, dynamic> json) {
+    totalMarketCap = json['total_market_cap'];
+    totalVolume24h = json['total_volume_24h'];
+    totalVolume24hReported = json['total_volume_24h_reported'];
+    altcoinVolume24h = json['altcoin_volume_24h'];
+    altcoinVolume24hReported = json['altcoin_volume_24h_reported'];
+    altcoinMarketCap = json['altcoin_market_cap'];
+    lastUpdated = json['last_updated'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total_market_cap'] = this.totalMarketCap;
+    data['total_volume_24h'] = this.totalVolume24h;
+    data['total_volume_24h_reported'] = this.totalVolume24hReported;
+    data['altcoin_volume_24h'] = this.altcoinVolume24h;
+    data['altcoin_volume_24h_reported'] = this.altcoinVolume24hReported;
+    data['altcoin_market_cap'] = this.altcoinMarketCap;
+    data['last_updated'] = this.lastUpdated;
+    return data;
+  }
+
+  @override
+  String get currencySymbol => "\£";
 }
 
 class Status {
