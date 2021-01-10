@@ -1,3 +1,4 @@
+import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
 import 'package:crypto_app/old/api/coingecko/global_stats.dart';
 import 'package:crypto_app/old/api/coingecko/market_overview_api.dart';
 import 'package:crypto_app/old/data/dao/favourites_dao.dart';
@@ -6,6 +7,7 @@ import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
 class AssetViewModel extends ChangeNotifier {
   List<MarketCoin> _marketCoins = <MarketCoin>[];
@@ -14,12 +16,12 @@ class AssetViewModel extends ChangeNotifier {
   bool _hasAssetsOverviewLoaded = true;
   FavouritesDao _favouriteDao = FavouritesDao();
   AssetViewModel() {
-    fetchAssets();
+    // fetchAssets(currencyCode);
   }
 
   http.Client _client = http.Client();
 
-  void fetchAssets() async {
+  void fetchAssets(String currencyCode) async {
     _hasGlobalMarketOverviewLoaded = false;
     _hasAssetsOverviewLoaded = false;
     notifyListeners();
@@ -28,7 +30,7 @@ class AssetViewModel extends ChangeNotifier {
     _marketCoins.clear();
     debugPrint("Adding");
 
-    fetchMarketOverview(_client).then((GlobalMarket value) {
+    fetchMarketOverview(_client, currencyCode).then((GlobalMarket value) {
       _globalMarket = value;
       _hasGlobalMarketOverviewLoaded = true;
       notifyListeners();

@@ -1,3 +1,4 @@
+import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
 import 'package:crypto_app/old/api/coingecko/assets_api.dart';
 import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
@@ -27,7 +28,8 @@ class SingleAssetView extends StatelessWidget {
     debugPrint("SingleAssetView");
 
     return FutureBuilder(
-      future: fetchFullAssetHistory(http.Client(), marketCoin.id),
+      future: fetchFullAssetHistory(http.Client(), marketCoin.id,
+          Provider.of<AppSettingsViewModel>(context).chosenCurrency.currencyCode),
       builder: (BuildContext context, AsyncSnapshot<AssetHistorySplits> snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
@@ -62,7 +64,8 @@ class SingleAssetView extends StatelessWidget {
                   currentPrice: snapshot.data!.last24Hours.prices.length > 0
                       ? snapshot.data!.last24Hours.prices.last.value
                       : null,
-                  currencySymbol: null, //TODO
+                  currencySymbol:
+                      Provider.of<AppSettingsViewModel>(context).chosenCurrency.currencySymbol,
                   circulatingSupply: marketCoin.circulatingSupply,
                   percentageChange24h: marketCoin.priceChangePercentage24h,
                   priceChange24h: marketCoin.priceChangePercentage24hInCurrency,

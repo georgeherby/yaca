@@ -1,9 +1,9 @@
+import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
 import 'package:crypto_app/ui/screens/top_100_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:crypto_app/core/viewmodels/theme_view_model.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/screens/favourite_assets_screen.dart';
 
@@ -19,7 +19,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeViewModel themeChangeProvider = ThemeViewModel();
+  AppSettingsViewModel themeChangeProvider = AppSettingsViewModel();
 
   @override
   void initState() {
@@ -36,15 +36,15 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider<AppSettingsViewModel>(
+          create: (_) => themeChangeProvider,
+        ),
         ChangeNotifierProvider<AssetViewModel>(
           create: (_) => AssetViewModel(),
         ),
-        ChangeNotifierProvider<ThemeViewModel>(
-          create: (_) => themeChangeProvider,
-        )
       ],
-      child: Consumer<ThemeViewModel>(
-        builder: (BuildContext context, ThemeViewModel vm, _) {
+      child: Consumer<AppSettingsViewModel>(
+        builder: (BuildContext context, AppSettingsViewModel vm, _) {
           return MaterialApp(
             title: 'Flutter Demo',
             debugShowCheckedModeBanner: false,
@@ -192,11 +192,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             IconButton(
               tooltip:
-                  "Enable ${Provider.of<ThemeViewModel>(context, listen: false).darkTheme ? 'light mode' : 'dark mode'}",
-              icon: Provider.of<ThemeViewModel>(context, listen: false).darkTheme
+                  "Enable ${Provider.of<AppSettingsViewModel>(context, listen: false).darkTheme ? 'light mode' : 'dark mode'}",
+              icon: Provider.of<AppSettingsViewModel>(context, listen: false).darkTheme
                   ? Icon(CupertinoIcons.sun_max)
                   : Icon(CupertinoIcons.moon),
-              onPressed: () => Provider.of<ThemeViewModel>(context, listen: false).invertTheme(),
+              onPressed: () =>
+                  Provider.of<AppSettingsViewModel>(context, listen: false).invertTheme(),
             )
           ],
         ),

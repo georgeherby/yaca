@@ -1,7 +1,7 @@
+import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
 import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
 import 'package:crypto_app/old/market/widgets/app_bar_data_block.dart';
 import 'package:crypto_app/old/market/widgets/shimmer_app_bar_data_block.dart';
-import 'package:crypto_app/old/models/market_overview.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/utils/percentage_formatters.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
@@ -31,13 +31,11 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
               borderRadius: BorderRadius.circular(10),
               gradient:
                   LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight, stops: [
-                0.0,
-                1.0
+                0.25,
+                0.75,
               ], colors: [
-                // Color(0xFF3F52B5),
-                // Colors.blueAccent,
                 Color(0xFF5866DF),
-                Color(0xFFF33335),
+                Color(0xFFF35491),
               ]),
             ),
             child: Row(
@@ -81,7 +79,10 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                                             MainAxisAlignment.spaceEvenly,
                                                         children: [
                                                           Text(
-                                                            "?? " + //TODO Add in currency symbol
+                                                            Provider.of<AppSettingsViewModel>(
+                                                                        context)
+                                                                    .chosenCurrency
+                                                                    .currencySymbol +
                                                                 compactNumberFormat.format(
                                                                   ase.marketOverview!.data
                                                                       .totalMarketCap.gbp,
@@ -192,7 +193,9 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
                                                       Text(
-                                                        "?? " +
+                                                        Provider.of<AppSettingsViewModel>(context)
+                                                                .chosenCurrency
+                                                                .currencySymbol +
                                                             compactNumberFormat.format(
                                                               ase.marketOverview!.data.totalVolume
                                                                   .gbp,
@@ -226,8 +229,8 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 ),
                 IconButton(
                   icon: Icon(CupertinoIcons.arrow_clockwise),
-                  onPressed: () =>
-                      Provider.of<AssetViewModel>(context, listen: false).fetchAssets(),
+                  onPressed: () => Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
+                      Provider.of<AppSettingsViewModel>(context).chosenCurrency.currencyCode),
                 ),
                 Spacer(
                   flex: 5,

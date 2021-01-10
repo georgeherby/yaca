@@ -1,3 +1,4 @@
+import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
 import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
@@ -7,8 +8,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MarketView extends StatelessWidget {
+class MarketView extends StatefulWidget {
   const MarketView({Key? key}) : super(key: key);
+
+  @override
+  _MarketViewState createState() => _MarketViewState();
+}
+
+class _MarketViewState extends State<MarketView> {
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
+          Provider.of<AppSettingsViewModel>(context, listen: false).chosenCurrency.currencyCode);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

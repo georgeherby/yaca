@@ -1,7 +1,8 @@
 import 'package:crypto_app/core/preferences/dark_theme_preference.dart';
+import 'package:crypto_app/old/models/settings/chosen_currency.dart';
 import 'package:flutter/material.dart';
 
-class ThemeViewModel with ChangeNotifier {
+class AppSettingsViewModel with ChangeNotifier {
   DarkThemePreference darkThemePreference = DarkThemePreference();
   bool _darkThemeEnabled = false;
 
@@ -20,4 +21,7 @@ class ThemeViewModel with ChangeNotifier {
     debugPrint("invertTheme was = $_darkThemeEnabled");
     notifyListeners();
   }
+
+  ChosenCurrency get chosenCurrency =>
+      ChosenCurrency(currencyName: "British Pound", currencyCode: "gbp", currencySymbol: "\£");
 }
