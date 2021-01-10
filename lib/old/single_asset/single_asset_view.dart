@@ -29,7 +29,7 @@ class SingleAssetView extends StatelessWidget {
 
     return FutureBuilder(
       future: fetchFullAssetHistory(http.Client(), marketCoin.id,
-          Provider.of<AppSettingsViewModel>(context).chosenCurrency.currencyCode),
+          Provider.of<AppSettingsViewModel>(context, listen: false).chosenCurrency.currencyCode),
       builder: (BuildContext context, AsyncSnapshot<AssetHistorySplits> snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
@@ -64,11 +64,12 @@ class SingleAssetView extends StatelessWidget {
                   currentPrice: snapshot.data!.last24Hours.prices.length > 0
                       ? snapshot.data!.last24Hours.prices.last.value
                       : null,
-                  currencySymbol:
-                      Provider.of<AppSettingsViewModel>(context).chosenCurrency.currencySymbol,
+                  currencySymbol: Provider.of<AppSettingsViewModel>(context, listen: false)
+                      .chosenCurrency
+                      .currencySymbol,
                   circulatingSupply: marketCoin.circulatingSupply,
                   percentageChange24h: marketCoin.priceChangePercentage24h,
-                  priceChange24h: marketCoin.priceChangePercentage24hInCurrency,
+                  priceChange24h: marketCoin.priceChange24h,
                   marketCap: marketCoin.marketCap,
                   volume24: marketCoin.totalVolume),
               brightness: Theme.of(context).brightness,

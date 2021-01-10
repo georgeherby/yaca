@@ -80,7 +80,8 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                                         children: [
                                                           Text(
                                                             Provider.of<AppSettingsViewModel>(
-                                                                        context)
+                                                                        context,
+                                                                        listen: false)
                                                                     .chosenCurrency
                                                                     .currencySymbol +
                                                                 compactNumberFormat.format(
@@ -100,6 +101,8 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                                             height: 4,
                                                           ),
                                                           Row(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment.center,
                                                             children: [
                                                               Text("24h "),
                                                               PercentageChangeBox(
@@ -193,7 +196,8 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                                                     mainAxisAlignment: MainAxisAlignment.start,
                                                     children: [
                                                       Text(
-                                                        Provider.of<AppSettingsViewModel>(context)
+                                                        Provider.of<AppSettingsViewModel>(context,
+                                                                    listen: false)
                                                                 .chosenCurrency
                                                                 .currencySymbol +
                                                             compactNumberFormat.format(
@@ -230,7 +234,9 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 IconButton(
                   icon: Icon(CupertinoIcons.arrow_clockwise),
                   onPressed: () => Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
-                      Provider.of<AppSettingsViewModel>(context).chosenCurrency.currencyCode),
+                      Provider.of<AppSettingsViewModel>(context, listen: false)
+                          .chosenCurrency
+                          .currencyCode),
                 ),
                 Spacer(
                   flex: 5,
