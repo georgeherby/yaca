@@ -20,7 +20,7 @@ class MarketCoin {
   late double? low24h;
   late double priceChange24h;
   late double priceChangePercentage24h;
-  late double marketCapChange24h;
+  late double? marketCapChange24h;
   late double marketCapChangePercentage24h;
   late double circulatingSupply;
   late double totalSupply;
@@ -78,7 +78,8 @@ class MarketCoin {
     low24h = json['low_24h'] != null ? json['low_24h'].toDouble() : null;
     priceChange24h = json['price_change_24h'];
     priceChangePercentage24h = json['price_change_percentage_24h'];
-    marketCapChange24h = json['market_cap_change_24h'].toDouble();
+    marketCapChange24h =
+        json['market_cap_change_24h'] != null ? json['market_cap_change_24h'].toDouble() : null;
     marketCapChangePercentage24h = json['market_cap_change_percentage_24h'];
     circulatingSupply = json['circulating_supply'];
     totalSupply = json['total_supply'];
