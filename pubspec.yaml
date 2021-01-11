@@ -26,9 +26,13 @@ dependencies:
   path_provider: ^1.6.24
   sqflite: ^2.0.0-nullsafety.2
   shimmer: ^1.1.2
+  # flutter_svg: ^0.20.0-nullsafety.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
 flutter:
   uses-material-design: true
+  # assets:
+  #   - assets/001-whale.svg
+  #   - assets/002-whale-1.svg

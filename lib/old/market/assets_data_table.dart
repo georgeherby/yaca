@@ -1,5 +1,4 @@
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/old/models/asset_overview.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:crypto_app/old/widgets/simple_spark_line.dart';

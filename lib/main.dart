@@ -1,11 +1,17 @@
-import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
-import 'package:crypto_app/ui/screens/top_100_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
+import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
+import 'package:crypto_app/old/api/coingecko/whalealerts/whale_transactions_api.dart';
+import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/screens/favourite_assets_screen.dart';
+import 'package:crypto_app/ui/screens/top_100_screen.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'core/viewmodels/asset_view_model.dart';
 
@@ -187,6 +193,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   //     label: Text(
                   //       "News",
                   //     ))
+                  NavigationRailDestination(
+                      icon: Icon(CupertinoIcons.tree),
+                      selectedIcon: Icon(CupertinoIcons.tree),
+                      label: Text(
+                        "Whales",
+                      ))
                 ],
               ),
             ),
@@ -224,11 +236,51 @@ class _MyHomePageState extends State<MyHomePage> {
       //       ),
       //     ),
       //   );
+      // case 2:
+      //   return Expanded(
+      //     child: Scaffold(
+      //       body: Center(
+      //         child: Text("News"),
+      //       ),
+      //     ),
+      //   );
       case 2:
         return Expanded(
           child: Scaffold(
-            body: Center(
-              child: Text("News"),
+            body: FutureBuilder(
+              future: fetchWhaleTransactions(http.Client()),
+              builder: (BuildContext context, AsyncSnapshot<WhaleTransactions> snapshot) {
+                if (snapshot.hasError) {
+                  print(snapshot.error);
+                  return Center(
+                    child: Icon(CupertinoIcons.exclamationmark),
+                  );
+                }
+
+                if (snapshot.hasData) {
+                  List<Transactions> trans = snapshot.data!.transactions.reversed.toList();
+
+                  return ListView.builder(
+                      itemCount: trans.length,
+                      itemBuilder: (context, index) {
+                        Transactions transaction = trans[index];
+                        DateTime date =
+                            DateTime.fromMillisecondsSinceEpoch(transaction.timestamp * 1000);
+                        DateFormat formatDate = DateFormat("HH:mm EEE dd MMM ");
+
+                        return ListTile(
+                          leading: Text("${transaction.symbol.toUpperCase()}"),
+                          title: Text(
+                              "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}. Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
+                          subtitle: Text(
+                              "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
+                          trailing: Text(formatDate.format(date)),
+                        );
+                      });
+                } else {
+                  return Center(child: CupertinoActivityIndicator());
+                }
+              },
             ),
           ),
         );

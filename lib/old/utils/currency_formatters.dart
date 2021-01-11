@@ -1,11 +1,14 @@
 import 'package:intl/intl.dart';
 
 extension CurrencuFormatters on num {
-  String coinCurrencyFormat() {
-    return NumberFormat.currency(
-            locale: "en_GB",
-            symbol: "\£",
-            decimalDigits: this.toInt() >= 2 || this.toInt() <= -2 ? 2 : 5)
+  String coinCurrencyFormat([String locale = 'en_GB', bool showDecimals = true]) {
+    return NumberFormat.simpleCurrency(
+            locale: locale,
+            decimalDigits: showDecimals
+                ? this.toInt() >= 2 || this.toInt() <= -2
+                    ? 2
+                    : 5
+                : 0)
         .format(this);
   }
 
