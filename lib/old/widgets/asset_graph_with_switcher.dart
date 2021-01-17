@@ -22,12 +22,12 @@ class AssetGraphWithSwitcher extends StatefulWidget {
 }
 
 class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
-  int _index = 2;
+  int _index = 1;
 
   List<_AssetGraphChipConfig> _chips = [
     // _AssetGraphChipConfig("15m", Duration(minutes: 15)),
     // _AssetGraphChipConfig("30m", Duration(minutes: 30)),
-    _AssetGraphChipConfig("1H", Duration(hours: 1)),
+    // _AssetGraphChipConfig("1H", Duration(hours: 1)),
     // _AssetGraphChipConfig("3h", Duration(hours: 3)),
     _AssetGraphChipConfig("12H", Duration(hours: 12)),
     _AssetGraphChipConfig("1D", Duration(days: 1)),
@@ -70,6 +70,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
           return Theme(
             data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
             child: ChoiceChip(
+              shape: StadiumBorder(side: BorderSide(color: Theme.of(context).primaryColor)),
               padding: EdgeInsets.symmetric(horizontal: 3),
               selectedColor: Theme.of(context).chipTheme.selectedColor,
               label: Text(

@@ -143,30 +143,39 @@ class AssetsDataTable extends StatelessWidget {
               ],
             ),
           ),
-          DataCell(Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PercentageChangeBox(mc.priceChangePercentage7dInCurrency),
-              SizedBox(height: 2),
-              PriceDelta(mc.priceChange7d)
-            ],
-          )),
-          DataCell(Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PercentageChangeBox(mc.priceChangePercentage24hInCurrency),
-              SizedBox(height: 2),
-              PriceDelta(mc.priceChange24h)
-            ],
-          )),
-          DataCell(Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              PercentageChangeBox(mc.priceChangePercentage1hInCurrency),
-              SizedBox(height: 2),
-              PriceDelta(mc.priceChange1h)
-            ],
-          )),
+          DataCell(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PercentageChangeBox(mc.priceChangePercentage7dInCurrency),
+                SizedBox(height: 4),
+                PriceDelta(mc.priceChange7d),
+              ],
+            ),
+          ),
+          DataCell(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PercentageChangeBox(mc.priceChangePercentage24hInCurrency),
+                SizedBox(height: 4),
+                PriceDelta(mc.priceChange24h),
+              ],
+            ),
+          ),
+          DataCell(
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PercentageChangeBox(mc.priceChangePercentage1hInCurrency),
+                SizedBox(height: 4),
+                PriceDelta(mc.priceChange1h)
+              ],
+            ),
+          ),
           DataCell(Text(mc.currentPrice.coinCurrencyFormat())),
           DataCell(
             InkWell(

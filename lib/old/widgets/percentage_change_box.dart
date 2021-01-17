@@ -6,8 +6,10 @@ import 'package:flutter/material.dart';
 class PercentageChangeBox extends StatelessWidget {
   final double? changePercent24Hr;
   final double? textSize;
+  final bool showBackground;
 
-  PercentageChangeBox(this.changePercent24Hr, {Key? key, this.textSize}) : super(key: key);
+  PercentageChangeBox(this.changePercent24Hr, {Key? key, this.textSize, this.showBackground = true})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,8 @@ class PercentageChangeBox extends StatelessWidget {
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(4)), color: color.withOpacity(0.2)),
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            color: showBackground ? color.withOpacity(0.2) : Colors.transparent),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -34,7 +37,7 @@ class PercentageChangeBox extends StatelessWidget {
                   ? CupertinoIcons.arrowtriangle_down_fill
                   : CupertinoIcons.arrowtriangle_up_fill,
               color: color,
-              size: 12,
+              size: textSize ?? 12,
             )
           ],
         ),

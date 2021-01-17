@@ -39,7 +39,6 @@ Future<AssetHistory> _fetchLast24HoursHistory(
   debugPrint("_fetchLast24HoursHistory called");
   String url =
       "https://api.coingecko.com/api/v3/coins/$asset/market_chart?vs_currency=$currencyCode&days=1";
-  debugPrint(url);
   return await _core(client, url);
 }
 

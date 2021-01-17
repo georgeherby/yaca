@@ -27,6 +27,7 @@ dependencies:
   sqflite: ^2.0.0-nullsafety.2
   shimmer: ^1.1.2
   # flutter_svg: ^0.20.0-nullsafety.3
+  url_launcher: ^6.0.0-nullsafety.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

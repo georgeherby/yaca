@@ -69,6 +69,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                                 ? PercentageChangeBox(
                                     percentageChange24h!,
                                     textSize: 16,
+                                    showBackground: false,
                                   )
                                 : null),
                         Spacer(flex: 1),

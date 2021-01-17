@@ -13,6 +13,13 @@ class MainFlutterWindow: NSWindow {
     self.contentViewController = flutterViewController
     self.setFrame(windowFrame, display: true)
 
+    
+    let customToolbar = NSToolbar()
+    customToolbar.showsBaselineSeparator = false
+    self.titlebarAppearsTransparent = true
+    self.titleVisibility = .hidden
+    self.toolbar = customToolbar
+    
   //      // Transparent view
   //  self.isOpaque = false
   //  self.backgroundColor = .clear

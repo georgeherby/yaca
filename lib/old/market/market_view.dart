@@ -29,7 +29,11 @@ class _MarketViewState extends State<MarketView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarStatic(showMarketOverview: true),
+      appBar: AppBarStatic(
+        showMarketOverview: true,
+        refreshTapped: () => Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
+            Provider.of<AppSettingsViewModel>(context, listen: false).chosenCurrency.currencyCode),
+      ),
       body: LayoutBuilder(
         builder: (context, constraint) {
           debugPrint("MarketView layoutbuilder");
@@ -37,8 +41,7 @@ class _MarketViewState extends State<MarketView> {
             child: SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: ConstrainedBox(
-                constraints:
-                    BoxConstraints(minWidth: constraint.maxWidth, minHeight: constraint.maxHeight),
+                constraints: BoxConstraints(minWidth: constraint.maxWidth),
                 child: IntrinsicWidth(
                   child: Consumer<AssetViewModel>(
                     builder: (BuildContext context, AssetViewModel ase, _) {
@@ -50,12 +53,15 @@ class _MarketViewState extends State<MarketView> {
                               onFavourite: (MarketCoin a, bool isChecked) =>
                                   ase.setFavourite(a, isChecked),
                             )
-                          : Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CupertinoActivityIndicator(),
-                              ],
+                          : ConstrainedBox(
+                              constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  CupertinoActivityIndicator(),
+                                ],
+                              ),
                             );
                     },
                   ),

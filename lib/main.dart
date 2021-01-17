@@ -5,13 +5,13 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
-import 'package:crypto_app/old/api/coingecko/whalealerts/whale_transactions_api.dart';
+import 'package:crypto_app/old/api/whalealerts/whale_transactions_api.dart';
+import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
 import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/screens/favourite_assets_screen.dart';
 import 'package:crypto_app/ui/screens/top_100_screen.dart';
-import 'package:sqflite/sqflite.dart';
 
 import 'core/viewmodels/asset_view_model.dart';
 
@@ -72,6 +72,7 @@ class _MyAppState extends State<MyApp> {
                 selectedIconTheme: IconThemeData(color: LightThemeColors().primary),
                 selectedLabelTextStyle: TextStyle(color: LightThemeColors().primary),
               ),
+              buttonTheme: ButtonThemeData(buttonColor: LightThemeColors().primary),
               scaffoldBackgroundColor: LightThemeColors().scaffoldBackground,
               iconTheme: IconThemeData(color: Colors.black),
               chipTheme: ChipThemeData(
@@ -109,6 +110,8 @@ class _MyAppState extends State<MyApp> {
                 selectedIconTheme: IconThemeData(color: DarkThemeColors().primary),
                 selectedLabelTextStyle: TextStyle(color: DarkThemeColors().primary),
               ),
+              buttonTheme: ButtonThemeData(buttonColor: LightThemeColors().primary),
+
               scaffoldBackgroundColor: DarkThemeColors().scaffoldBackground,
               iconTheme: IconThemeData(color: Colors.white),
               chipTheme: ChipThemeData(
@@ -247,6 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 2:
         return Expanded(
           child: Scaffold(
+            appBar: AppBarStatic(),
             body: FutureBuilder(
               future: fetchWhaleTransactions(http.Client()),
               builder: (BuildContext context, AsyncSnapshot<WhaleTransactions> snapshot) {
@@ -268,13 +272,54 @@ class _MyHomePageState extends State<MyHomePage> {
                             DateTime.fromMillisecondsSinceEpoch(transaction.timestamp * 1000);
                         DateFormat formatDate = DateFormat("HH:mm EEE dd MMM ");
 
-                        return ListTile(
-                          leading: Text("${transaction.symbol.toUpperCase()}"),
-                          title: Text(
-                              "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}. Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
-                          subtitle: Text(
-                              "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
-                          trailing: Text(formatDate.format(date)),
+                        // return ListTile(
+                        //   leading: CircleAvatar(
+                        //     child: Text(
+                        //       "${transaction.symbol.toUpperCase()}",
+                        //       textAlign: TextAlign.center,
+                        //       maxLines: 1,
+                        //     ),
+                        //   ),
+                        //   title: Text(
+                        //       "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}. Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
+                        //   subtitle: Text(
+                        //       "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
+                        //   trailing: Text(formatDate.format(date)),
+                        // );
+
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(right: 16.0),
+                                child: CircleAvatar(
+                                  child: Text(
+                                    "${transaction.symbol.toUpperCase()}",
+                                    textAlign: TextAlign.center,
+                                    maxLines: 1,
+                                  ),
+                                ),
+                              ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                      "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}"),
+                                  Text(
+                                      "Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
+                                  Text(
+                                      "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
+                                ],
+                              ),
+                              Spacer(flex: 5),
+                              Text(
+                                formatDate.format(date),
+                                textAlign: TextAlign.right,
+                              )
+                            ],
+                          ),
                         );
                       });
                 } else {

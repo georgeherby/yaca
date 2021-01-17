@@ -11,8 +11,10 @@ import 'package:provider/provider.dart';
 
 class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
   final bool showMarketOverview;
+  final VoidCallback? refreshTapped;
 
-  const AppBarStatic({Key? key, this.showMarketOverview = false}) : super(key: key);
+  const AppBarStatic({Key? key, this.showMarketOverview = false, this.refreshTapped})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +36,10 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 0.25,
                 0.75,
               ], colors: [
-                Color(0xFF5866DF),
-                Color(0xFFF35491),
+                // Color(0xFF5866DF),
+                // Color(0xFFF35491),
+                Color(0xFF385AEF),
+                Color(0xFF6725CD),
               ]),
             ),
             child: Row(
@@ -44,7 +48,6 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                   flex: 150,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
-                    // mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Spacer(),
                       showMarketOverview
@@ -231,13 +234,10 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 Spacer(
                   flex: 5,
                 ),
-                IconButton(
-                  icon: Icon(CupertinoIcons.arrow_clockwise),
-                  onPressed: () => Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
-                      Provider.of<AppSettingsViewModel>(context, listen: false)
-                          .chosenCurrency
-                          .currencyCode),
-                ),
+                refreshTapped != null
+                    ? IconButton(
+                        icon: Icon(CupertinoIcons.arrow_clockwise), onPressed: refreshTapped)
+                    : Container(),
                 Spacer(
                   flex: 5,
                 ),

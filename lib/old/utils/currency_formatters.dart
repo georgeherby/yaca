@@ -12,6 +12,17 @@ extension CurrencuFormatters on num {
         .format(this);
   }
 
+  String currencyFormatWithPrefix(String currencyPrefix, [bool showDecimals = true]) {
+    return NumberFormat.currency(
+            symbol: currencyPrefix + " ",
+            decimalDigits: showDecimals
+                ? this.toInt() >= 2 || this.toInt() <= -2
+                    ? 2
+                    : 5
+                : 0)
+        .format(this);
+  }
+
   String deltaFormat() {
     String formatString =
         this.toInt() >= 2 || this.toInt() <= -2 ? "##,###,###,###.00" : "##,###,###,##0.00###";
