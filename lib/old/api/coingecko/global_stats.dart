@@ -8,7 +8,7 @@ Future<GlobalMarket> fetchMarketOverview(http.Client client, String currencyCode
   debugPrint("fetchMarketOverview called");
 
   String url = "https://api.coingecko.com/api/v3/global?vs_currency=$currencyCode";
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
 
   return GlobalMarket.fromJson(jsonDecode(response.body));
 }

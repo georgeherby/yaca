@@ -105,7 +105,7 @@ packages:
     description:
       path: "."
       ref: master
-      resolved-ref: "3845753a54624b070828cb3eff7a6c2a4e046cfb"
+      resolved-ref: d5c678cd63c3e9c1d779a09acfa95b7e3af84665
       url: "https://github.com/dart-lang/http.git"
     source: git
     version: "0.13.0-nullsafety.0"
@@ -372,21 +372,21 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-nullsafety.1"
+    version: "6.0.0-nullsafety.4"
   url_launcher_linux:
     dependency: transitive
     description:
       name: url_launcher_linux
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.1"
+    version: "0.1.0-nullsafety.3"
   url_launcher_macos:
     dependency: transitive
     description:
       name: url_launcher_macos
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.1"
+    version: "0.1.0-nullsafety.2"
   url_launcher_platform_interface:
     dependency: transitive
     description:
@@ -400,7 +400,7 @@ packages:
       name: url_launcher_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.1.0-nullsafety.1"
+    version: "0.1.0-nullsafety.2"
   vector_math:
     dependency: transitive
     description:

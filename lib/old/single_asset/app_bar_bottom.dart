@@ -37,7 +37,11 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
       height: height,
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.only(
+            left: 8.0,
+            right: 8.0,
+            bottom: 8.0,
+          ),
           child: Material(
             borderRadius: BorderRadius.circular(10),
             clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -1,8 +1,14 @@
 //Common
 import 'package:flutter/material.dart';
 
+Color positiveGreenDark = Color(0xFF0C6845);
+Color negativeRedDark = Color(0xFF971A11);
+
 Color positiveGreen = Color(0xFF18C683);
-Color negativeRed = Colors.red;
+Color negativeRed = Color(0xFFF44336);
+
+Color positiveGreenLight = Color(0xFFCFF5E7);
+Color negativeRedLight = Color(0xFFFCEAE8);
 
 abstract class ThemeColours {
   late Color primary;
@@ -45,6 +51,14 @@ class DarkThemeColors implements ThemeColours {
 
 extension PositiveNegativeColor on double {
   Color toPositiveNegativeColor({double opacity = 1.0}) {
-    return this < 0 ? Colors.red : positiveGreen.withOpacity(opacity);
+    return this < 0 ? negativeRed : positiveGreen.withOpacity(opacity);
+  }
+
+  Color toPositiveNegativeColorLight({double opacity = 1.0}) {
+    return this < 0 ? negativeRedLight : positiveGreenLight.withOpacity(opacity);
+  }
+
+  Color toPositiveNegativeColorDark({double opacity = 1.0}) {
+    return this < 0 ? negativeRedDark : positiveGreenDark.withOpacity(opacity);
   }
 }

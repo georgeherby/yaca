@@ -32,7 +32,7 @@ Future<ExchangeTicker> _getExchangeTicker(
 
   String url =
       "https://api.coingecko.com/api/v3/exchanges/$exchangeId/tickers?include_exchange_logo=true&coin_ids=$cryptoName";
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
   debugPrint("Response ${response.statusCode.toString()}");
   return ExchangeTicker.fromJson(jsonDecode(response.body));
 }

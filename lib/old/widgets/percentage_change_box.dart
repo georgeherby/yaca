@@ -14,12 +14,13 @@ class PercentageChangeBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (changePercent24Hr != null) {
-      Color color = changePercent24Hr!.toPositiveNegativeColor();
+      Color color = changePercent24Hr!.toPositiveNegativeColorDark();
+      Color bkgColor = changePercent24Hr!.toPositiveNegativeColorLight();
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
-            color: showBackground ? color.withOpacity(0.2) : Colors.transparent),
+            color: showBackground ? bkgColor : Colors.transparent),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

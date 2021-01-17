@@ -23,7 +23,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
           brightness: Brightness.dark,
           textTheme: TextTheme(bodyText1: TextStyle(color: Colors.white))),
       child: Padding(
-        padding: const EdgeInsets.only(right: 8.0, top: 8.0, left: 4.0),
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Material(
           borderRadius: BorderRadius.circular(10),
           clipBehavior: Clip.antiAliasWithSaveLayer,

@@ -9,7 +9,7 @@ Future<WhaleTransactions> fetchWhaleTransactions(http.Client client) async {
 
   String url =
       "https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000";
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
 
   return WhaleTransactions.fromJson(jsonDecode(response.body));
 }

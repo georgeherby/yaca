@@ -43,7 +43,7 @@ Future<AssetHistory> _fetchLast24HoursHistory(
 }
 
 Future<AssetHistory> _core(http.Client client, String url) async {
-  final response = await client.get(url);
+  final response = await client.get(Uri.parse(url));
   if (response.statusCode == 429) {
     debugPrint(response.headers.toString());
     debugPrint("RateLimted!");

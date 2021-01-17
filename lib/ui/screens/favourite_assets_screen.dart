@@ -3,7 +3,6 @@ import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/old/models/asset_overview.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
 import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
@@ -77,18 +76,22 @@ class SingleAssetView extends StatelessWidget {
                   marketCap: marketCoin.marketCap,
                   volume24: marketCoin.totalVolume),
               brightness: Theme.of(context).brightness,
-              leadingWidth: 124,
+              leadingWidth: 108,
               leading: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
                   Container(
-                    width: 48,
+                    height: 24,
+                    width: 32,
                     alignment: AlignmentDirectional.center,
-                    child: CupertinoButton(
-                      color: Colors.grey,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.grey.shade700,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                      ),
                       child: Icon(
-                        CupertinoIcons.add,
-                        size: 24,
+                        CupertinoIcons.left_chevron,
+                        size: 16,
                       ),
                       // child: Icon(CupertinoIcons.chevron_back,
                       //     color: Theme.of(context).appBarTheme.iconTheme?.color),
@@ -111,13 +114,17 @@ class SingleAssetView extends StatelessWidget {
               ],
             ),
             body: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Material(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                  left: 8.0,
+                  right: 8.0,
+                  bottom: 8.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Material(
                       borderRadius: BorderRadius.circular(10),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       elevation: 2,
@@ -126,36 +133,34 @@ class SingleAssetView extends StatelessWidget {
                         child: AssetGraphWithSwitcher(allHistory: snapshot.data!),
                       ),
                     ),
-                  ),
-                  FutureBuilder(
-                      future: getAllExchangeTickers(http.Client(), marketCoin.id),
-                      builder:
-                          (BuildContext context, AsyncSnapshot<List<ExchangeTicker>> snapshot) {
-                        if (snapshot.hasError) {
-                          print(snapshot.error.toString());
-                          print(snapshot.stackTrace);
-                        }
-                        if (snapshot.hasData) {
-                          return snapshot.data!.length > 0
-                              ? Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                  child: Material(
+                    Divider(height: 8, color: Colors.transparent),
+                    FutureBuilder(
+                        future: getAllExchangeTickers(http.Client(), marketCoin.id),
+                        builder:
+                            (BuildContext context, AsyncSnapshot<List<ExchangeTicker>> snapshot) {
+                          if (snapshot.hasError) {
+                            print(snapshot.error.toString());
+                            print(snapshot.stackTrace);
+                          }
+                          if (snapshot.hasData) {
+                            return snapshot.data!.length > 0
+                                ? Material(
                                     borderRadius: BorderRadius.circular(10),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
                                     elevation: 2,
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ExchangeListWithFilter(exchanges: snapshot.data!)),
-                                  ),
-                                )
-                              : Container();
-                        } else {
-                          return Center(
-                            child: CupertinoActivityIndicator(),
-                          );
-                        }
-                      }),
-                ],
+                                  )
+                                : Container();
+                          } else {
+                            return Center(
+                              child: CupertinoActivityIndicator(),
+                            );
+                          }
+                        }),
+                  ],
+                ),
               ),
             ),
           );

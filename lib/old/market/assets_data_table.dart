@@ -21,42 +21,38 @@ class AssetsDataTable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint("AssetsDataTable - build");
-    return Padding(
-      padding: const EdgeInsets.only(right: 8.0, top: 8, bottom: 8, left: 4),
-      child: Material(
-        borderRadius: BorderRadius.circular(10),
-        // clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: 2,
-        child: DataTable(
-          dividerThickness: 0.5,
-          sortAscending: true,
-          sortColumnIndex: 0,
-          columnSpacing: 54.0,
-          dataRowHeight: 72,
-          showCheckboxColumn: false,
-          columns: [
-            DataColumn(
-              label: Text('#', style: TextStyle(fontWeight: FontWeight.w600)),
-              numeric: true,
-            ),
-            DataColumn(
-              label: Text('Name', style: TextStyle(fontWeight: FontWeight.w600)),
-            ),
-            DataColumn(
-                label: Text('7d', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
-            DataColumn(
-                label: Text('24h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
-            DataColumn(
-                label: Text('1h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
-            DataColumn(
-                label: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
-            DataColumn(
-                label: Text('', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
-          ],
-          rows: List.generate(marketCoins.length, (index) {
-            return buildDataRow(marketCoins[index], context);
-          }),
-        ),
+    return Material(
+      borderRadius: BorderRadius.circular(10),
+      // clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: 2,
+      child: DataTable(
+        dividerThickness: 0.5,
+        sortAscending: true,
+        sortColumnIndex: 0,
+        columnSpacing: 54.0,
+        dataRowHeight: 72,
+        showCheckboxColumn: false,
+        columns: [
+          DataColumn(
+            label: Text('#', style: TextStyle(fontWeight: FontWeight.w600)),
+            numeric: true,
+          ),
+          DataColumn(
+            label: Text('Name', style: TextStyle(fontWeight: FontWeight.w600)),
+          ),
+          DataColumn(
+              label: Text('7d', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+          DataColumn(
+              label: Text('24h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+          DataColumn(
+              label: Text('1h', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+          DataColumn(
+              label: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+          DataColumn(label: Text('', style: TextStyle(fontWeight: FontWeight.w600)), numeric: true),
+        ],
+        rows: List.generate(marketCoins.length, (index) {
+          return buildDataRow(marketCoins[index], context);
+        }),
       ),
     );
   }
@@ -66,23 +62,24 @@ class AssetsDataTable extends StatelessWidget {
         onSelectChanged: (value) async {
           debugPrint(mc.name);
           await Navigator.push(
-              context,
-              MaterialPageRoute(
-                fullscreenDialog: true,
-                builder: (context) {
-                  return SingleAssetView(
-                    marketCoin: mc,
-                    onFavourite: (String id, bool isChecked) {
-                      if (mc.isFavourited) {
-                        print("Unfaovouriting ${mc.name}");
-                      } else {
-                        print("Favourite ${mc.name}");
-                      }
-                      onFavourite(mc, !mc.isFavourited);
-                    },
-                  );
-                },
-              ));
+            context,
+            MaterialPageRoute(
+              fullscreenDialog: true,
+              builder: (context) {
+                return SingleAssetView(
+                  marketCoin: mc,
+                  onFavourite: (String id, bool isChecked) {
+                    if (mc.isFavourited) {
+                      print("Unfaovouriting ${mc.name}");
+                    } else {
+                      print("Favourite ${mc.name}");
+                    }
+                    onFavourite(mc, !mc.isFavourited);
+                  },
+                );
+              },
+            ),
+          );
           debugPrint("Finished");
         },
         cells: [
@@ -119,19 +116,23 @@ class AssetsDataTable extends StatelessWidget {
                 VerticalDivider(
                   color: Colors.transparent,
                 ),
-                Text(
-                  mc.symbol.toUpperCase(),
-                  style: Theme.of(context).textTheme.subtitle2,
-                ),
-                VerticalDivider(
-                  color: Colors.transparent,
-                ),
-                Text(
-                  mc.name,
-                  style: TextStyle(
-                      color: Theme.of(context).brightness == Brightness.light
-                          ? Colors.black54
-                          : Colors.white54),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      mc.symbol.toUpperCase(),
+                      style: Theme.of(context).textTheme.subtitle2,
+                    ),
+                    Text(
+                      mc.name,
+                      style: TextStyle(
+                          color: Theme.of(context).brightness == Brightness.light
+                              ? Colors.black54
+                              : Colors.white54),
+                    ),
+                  ],
                 ),
                 Spacer(),
                 Padding(

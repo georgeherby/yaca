@@ -3,6 +3,4 @@ class Filter {
   bool selected;
 
   Filter(this.value, this.selected);
-
-  int get hashCode => value.hashCode;
 }
