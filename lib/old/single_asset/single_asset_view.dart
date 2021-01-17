@@ -76,7 +76,7 @@ class SingleAssetView extends StatelessWidget {
                   marketCap: marketCoin.marketCap,
                   volume24: marketCoin.totalVolume),
               brightness: Theme.of(context).brightness,
-              leadingWidth: 108,
+              leadingWidth: 116,
               leading: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [

@@ -135,7 +135,11 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     VerticalDivider(
                       color: Colors.transparent,
                     ),
-                    RaisedButton(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Theme.of(context).primaryColor,
+                        elevation: 2,
+                      ),
                       onPressed: () => launchURL(lists[index].tradeUrl),
                       child: Text("Trade"),
                     ),

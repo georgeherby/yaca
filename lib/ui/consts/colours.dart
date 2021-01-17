@@ -1,14 +1,14 @@
 //Common
 import 'package:flutter/material.dart';
 
-Color positiveGreenDark = Color(0xFF0C6845);
+Color positiveGreenDark = Color(0xFF085839);
 Color negativeRedDark = Color(0xFF971A11);
 
 Color positiveGreen = Color(0xFF18C683);
 Color negativeRed = Color(0xFFF44336);
 
-Color positiveGreenLight = Color(0xFFCFF5E7);
-Color negativeRedLight = Color(0xFFFCEAE8);
+Color positiveGreenLight = Color(0xFFD9F8ED);
+Color negativeRedLight = Color(0xFFFCE4E1);
 
 abstract class ThemeColours {
   late Color primary;
