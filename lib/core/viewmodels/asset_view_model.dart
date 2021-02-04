@@ -4,6 +4,7 @@ import 'package:crypto_app/old/data/dao/favourites_dao.dart';
 import 'package:crypto_app/old/data/models/favourites.dart';
 import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
+import 'package:crypto_app/old/models/assets_list.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -55,16 +56,17 @@ class AssetViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<MarketCoin> get assetList {
-    return _marketCoins;
+  AssetsList get assetList {
+    return AssetsList(assets: _marketCoins);
   }
 
   GlobalMarket? get marketOverview {
     return _globalMarket;
   }
 
-  List<MarketCoin> get favourites {
-    return _marketCoins.where((element) => element.isFavourited).toList();
+  AssetsList get favourites {
+    List<MarketCoin> favs = _marketCoins.where((element) => element.isFavourited).toList();
+    return AssetsList(assets: favs);
   }
 
   bool get hasGlobalLoaded {

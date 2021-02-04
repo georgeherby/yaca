@@ -8,6 +8,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0-nullsafety.3"
+  bloc:
+    dependency: transitive
+    description:
+      name: bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.0.0-nullsafety.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -51,7 +58,7 @@ packages:
     source: hosted
     version: "1.0.2"
   equatable:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: equatable
       url: "https://pub.dartlang.org"
@@ -90,6 +97,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_bloc:
+    dependency: "direct main"
+    description:
+      name: flutter_bloc
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "7.0.0-nullsafety.1"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -103,11 +117,9 @@ packages:
   http:
     dependency: "direct main"
     description:
-      path: "."
-      ref: master
-      resolved-ref: d5c678cd63c3e9c1d779a09acfa95b7e3af84665
-      url: "https://github.com/dart-lang/http.git"
-    source: git
+      name: http
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "0.13.0-nullsafety.0"
   http_parser:
     dependency: transitive
@@ -220,7 +232,7 @@ packages:
       name: platform
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.0.0-nullsafety.4"
+    version: "3.0.0"
   plugin_platform_interface:
     dependency: transitive
     description:
@@ -241,7 +253,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.0.0-nullsafety.2"
+    version: "5.0.0-nullsafety.3"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -283,7 +295,7 @@ packages:
       name: shared_preferences_windows
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1+3"
+    version: "0.0.2+2"
   shimmer:
     dependency: "direct main"
     description:
@@ -309,7 +321,7 @@ packages:
       name: sqflite
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.0-nullsafety.2"
+    version: "2.0.0-nullsafety.3"
   sqflite_common:
     dependency: transitive
     description:
@@ -372,7 +384,7 @@ packages:
       name: url_launcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0-nullsafety.4"
+    version: "6.0.0-nullsafety.6"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -414,7 +426,7 @@ packages:
       name: win32
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.4"
+    version: "1.7.4+1"
   xdg_directories:
     dependency: transitive
     description:

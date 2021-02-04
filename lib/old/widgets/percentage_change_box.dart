@@ -25,7 +25,7 @@ class PercentageChangeBox extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              percetnageFormat.format(changePercent24Hr! / 100),
+              percentageFormat.format(changePercent24Hr! / 100),
               style: TextStyle(
                   color: showBackground ? darkColor : changePercent24Hr!.toPositiveNegativeColor(),
                   fontSize: textSize ?? Theme.of(context).textTheme.caption!.fontSize),

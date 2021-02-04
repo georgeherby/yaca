@@ -7,23 +7,23 @@ import 'package:http/http.dart' as http;
 Future<List<ExchangeTicker>> getAllExchangeTickers(
   http.Client client,
   String cryptoName,
-) async {
-  return [
-    await _getExchangeTicker(client, cryptoName, "binance"),
-    await _getExchangeTicker(client, cryptoName, "gdax"),
-    await _getExchangeTicker(client, cryptoName, "bitfinex"),
-    await _getExchangeTicker(client, cryptoName, "kraken"),
-    await _getExchangeTicker(client, cryptoName, "gemini"),
-    await _getExchangeTicker(client, cryptoName, "huobi"),
-    await _getExchangeTicker(client, cryptoName, "binance_us"),
-    await _getExchangeTicker(client, cryptoName, "crypto_com"),
-    await _getExchangeTicker(client, cryptoName, "bitstamp"),
-    await _getExchangeTicker(client, cryptoName, "bithumb"),
-    await _getExchangeTicker(client, cryptoName, "hitbtc"),
-    await _getExchangeTicker(client, cryptoName, "hotbit"),
-    await _getExchangeTicker(client, cryptoName, "gate"),
-    await _getExchangeTicker(client, cryptoName, "etorox"),
-  ];
+) {
+  return Future.wait([
+    _getExchangeTicker(client, cryptoName, "binance"),
+    _getExchangeTicker(client, cryptoName, "gdax"),
+    _getExchangeTicker(client, cryptoName, "bitfinex"),
+    _getExchangeTicker(client, cryptoName, "kraken"),
+    _getExchangeTicker(client, cryptoName, "gemini"),
+    _getExchangeTicker(client, cryptoName, "huobi"),
+    _getExchangeTicker(client, cryptoName, "binance_us"),
+    _getExchangeTicker(client, cryptoName, "crypto_com"),
+    _getExchangeTicker(client, cryptoName, "bitstamp"),
+    _getExchangeTicker(client, cryptoName, "bithumb"),
+    _getExchangeTicker(client, cryptoName, "hitbtc"),
+    _getExchangeTicker(client, cryptoName, "hotbit"),
+    _getExchangeTicker(client, cryptoName, "gate"),
+    _getExchangeTicker(client, cryptoName, "etorox"),
+  ]).then((List<ExchangeTicker> value) => value);
 }
 
 Future<ExchangeTicker> _getExchangeTicker(

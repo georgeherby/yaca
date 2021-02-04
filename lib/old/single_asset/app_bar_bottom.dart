@@ -65,6 +65,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                             widgetData: Text(
                               currentPrice?.coinCurrencyFormat().toString() ?? "-",
                               style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
                             )),
                         Spacer(flex: 1),
                         AppBarBottomDataBlock(

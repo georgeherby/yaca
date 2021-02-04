@@ -1,17 +1,16 @@
+import 'package:crypto_app/old/api/whalealerts/whale_transactions_api.dart';
+import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/old/utils/view_builder/filter_list_bloc.dart';
+import 'package:crypto_app/ui/screens/market_screen.dart';
+import 'package:crypto_app/ui/screens/whale_transactions_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:intl/intl.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
-import 'package:crypto_app/old/api/whalealerts/whale_transactions_api.dart';
-import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
-import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/screens/favourite_assets_screen.dart';
-import 'package:crypto_app/ui/screens/top_100_screen.dart';
 
 import 'core/viewmodels/asset_view_model.dart';
 
@@ -133,7 +132,9 @@ class _MyAppState extends State<MyApp> {
               // closer together (more dense) than on mobile platforms.
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
-            home: MyHomePage(key: const Key("home_screen_key"), title: 'Cryptocurrency'),
+            home: BlocProvider(
+                create: (_) => FilterListBloc<Transactions, String>(WhaleTransactionReposiotry()),
+                child: MyHomePage(key: const Key("home_screen_key"), title: 'Cryptocurrency')),
           );
         },
       ),
@@ -229,7 +230,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget showPage(int index) {
     switch (index) {
       case 0:
-        return PricesScreen();
+        return MarketScreen();
       case 1:
         return FavouriteAssetsScreen();
       // case 2:
@@ -249,85 +250,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //     ),
       //   );
       case 2:
-        return Scaffold(
-          appBar: AppBarStatic(),
-          body: FutureBuilder(
-            future: fetchWhaleTransactions(http.Client()),
-            builder: (BuildContext context, AsyncSnapshot<WhaleTransactions> snapshot) {
-              if (snapshot.hasError) {
-                print(snapshot.error);
-                return Center(
-                  child: Icon(CupertinoIcons.exclamationmark),
-                );
-              }
-
-              if (snapshot.hasData) {
-                List<Transactions> trans = snapshot.data!.transactions.reversed.toList();
-
-                return ListView.builder(
-                    itemCount: trans.length,
-                    itemBuilder: (context, index) {
-                      Transactions transaction = trans[index];
-                      DateTime date =
-                          DateTime.fromMillisecondsSinceEpoch(transaction.timestamp * 1000);
-                      DateFormat formatDate = DateFormat("HH:mm EEE dd MMM ");
-
-                      // return ListTile(
-                      //   leading: CircleAvatar(
-                      //     child: Text(
-                      //       "${transaction.symbol.toUpperCase()}",
-                      //       textAlign: TextAlign.center,
-                      //       maxLines: 1,
-                      //     ),
-                      //   ),
-                      //   title: Text(
-                      //       "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}. Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
-                      //   subtitle: Text(
-                      //       "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
-                      //   trailing: Text(formatDate.format(date)),
-                      // );
-
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 16.0),
-                              child: CircleAvatar(
-                                child: Text(
-                                  "${transaction.symbol.toUpperCase()}",
-                                  textAlign: TextAlign.center,
-                                  maxLines: 1,
-                                ),
-                              ),
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                    "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}"),
-                                Text(
-                                    "Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
-                                Text(
-                                    "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
-                              ],
-                            ),
-                            Spacer(flex: 5),
-                            Text(
-                              formatDate.format(date),
-                              textAlign: TextAlign.right,
-                            )
-                          ],
-                        ),
-                      );
-                    });
-              } else {
-                return Center(child: CupertinoActivityIndicator());
-              }
-            },
-          ),
-        );
+        return WhaleTransactionPage();
       default:
         return Icon(CupertinoIcons.exclamationmark);
     }

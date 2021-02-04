@@ -20,6 +20,7 @@ class AppBarDataBlock extends StatelessWidget {
       children: <Widget>[
         Text(
           label,
+          textAlign: TextAlign.center,
           style: TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w300,
@@ -27,6 +28,7 @@ class AppBarDataBlock extends StatelessWidget {
         ),
         Text(
           amount,
+          textAlign: TextAlign.center,
           style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 16,

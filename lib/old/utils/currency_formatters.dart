@@ -5,9 +5,11 @@ extension CurrencuFormatters on num {
     return NumberFormat.simpleCurrency(
             locale: locale,
             decimalDigits: showDecimals
-                ? this.toInt() >= 2 || this.toInt() <= -2
-                    ? 2
-                    : 5
+                ? this.toInt() >= 1000 || this.toInt() <= -1000
+                    ? 0
+                    : this.toInt() >= 2 || this.toInt() <= -2
+                        ? 2
+                        : 4
                 : 0)
         .format(this);
   }
@@ -16,9 +18,11 @@ extension CurrencuFormatters on num {
     return NumberFormat.currency(
             symbol: currencyPrefix + " ",
             decimalDigits: showDecimals
-                ? this.toInt() >= 2 || this.toInt() <= -2
-                    ? 2
-                    : 5
+                ? this.toInt() >= 1000 || this.toInt() <= -1000
+                    ? 0
+                    : this.toInt() >= 2 || this.toInt() <= -2
+                        ? 2
+                        : 4
                 : 0)
         .format(this);
   }

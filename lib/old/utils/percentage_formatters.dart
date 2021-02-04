@@ -1,4 +1,4 @@
 import 'package:intl/intl.dart';
 
-NumberFormat percetnageFormat =
+NumberFormat percentageFormat =
     new NumberFormat.decimalPercentPattern(locale: "en_US", decimalDigits: 2);
