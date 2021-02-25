@@ -29,9 +29,11 @@ class Tickers {
   late Market market;
   late double last;
   late double volume;
+  late double costToMoveUpUsd;
+  late double costToMoveDownUsd;
   late ConvertedLast convertedLast;
   late ConvertedVolume convertedVolume;
-  late String trustScore;
+  late String? trustScore;
   late double bidAskSpreadPercentage;
   late String timestamp;
   late String lastTradedAt;
@@ -49,6 +51,8 @@ class Tickers {
     required this.market,
     required this.last,
     required this.volume,
+    required this.costToMoveUpUsd,
+    required this.costToMoveDownUsd,
     required this.convertedLast,
     required this.convertedVolume,
     required this.trustScore,
@@ -70,6 +74,8 @@ class Tickers {
     market = Market.fromJson(json['market']);
     last = json['last'];
     volume = json['volume'];
+    costToMoveUpUsd = json['cost_to_move_up_usd'];
+    costToMoveDownUsd = json['cost_to_move_down_usd'];
     convertedLast = ConvertedLast.fromJson(json['converted_last']);
     convertedVolume = ConvertedVolume.fromJson(json['converted_volume']);
     trustScore = json['trust_score'];
@@ -92,6 +98,8 @@ class Tickers {
     data['market'] = this.market.toJson();
     data['last'] = this.last;
     data['volume'] = this.volume;
+    data['cost_to_move_up_usd'] = this.costToMoveUpUsd;
+    data['cost_to_move_down_usd'] = this.costToMoveDownUsd;
     data['converted_last'] = this.convertedLast.toJson();
     data['converted_volume'] = this.convertedVolume.toJson();
     data['trust_score'] = this.trustScore;

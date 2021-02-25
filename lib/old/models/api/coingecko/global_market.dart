@@ -1,10 +1,10 @@
 class GlobalMarket {
-  late Data data;
+  late GlobalMarketData data;
 
   GlobalMarket({required this.data});
 
   GlobalMarket.fromJson(Map<String, dynamic> json) {
-    data = Data.fromJson(json['data']);
+    data = GlobalMarketData.fromJson(json['data']);
   }
 
   Map<String, dynamic> toJson() {
@@ -15,7 +15,7 @@ class GlobalMarket {
   }
 }
 
-class Data {
+class GlobalMarketData {
   late int activeCryptocurrencies;
   late int upcomingIcos;
   late int ongoingIcos;
@@ -27,7 +27,7 @@ class Data {
   late double marketCapChangePercentage24hUsd;
   late int updatedAt;
 
-  Data({
+  GlobalMarketData({
     required this.activeCryptocurrencies,
     required this.upcomingIcos,
     required this.ongoingIcos,
@@ -40,7 +40,7 @@ class Data {
     required this.updatedAt,
   });
 
-  Data.fromJson(Map<String, dynamic> json) {
+  GlobalMarketData.fromJson(Map<String, dynamic> json) {
     activeCryptocurrencies = json['active_cryptocurrencies'];
     upcomingIcos = json['upcoming_icos'];
     ongoingIcos = json['ongoing_icos'];
@@ -470,36 +470,36 @@ class MarketCapPercentage {
   late double btc;
   late double eth;
   late double usdt;
-  late double xrp;
-  late double ltc;
-  late double ada;
-  late double dot;
-  late double bch;
-  late double xlm;
+  // late double xrp;
+  // late double ltc;
+  // late double ada;
+  // late double dot;
+  // late double bch;
+  // late double xlm;
   late double bnb;
 
   MarketCapPercentage(
       {required this.btc,
       required this.eth,
       required this.usdt,
-      required this.xrp,
-      required this.ltc,
-      required this.ada,
-      required this.dot,
-      required this.bch,
-      required this.xlm,
+      // required this.xrp,
+      // required this.ltc,
+      // required this.ada,
+      // required this.dot,
+      // required this.bch,
+      // required this.xlm,
       required this.bnb});
 
   MarketCapPercentage.fromJson(Map<String, dynamic> json) {
     btc = json['btc'];
     eth = json['eth'];
     usdt = json['usdt'];
-    xrp = json['xrp'];
-    ltc = json['ltc'];
-    ada = json['ada'];
-    dot = json['dot'];
-    bch = json['bch'];
-    xlm = json['xlm'];
+    // xrp = json['xrp'];
+    // ltc = json['ltc'];
+    // ada = json['ada'];
+    // dot = json['dot'];
+    // bch = json['bch'];
+    // xlm = json['xlm'];
     bnb = json['bnb'];
   }
 
@@ -508,12 +508,12 @@ class MarketCapPercentage {
     data['btc'] = this.btc;
     data['eth'] = this.eth;
     data['usdt'] = this.usdt;
-    data['xrp'] = this.xrp;
-    data['ltc'] = this.ltc;
-    data['ada'] = this.ada;
-    data['dot'] = this.dot;
-    data['bch'] = this.bch;
-    data['xlm'] = this.xlm;
+    // data['xrp'] = this.xrp;
+    // data['ltc'] = this.ltc;
+    // data['ada'] = this.ada;
+    // data['dot'] = this.dot;
+    // data['bch'] = this.bch;
+    // data['xlm'] = this.xlm;
     data['bnb'] = this.bnb;
     return data;
   }

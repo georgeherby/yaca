@@ -14,21 +14,22 @@ class ExchangeListWithFilter extends StatefulWidget {
 }
 
 class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
-  List<Tickers> lists = [];
+  List<Tickers> tickers = [];
   List<Filter> currencyFilter = [];
 
   @override
   void initState() {
     super.initState();
 
-    lists.addAll(widget.exchanges.map((e) => e.tickers).expand((element) => element).toList());
-    currencyFilter.addAll((lists.map((e) => e.target)).toSet().map((e) => Filter(e, false)));
+    tickers.addAll(widget.exchanges.map((e) => e.tickers).expand((element) => element).toList());
+    currencyFilter.addAll((tickers.map((e) => e.target)).toSet().map((e) => Filter(e, false)));
 
+    tickers.sort((b, a) => a.volume.compareTo(b.volume));
     currencyFilter.sort((a, b) => a.value.compareTo(b.value));
   }
 
   void applyFilter() {
-    lists.clear();
+    tickers.clear();
     List<String> _selectedCurrencies =
         currencyFilter.where((element) => element.selected).map((e) => e.value).toList();
     List<Tickers> _flattenedMarkets =
@@ -36,11 +37,12 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
     if (_selectedCurrencies.length > 0) {
 // lists.where((element) => element.)
-      lists.addAll(
+      tickers.addAll(
           _flattenedMarkets.where((element) => _selectedCurrencies.contains(element.target)));
     } else {
-      lists.addAll(_flattenedMarkets);
+      tickers.addAll(_flattenedMarkets);
     }
+    tickers.sort((b, a) => a.volume.compareTo(b.volume));
   }
 
   @override
@@ -101,7 +103,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
             ),
           ] +
           List<Widget>.generate(
-            lists.length,
+            tickers.length,
             (index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
@@ -110,7 +112,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: Image.network(
-                        lists[index].market.logoUrl,
+                        tickers[index].market.logoUrl,
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -120,18 +122,43 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     SizedBox(
                         width: 120,
                         child: Text(
-                          lists[index].market.name,
+                          tickers[index].market.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         )),
                     VerticalDivider(
                       color: Colors.transparent,
                     ),
-                    Text(lists[index].base + "/" + lists[index].target),
-                    Spacer(),
-                    Text(lists[index]
-                        .last
-                        .currencyFormatWithPrefix(lists[index].target.toUpperCase())),
+                    Text(tickers[index].base + "/" + tickers[index].target),
+                    Spacer(
+                      flex: 5,
+                    ),
+                    Expanded(
+                      child: Text(
+                        tickers[index].trustScore ?? "",
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    VerticalDivider(
+                      color: Colors.transparent,
+                    ),
+                    Expanded(
+                      child: Text(
+                        "Vol: ${tickers[index].volume.volumeFormat()}",
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
+                    VerticalDivider(
+                      color: Colors.transparent,
+                    ),
+                    Expanded(
+                      child: Text(
+                        tickers[index]
+                            .last
+                            .currencyFormatWithPrefix(tickers[index].target.toUpperCase()),
+                        textAlign: TextAlign.right,
+                      ),
+                    ),
                     VerticalDivider(
                       color: Colors.transparent,
                     ),
@@ -140,7 +167,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         primary: Theme.of(context).primaryColor,
                         elevation: 2,
                       ),
-                      onPressed: () => launchURL(lists[index].tradeUrl),
+                      onPressed: () => launchURL(tickers[index].tradeUrl),
                       child: Text("Trade"),
                     ),
                   ],

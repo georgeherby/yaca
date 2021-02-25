@@ -12,9 +12,9 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   final int rank;
   final String symbol;
   final String? currencySymbol;
-  final double circulatingSupply;
+  final double? circulatingSupply;
   final double? currentPrice;
-  final double volume24;
+  final double? volume24;
 
   const AppBarBottom(
       {Key? key,

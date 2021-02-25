@@ -1,5 +1,5 @@
 name: crypto_app
-description: A new Flutter project.
+description: View crpytocurrency data
 
 publish_to: "none"
 
@@ -17,18 +17,18 @@ dependencies:
   intl: ^0.17.0-nullsafety.2
   # decimal: 1.0.0-nullsafety
   cupertino_icons: ^1.0.2
-  fl_chart: ^0.12.1
+  fl_chart: ^0.20.0-nullsafety1
   provider: ^5.0.0-nullsafety.2
   # dart_rss: ^1.0.1
-  shared_preferences: ^0.5.12+4
-  path_provider: ^1.6.27
+  shared_preferences: ^2.0.0-nullsafety
+  path_provider: ^2.0.0-nullsafety.1
   sqflite: ^2.0.0-nullsafety.2
-  shimmer: ^1.1.2
+  shimmer: ^2.0.0-nullsafety.0
   # flutter_svg: ^0.20.0-nullsafety.3
   url_launcher: ^6.0.0-nullsafety.4
-  flutter_bloc: ^7.0.0-nullsafety.1
+  flutter_bloc: ^7.0.0-nullsafety.2
   # equatable: ^2.0.0-nullsafety.1
-  equatable: ^1.1.1
+  equatable: ^2.0.0-nullsafety.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

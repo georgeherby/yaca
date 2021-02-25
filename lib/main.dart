@@ -104,10 +104,10 @@ class _MyAppState extends State<MyApp> {
                   iconTheme: IconThemeData(color: Colors.white)),
               navigationRailTheme: NavigationRailThemeData(
                 backgroundColor: DarkThemeColors().scaffoldBackground,
-                unselectedIconTheme: IconThemeData(color: Colors.white54),
-                unselectedLabelTextStyle: TextStyle(color: Colors.white54),
-                selectedIconTheme: IconThemeData(color: DarkThemeColors().primary),
-                selectedLabelTextStyle: TextStyle(color: DarkThemeColors().primary),
+                unselectedIconTheme: IconThemeData(color: Colors.white38),
+                unselectedLabelTextStyle: TextStyle(color: Colors.white38),
+                selectedIconTheme: IconThemeData(color: Colors.white),
+                selectedLabelTextStyle: TextStyle(color: Colors.white),
               ),
               buttonTheme: ButtonThemeData(buttonColor: LightThemeColors().primary),
 

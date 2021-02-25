@@ -23,16 +23,31 @@ Future<List<ExchangeTicker>> getAllExchangeTickers(
     _getExchangeTicker(client, cryptoName, "hotbit"),
     _getExchangeTicker(client, cryptoName, "gate"),
     _getExchangeTicker(client, cryptoName, "etorox"),
-  ]).then((List<ExchangeTicker> value) => value);
+  ]).then((List<ExchangeTicker?> list) {
+    list.removeWhere((v) => v == null);
+    return list.map((e) => e!).toList();
+  });
 }
 
-Future<ExchangeTicker> _getExchangeTicker(
+Future<ExchangeTicker?> _getExchangeTicker(
     http.Client client, String cryptoName, String exchangeId) async {
   debugPrint("fetchMarketOverview called for $cryptoName on $exchangeId");
 
   String url =
-      "https://api.coingecko.com/api/v3/exchanges/$exchangeId/tickers?include_exchange_logo=true&coin_ids=$cryptoName";
-  final response = await client.get(Uri.parse(url));
-  debugPrint("Response ${response.statusCode.toString()}");
-  return ExchangeTicker.fromJson(jsonDecode(response.body));
+      "https://api.coingecko.com/api/v3/exchanges/$exchangeId/tickers?include_exchange_logo=true&depth=true&coin_ids=$cryptoName";
+  var response = await client.get(Uri.parse(url));
+  debugPrint("Response ${response.statusCode.toString()} for $exchangeId");
+
+  if (response.statusCode == 429) {
+    debugPrint("Being Throttled wait 500ms");
+    await Future.delayed(Duration(milliseconds: 500));
+    response = await client.get(Uri.parse(url));
+  }
+
+  if (response.statusCode == 200) {
+    return ExchangeTicker.fromJson(jsonDecode(response.body));
+  } else {
+    debugPrint("Error retrieving $url");
+    return null;
+  }
 }

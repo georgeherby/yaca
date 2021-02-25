@@ -36,6 +36,16 @@ extension CurrencuFormatters on num {
       "en_GB",
     ).format(this);
   }
+
+  String volumeFormat() {
+    String formatString =
+        this.toInt() >= 2 || this.toInt() <= -2 ? "##,###,###,###.00" : "##,###,###,##0.00###";
+
+    return new NumberFormat(
+      formatString,
+      "en_GB",
+    ).format(this);
+  }
 }
 
 NumberFormat compactCurrencyFormat = NumberFormat.compactSimpleCurrency(

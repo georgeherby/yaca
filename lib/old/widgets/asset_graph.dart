@@ -162,7 +162,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     interval: ((maxTime - minTime) / 4),
                     margin: 12,
                     reservedSize: 22,
-                    getTextStyles: (value) => Theme.of(context).textTheme.caption,
+                    getTextStyles: (value) => Theme.of(context).textTheme.caption!,
                     getTitles: (double value) {
                       DateFormat formatter;
                       if (widget.duration != null &&
@@ -179,7 +179,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   leftTitles: SideTitles(
                     showTitles: true,
                     interval: (maxPrice - minPrice) / 6,
-                    getTextStyles: (value) => Theme.of(context).textTheme.caption,
+                    getTextStyles: (value) => Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
                       return "${value.coinCurrencyFormat()}";
                     },
