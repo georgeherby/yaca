@@ -20,12 +20,12 @@ dependencies:
   fl_chart: ^0.20.0-nullsafety1
   provider: ^5.0.0-nullsafety.2
   # dart_rss: ^1.0.1
-  shared_preferences: ^2.0.0-nullsafety
+  shared_preferences: ^2.0.1
   path_provider: ^2.0.0-nullsafety.1
   sqflite: ^2.0.0-nullsafety.2
   shimmer: ^2.0.0-nullsafety.0
   # flutter_svg: ^0.20.0-nullsafety.3
-  url_launcher: ^6.0.0-nullsafety.4
+  url_launcher: ^6.0.1
   flutter_bloc: ^7.0.0-nullsafety.2
   # equatable: ^2.0.0-nullsafety.1
   equatable: ^2.0.0-nullsafety.3
