@@ -167,7 +167,9 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         primary: Theme.of(context).primaryColor,
                         elevation: 2,
                       ),
-                      onPressed: () => launchURL(tickers[index].tradeUrl),
+                      onPressed: tickers[index].tradeUrl != null
+                          ? () => launchURL(tickers[index].tradeUrl)
+                          : null,
                       child: Text("Trade"),
                     ),
                   ],

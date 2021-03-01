@@ -40,10 +40,10 @@ class Tickers {
   late String lastFetchAt;
   late bool isAnomaly;
   late bool isStale;
-  late String tradeUrl;
+  late String? tradeUrl;
   late String? tokenInfoUrl;
   late String coinId;
-  late String targetCoinId;
+  late String? targetCoinId;
 
   Tickers({
     required this.base,
