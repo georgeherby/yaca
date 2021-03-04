@@ -26,14 +26,9 @@ class DatabaseHelper {
 
   // this opens the database (and creates it if it doesn't exist)
   _initDatabase() async {
-    Directory? documentsDirectory = await getApplicationDocumentsDirectory();
-
-    if (documentsDirectory != null) {
-      String path = join(documentsDirectory.path, _databaseName);
-      return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
-    } else {
-      throw Exception("No documentsDirectory found when initing database");
-    }
+    Directory documentsDirectory = await getApplicationDocumentsDirectory();
+    String path = join(documentsDirectory.path, _databaseName);
+    return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
   }
 
   // SQL code to create the database table
