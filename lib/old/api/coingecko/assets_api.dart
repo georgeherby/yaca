@@ -46,7 +46,7 @@ Future<AssetHistory> _core(http.Client client, String url) async {
   final response = await client.get(Uri.parse(url));
   if (response.statusCode == 429) {
     debugPrint(response.headers.toString());
-    debugPrint("RateLimted!");
+    debugPrint("Rate Limted!");
   }
 
   return AssetHistory.fromJson(jsonDecode(response.body));

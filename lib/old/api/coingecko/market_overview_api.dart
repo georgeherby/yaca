@@ -2,7 +2,8 @@ import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<MarketCoin>> fetchCoinMarkets(http.Client client, [String currencyCode = "gbp"]) async {
+Future<List<MarketCoin>> fetchCoinMarkets(http.Client client,
+    [String currencyCode = "gbp"]) async {
   debugPrint("fetchCoinMarkets called");
 
   final response = await client.get(Uri.parse(

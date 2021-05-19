@@ -23,7 +23,7 @@ abstract class ThemeColours {
 
 class LightThemeColors implements ThemeColours {
   @override
-  Color scaffoldBackground = const Color(0xFFFDFDFD);
+  Color scaffoldBackground = const Color(0xFFEEEEEE);
 
   @override
   Color accent = const Color(0xFFF33335);
@@ -32,7 +32,7 @@ class LightThemeColors implements ThemeColours {
   Color primary = const Color(0xFF5866DF);
 
   @override
-  Color appBarColour = const Color(0xFFFDFDFD);
+  Color appBarColour = const Color(0xFFEEEEEE);
 }
 
 class DarkThemeColors implements ThemeColours {
@@ -55,7 +55,9 @@ extension PositiveNegativeColor on double {
   }
 
   Color toPositiveNegativeColorLight({double opacity = 1.0}) {
-    return this < 0 ? negativeRedLight : positiveGreenLight.withOpacity(opacity);
+    return this < 0
+        ? negativeRedLight
+        : positiveGreenLight.withOpacity(opacity);
   }
 
   Color toPositiveNegativeColorDark({double opacity = 1.0}) {

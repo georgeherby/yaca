@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_app/old/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/old/models/filter.dart';
 import 'package:flutter/material.dart';
@@ -111,8 +112,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                   children: [
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
-                      child: Image.network(
-                        tickers[index].market.logoUrl,
+                      child: CachedNetworkImage(
+                        imageUrl: tickers[index].market.logoUrl,
                         fit: BoxFit.fill,
                       ),
                     ),

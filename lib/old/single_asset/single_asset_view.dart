@@ -31,9 +31,14 @@ class SingleAssetView extends StatelessWidget {
     debugPrint("SingleAssetView");
 
     return FutureBuilder(
-      future: fetchFullAssetHistory(http.Client(), marketCoin.id,
-          Provider.of<AppSettingsViewModel>(context, listen: false).chosenCurrency.currencyCode),
-      builder: (BuildContext context, AsyncSnapshot<AssetHistorySplits> snapshot) {
+      future: fetchFullAssetHistory(
+          http.Client(),
+          marketCoin.id,
+          Provider.of<AppSettingsViewModel>(context, listen: false)
+              .chosenCurrency
+              .currencyCode),
+      builder:
+          (BuildContext context, AsyncSnapshot<AssetHistorySplits> snapshot) {
         if (snapshot.hasError) {
           print(snapshot.error);
           print(snapshot.stackTrace);
@@ -67,9 +72,10 @@ class SingleAssetView extends StatelessWidget {
                   currentPrice: snapshot.data!.last24Hours.prices.length > 0
                       ? snapshot.data!.last24Hours.prices.last.value
                       : null,
-                  currencySymbol: Provider.of<AppSettingsViewModel>(context, listen: false)
-                      .chosenCurrency
-                      .currencySymbol,
+                  currencySymbol:
+                      Provider.of<AppSettingsViewModel>(context, listen: false)
+                          .chosenCurrency
+                          .currencySymbol,
                   circulatingSupply: marketCoin.circulatingSupply,
                   percentageChange24h: marketCoin.priceChangePercentage24h,
                   priceChange24h: marketCoin.priceChange24h,
@@ -86,12 +92,16 @@ class SingleAssetView extends StatelessWidget {
                     alignment: AlignmentDirectional.center,
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.grey.shade700,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+                        primary: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.grey.shade700
+                            : Color(0xFFF6F7F7),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(4)),
                       ),
                       child: Icon(
                         CupertinoIcons.left_chevron,
                         size: 16,
+                        color: Theme.of(context).iconTheme.color,
                       ),
                       // child: Icon(CupertinoIcons.chevron_back,
                       //     color: Theme.of(context).appBarTheme.iconTheme?.color),
@@ -101,14 +111,16 @@ class SingleAssetView extends StatelessWidget {
                 ],
               ),
               actions: [
-                Consumer<AssetViewModel>(builder: (BuildContext context, AssetViewModel ase, _) {
+                Consumer<AssetViewModel>(
+                    builder: (BuildContext context, AssetViewModel ase, _) {
                   debugPrint("consumer");
                   return IconButton(
                     icon: FavouriteIcon(
                       isSelected: marketCoin.isFavourited,
                       size: 22,
                     ),
-                    onPressed: () => onFavourite(marketCoin.id, marketCoin.isFavourited),
+                    onPressed: () =>
+                        onFavourite(marketCoin.id, marketCoin.isFavourited),
                   );
                 })
               ],
@@ -130,14 +142,16 @@ class SingleAssetView extends StatelessWidget {
                       elevation: 2,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child: AssetGraphWithSwitcher(allHistory: snapshot.data!),
+                        child:
+                            AssetGraphWithSwitcher(allHistory: snapshot.data!),
                       ),
                     ),
                     Divider(height: 8, color: Colors.transparent),
                     FutureBuilder(
-                        future: getAllExchangeTickers(http.Client(), marketCoin.id),
-                        builder:
-                            (BuildContext context, AsyncSnapshot<List<ExchangeTicker>> snapshot) {
+                        future:
+                            getAllExchangeTickers(http.Client(), marketCoin.id),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<ExchangeTicker>> snapshot) {
                           if (snapshot.hasError) {
                             print(snapshot.error.toString());
                             print(snapshot.stackTrace);
@@ -150,7 +164,8 @@ class SingleAssetView extends StatelessWidget {
                                     elevation: 2,
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: ExchangeListWithFilter(exchanges: snapshot.data!)),
+                                        child: ExchangeListWithFilter(
+                                            exchanges: snapshot.data!)),
                                   )
                                 : Container();
                           } else {

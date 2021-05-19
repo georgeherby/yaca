@@ -35,8 +35,9 @@ class _AssetGraphState extends State<AssetGraph> {
 
   @override
   Widget build(BuildContext context) {
-    Color _dashColour =
-        (Theme.of(context).brightness == Brightness.light ? Colors.grey.shade700 : Colors.white70);
+    Color _dashColour = (Theme.of(context).brightness == Brightness.light
+        ? Colors.grey.shade700
+        : Colors.white70);
 
     double maxPrice = widget.history.map((e) => e.value).reduce(max);
     double minPrice = widget.history.map((e) => e.value).reduce(min);
@@ -44,7 +45,8 @@ class _AssetGraphState extends State<AssetGraph> {
     int maxTime = widget.history.map((e) => e.timeEpochUtc).reduce(max);
     int minTime = widget.history.map((e) => e.timeEpochUtc).reduce(min);
 
-    DateTime _dateTimeTouchedDate = new DateTime.fromMillisecondsSinceEpoch(touchedTime);
+    DateTime _dateTimeTouchedDate =
+        new DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
     double price = touchedPrice;
 
@@ -54,7 +56,8 @@ class _AssetGraphState extends State<AssetGraph> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 16.0, left: 8, right: 8, top: 8),
+          padding:
+              const EdgeInsets.only(bottom: 16.0, left: 8, right: 8, top: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,7 +107,9 @@ class _AssetGraphState extends State<AssetGraph> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  PercentageChangeBox(((price - (history.last.value)) / price) * 100, textSize: 14),
+                  PercentageChangeBox(
+                      ((price - (history.last.value)) / price) * 100,
+                      textSize: 14),
                   SizedBox(
                     width: 4,
                   ),
@@ -162,12 +167,14 @@ class _AssetGraphState extends State<AssetGraph> {
                     interval: ((maxTime - minTime) / 4),
                     margin: 12,
                     reservedSize: 22,
-                    getTextStyles: (value) => Theme.of(context).textTheme.caption!,
+                    getTextStyles: (value) =>
+                        Theme.of(context).textTheme.caption!,
                     getTitles: (double value) {
                       DateFormat formatter;
                       if (widget.duration != null &&
                           DateTime.now().year ==
-                              DateTime.fromMillisecondsSinceEpoch(value.toInt()).year) {
+                              DateTime.fromMillisecondsSinceEpoch(value.toInt())
+                                  .year) {
                         formatter = DateFormat("HH:mm\nd MMM");
                       } else {
                         formatter = DateFormat("HH:mm\nd MMM yyyy");
@@ -179,7 +186,8 @@ class _AssetGraphState extends State<AssetGraph> {
                   leftTitles: SideTitles(
                     showTitles: true,
                     interval: (maxPrice - minPrice) / 6,
-                    getTextStyles: (value) => Theme.of(context).textTheme.caption!,
+                    getTextStyles: (value) =>
+                        Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
                       return "${value.coinCurrencyFormat()}";
                     },
@@ -192,8 +200,11 @@ class _AssetGraphState extends State<AssetGraph> {
 
                 lineTouchData: LineTouchData(
                   handleBuiltInTouches: true,
-                  fullHeightTouchLine: true,
-                  getTouchedSpotIndicator: (LineChartBarData barData, List<int> spotIndexes) {
+                  getTouchLineStart: (barData, index) =>
+                      -double.infinity, // default: from bottom,
+                  getTouchLineEnd: (barData, index) => double.infinity, //to top
+                  getTouchedSpotIndicator:
+                      (LineChartBarData barData, List<int> spotIndexes) {
                     return spotIndexes.map((spotIndex) {
                       return TouchedSpotIndicatorData(
                         FlLine(
@@ -208,15 +219,19 @@ class _AssetGraphState extends State<AssetGraph> {
                     }).toList();
                   },
                   touchCallback: (LineTouchResponse response) {
-                    if (response.lineBarSpots.length > 0) {
+                    if (response.lineBarSpots != null && response.lineBarSpots!.length > 0) {
                       setState(() {
-                        touchedTime =
-                            widget.history[response.lineBarSpots.first.spotIndex].timeEpochUtc;
-                        touchedPrice = widget.history[response.lineBarSpots.first.spotIndex].value;
+                        touchedTime = widget
+                            .history[response.lineBarSpots!.first.spotIndex]
+                            .timeEpochUtc;
+                        touchedPrice = widget
+                            .history[response.lineBarSpots!.first.spotIndex]
+                            .value;
                       });
                     }
                   },
-                  touchTooltipData: LineTouchTooltipData(getTooltipItems: (touchedSpots) {
+                  touchTooltipData:
+                      LineTouchTooltipData(getTooltipItems: (touchedSpots) {
                     return touchedSpots.map((touchedSpot) {
                       return null;
                     }).toList();
@@ -236,7 +251,10 @@ class _AssetGraphState extends State<AssetGraph> {
                     ),
                     belowBarData: BarAreaData(
                       show: true,
-                      colors: [Colors.transparent, Theme.of(context).primaryColor.withOpacity(0.3)],
+                      colors: [
+                        Colors.transparent,
+                        Theme.of(context).primaryColor.withOpacity(0.3)
+                      ],
                       gradientFrom: Offset(0, 1),
                       gradientTo: Offset(0, 0),
                       gradientColorStops: [0, 0.7],

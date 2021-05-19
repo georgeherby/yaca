@@ -48,8 +48,10 @@ class GlobalMarketData {
     markets = json['markets'];
     totalMarketCap = TotalMarketCap.fromJson(json['total_market_cap']);
     totalVolume = TotalVolume.fromJson(json['total_volume']);
-    marketCapPercentage = MarketCapPercentage.fromJson(json['market_cap_percentage']);
-    marketCapChangePercentage24hUsd = json['market_cap_change_percentage_24h_usd'];
+    marketCapPercentage =
+        MarketCapPercentage.fromJson(json['market_cap_percentage']);
+    marketCapChangePercentage24hUsd =
+        json['market_cap_change_percentage_24h_usd'];
     updatedAt = json['updated_at'];
   }
 
@@ -64,7 +66,8 @@ class GlobalMarketData {
     data['total_volume'] = this.totalVolume.toJson();
 
     data['market_cap_percentage'] = this.marketCapPercentage.toJson();
-    data['market_cap_change_percentage_24h_usd'] = this.marketCapChangePercentage24hUsd;
+    data['market_cap_change_percentage_24h_usd'] =
+        this.marketCapChangePercentage24hUsd;
     data['updated_at'] = this.updatedAt;
     return data;
   }

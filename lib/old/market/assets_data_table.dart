@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
@@ -113,15 +114,15 @@ class AssetsDataTable extends StatelessWidget {
                                       textAlign: TextAlign.center),
                                   iconNameSpark: Row(
                                     children: [
-                                      Image.network(
-                                        mc.image,
+                                      CachedNetworkImage(
+                                        imageUrl: mc.image,
                                         filterQuality: FilterQuality.high,
-                                        isAntiAlias: true,
-                                        cacheWidth: 44,
-                                        cacheHeight: 44,
+                                        // isAntiAlias: true,
+                                        // cacheWidth: 44,
+                                        // cacheHeight: 44,
                                         width: 44,
                                         height: 44,
-                                        errorBuilder: (context, error, stackTrace) {
+                                        errorWidget: (context, url, error) {
                                           debugPrint(error.toString());
                                           return CircleAvatar(
                                             minRadius: 22,
