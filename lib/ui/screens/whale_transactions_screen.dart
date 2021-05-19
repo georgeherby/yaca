@@ -24,10 +24,12 @@ class _WhaleTransactionPageState extends State<WhaleTransactionPage> {
   void initState() {
     super.initState();
 
-    if (BlocProvider.of<FilterListBloc<Transactions, String>>(context).state is Success) {
+    if (BlocProvider.of<FilterListBloc<Transactions, String>>(context).state
+        is Success) {
       listBloc = BlocProvider.of<FilterListBloc<Transactions, String>>(context);
     } else {
-      listBloc = BlocProvider.of<FilterListBloc<Transactions, String>>(context)..loadElements();
+      listBloc = BlocProvider.of<FilterListBloc<Transactions, String>>(context)
+        ..loadElements();
     }
   }
 
@@ -42,15 +44,19 @@ class _WhaleTransactionPageState extends State<WhaleTransactionPage> {
           "Whales",
           style: Theme.of(context).textTheme.headline6,
         ),
-        elevation: 0,
+        elevation: Theme.of(context).appBarTheme.elevation,
         actions: [
-          IconButton(icon: Icon(CupertinoIcons.arrow_clockwise), onPressed: () => _refreshPosts())
+          IconButton(
+              icon: Icon(CupertinoIcons.arrow_clockwise),
+              onPressed: () => _refreshPosts())
         ],
       ),
-      body: ViewStateBuilder<List<Transactions>, FilterListBloc<Transactions, String>>(
+      body: ViewStateBuilder<List<Transactions>,
+          FilterListBloc<Transactions, String>>(
         bloc: BlocProvider.of<FilterListBloc<Transactions, String>>(context),
         onLoading: (context) => const CupertinoActivityIndicator(),
-        onSuccess: (context, posts) => WhaleTransactionList(transactions: posts),
+        onSuccess: (context, posts) =>
+            WhaleTransactionList(transactions: posts),
         onRefreshing: (context, posts) => const CupertinoActivityIndicator(),
         onEmpty: (context) => const Center(child: Text('No posts found')),
         onError: (context, error) => Center(child: Text(error.toString())),

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
 import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,8 @@ Future<AssetHistory> _core(http.Client client, String url) async {
   if (response.statusCode == 429) {
     debugPrint(response.headers.toString());
     debugPrint("Rate Limted!");
+      throw RateLimitException();
+    
   }
 
   return AssetHistory.fromJson(jsonDecode(response.body));

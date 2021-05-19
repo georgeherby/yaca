@@ -45,10 +45,26 @@ class SingleAssetView extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 elevation: 0,
-                leading: IconButton(
-                  icon: Icon(CupertinoIcons.chevron_back),
-                  onPressed: () => Navigator.pop(context),
-                  color: Theme.of(context).appBarTheme.iconTheme?.color,
+                leadingWidth: 116,
+                leading: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 24,
+                      width: 32,
+                      alignment: AlignmentDirectional.center,
+                      child: TextButton(
+                        child: Icon(
+                          CupertinoIcons.left_chevron,
+                          size: 16,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                        // child: Icon(CupertinoIcons.chevron_back,
+                        //     color: Theme.of(context).appBarTheme.iconTheme?.color),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ],
                 ),
               ),
               body: Center(child: Icon(CupertinoIcons.exclamationmark)));
@@ -90,14 +106,7 @@ class SingleAssetView extends StatelessWidget {
                     height: 24,
                     width: 32,
                     alignment: AlignmentDirectional.center,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).brightness == Brightness.dark
-                            ? Colors.grey.shade700
-                            : Color(0xFFF6F7F7),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4)),
-                      ),
+                    child: TextButton(
                       child: Icon(
                         CupertinoIcons.left_chevron,
                         size: 16,
@@ -139,7 +148,7 @@ class SingleAssetView extends StatelessWidget {
                     Material(
                       borderRadius: BorderRadius.circular(10),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                      elevation: 2,
+                      elevation: Theme.of(context).cardTheme.elevation!,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
                         child:
@@ -161,7 +170,8 @@ class SingleAssetView extends StatelessWidget {
                                 ? Material(
                                     borderRadius: BorderRadius.circular(10),
                                     clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation: 2,
+                                    elevation:
+                                        Theme.of(context).cardTheme.elevation!,
                                     child: Padding(
                                         padding: const EdgeInsets.all(8.0),
                                         child: ExchangeListWithFilter(

@@ -45,7 +45,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
           child: Material(
             borderRadius: BorderRadius.circular(10),
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            elevation: 2,
+            elevation: Theme.of(context).cardTheme.elevation!,
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
@@ -63,7 +63,8 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                         AppBarBottomDataBlock(
                             title: "Current Price",
                             widgetData: Text(
-                              currentPrice?.coinCurrencyFormat().toString() ?? "-",
+                              currentPrice?.coinCurrencyFormat().toString() ??
+                                  "-",
                               style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.center,
                             )),
@@ -91,20 +92,31 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        AppBarBottomDataBlock(title: "Rank", widgetData: Text("#$rank")),
+                        AppBarBottomDataBlock(
+                            title: "Rank",
+                            widgetData: Text(
+                              "#$rank",
+                              textAlign: TextAlign.center,
+                            )),
                         AppBarBottomDataBlock(
                             title: "Market Cap",
                             widgetData: Text(
-                                "${currencySymbol ?? ""}${compactNumberFormat.format(marketCap)}")),
+                              "${currencySymbol ?? ""}${compactNumberFormat.format(marketCap)}",
+                              textAlign: TextAlign.center,
+                            )),
                         AppBarBottomDataBlock(
                             title: "Circulating Supply",
                             widgetData: Text(
-                                "${symbol.toUpperCase()} ${compactNumberFormat.format(circulatingSupply)}")),
+                              "${symbol.toUpperCase()} ${compactNumberFormat.format(circulatingSupply)}",
+                              textAlign: TextAlign.center,
+                            )),
                         AppBarBottomDataBlock(
                           title: "Volumne 24h",
                           widgetData: volume24 != null
                               ? Text(
-                                  "${currencySymbol ?? ""}${compactNumberFormat.format(volume24)}")
+                                  "${currencySymbol ?? ""}${compactNumberFormat.format(volume24)}",
+                                  textAlign: TextAlign.center,
+                                )
                               : null,
                         ),
                       ],

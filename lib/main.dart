@@ -6,6 +6,7 @@ import 'package:crypto_app/ui/screens/whale_transactions_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
 import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
@@ -33,7 +34,8 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future getCurrentAppTheme() async {
-    themeChangeProvider.darkTheme = await themeChangeProvider.darkThemePreference.getTheme();
+    themeChangeProvider.darkTheme =
+        await themeChangeProvider.darkThemePreference.getTheme();
     debugPrint("getCurrentAppTheme =  ${themeChangeProvider.darkTheme}");
   }
 
@@ -58,8 +60,13 @@ class _MyAppState extends State<MyApp> {
               brightness: Brightness.light,
               primaryColor: LightThemeColors().primary,
               accentColor: LightThemeColors().accent,
+              cardTheme: CardTheme(
+                elevation: 0,
+                color: LightThemeColors().cardBackground,
+              ),
+              canvasColor: LightThemeColors().cardBackground,
               appBarTheme: AppBarTheme(
-                elevation: 2,
+                elevation: 0,
                 color: LightThemeColors().appBarColour,
                 brightness: Brightness.light,
                 iconTheme: IconThemeData(color: Colors.black),
@@ -68,12 +75,15 @@ class _MyAppState extends State<MyApp> {
                 backgroundColor: LightThemeColors().scaffoldBackground,
                 unselectedIconTheme: IconThemeData(color: Colors.black54),
                 unselectedLabelTextStyle: TextStyle(color: Colors.black54),
-                selectedIconTheme: IconThemeData(color: LightThemeColors().primary),
-                selectedLabelTextStyle: TextStyle(color: LightThemeColors().primary),
+                selectedIconTheme:
+                    IconThemeData(color: LightThemeColors().primary),
+                selectedLabelTextStyle:
+                    TextStyle(color: LightThemeColors().primary),
               ),
-              buttonTheme: ButtonThemeData(buttonColor: LightThemeColors().primary),
+              buttonTheme:
+                  ButtonThemeData(buttonColor: LightThemeColors().primary),
               scaffoldBackgroundColor: LightThemeColors().scaffoldBackground,
-              iconTheme: IconThemeData(color: Colors.black),
+              iconTheme: IconThemeData(color: Colors.black, size: 24),
               chipTheme: ChipThemeData(
                 padding: EdgeInsets.all(0),
                 elevation: 0,
@@ -97,8 +107,13 @@ class _MyAppState extends State<MyApp> {
               brightness: Brightness.dark,
               primaryColor: DarkThemeColors().primary,
               accentColor: DarkThemeColors().accent,
+              cardTheme: CardTheme(
+                elevation: 0,
+                color: DarkThemeColors().cardBackground,
+              ),
+              canvasColor: DarkThemeColors().cardBackground,
               appBarTheme: AppBarTheme(
-                  elevation: 2,
+                  elevation: 0,
                   color: DarkThemeColors().appBarColour,
                   brightness: Brightness.dark,
                   iconTheme: IconThemeData(color: Colors.white)),
@@ -109,10 +124,11 @@ class _MyAppState extends State<MyApp> {
                 selectedIconTheme: IconThemeData(color: Colors.white),
                 selectedLabelTextStyle: TextStyle(color: Colors.white),
               ),
-              buttonTheme: ButtonThemeData(buttonColor: LightThemeColors().primary),
+              buttonTheme:
+                  ButtonThemeData(buttonColor: LightThemeColors().primary),
 
               scaffoldBackgroundColor: DarkThemeColors().scaffoldBackground,
-              iconTheme: IconThemeData(color: Colors.white),
+              iconTheme: IconThemeData(color: Colors.white, size: 24),
               chipTheme: ChipThemeData(
                 padding: EdgeInsets.all(0),
                 elevation: 0,
@@ -133,8 +149,11 @@ class _MyAppState extends State<MyApp> {
               visualDensity: VisualDensity.adaptivePlatformDensity,
             ),
             home: BlocProvider(
-                create: (_) => FilterListBloc<Transactions, String>(WhaleTransactionReposiotry()),
-                child: MyHomePage(key: const Key("home_screen_key"), title: 'Cryptocurrency')),
+                create: (_) => FilterListBloc<Transactions, String>(
+                    WhaleTransactionReposiotry()),
+                child: MyHomePage(
+                    key: const Key("home_screen_key"),
+                    title: 'Cryptocurrency')),
           );
         },
       ),
@@ -176,7 +195,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 destinations: [
                   NavigationRailDestination(
                       icon: Icon(CupertinoIcons.money_dollar_circle),
-                      selectedIcon: Icon(CupertinoIcons.money_dollar_circle_fill),
+                      selectedIcon:
+                          Icon(CupertinoIcons.money_dollar_circle_fill),
                       label: Text(
                         "Prices",
                       )),
@@ -199,8 +219,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   //       "News",
                   //     ))
                   NavigationRailDestination(
-                      icon: Icon(CupertinoIcons.tree),
-                      selectedIcon: Icon(CupertinoIcons.tree),
+                      icon: SvgPicture.asset(
+                        "assets/001-whale.svg",
+                        semanticsLabel: 'Whale unselected icon',
+                        height: Theme.of(context).iconTheme.size,
+                        width: Theme.of(context).iconTheme.size,
+                                                color: Theme.of(context)
+                            .navigationRailTheme
+                            .unselectedIconTheme
+                            ?.color,
+                      ),
+                      selectedIcon: SvgPicture.asset(
+                        "assets/002-whale-1.svg",
+                        semanticsLabel: 'Whale selected icon',
+                        height: Theme.of(context).iconTheme.size,
+                        width: Theme.of(context).iconTheme.size,
+                        color: Theme.of(context).navigationRailTheme.selectedIconTheme?.color,
+                      ),
                       label: Text(
                         "Whales",
                       ))
@@ -210,11 +245,13 @@ class _MyHomePageState extends State<MyHomePage> {
             IconButton(
               tooltip:
                   "Enable ${Provider.of<AppSettingsViewModel>(context, listen: false).darkTheme ? 'light mode' : 'dark mode'}",
-              icon: Provider.of<AppSettingsViewModel>(context, listen: false).darkTheme
+              icon: Provider.of<AppSettingsViewModel>(context, listen: false)
+                      .darkTheme
                   ? Icon(CupertinoIcons.sun_max)
                   : Icon(CupertinoIcons.moon),
               onPressed: () =>
-                  Provider.of<AppSettingsViewModel>(context, listen: false).invertTheme(),
+                  Provider.of<AppSettingsViewModel>(context, listen: false)
+                      .invertTheme(),
             )
           ],
         ),

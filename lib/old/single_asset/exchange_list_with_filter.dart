@@ -8,7 +8,8 @@ import 'package:crypto_app/old/utils/currency_formatters.dart';
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
 
-  const ExchangeListWithFilter({Key? key, required this.exchanges}) : super(key: key);
+  const ExchangeListWithFilter({Key? key, required this.exchanges})
+      : super(key: key);
 
   @override
   _ExchangeListWithFilterState createState() => _ExchangeListWithFilterState();
@@ -22,8 +23,12 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
   void initState() {
     super.initState();
 
-    tickers.addAll(widget.exchanges.map((e) => e.tickers).expand((element) => element).toList());
-    currencyFilter.addAll((tickers.map((e) => e.target)).toSet().map((e) => Filter(e, false)));
+    tickers.addAll(widget.exchanges
+        .map((e) => e.tickers)
+        .expand((element) => element)
+        .toList());
+    currencyFilter.addAll(
+        (tickers.map((e) => e.target)).toSet().map((e) => Filter(e, false)));
 
     tickers.sort((b, a) => a.volume.compareTo(b.volume));
     currencyFilter.sort((a, b) => a.value.compareTo(b.value));
@@ -31,15 +36,19 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   void applyFilter() {
     tickers.clear();
-    List<String> _selectedCurrencies =
-        currencyFilter.where((element) => element.selected).map((e) => e.value).toList();
-    List<Tickers> _flattenedMarkets =
-        widget.exchanges.map((e) => e.tickers).expand((element) => element).toList();
+    List<String> _selectedCurrencies = currencyFilter
+        .where((element) => element.selected)
+        .map((e) => e.value)
+        .toList();
+    List<Tickers> _flattenedMarkets = widget.exchanges
+        .map((e) => e.tickers)
+        .expand((element) => element)
+        .toList();
 
     if (_selectedCurrencies.length > 0) {
 // lists.where((element) => element.)
-      tickers.addAll(
-          _flattenedMarkets.where((element) => _selectedCurrencies.contains(element.target)));
+      tickers.addAll(_flattenedMarkets
+          .where((element) => _selectedCurrencies.contains(element.target)));
     } else {
       tickers.addAll(_flattenedMarkets);
     }
@@ -63,7 +72,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
               color: Colors.transparent,
               height: 4,
             ),
-            Text("Select currency to filter", style: Theme.of(context).textTheme.caption),
+            Text("Select currency to filter",
+                style: Theme.of(context).textTheme.caption),
             Divider(
               color: Colors.transparent,
               height: 8,
@@ -75,13 +85,15 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
               children: List.generate(
                 currencyFilter.length,
                 (index) => FilterChip(
-                  shape: StadiumBorder(side: BorderSide(color: Theme.of(context).primaryColor)),
+                  shape: StadiumBorder(
+                      side: BorderSide(color: Theme.of(context).primaryColor)),
                   selected: currencyFilter[index].selected,
                   label: Text(
                     currencyFilter[index].value.toUpperCase(),
                     style: Theme.of(context).chipTheme.labelStyle.copyWith(
-                        fontWeight:
-                            currencyFilter[index].selected ? FontWeight.bold : FontWeight.normal,
+                        fontWeight: currencyFilter[index].selected
+                            ? FontWeight.bold
+                            : FontWeight.normal,
                         color: currencyFilter[index].selected &&
                                 Theme.of(context).brightness == Brightness.light
                             ? Colors.white
@@ -154,9 +166,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ),
                     Expanded(
                       child: Text(
-                        tickers[index]
-                            .last
-                            .currencyFormatWithPrefix(tickers[index].target.toUpperCase()),
+                        tickers[index].last.currencyFormatWithPrefix(
+                            tickers[index].target.toUpperCase()),
                         textAlign: TextAlign.right,
                       ),
                     ),
@@ -166,7 +177,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Theme.of(context).primaryColor,
-                        elevation: 2,
+                        elevation: Theme.of(context).cardTheme.elevation!,
                       ),
                       onPressed: tickers[index].tradeUrl != null
                           ? () => launchURL(tickers[index].tradeUrl)

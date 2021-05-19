@@ -14,6 +14,7 @@ abstract class ThemeColours {
   late Color primary;
   late Color accent;
   late Color scaffoldBackground;
+  late Color cardBackground;
   late Color appBarColour;
 }
 
@@ -33,11 +34,14 @@ class LightThemeColors implements ThemeColours {
 
   @override
   Color appBarColour = const Color(0xFFEEEEEE);
+
+  @override
+  Color cardBackground = Colors.white;
 }
 
 class DarkThemeColors implements ThemeColours {
   @override
-  Color scaffoldBackground = const Color(0xFF121212);
+  Color scaffoldBackground = const Color(0xFF1F2022);
 
   @override
   Color accent = const Color(0xFFF33335);
@@ -46,7 +50,10 @@ class DarkThemeColors implements ThemeColours {
   Color primary = const Color(0xFF5866DF);
 
   @override
-  Color appBarColour = const Color(0xFF121212);
+  Color appBarColour = const Color(0xFF1F2022);
+
+  @override
+  Color cardBackground = const Color(0xFF2C2C2D);
 }
 
 extension PositiveNegativeColor on double {

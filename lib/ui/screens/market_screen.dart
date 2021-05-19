@@ -25,9 +25,14 @@ class _MarketScreenState extends State<MarketScreen> {
     super.initState();
 
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      if (Provider.of<AssetViewModel>(context, listen: false).assetList.assets.isEmpty) {
+      if (Provider.of<AssetViewModel>(context, listen: false)
+          .assetList
+          .assets
+          .isEmpty) {
         Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
-            Provider.of<AppSettingsViewModel>(context, listen: false).chosenCurrency.currencyCode);
+            Provider.of<AppSettingsViewModel>(context, listen: false)
+                .chosenCurrency
+                .currencyCode);
       }
     });
   }
@@ -36,160 +41,211 @@ class _MarketScreenState extends State<MarketScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarStatic(
-        body: Row(
-          // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              flex: 3,
-              child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Text(
-                  "Market Cap",
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                  textAlign: TextAlign.center,
-                ),
-                Divider(color: Colors.transparent, height: 8),
-                Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                  Expanded(child: Consumer<AssetViewModel>(
-                      builder: (BuildContext context, AssetViewModel ase, _) {
-                    return ase.hasGlobalLoaded && ase.marketOverview != null
-                        ? Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
+          body: LayoutBuilder(builder: (context, constraint) {
+            bool mobile = constraint.maxWidth < 490;
+            return Row(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Market Cap",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline6
+                              ?.copyWith(color: Colors.white),
+                          textAlign: TextAlign.center,
+                        ),
+                        Divider(color: Colors.transparent, height: 8),
+                        Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              Text(
-                                Provider.of<AppSettingsViewModel>(context, listen: false)
-                                        .chosenCurrency
-                                        .currencySymbol +
-                                    compactNumberFormat.format(
-                                      ase.marketOverview!.data.totalMarketCap.gbp,
-                                    ),
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Theme.of(context).textTheme.bodyText1?.color),
-                              ),
-                              Divider(
-                                color: Colors.transparent,
-                                height: 4,
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text("24h "),
-                                  PercentageChangeBox(
-                                    ase.marketOverview!.data.marketCapChangePercentage24hUsd,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        : ShimmerAppBarDataBlock();
-                  }))
-                ])
-              ]),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 3,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "Dominance",
-                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                  ),
-                  Divider(color: Colors.transparent, height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              Expanded(child: Consumer<AssetViewModel>(builder:
+                                  (BuildContext context, AssetViewModel ase,
+                                      _) {
+                                return ase.hasGlobalLoaded &&
+                                        ase.marketOverview != null
+                                    ? Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            Provider.of<AppSettingsViewModel>(
+                                                        context,
+                                                        listen: false)
+                                                    .chosenCurrency
+                                                    .currencySymbol +
+                                                compactNumberFormat.format(
+                                                  ase.marketOverview!.data
+                                                      .totalMarketCap.gbp,
+                                                ),
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    ?.color),
+                                          ),
+                                          Divider(
+                                            color: Colors.transparent,
+                                            height: 4,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Text("24h "),
+                                              PercentageChangeBox(
+                                                ase.marketOverview!.data
+                                                    .marketCapChangePercentage24hUsd,
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      )
+                                    : ShimmerAppBarDataBlock();
+                              }))
+                            ])
+                      ]),
+                ),
+                Spacer(),
+                !mobile
+                    ? Expanded(
+                        flex: 3,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "Dominance",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6
+                                  ?.copyWith(color: Colors.white),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
+                            ),
+                            Divider(color: Colors.transparent, height: 8),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Expanded(
+                                  child: Consumer<AssetViewModel>(builder:
+                                      (BuildContext context, AssetViewModel ase,
+                                          _) {
+                                    return ase.hasGlobalLoaded &&
+                                            ase.marketOverview != null
+                                        ? AppBarDataBlock(
+                                            label: 'BTC',
+                                            amount: percentageFormat.format(ase
+                                                    .marketOverview!
+                                                    .data
+                                                    .marketCapPercentage
+                                                    .btc /
+                                                100),
+                                          )
+                                        : ShimmerAppBarDataBlock();
+                                  }),
+                                ),
+                                Expanded(
+                                  child: Consumer<AssetViewModel>(builder:
+                                      (BuildContext context, AssetViewModel ase,
+                                          _) {
+                                    return ase.hasGlobalLoaded &&
+                                            ase.marketOverview != null
+                                        ? AppBarDataBlock(
+                                            label: 'ETH',
+                                            amount: percentageFormat.format(ase
+                                                    .marketOverview!
+                                                    .data
+                                                    .marketCapPercentage
+                                                    .eth /
+                                                100),
+                                          )
+                                        : ShimmerAppBarDataBlock();
+                                  }),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      )
+                    : Container(),
+                Spacer(),
+                Expanded(
+                  flex: 3,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Expanded(
-                        child: Consumer<AssetViewModel>(
-                            builder: (BuildContext context, AssetViewModel ase, _) {
-                          return ase.hasGlobalLoaded && ase.marketOverview != null
-                              ? AppBarDataBlock(
-                                  label: 'BTC',
-                                  amount: percentageFormat.format(
-                                      ase.marketOverview!.data.marketCapPercentage.btc / 100),
-                                )
-                              : ShimmerAppBarDataBlock();
-                        }),
+                      Text(
+                        "24h Volume",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6
+                            ?.copyWith(color: Colors.white),
+                        textAlign: TextAlign.center,
                       ),
-                      Expanded(
-                        child: Consumer<AssetViewModel>(
-                            builder: (BuildContext context, AssetViewModel ase, _) {
-                          return ase.hasGlobalLoaded && ase.marketOverview != null
-                              ? AppBarDataBlock(
-                                  label: 'ETH',
-                                  amount: percentageFormat.format(
-                                      ase.marketOverview!.data.marketCapPercentage.eth / 100),
-                                )
-                              : ShimmerAppBarDataBlock();
-                        }),
+                      Divider(color: Colors.transparent, height: 8),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Expanded(child: Consumer<AssetViewModel>(builder:
+                              (BuildContext context, AssetViewModel ase, _) {
+                            return ase.hasGlobalLoaded &&
+                                    ase.marketOverview != null
+                                ? Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        Provider.of<AppSettingsViewModel>(
+                                                    context,
+                                                    listen: false)
+                                                .chosenCurrency
+                                                .currencySymbol +
+                                            compactNumberFormat.format(
+                                              ase.marketOverview!.data
+                                                  .totalVolume.gbp,
+                                            ),
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                ?.color),
+                                      ),
+                                    ],
+                                  )
+                                : ShimmerAppBarDataBlock();
+                          })),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-            ),
-            Spacer(),
-            Expanded(
-              flex: 3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    "24h Volume",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Theme.of(context).textTheme.headline6?.copyWith(color: Colors.white),
-                    textAlign: TextAlign.center,
-                  ),
-                  Divider(color: Colors.transparent, height: 8),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Expanded(child: Consumer<AssetViewModel>(
-                          builder: (BuildContext context, AssetViewModel ase, _) {
-                        return ase.hasGlobalLoaded && ase.marketOverview != null
-                            ? Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    Provider.of<AppSettingsViewModel>(context, listen: false)
-                                            .chosenCurrency
-                                            .currencySymbol +
-                                        compactNumberFormat.format(
-                                          ase.marketOverview!.data.totalVolume.gbp,
-                                        ),
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: Theme.of(context).textTheme.bodyText1?.color),
-                                  ),
-                                ],
-                              )
-                            : ShimmerAppBarDataBlock();
-                      })),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-        refreshTapped: () => Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
-            Provider.of<AppSettingsViewModel>(context, listen: false).chosenCurrency.currencyCode),
-      ),
+                ),
+              ],
+            );
+          }),
+          refreshTapped: () =>
+              Provider.of<AssetViewModel>(context, listen: false).fetchAssets(
+                  Provider.of<AppSettingsViewModel>(context, listen: false)
+                      .chosenCurrency
+                      .currencyCode)),
       body: LayoutBuilder(
         builder: (context, constraint) {
           debugPrint("MarketView layoutbuilder");
@@ -206,7 +262,8 @@ class _MarketScreenState extends State<MarketScreen> {
                             ase.setFavourite(a, isChecked),
                       )
                     : ConstrainedBox(
-                        constraints: BoxConstraints(minHeight: constraint.maxHeight),
+                        constraints:
+                            BoxConstraints(minHeight: constraint.maxHeight),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,

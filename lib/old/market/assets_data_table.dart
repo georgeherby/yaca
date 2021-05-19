@@ -27,23 +27,28 @@ class AssetsDataTable extends StatelessWidget {
       child: Material(
           borderRadius: BorderRadius.circular(10),
           // clipBehavior: Clip.antiAliasWithSaveLayer,
-          elevation: 2,
-          child: LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+          elevation: Theme.of(context).cardTheme.elevation!,
+          child: LayoutBuilder(
+              builder: (BuildContext context, BoxConstraints constraints) {
             print(constraints.maxWidth);
             bool collapsedView = constraints.maxWidth <= 800;
+            bool mobile = constraints.maxWidth <= 490;
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Column(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                    padding: const EdgeInsets.only(
+                        left: 8.0, right: 8.0, bottom: 8.0),
                     child: buildRow(
+                      mobile: mobile,
                       collapsed: collapsedView,
                       rank: Text("#",
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
                       iconNameSpark: Text("Name",
-                          style: Theme.of(context).textTheme.subtitle1, textAlign: TextAlign.start),
+                          style: Theme.of(context).textTheme.subtitle1,
+                          textAlign: TextAlign.start),
                       d7: Text("7d",
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
@@ -107,8 +112,10 @@ class AssetsDataTable extends StatelessWidget {
                             child: SizedBox(
                               height: 72,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: buildRow(
+                                  mobile: mobile,
                                   collapsed: collapsedView,
                                   rank: Text(mc.marketCapRank.toString(),
                                       textAlign: TextAlign.center),
@@ -127,13 +134,16 @@ class AssetsDataTable extends StatelessWidget {
                                           return CircleAvatar(
                                             minRadius: 22,
                                             maxRadius: 22,
-                                            backgroundColor: Theme.of(context).accentColor,
+                                            backgroundColor:
+                                                Theme.of(context).accentColor,
                                             child: Text(
                                               mc.symbol.toUpperCase(),
                                               overflow: TextOverflow.clip,
                                               maxLines: 1,
                                               textAlign: TextAlign.center,
-                                              style: Theme.of(context).textTheme.caption,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .caption,
                                             ),
                                           );
                                         },
@@ -142,22 +152,27 @@ class AssetsDataTable extends StatelessWidget {
                                         color: Colors.transparent,
                                       ),
                                       ConstrainedBox(
-                                        constraints:
-                                            BoxConstraints(maxWidth: collapsedView ? 64 : 120),
+                                        constraints: BoxConstraints(
+                                            maxWidth: collapsedView ? 64 : 120),
                                         child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
                                           mainAxisSize: MainAxisSize.min,
                                           children: [
                                             Text(
                                               mc.symbol.toUpperCase(),
-                                              style: Theme.of(context).textTheme.subtitle2,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .subtitle2,
                                             ),
                                             Text(
                                               mc.name,
                                               maxLines: 2,
                                               style: TextStyle(
-                                                  color: Theme.of(context).brightness ==
+                                                  color: Theme.of(context)
+                                                              .brightness ==
                                                           Brightness.light
                                                       ? Colors.black54
                                                       : Colors.white54),
@@ -171,9 +186,12 @@ class AssetsDataTable extends StatelessWidget {
                                       collapsedView
                                           ? Container()
                                           : Padding(
-                                              padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                                              padding: const EdgeInsets.only(
+                                                  top: 8.0, bottom: 8.0),
                                               child: mc.sparklineIn7d != null
-                                                  ? SimpleSparkLine(data: mc.sparklineIn7d!.price)
+                                                  ? SimpleSparkLine(
+                                                      data: mc
+                                                          .sparklineIn7d!.price)
                                                   : Container(),
                                             ),
                                       Spacer(
@@ -182,35 +200,43 @@ class AssetsDataTable extends StatelessWidget {
                                     ],
                                   ),
                                   d7: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      PercentageChangeBox(mc.priceChangePercentage7dInCurrency),
+                                      PercentageChangeBox(
+                                          mc.priceChangePercentage7dInCurrency),
                                       SizedBox(height: 4),
                                       PriceDelta(mc.priceChange7d),
                                     ],
                                   ),
                                   h24: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      PercentageChangeBox(mc.priceChangePercentage24hInCurrency),
+                                      PercentageChangeBox(mc
+                                          .priceChangePercentage24hInCurrency),
                                       SizedBox(height: 4),
                                       PriceDelta(mc.priceChange24h),
                                     ],
                                   ),
                                   h1: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      PercentageChangeBox(mc.priceChangePercentage1hInCurrency),
+                                      PercentageChangeBox(
+                                          mc.priceChangePercentage1hInCurrency),
                                       SizedBox(height: 4),
                                       PriceDelta(mc.priceChange1h)
                                     ],
                                   ),
                                   price: Text(
                                     mc.currentPrice.coinCurrencyFormat(),
-                                    textAlign: collapsedView ? TextAlign.center : TextAlign.end,
+                                    textAlign: collapsedView
+                                        ? TextAlign.center
+                                        : TextAlign.end,
                                   ),
                                   favourite: InkWell(
                                     onTap: () {
@@ -247,14 +273,15 @@ class AssetsDataTable extends StatelessWidget {
       required Widget h24,
       required Widget h1,
       required Widget price,
-      required Widget favourite}) {
+      required Widget favourite,
+      required bool mobile}) {
     return Row(
       children: [
         Expanded(flex: 15, child: rank),
         Expanded(flex: collapsed ? 80 : 200, child: iconNameSpark),
-        Expanded(flex: collapsed ? 45 : 35, child: d7),
-        Expanded(flex: collapsed ? 45 : 35, child: h24),
-        Expanded(flex: collapsed ? 45 : 35, child: h1),
+        !mobile ? Expanded(flex: collapsed ? 45 : 35, child: d7) : Container(),
+        !mobile ? Expanded(flex: collapsed ? 45 : 35, child: h24) : Container(),
+        !mobile ? Expanded(flex: collapsed ? 45 : 35, child: h1) : Container(),
         Expanded(flex: collapsed ? 40 : 30, child: price),
         Expanded(flex: 15, child: favourite),
       ],

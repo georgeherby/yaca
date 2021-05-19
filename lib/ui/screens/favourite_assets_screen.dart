@@ -24,7 +24,7 @@ class FavouriteAssetsScreen extends StatelessWidget {
                       "Favourites",
                       style: Theme.of(context).textTheme.headline6,
                     ),
-                    elevation: 0,
+                    elevation: Theme.of(context).appBarTheme.elevation,
                     actions: [
                       IconButton(
                         icon: Icon(
