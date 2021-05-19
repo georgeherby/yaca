@@ -89,6 +89,7 @@ class _MyAppState extends State<MyApp> {
                 elevation: 0,
                 pressElevation: 0,
                 brightness: Brightness.light,
+                checkmarkColor: Colors.white,
                 secondaryLabelStyle: TextStyle(),
                 labelStyle: TextStyle(color: Colors.black),
                 disabledColor: Colors.transparent,
@@ -133,6 +134,7 @@ class _MyAppState extends State<MyApp> {
                 padding: EdgeInsets.all(0),
                 elevation: 0,
                 pressElevation: 0,
+                checkmarkColor: Colors.white,
                 brightness: Brightness.dark,
                 secondaryLabelStyle: TextStyle(),
                 labelStyle: TextStyle(color: Colors.white),
@@ -224,7 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         semanticsLabel: 'Whale unselected icon',
                         height: Theme.of(context).iconTheme.size,
                         width: Theme.of(context).iconTheme.size,
-                                                color: Theme.of(context)
+                        color: Theme.of(context)
                             .navigationRailTheme
                             .unselectedIconTheme
                             ?.color,
@@ -234,7 +236,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         semanticsLabel: 'Whale selected icon',
                         height: Theme.of(context).iconTheme.size,
                         width: Theme.of(context).iconTheme.size,
-                        color: Theme.of(context).navigationRailTheme.selectedIconTheme?.color,
+                        color: Theme.of(context)
+                            .navigationRailTheme
+                            .selectedIconTheme
+                            ?.color,
                       ),
                       label: Text(
                         "Whales",

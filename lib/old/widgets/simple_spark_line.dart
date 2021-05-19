@@ -59,7 +59,7 @@ class SimpleSparkLine extends StatelessWidget {
                   show: true,
                   colors: [
                     Colors.transparent,
-                    graphColor.withOpacity(0.3),
+                    // graphColor.withOpacity(0.3),
                   ],
                   gradientFrom: Offset(0, 1),
                   gradientTo: Offset(0, 0),

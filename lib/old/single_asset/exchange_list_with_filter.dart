@@ -88,6 +88,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                   shape: StadiumBorder(
                       side: BorderSide(color: Theme.of(context).primaryColor)),
                   selected: currencyFilter[index].selected,
+                  checkmarkColor: Theme.of(context).chipTheme.checkmarkColor,
                   label: Text(
                     currencyFilter[index].value.toUpperCase(),
                     style: Theme.of(context).chipTheme.labelStyle.copyWith(
@@ -129,51 +130,44 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         fit: BoxFit.fill,
                       ),
                     ),
-                    VerticalDivider(
-                      color: Colors.transparent,
-                    ),
-                    SizedBox(
-                        width: 120,
+                    Spacer(),
+                    Expanded(
+                        flex: 10,
                         child: Text(
                           tickers[index].market.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         )),
-                    VerticalDivider(
-                      color: Colors.transparent,
-                    ),
+                    Spacer(),
                     Text(tickers[index].base + "/" + tickers[index].target),
                     Spacer(
                       flex: 5,
                     ),
                     Expanded(
+                      flex: 2,
                       child: Text(
-                        tickers[index].trustScore ?? "",
+                        tickers[index].trustScore?.toUpperCase() ?? "",
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    VerticalDivider(
-                      color: Colors.transparent,
-                    ),
+                    Spacer(),
                     Expanded(
+                      flex: 4,
                       child: Text(
                         "Vol: ${tickers[index].volume.volumeFormat()}",
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    VerticalDivider(
-                      color: Colors.transparent,
-                    ),
+                    Spacer(),
                     Expanded(
+                      flex: 4,
                       child: Text(
                         tickers[index].last.currencyFormatWithPrefix(
                             tickers[index].target.toUpperCase()),
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    VerticalDivider(
-                      color: Colors.transparent,
-                    ),
+                    Spacer(),
                     ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         primary: Theme.of(context).primaryColor,

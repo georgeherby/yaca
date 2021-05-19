@@ -60,7 +60,7 @@ class AssetsDataTable extends StatelessWidget {
                           textAlign: TextAlign.center),
                       price: Text("Price",
                           style: Theme.of(context).textTheme.subtitle1,
-                          textAlign: TextAlign.center),
+                          textAlign: TextAlign.right),
                       favourite: Text("", textAlign: TextAlign.center),
                     ),
                   ),
