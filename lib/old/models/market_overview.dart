@@ -15,9 +15,9 @@ class GlobalMarketOverview {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['data'] = this.data.toJson();
-    data['status'] = this.status.toJson();
+    data['status'] = status.toJson();
 
     return data;
   }
@@ -58,16 +58,16 @@ class MarketData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['btc_dominance'] = this.btcDominance;
-    data['eth_dominance'] = this.ethDominance;
-    data['active_cryptocurrencies'] = this.activeCryptocurrencies;
-    data['total_cryptocurrencies'] = this.totalCryptocurrencies;
-    data['active_market_pairs'] = this.activeMarketPairs;
-    data['active_exchanges'] = this.activeExchanges;
-    data['total_exchanges'] = this.totalExchanges;
-    data['last_updated'] = this.lastUpdated;
-    data['quote'] = this.quote.toJson();
+    final data = <String, dynamic>{};
+    data['btc_dominance'] = btcDominance;
+    data['eth_dominance'] = ethDominance;
+    data['active_cryptocurrencies'] = activeCryptocurrencies;
+    data['total_cryptocurrencies'] = totalCryptocurrencies;
+    data['active_market_pairs'] = activeMarketPairs;
+    data['active_exchanges'] = activeExchanges;
+    data['total_exchanges'] = totalExchanges;
+    data['last_updated'] = lastUpdated;
+    data['quote'] = quote.toJson();
 
     return data;
   }
@@ -83,17 +83,17 @@ class Quote {
   });
 
   Quote.fromJson(Map<String, dynamic> json) {
-    usd = json['USD'] != null ? new USD.fromJson(json['USD']) : null;
-    gbp = json['GBP'] != null ? new GBP.fromJson(json['GBP']) : null;
+    usd = json['USD'] != null ? USD.fromJson(json['USD']) : null;
+    gbp = json['GBP'] != null ? GBP.fromJson(json['GBP']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.usd != null) {
-      data['USD'] = this.usd!.toJson();
+    final data = <String, dynamic>{};
+    if (usd != null) {
+      data['USD'] = usd!.toJson();
     }
-    if (this.gbp != null) {
-      data['GBP'] = this.gbp!.toJson();
+    if (gbp != null) {
+      data['GBP'] = gbp!.toJson();
     }
     return data;
   }
@@ -128,19 +128,19 @@ class USD implements Currency {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_market_cap'] = this.totalMarketCap;
-    data['total_volume_24h'] = this.totalVolume24h;
-    data['total_volume_24h_reported'] = this.totalVolume24hReported;
-    data['altcoin_volume_24h'] = this.altcoinVolume24h;
-    data['altcoin_volume_24h_reported'] = this.altcoinVolume24hReported;
-    data['altcoin_market_cap'] = this.altcoinMarketCap;
-    data['last_updated'] = this.lastUpdated;
+    final data = <String, dynamic>{};
+    data['total_market_cap'] = totalMarketCap;
+    data['total_volume_24h'] = totalVolume24h;
+    data['total_volume_24h_reported'] = totalVolume24hReported;
+    data['altcoin_volume_24h'] = altcoinVolume24h;
+    data['altcoin_volume_24h_reported'] = altcoinVolume24hReported;
+    data['altcoin_market_cap'] = altcoinMarketCap;
+    data['last_updated'] = lastUpdated;
     return data;
   }
 
   @override
-  String get currencySymbol => "\$";
+  String get currencySymbol => '\$';
 }
 
 class GBP implements Currency {
@@ -172,19 +172,19 @@ class GBP implements Currency {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['total_market_cap'] = this.totalMarketCap;
-    data['total_volume_24h'] = this.totalVolume24h;
-    data['total_volume_24h_reported'] = this.totalVolume24hReported;
-    data['altcoin_volume_24h'] = this.altcoinVolume24h;
-    data['altcoin_volume_24h_reported'] = this.altcoinVolume24hReported;
-    data['altcoin_market_cap'] = this.altcoinMarketCap;
-    data['last_updated'] = this.lastUpdated;
+    final data = <String, dynamic>{};
+    data['total_market_cap'] = totalMarketCap;
+    data['total_volume_24h'] = totalVolume24h;
+    data['total_volume_24h_reported'] = totalVolume24hReported;
+    data['altcoin_volume_24h'] = altcoinVolume24h;
+    data['altcoin_volume_24h_reported'] = altcoinVolume24hReported;
+    data['altcoin_market_cap'] = altcoinMarketCap;
+    data['last_updated'] = lastUpdated;
     return data;
   }
 
   @override
-  String get currencySymbol => "\£";
+  String get currencySymbol => '\£';
 }
 
 class Status {
@@ -210,12 +210,12 @@ class Status {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['timestamp'] = this.timestamp;
-    data['error_code'] = this.errorCode;
-    data['error_message'] = this.errorMessage;
-    data['elapsed'] = this.elapsed;
-    data['credit_count'] = this.creditCount;
+    final data = <String, dynamic>{};
+    data['timestamp'] = timestamp;
+    data['error_code'] = errorCode;
+    data['error_message'] = errorMessage;
+    data['elapsed'] = elapsed;
+    data['credit_count'] = creditCount;
     return data;
   }
 }

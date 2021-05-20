@@ -24,17 +24,17 @@ class AssetHistory {
   AssetHistory.fromJson(Map<String, dynamic> json) {
     history = <HistoricalData>[];
     json['data'].forEach((v) {
-      history.add(new HistoricalData.fromJson(v));
+      history.add(HistoricalData.fromJson(v));
     });
 
     timestamp = json['timestamp'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['data'] = this.history.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    data['data'] = history.map((v) => v.toJson()).toList();
 
-    data['timestamp'] = this.timestamp;
+    data['timestamp'] = timestamp;
     return data;
   }
 }
@@ -51,9 +51,9 @@ class HistoricalData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['priceUsd'] = this.priceUsd;
-    data['time'] = this.time;
+    final data = <String, dynamic>{};
+    data['priceUsd'] = priceUsd;
+    data['time'] = time;
     return data;
   }
 }

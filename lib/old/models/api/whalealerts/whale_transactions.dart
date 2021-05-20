@@ -17,17 +17,17 @@ class WhaleTransactions {
     if (json['transactions'] != null) {
       transactions = <Transactions>[];
       json['transactions'].forEach((v) {
-        transactions.add(new Transactions.fromJson(v));
+        transactions.add(Transactions.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['result'] = this.result;
-    data['cursor'] = this.cursor;
-    data['count'] = this.count;
-    data['transactions'] = this.transactions.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    data['result'] = result;
+    data['cursor'] = cursor;
+    data['count'] = count;
+    data['transactions'] = transactions.map((v) => v.toJson()).toList();
 
     return data;
   }
@@ -76,20 +76,20 @@ class Transactions {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['blockchain'] = this.blockchain;
-    data['symbol'] = this.symbol;
-    data['id'] = this.id;
-    data['transaction_type'] = this.transactionType;
-    data['hash'] = this.hash;
-    data['from'] = this.from.toJson();
+    final data = <String, dynamic>{};
+    data['blockchain'] = blockchain;
+    data['symbol'] = symbol;
+    data['id'] = id;
+    data['transaction_type'] = transactionType;
+    data['hash'] = hash;
+    data['from'] = from.toJson();
 
-    data['to'] = this.to.toJson();
+    data['to'] = to.toJson();
 
-    data['timestamp'] = this.timestamp;
-    data['amount'] = this.amount;
-    data['amount_usd'] = this.amountUsd;
-    data['transaction_count'] = this.transactionCount;
+    data['timestamp'] = timestamp;
+    data['amount'] = amount;
+    data['amount_usd'] = amountUsd;
+    data['transaction_count'] = transactionCount;
     return data;
   }
 }
@@ -108,10 +108,10 @@ class Wallet {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['address'] = this.address;
-    data['owner_type'] = this.ownerType;
-    data['owner'] = this.owner;
+    final data = <String, dynamic>{};
+    data['address'] = address;
+    data['owner_type'] = ownerType;
+    data['owner'] = owner;
     return data;
   }
 }

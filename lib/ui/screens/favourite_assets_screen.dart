@@ -1,10 +1,9 @@
-import 'package:crypto_app/core/viewmodels/app_settings_view_model.dart';
-import 'package:crypto_app/core/viewmodels/asset_view_model.dart';
+import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteAssetsScreen extends StatelessWidget {
   const FavouriteAssetsScreen({
@@ -13,15 +12,15 @@ class FavouriteAssetsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AssetViewModel>(
-      builder: (BuildContext context, AssetViewModel ase, _) {
-        if (ase.hasAssetsLoaded) {
-          return ase.favourites.assets.length > 0
+    return BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+      builder: (context, state) {
+        if (state is AssetOverviewLoaded) {
+          return state.favouriteAssets.isNotEmpty
               ? Scaffold(
                   appBar: AppBar(
                     toolbarHeight: 38,
                     title: Text(
-                      "Favourites",
+                      'Favourites',
                       style: Theme.of(context).textTheme.headline6,
                     ),
                     elevation: Theme.of(context).appBarTheme.elevation,
@@ -31,21 +30,23 @@ class FavouriteAssetsScreen extends StatelessWidget {
                           CupertinoIcons.arrow_clockwise,
                           size: 19,
                         ),
-                        onPressed: () => Provider.of<AssetViewModel>(context, listen: false)
-                            .fetchAssets(Provider.of<AppSettingsViewModel>(context, listen: false)
-                                .chosenCurrency
-                                .currencyCode),
-                      ),
+                        onPressed: () =>
+                            BlocProvider.of<AssetOverviewBloc>(context).add(
+                          AssetOverviewLoad(),
+                        ),
+                      )
                     ],
                   ),
                   body: AssetsDataTable(
-                    marketCoins: ase.favourites.assets,
-                    onFavourite: (MarketCoin a, bool isChecked) => ase.setFavourite(a, isChecked),
+                    marketCoins: state.favouriteAssets,
+                    onFavourite: (MarketCoin a, bool isChecked) =>
+                    null
+                      //ase.setFavourite(a, isChecked),
                   ))
               : Center(
-                  child: Text("No favourites"),
+                  child: Text('No favourites'),
                 );
-        } else {
+        } else if (state is AssetOverviewLoading) {
           return LayoutBuilder(builder: (context, constraint) {
             return ConstrainedBox(
               constraints: BoxConstraints(minHeight: constraint.maxHeight),
@@ -58,7 +59,9 @@ class FavouriteAssetsScreen extends StatelessWidget {
               ),
             );
           });
+        
         }
+        return Icon(CupertinoIcons.exclamationmark);
       },
     );
   }

@@ -40,18 +40,18 @@ class MarketDetails {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['market_cap_usd'] = this.marketCapUsd;
-    data['volume_24h_usd'] = this.volume24hUsd;
-    data['bitcoin_dominance_percentage'] = this.bitcoinDominancePercentage;
-    data['cryptocurrencies_number'] = this.cryptocurrenciesNumber;
-    data['market_cap_ath_value'] = this.marketCapAthValue;
-    data['market_cap_ath_date'] = this.marketCapAthDate;
-    data['volume_24h_ath_value'] = this.volume24hAthValue;
-    data['volume_24h_ath_date'] = this.volume24hAthDate;
-    data['market_cap_change_24h'] = this.marketCapChange24h;
-    data['volume_24h_change_24h'] = this.volume24hChange24h;
-    data['last_updated'] = this.lastUpdated;
+    final data = <String, dynamic>{};
+    data['market_cap_usd'] = marketCapUsd;
+    data['volume_24h_usd'] = volume24hUsd;
+    data['bitcoin_dominance_percentage'] = bitcoinDominancePercentage;
+    data['cryptocurrencies_number'] = cryptocurrenciesNumber;
+    data['market_cap_ath_value'] = marketCapAthValue;
+    data['market_cap_ath_date'] = marketCapAthDate;
+    data['volume_24h_ath_value'] = volume24hAthValue;
+    data['volume_24h_ath_date'] = volume24hAthDate;
+    data['market_cap_change_24h'] = marketCapChange24h;
+    data['volume_24h_change_24h'] = volume24hChange24h;
+    data['last_updated'] = lastUpdated;
     return data;
   }
 }

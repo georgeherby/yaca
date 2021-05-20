@@ -24,30 +24,30 @@ class AssetGraphWithSwitcher extends StatefulWidget {
 class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   int _index = 1;
 
-  List<_AssetGraphChipConfig> _chips = [
+  final List<_AssetGraphChipConfig> _chips = [
     // _AssetGraphChipConfig("15m", Duration(minutes: 15)),
     // _AssetGraphChipConfig("30m", Duration(minutes: 30)),
     // _AssetGraphChipConfig("1H", Duration(hours: 1)),
     // _AssetGraphChipConfig("3h", Duration(hours: 3)),
-    _AssetGraphChipConfig("12H", Duration(hours: 12)),
-    _AssetGraphChipConfig("1D", Duration(days: 1)),
-    _AssetGraphChipConfig("3D", Duration(days: 3)),
-    _AssetGraphChipConfig("1W", Duration(days: 7)),
-    _AssetGraphChipConfig("1M", Duration(days: 30)),
-    _AssetGraphChipConfig("3M", Duration(days: 90)),
-    _AssetGraphChipConfig("6M", Duration(days: 180)),
-    _AssetGraphChipConfig("1Y", Duration(days: 365)),
-    _AssetGraphChipConfig("3Y", Duration(days: 365 * 3)),
-    _AssetGraphChipConfig("All", null),
+    _AssetGraphChipConfig('12H', Duration(hours: 12)),
+    _AssetGraphChipConfig('1D', Duration(days: 1)),
+    _AssetGraphChipConfig('3D', Duration(days: 3)),
+    _AssetGraphChipConfig('1W', Duration(days: 7)),
+    _AssetGraphChipConfig('1M', Duration(days: 30)),
+    _AssetGraphChipConfig('3M', Duration(days: 90)),
+    _AssetGraphChipConfig('6M', Duration(days: 180)),
+    _AssetGraphChipConfig('1Y', Duration(days: 365)),
+    _AssetGraphChipConfig('3Y', Duration(days: 365 * 3)),
+    _AssetGraphChipConfig('All', null),
   ];
 
   @override
   Widget build(BuildContext context) {
-    Duration? _duration = _chips[_index].duration;
-    List<TimeValuePair> _data = applyFilter(widget.allHistory, _duration);
+    var _duration = _chips[_index].duration;
+    var _data = applyFilter(widget.allHistory, _duration);
 
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      _data.length > 0
+      _data.isNotEmpty
           ? AssetGraph(
               history: _data,
               duration: _duration,
@@ -56,7 +56,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
               height: 250,
               width: double.infinity,
               child: Center(
-                child: Text("No historical data found."),
+                child: Text('No historical data found.'),
               ),
             ),
       Divider(
@@ -66,7 +66,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
       Wrap(
         spacing: 8,
         children: List.generate(_chips.length, (listIndex) {
-          bool _selected = listIndex == _index;
+          var _selected = listIndex == _index;
           return Theme(
             data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
             child: ChoiceChip(

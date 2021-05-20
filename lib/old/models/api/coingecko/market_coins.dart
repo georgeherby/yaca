@@ -33,7 +33,7 @@ class MarketCoin {
   late double? priceChangePercentage1hInCurrency;
   late double? priceChangePercentage24hInCurrency;
   late double? priceChangePercentage7dInCurrency;
-  int? _favCacheId;
+  int? favouriteCacheId;
 
   MarketCoin(
       {required this.id,
@@ -95,51 +95,47 @@ class MarketCoin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['symbol'] = this.symbol;
-    data['name'] = this.name;
-    data['image'] = this.image;
-    data['current_price'] = this.currentPrice;
-    data['market_cap'] = this.marketCap;
-    data['market_cap_rank'] = this.marketCapRank;
-    data['fully_diluted_valuation'] = this.fullyDilutedValuation;
-    data['total_volume'] = this.totalVolume;
-    data['high_24h'] = this.high24h;
-    data['low_24h'] = this.low24h;
-    data['price_change_24h'] = this.priceChange24h;
-    data['price_change_percentage_24h'] = this.priceChangePercentage24h;
-    data['market_cap_change_24h'] = this.marketCapChange24h;
-    data['market_cap_change_percentage_24h'] = this.marketCapChangePercentage24h;
-    data['circulating_supply'] = this.circulatingSupply;
-    data['total_supply'] = this.totalSupply;
-    data['max_supply'] = this.maxSupply;
-    data['ath'] = this.ath;
-    data['ath_change_percentage'] = this.athChangePercentage;
-    data['ath_date'] = this.athDate;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['symbol'] = symbol;
+    data['name'] = name;
+    data['image'] = image;
+    data['current_price'] = currentPrice;
+    data['market_cap'] = marketCap;
+    data['market_cap_rank'] = marketCapRank;
+    data['fully_diluted_valuation'] = fullyDilutedValuation;
+    data['total_volume'] = totalVolume;
+    data['high_24h'] = high24h;
+    data['low_24h'] = low24h;
+    data['price_change_24h'] = priceChange24h;
+    data['price_change_percentage_24h'] = priceChangePercentage24h;
+    data['market_cap_change_24h'] = marketCapChange24h;
+    data['market_cap_change_percentage_24h'] = marketCapChangePercentage24h;
+    data['circulating_supply'] = circulatingSupply;
+    data['total_supply'] = totalSupply;
+    data['max_supply'] = maxSupply;
+    data['ath'] = ath;
+    data['ath_change_percentage'] = athChangePercentage;
+    data['ath_date'] = athDate;
     // data['roi'] = this.roi;
-    data['last_updated'] = this.lastUpdated;
-    if (this.sparklineIn7d != null) {
-      data['sparkline_in_7d'] = this.sparklineIn7d?.toJson();
+    data['last_updated'] = lastUpdated;
+    if (sparklineIn7d != null) {
+      data['sparkline_in_7d'] = sparklineIn7d?.toJson();
     }
-    data['price_change_percentage_1h_in_currency'] = this.priceChangePercentage1hInCurrency;
-    data['price_change_percentage_24h_in_currency'] = this.priceChangePercentage24hInCurrency;
-    data['price_change_percentage_7d_in_currency'] = this.priceChangePercentage7dInCurrency;
+    data['price_change_percentage_1h_in_currency'] = priceChangePercentage1hInCurrency;
+    data['price_change_percentage_24h_in_currency'] = priceChangePercentage24hInCurrency;
+    data['price_change_percentage_7d_in_currency'] = priceChangePercentage7dInCurrency;
     return data;
   }
 
-  bool get isFavourited => this._favCacheId != null;
+  bool get isFavourited => favouriteCacheId != null;
 
-  int? get favouriteCacheId => this._favCacheId;
-
-  set favouriteCacheId(int? favouriteCacheId) => this._favCacheId = favouriteCacheId;
-
-  double? get priceChange1h => this.priceChangePercentage1hInCurrency != null
-      ? (this.priceChangePercentage1hInCurrency! / 100) * this.currentPrice
+  double? get priceChange1h => priceChangePercentage1hInCurrency != null
+      ? (priceChangePercentage1hInCurrency! / 100) * currentPrice
       : null;
 
-  double? get priceChange7d => this.priceChangePercentage7dInCurrency != null
-      ? (this.priceChangePercentage7dInCurrency! / 100) * this.currentPrice
+  double? get priceChange7d => priceChangePercentage7dInCurrency != null
+      ? (priceChangePercentage7dInCurrency! / 100) * currentPrice
       : null;
 }
 
@@ -153,8 +149,8 @@ class SparklineIn7d {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['price'] = this.price;
+    final data = <String, dynamic>{};
+    data['price'] = price;
     return data;
   }
 }

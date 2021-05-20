@@ -1,27 +1,32 @@
 import 'package:crypto_app/core/preferences/dark_theme_preference.dart';
-import 'package:crypto_app/old/models/settings/chosen_currency.dart';
 import 'package:flutter/material.dart';
 
 class AppSettingsViewModel with ChangeNotifier {
-  DarkThemePreference darkThemePreference = DarkThemePreference();
-  bool _darkThemeEnabled = false;
+  DarkThemePreferenceRepository darkThemePreference = DarkThemePreferenceRepository();
+  // CurrencyPreferenceRepository currencyPreference = CurrencyPreferenceRepository();
+  // bool _darkThemeEnabled = false;
 
-  bool get darkTheme => _darkThemeEnabled;
+  // ChosenCurrency _chosenCurrency = ChosenCurrency(
+  //     currencyName: "British Pound", currencyCode: "GBP", currencySymbol: "\£");
 
-  set darkTheme(bool value) {
-    _darkThemeEnabled = value;
-    darkThemePreference.setDarkTheme(value);
-    notifyListeners();
-  }
+  //TODO Add back default
+  // ChosenCurrency _chosenCurrency = AvailableCurrencies.defaultCurrency;
 
-  void invertTheme() async {
-    debugPrint("invertTheme was = $_darkThemeEnabled");
-    _darkThemeEnabled = !_darkThemeEnabled;
-    await darkThemePreference.setDarkTheme(_darkThemeEnabled);
-    debugPrint("invertTheme was = $_darkThemeEnabled");
-    notifyListeners();
-  }
+  // bool get darkTheme => _darkThemeEnabled;
 
-  ChosenCurrency get chosenCurrency =>
-      ChosenCurrency(currencyName: "British Pound", currencyCode: "gbp", currencySymbol: "\£");
+  // set darkTheme(bool value) {
+  //   _darkThemeEnabled = value;
+  //   darkThemePreference.setDarkTheme(value);
+  //   notifyListeners();
+  // }
+
+
+
+  // ChosenCurrency get chosenCurrency => _chosenCurrency;
+
+  // set chosenCurrency(ChosenCurrency value) {
+  //   _chosenCurrency = value;
+  //   currencyPreference.set(value.currencyCode);
+  //   notifyListeners();
+  // }
 }

@@ -1,8 +1,10 @@
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/single_asset/app_bar_bottom_data_block.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   final double height;
@@ -32,7 +34,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("AppBarBottom");
+    debugPrint('AppBarBottom');
     return SizedBox(
       height: height,
       child: Center(
@@ -61,16 +63,16 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                       children: [
                         Spacer(flex: 5),
                         AppBarBottomDataBlock(
-                            title: "Current Price",
+                            title: 'Current Price',
                             widgetData: Text(
-                              currentPrice?.coinCurrencyFormat().toString() ??
-                                  "-",
+                              currentPrice?.currencyFormatWithPrefix(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol).toString() ??
+                                  '-',
                               style: TextStyle(fontSize: 16),
                               textAlign: TextAlign.center,
                             )),
                         Spacer(flex: 1),
                         AppBarBottomDataBlock(
-                            title: "% Change 24h",
+                            title: '% Change 24h',
                             widgetData: percentageChange24h != null
                                 ? PercentageChangeBox(
                                     percentageChange24h!,
@@ -80,7 +82,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                                 : null),
                         Spacer(flex: 1),
                         AppBarBottomDataBlock(
-                            title: "Price Change 24h",
+                            title: 'Price Change 24h',
                             widgetData: priceChange24h != null
                                 ? PriceDelta(priceChange24h!, textSize: 16)
                                 : null),
@@ -93,25 +95,25 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         AppBarBottomDataBlock(
-                            title: "Rank",
+                            title: 'Rank',
                             widgetData: Text(
-                              "#$rank",
+                              '#$rank',
                               textAlign: TextAlign.center,
                             )),
                         AppBarBottomDataBlock(
-                            title: "Market Cap",
+                            title: 'Market Cap',
                             widgetData: Text(
                               "${currencySymbol ?? ""}${compactNumberFormat.format(marketCap)}",
                               textAlign: TextAlign.center,
                             )),
                         AppBarBottomDataBlock(
-                            title: "Circulating Supply",
+                            title: 'Circulating Supply',
                             widgetData: Text(
-                              "${symbol.toUpperCase()} ${compactNumberFormat.format(circulatingSupply)}",
+                              '${symbol.toUpperCase()} ${compactNumberFormat.format(circulatingSupply)}',
                               textAlign: TextAlign.center,
                             )),
                         AppBarBottomDataBlock(
-                          title: "Volumne 24h",
+                          title: 'Volumne 24h',
                           widgetData: volume24 != null
                               ? Text(
                                   "${currencySymbol ?? ""}${compactNumberFormat.format(volume24)}",

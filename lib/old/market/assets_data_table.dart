@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:crypto_app/old/single_asset/single_asset_view.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
@@ -21,7 +23,7 @@ class AssetsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("AssetsDataTable - build");
+    debugPrint('AssetsDataTable - build');
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Material(
@@ -30,9 +32,9 @@ class AssetsDataTable extends StatelessWidget {
           elevation: Theme.of(context).cardTheme.elevation!,
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-            print(constraints.maxWidth);
-            bool collapsedView = constraints.maxWidth <= 800;
-            bool mobile = constraints.maxWidth <= 490;
+            // debugPrint(constraints.maxWidth.toString());
+            var collapsedView = constraints.maxWidth <= 800;
+            var mobile = constraints.maxWidth <= 490;
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Column(
@@ -43,25 +45,25 @@ class AssetsDataTable extends StatelessWidget {
                     child: buildRow(
                       mobile: mobile,
                       collapsed: collapsedView,
-                      rank: Text("#",
+                      rank: Text('#',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
-                      iconNameSpark: Text("Name",
+                      iconNameSpark: Text('Name',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.start),
-                      d7: Text("7d",
+                      d7: Text('7d',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
-                      h24: Text("24h",
+                      h24: Text('24h',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
-                      h1: Text("1h",
+                      h1: Text('1h',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
-                      price: Text("Price",
+                      price: Text('Price',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.right),
-                      favourite: Text("", textAlign: TextAlign.center),
+                      favourite: Text('', textAlign: TextAlign.center),
                     ),
                   ),
                   Divider(
@@ -83,23 +85,23 @@ class AssetsDataTable extends StatelessWidget {
                         shrinkWrap: true,
                         itemCount: marketCoins.length,
                         itemBuilder: (BuildContext context, int index) {
-                          MarketCoin mc = marketCoins[index];
+                          var mc = marketCoins[index];
 
                           return InkWell(
                             onTap: () async {
                               debugPrint(mc.name);
                               await Navigator.push(
                                 context,
-                                MaterialPageRoute(
+                                CupertinoPageRoute(
                                   fullscreenDialog: true,
                                   builder: (context) {
                                     return SingleAssetView(
                                       marketCoin: mc,
                                       onFavourite: (String id, bool isChecked) {
                                         if (mc.isFavourited) {
-                                          print("Unfaovouriting ${mc.name}");
+                                          print('Unfaovouriting ${mc.name}');
                                         } else {
-                                          print("Favourite ${mc.name}");
+                                          print('Favourite ${mc.name}');
                                         }
                                         onFavourite(mc, !mc.isFavourited);
                                       },
@@ -107,7 +109,7 @@ class AssetsDataTable extends StatelessWidget {
                                   },
                                 ),
                               );
-                              debugPrint("Finished");
+                              debugPrint('Finished');
                             },
                             child: SizedBox(
                               height: 72,
@@ -233,7 +235,12 @@ class AssetsDataTable extends StatelessWidget {
                                     ],
                                   ),
                                   price: Text(
-                                    mc.currentPrice.coinCurrencyFormat(),
+                                    mc.currentPrice.currencyFormatWithPrefix(
+                                        BlocProvider.of<AppSettingsBloc>(
+                                                context)
+                                            .state
+                                            .currency
+                                            .currencySymbol),
                                     textAlign: collapsedView
                                         ? TextAlign.center
                                         : TextAlign.end,
@@ -241,9 +248,9 @@ class AssetsDataTable extends StatelessWidget {
                                   favourite: InkWell(
                                     onTap: () {
                                       if (mc.isFavourited) {
-                                        print("Unfaovouriting ${mc.name}");
+                                        print('Unfaovouriting ${mc.name}');
                                       } else {
-                                        print("Favourite ${mc.name}");
+                                        print('Favourite ${mc.name}');
                                       }
                                       onFavourite(mc, !mc.isFavourited);
                                     },

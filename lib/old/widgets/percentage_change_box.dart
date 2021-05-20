@@ -14,8 +14,8 @@ class PercentageChangeBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (changePercent24Hr != null) {
-      Color darkColor = changePercent24Hr!.toPositiveNegativeColorDark();
-      Color bkgColor = changePercent24Hr!.toPositiveNegativeColorLight();
+      var darkColor = changePercent24Hr!.toPositiveNegativeColorDark();
+      var bkgColor = changePercent24Hr!.toPositiveNegativeColorLight();
       return Container(
         padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
@@ -44,7 +44,7 @@ class PercentageChangeBox extends StatelessWidget {
         ),
       );
     } else {
-      return Container(child: Text("-"));
+      return Container(child: Text('-'));
     }
   }
 }

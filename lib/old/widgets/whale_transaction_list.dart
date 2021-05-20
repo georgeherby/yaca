@@ -1,5 +1,7 @@
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 
@@ -13,6 +15,9 @@ class WhaleTransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var currencySymbol =
+        BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Material(
@@ -30,10 +35,10 @@ class WhaleTransactionList extends StatelessWidget {
           },
           itemCount: transactions.length,
           itemBuilder: (context, index) {
-            Transactions transaction = transactions[index];
-            DateTime date = DateTime.fromMillisecondsSinceEpoch(
+            var transaction = transactions[index];
+            var date = DateTime.fromMillisecondsSinceEpoch(
                 transaction.timestamp * 1000);
-            DateFormat formatDate = DateFormat("HH:mm EEE dd MMM ");
+            var formatDate = DateFormat('HH:mm EEE dd MMM ');
             return Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: 12.0, horizontal: sidePadding),
@@ -44,7 +49,7 @@ class WhaleTransactionList extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 16.0),
                     child: CircleAvatar(
                       child: Text(
-                        "${transaction.symbol.toUpperCase()}",
+                        '${transaction.symbol.toUpperCase()}',
                         textAlign: TextAlign.center,
                         maxLines: 1,
                       ),
@@ -54,9 +59,9 @@ class WhaleTransactionList extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          "${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.coinCurrencyFormat('en_US', false)}"),
+                          '${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, false)}'),
                       Text(
-                          "Avg ${(transaction.amountUsd / transaction.amount).coinCurrencyFormat('en_US')}"),
+                          'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencySymbol)}'),
                       Text(
                           "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
                     ],

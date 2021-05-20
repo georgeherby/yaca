@@ -1,26 +1,14 @@
 import 'package:intl/intl.dart';
 
-extension CurrencuFormatters on num {
-  String coinCurrencyFormat([String locale = 'en_GB', bool showDecimals = true]) {
-    return NumberFormat.simpleCurrency(
-            locale: locale,
-            decimalDigits: showDecimals
-                ? this.toInt() >= 1000 || this.toInt() <= -1000
-                    ? 0
-                    : this.toInt() >= 2 || this.toInt() <= -2
-                        ? 2
-                        : 4
-                : 0)
-        .format(this);
-  }
-
+extension CurrencyFormatters on num {
   String currencyFormatWithPrefix(String currencyPrefix, [bool showDecimals = true]) {
     return NumberFormat.currency(
-            symbol: currencyPrefix + " ",
+      //TODO Add in locale
+            symbol: currencyPrefix + ' ',
             decimalDigits: showDecimals
-                ? this.toInt() >= 1000 || this.toInt() <= -1000
+                ? toInt() >= 1000 || toInt() <= -1000
                     ? 0
-                    : this.toInt() >= 2 || this.toInt() <= -2
+                    : toInt() >= 2 || toInt() <= -2
                         ? 2
                         : 4
                 : 0)
@@ -28,31 +16,31 @@ extension CurrencuFormatters on num {
   }
 
   String deltaFormat() {
-    String formatString =
-        this.toInt() >= 2 || this.toInt() <= -2 ? "##,###,###,###.00" : "##,###,###,##0.00###";
+    var formatString =
+        toInt() >= 2 || toInt() <= -2 ? '##,###,###,###.00' : '##,###,###,##0.00###';
 
-    return new NumberFormat(
-      this > 0 ? "+" + formatString : formatString,
-      "en_GB",
+    return NumberFormat(
+      this > 0 ? '+' + formatString : formatString,
+      'en_GB',
     ).format(this);
   }
 
   String volumeFormat() {
-    String formatString =
-        this.toInt() >= 2 || this.toInt() <= -2 ? "##,###,###,###.00" : "##,###,###,##0.00###";
+    var formatString =
+        toInt() >= 2 || toInt() <= -2 ? '##,###,###,###.00' : '##,###,###,##0.00###';
 
-    return new NumberFormat(
+    return NumberFormat(
       formatString,
-      "en_GB",
+      'en_GB',
     ).format(this);
   }
 }
 
 NumberFormat compactCurrencyFormat = NumberFormat.compactSimpleCurrency(
   decimalDigits: 2,
-  locale: "en_GB",
+  locale: 'en_GB',
 );
 
 NumberFormat compactNumberFormat = NumberFormat.compactLong(
-  locale: "en_GB",
+  locale: 'en_GB',
 );

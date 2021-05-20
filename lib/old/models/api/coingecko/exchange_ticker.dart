@@ -15,9 +15,9 @@ class ExchangeTicker {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['tickers'] = this.tickers.map((v) => v.toJson()).toList();
+    final data = <String, dynamic>{};
+    data['name'] = name;
+    data['tickers'] = tickers.map((v) => v.toJson()).toList();
 
     return data;
   }
@@ -92,27 +92,27 @@ class Tickers {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['base'] = this.base;
-    data['target'] = this.target;
-    data['market'] = this.market.toJson();
-    data['last'] = this.last;
-    data['volume'] = this.volume;
-    data['cost_to_move_up_usd'] = this.costToMoveUpUsd;
-    data['cost_to_move_down_usd'] = this.costToMoveDownUsd;
-    data['converted_last'] = this.convertedLast.toJson();
-    data['converted_volume'] = this.convertedVolume.toJson();
-    data['trust_score'] = this.trustScore;
-    data['bid_ask_spread_percentage'] = this.bidAskSpreadPercentage;
-    data['timestamp'] = this.timestamp;
-    data['last_traded_at'] = this.lastTradedAt;
-    data['last_fetch_at'] = this.lastFetchAt;
-    data['is_anomaly'] = this.isAnomaly;
-    data['is_stale'] = this.isStale;
-    data['trade_url'] = this.tradeUrl;
-    data['token_info_url'] = this.tokenInfoUrl;
-    data['coin_id'] = this.coinId;
-    data['target_coin_id'] = this.targetCoinId;
+    final data = <String, dynamic>{};
+    data['base'] = base;
+    data['target'] = target;
+    data['market'] = market.toJson();
+    data['last'] = last;
+    data['volume'] = volume;
+    data['cost_to_move_up_usd'] = costToMoveUpUsd;
+    data['cost_to_move_down_usd'] = costToMoveDownUsd;
+    data['converted_last'] = convertedLast.toJson();
+    data['converted_volume'] = convertedVolume.toJson();
+    data['trust_score'] = trustScore;
+    data['bid_ask_spread_percentage'] = bidAskSpreadPercentage;
+    data['timestamp'] = timestamp;
+    data['last_traded_at'] = lastTradedAt;
+    data['last_fetch_at'] = lastFetchAt;
+    data['is_anomaly'] = isAnomaly;
+    data['is_stale'] = isStale;
+    data['trade_url'] = tradeUrl;
+    data['token_info_url'] = tokenInfoUrl;
+    data['coin_id'] = coinId;
+    data['target_coin_id'] = targetCoinId;
     return data;
   }
 }
@@ -138,11 +138,11 @@ class Market {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['identifier'] = this.identifier;
-    data['has_trading_incentive'] = this.hasTradingIncentive;
-    data['logo'] = this.logoUrl;
+    final data = <String, dynamic>{};
+    data['name'] = name;
+    data['identifier'] = identifier;
+    data['has_trading_incentive'] = hasTradingIncentive;
+    data['logo'] = logoUrl;
     return data;
   }
 }
@@ -165,10 +165,10 @@ class ConvertedLast {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['btc'] = this.btc;
-    data['eth'] = this.eth;
-    data['usd'] = this.usd;
+    final data = <String, dynamic>{};
+    data['btc'] = btc;
+    data['eth'] = eth;
+    data['usd'] = usd;
     return data;
   }
 }
@@ -191,10 +191,10 @@ class ConvertedVolume {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['btc'] = this.btc;
-    data['eth'] = this.eth;
-    data['usd'] = this.usd;
+    final data = <String, dynamic>{};
+    data['btc'] = btc;
+    data['eth'] = eth;
+    data['usd'] = usd;
     return data;
   }
 }

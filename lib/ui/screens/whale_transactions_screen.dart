@@ -41,7 +41,7 @@ class _WhaleTransactionPageState extends State<WhaleTransactionPage> {
       appBar: AppBar(
         toolbarHeight: 38,
         title: Text(
-          "Whales",
+          'Whales',
           style: Theme.of(context).textTheme.headline6,
         ),
         elevation: Theme.of(context).appBarTheme.elevation,

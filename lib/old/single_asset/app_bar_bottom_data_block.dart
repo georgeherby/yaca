@@ -27,7 +27,7 @@ class AppBarBottomDataBlock extends StatelessWidget {
         SizedBox(height: 4),
         widgetData ??
             Text(
-              "-",
+              '-',
               style: Theme.of(context)
                   .textTheme
                   .subtitle1

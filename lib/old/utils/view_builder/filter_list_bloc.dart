@@ -71,7 +71,7 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
 
   Stream<ViewState> _getListState(F? filter) async* {
     try {
-      final List<T> elements = await _getElementsFromRepository(filter);
+      final elements = await _getElementsFromRepository(filter);
       yield elements.isNotEmpty
           ? Success<List<T>>(UnmodifiableListView(elements.reversed))
           : const Empty();

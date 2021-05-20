@@ -12,17 +12,17 @@ class AssetOverview {
   AssetOverview.fromJson(Map<String, dynamic> json) {
     data = <AssetData>[];
     json['data'].forEach((v) {
-      data.add(new AssetData.fromJson(v));
+      data.add(AssetData.fromJson(v));
     });
 
     status = Status.fromJson(json['status']);
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['data'] = this.data.map((v) => v.toJson()).toList();
 
-    data['status'] = this.status.toJson();
+    data['status'] = status.toJson();
 
     return data;
   }
@@ -42,7 +42,7 @@ class AssetData {
   late String dateAdded;
   late List<String> tags;
   late Quote quote;
-  int? _favCacheId;
+  int? favouriteCacheId;
 
   AssetData(
       {required this.id,
@@ -68,7 +68,8 @@ class AssetData {
     numMarketPairs = json['num_market_pairs'];
     circulatingSupply = json['circulating_supply'].toDouble();
     totalSupply = json['total_supply'].toDouble();
-    maxSupply = json['max_supply'] != null ? json['max_supply'].toDouble() : null;
+    maxSupply =
+        json['max_supply'] != null ? json['max_supply'].toDouble() : null;
     lastUpdated = json['last_updated'];
     dateAdded = json['date_added'];
     tags = json['tags'].cast<String>();
@@ -76,29 +77,25 @@ class AssetData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['symbol'] = this.symbol;
-    data['slug'] = this.slug;
-    data['cmc_rank'] = this.cmcRank;
-    data['num_market_pairs'] = this.numMarketPairs;
-    data['circulating_supply'] = this.circulatingSupply;
-    data['total_supply'] = this.totalSupply;
-    data['max_supply'] = this.maxSupply;
-    data['last_updated'] = this.lastUpdated;
-    data['date_added'] = this.dateAdded;
-    data['tags'] = this.tags;
-    data['quote'] = this.quote.toJson();
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['name'] = name;
+    data['symbol'] = symbol;
+    data['slug'] = slug;
+    data['cmc_rank'] = cmcRank;
+    data['num_market_pairs'] = numMarketPairs;
+    data['circulating_supply'] = circulatingSupply;
+    data['total_supply'] = totalSupply;
+    data['max_supply'] = maxSupply;
+    data['last_updated'] = lastUpdated;
+    data['date_added'] = dateAdded;
+    data['tags'] = tags;
+    data['quote'] = quote.toJson();
 
     return data;
   }
 
-  bool get isFavourited => this._favCacheId != null;
-
-  int? get favouriteCacheId => this._favCacheId;
-
-  set favouriteCacheId(int? favouriteCacheId) => this._favCacheId = favouriteCacheId;
+  bool get isFavourited => favouriteCacheId != null;
 }
 
 class Quote {
@@ -111,17 +108,17 @@ class Quote {
   });
 
   Quote.fromJson(Map<String, dynamic> json) {
-    usd = json['USD'] != null ? new USD.fromJson(json['USD']) : null;
-    gbp = json['GBP'] != null ? new GBP.fromJson(json['GBP']) : null;
+    usd = json['USD'] != null ? USD.fromJson(json['USD']) : null;
+    gbp = json['GBP'] != null ? GBP.fromJson(json['GBP']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.usd != null) {
-      data['USD'] = this.usd!.toJson();
+    final data = <String, dynamic>{};
+    if (usd != null) {
+      data['USD'] = usd!.toJson();
     }
-    if (this.gbp != null) {
-      data['GBP'] = this.gbp!.toJson();
+    if (gbp != null) {
+      data['GBP'] = gbp!.toJson();
     }
     return data;
   }
@@ -156,20 +153,20 @@ class USD implements Currency {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['price'] = this.price;
-    data['volume_24h'] = this.volume24h;
-    data['percent_change_1h'] = this.percentChange1h;
-    data['percent_change_24h'] = this.percentChange24h;
-    data['percent_change_7d'] = this.percentChange7d;
-    data['market_cap'] = this.marketCap;
-    data['last_updated'] = this.lastUpdated;
+    final data = <String, dynamic>{};
+    data['price'] = price;
+    data['volume_24h'] = volume24h;
+    data['percent_change_1h'] = percentChange1h;
+    data['percent_change_24h'] = percentChange24h;
+    data['percent_change_7d'] = percentChange7d;
+    data['market_cap'] = marketCap;
+    data['last_updated'] = lastUpdated;
     return data;
   }
 
   @override
   // TODO: implement
-  String get currencySymbol => "\$";
+  String get currencySymbol => '\$';
 }
 
 class GBP implements Currency {
@@ -193,37 +190,40 @@ class GBP implements Currency {
   GBP.fromJson(Map<String, dynamic> json) {
     price = json['price'];
     volume24h = json['volume_24h'];
-    percentChange1h =
-        json['percent_change_1h'] != null ? json['percent_change_1h'].toDouble() : null;
-    percentChange24h =
-        json['percent_change_24h'] != null ? json['percent_change_24h'].toDouble() : null;
-    percentChange7d =
-        json['percent_change_7d'] != null ? json['percent_change_7d'].toDouble() : null;
+    percentChange1h = json['percent_change_1h'] != null
+        ? json['percent_change_1h'].toDouble()
+        : null;
+    percentChange24h = json['percent_change_24h'] != null
+        ? json['percent_change_24h'].toDouble()
+        : null;
+    percentChange7d = json['percent_change_7d'] != null
+        ? json['percent_change_7d'].toDouble()
+        : null;
     marketCap = json['market_cap'];
     lastUpdated = json['last_updated'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['price'] = this.price;
-    data['volume_24h'] = this.volume24h;
-    data['percent_change_1h'] = this.percentChange1h;
-    data['percent_change_24h'] = this.percentChange24h;
-    data['percent_change_7d'] = this.percentChange7d;
-    data['market_cap'] = this.marketCap;
-    data['last_updated'] = this.lastUpdated;
+    final data = <String, dynamic>{};
+    data['price'] = price;
+    data['volume_24h'] = volume24h;
+    data['percent_change_1h'] = percentChange1h;
+    data['percent_change_24h'] = percentChange24h;
+    data['percent_change_7d'] = percentChange7d;
+    data['market_cap'] = marketCap;
+    data['last_updated'] = lastUpdated;
     return data;
   }
 
   double? get priceChange1h =>
-      this.percentChange1h != null ? (this.percentChange1h! / 100) * this.price : null;
+      percentChange1h != null ? (percentChange1h! / 100) * price : null;
   double? get priceChange24h =>
-      this.percentChange24h != null ? (this.percentChange24h! / 100) * this.price : null;
+      percentChange24h != null ? (percentChange24h! / 100) * price : null;
   double? get priceChange7d =>
-      this.percentChange7d != null ? (this.percentChange7d! / 100) * this.price : null;
+      percentChange7d != null ? (percentChange7d! / 100) * price : null;
 
   @override
-  String get currencySymbol => "\£";
+  String get currencySymbol => '\£';
 }
 
 class Status {
@@ -249,12 +249,12 @@ class Status {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['timestamp'] = this.timestamp;
-    data['error_code'] = this.errorCode;
-    data['error_message'] = this.errorMessage;
-    data['elapsed'] = this.elapsed;
-    data['credit_count'] = this.creditCount;
+    final data = <String, dynamic>{};
+    data['timestamp'] = timestamp;
+    data['error_code'] = errorCode;
+    data['error_message'] = errorMessage;
+    data['elapsed'] = elapsed;
+    data['credit_count'] = creditCount;
     return data;
   }
 }

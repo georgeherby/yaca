@@ -3,6 +3,6 @@ class ChosenCurrency {
   final String currencyCode;
   final String currencySymbol;
 
-  ChosenCurrency(
+  const ChosenCurrency(
       {required this.currencyName, required this.currencyCode, required this.currencySymbol});
 }

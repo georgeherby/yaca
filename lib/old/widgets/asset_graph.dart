@@ -1,10 +1,12 @@
 import 'dart:math';
 
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/old/utils/currency_formatters.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 class AssetGraph extends StatefulWidget {
@@ -35,22 +37,24 @@ class _AssetGraphState extends State<AssetGraph> {
 
   @override
   Widget build(BuildContext context) {
-    Color _dashColour = (Theme.of(context).brightness == Brightness.light
+    var _dashColour = (Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700
         : Colors.white70);
 
-    double maxPrice = widget.history.map((e) => e.value).reduce(max);
-    double minPrice = widget.history.map((e) => e.value).reduce(min);
+    var maxPrice = widget.history.map((e) => e.value).reduce(max);
+    var minPrice = widget.history.map((e) => e.value).reduce(min);
 
-    int maxTime = widget.history.map((e) => e.timeEpochUtc).reduce(max);
-    int minTime = widget.history.map((e) => e.timeEpochUtc).reduce(min);
+    var maxTime = widget.history.map((e) => e.timeEpochUtc).reduce(max);
+    var minTime = widget.history.map((e) => e.timeEpochUtc).reduce(min);
 
-    DateTime _dateTimeTouchedDate =
-        new DateTime.fromMillisecondsSinceEpoch(touchedTime);
+    var _dateTimeTouchedDate =
+       DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
-    double price = touchedPrice;
+    var price = touchedPrice;
+    var currencySymbol =
+        BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
 
-    DateFormat formatDate = DateFormat("EEE, MMM dd, yyyy, HH:mm");
+    var formatDate = DateFormat('EEE, MMM dd, yyyy, HH:mm');
     // DateFormat formatTime = DateFormat("HH:mm");
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -83,7 +87,7 @@ class _AssetGraphState extends State<AssetGraph> {
               Row(
                 children: [
                   Text(
-                    price.coinCurrencyFormat(),
+                    price.currencyFormatWithPrefix(currencySymbol),
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -93,9 +97,9 @@ class _AssetGraphState extends State<AssetGraph> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("high: ${maxPrice.coinCurrencyFormat()}",
+                      Text('high: ${maxPrice.currencyFormatWithPrefix(currencySymbol)}',
                           style: Theme.of(context).textTheme.caption),
-                      Text("low: ${minPrice.coinCurrencyFormat()}",
+                      Text('low: ${minPrice..currencyFormatWithPrefix(currencySymbol)}',
                           style: Theme.of(context).textTheme.caption),
                     ],
                   ),
@@ -114,7 +118,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     width: 4,
                   ),
                   Text(
-                    "on current price",
+                    'on current price',
                     style: TextStyle(fontSize: 14),
                   )
                 ],
@@ -173,12 +177,12 @@ class _AssetGraphState extends State<AssetGraph> {
                           DateTime.now().year ==
                               DateTime.fromMillisecondsSinceEpoch(value.toInt())
                                   .year) {
-                        formatter = DateFormat("HH:mm\nd MMM");
+                        formatter = DateFormat('HH:mm\nd MMM');
                       } else {
-                        formatter = DateFormat("HH:mm\nd MMM yyyy");
+                        formatter = DateFormat('HH:mm\nd MMM yyyy');
                       }
 
-                      return "${formatter.format(DateTime.fromMillisecondsSinceEpoch(value.toInt()))}";
+                      return '${formatter.format(DateTime.fromMillisecondsSinceEpoch(value.toInt()))}';
                     },
                   ),
                   leftTitles: SideTitles(
@@ -187,7 +191,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     getTextStyles: (value) =>
                         Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
-                      return "${value.coinCurrencyFormat()}";
+                      return '${value.currencyFormatWithPrefix(currencySymbol)}';
                     },
                     reservedSize: 72,
                     margin: 8,
@@ -217,7 +221,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   },
                   touchCallback: (LineTouchResponse response) {
                     if (response.lineBarSpots != null &&
-                        response.lineBarSpots!.length > 0) {
+                        response.lineBarSpots!.isNotEmpty) {
                       // debugPrint(
                       //     response.lineBarSpots!.first.spotIndex.toString());
                       // debugPrint(widget.history.length.toString());

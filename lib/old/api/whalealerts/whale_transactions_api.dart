@@ -11,10 +11,10 @@ class WhaleTransactionReposiotry extends FilterListRepository<Transactions, Stri
 
   @override
   Future<List<Transactions>> getAll() async {
-    debugPrint("getAllWhaleTransactions called");
+    debugPrint('getAllWhaleTransactions called');
 
-    String url =
-        "https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000";
+    var url =
+        'https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000';
     final response = await client.get(Uri.parse(url));
     debugPrint(response.statusCode.toString());
     if (response.statusCode == 429) {
@@ -26,10 +26,10 @@ class WhaleTransactionReposiotry extends FilterListRepository<Transactions, Stri
   //TODO Change to be filtered
   @override
   Future<List<Transactions>> getBy(String filter) async {
-    debugPrint("fetchMarketOverview called");
+    debugPrint('fetchMarketOverview called');
 
-    String url =
-        "https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000";
+    var url =
+        'https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000';
     final response = await client.get(Uri.parse(url));
     return WhaleTransactions.fromJson(jsonDecode(response.body)).transactions;
   }

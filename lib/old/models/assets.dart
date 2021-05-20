@@ -8,16 +8,16 @@ class Assets {
     if (json['data'] != null) {
       data = <Asset>[];
       json['data'].forEach((v) {
-        data.add(new Asset.fromJson(v));
+        data.add(Asset.fromJson(v));
       });
     }
     timestamp = json['timestamp'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['data'] = this.data.map((v) => v.toJson()).toList();
-    data['timestamp'] = this.timestamp;
+    data['timestamp'] = timestamp;
     return data;
   }
 }
@@ -34,7 +34,7 @@ class Asset {
   late double? priceUsd;
   late double? changePercent24Hr;
   late double? vwap24Hr;
-  int? _favCacheId;
+  int? favouriteCacheId;
 
   Asset(
       {required this.id,
@@ -64,24 +64,22 @@ class Asset {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['rank'] = this.rank;
-    data['symbol'] = this.symbol;
-    data['name'] = this.name;
-    data['supply'] = this.supply;
-    data['maxSupply'] = this.maxSupply;
-    data['marketCapUsd'] = this.marketCapUsd;
-    data['volumeUsd24Hr'] = this.volumeUsd24Hr;
-    data['priceUsd'] = this.priceUsd;
-    data['changePercent24Hr'] = this.changePercent24Hr;
-    data['vwap24Hr'] = this.vwap24Hr;
+    final data = <String, dynamic>{};
+    data['id'] = id;
+    data['rank'] = rank;
+    data['symbol'] = symbol;
+    data['name'] = name;
+    data['supply'] = supply;
+    data['maxSupply'] = maxSupply;
+    data['marketCapUsd'] = marketCapUsd;
+    data['volumeUsd24Hr'] = volumeUsd24Hr;
+    data['priceUsd'] = priceUsd;
+    data['changePercent24Hr'] = changePercent24Hr;
+    data['vwap24Hr'] = vwap24Hr;
     return data;
   }
 
-  bool get isFavourited => this._favCacheId != null;
+  bool get isFavourited => favouriteCacheId != null;
 
-  int? get favouriteCacheId => this._favCacheId;
 
-  set favouriteCacheId(int? favouriteCacheId) => this._favCacheId = favouriteCacheId;
 }

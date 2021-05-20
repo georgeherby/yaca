@@ -8,7 +8,7 @@ class GlobalMarket {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final data = <String, dynamic>{};
     data['data'] = this.data.toJson();
 
     return data;
@@ -56,19 +56,19 @@ class GlobalMarketData {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['active_cryptocurrencies'] = this.activeCryptocurrencies;
-    data['upcoming_icos'] = this.upcomingIcos;
-    data['ongoing_icos'] = this.ongoingIcos;
-    data['ended_icos'] = this.endedIcos;
-    data['markets'] = this.markets;
-    data['total_market_cap'] = this.totalMarketCap.toJson();
-    data['total_volume'] = this.totalVolume.toJson();
+    final data = <String, dynamic>{};
+    data['active_cryptocurrencies'] = activeCryptocurrencies;
+    data['upcoming_icos'] = upcomingIcos;
+    data['ongoing_icos'] = ongoingIcos;
+    data['ended_icos'] = endedIcos;
+    data['markets'] = markets;
+    data['total_market_cap'] = totalMarketCap.toJson();
+    data['total_volume'] = totalVolume.toJson();
 
-    data['market_cap_percentage'] = this.marketCapPercentage.toJson();
+    data['market_cap_percentage'] = marketCapPercentage.toJson();
     data['market_cap_change_percentage_24h_usd'] =
-        this.marketCapChangePercentage24hUsd;
-    data['updated_at'] = this.updatedAt;
+        marketCapChangePercentage24hUsd;
+    data['updated_at'] = updatedAt;
     return data;
   }
 }
@@ -207,8 +207,8 @@ class TotalMarketCap {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['btc'] = this.btc;
+    final data = <String, dynamic>{};
+    data['btc'] = btc;
     // data['eth'] = this.eth;
     // data['ltc'] = this.ltc;
     // data['bch'] = this.bch;
@@ -219,7 +219,7 @@ class TotalMarketCap {
     // data['link'] = this.link;
     // data['dot'] = this.dot;
     // data['yfi'] = this.yfi;
-    data['usd'] = this.usd;
+    data['usd'] = usd;
     // data['aed'] = this.aed;
     // data['ars'] = this.ars;
     // data['aud'] = this.aud;
@@ -233,8 +233,8 @@ class TotalMarketCap {
     // data['cny'] = this.cny;
     // data['czk'] = this.czk;
     // data['dkk'] = this.dkk;
-    data['eur'] = this.eur;
-    data['gbp'] = this.gbp;
+    data['eur'] = eur;
+    data['gbp'] = gbp;
     // data['hkd'] = this.hkd;
     // data['huf'] = this.huf;
     // data['idr'] = this.idr;
@@ -405,8 +405,8 @@ class TotalVolume {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['btc'] = this.btc;
+    final data = <String, dynamic>{};
+    data['btc'] = btc;
     // data['eth'] = this.eth;
     // data['ltc'] = this.ltc;
     // data['bch'] = this.bch;
@@ -417,7 +417,7 @@ class TotalVolume {
     // data['link'] = this.link;
     // data['dot'] = this.dot;
     // data['yfi'] = this.yfi;
-    data['usd'] = this.usd;
+    data['usd'] = usd;
     // data['aed'] = this.aed;
     // data['ars'] = this.ars;
     // data['aud'] = this.aud;
@@ -431,8 +431,8 @@ class TotalVolume {
     // data['cny'] = this.cny;
     // data['czk'] = this.czk;
     // data['dkk'] = this.dkk;
-    data['eur'] = this.eur;
-    data['gbp'] = this.gbp;
+    data['eur'] = eur;
+    data['gbp'] = gbp;
     // data['hkd'] = this.hkd;
     // data['huf'] = this.huf;
     // data['idr'] = this.idr;
@@ -507,17 +507,17 @@ class MarketCapPercentage {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['btc'] = this.btc;
-    data['eth'] = this.eth;
-    data['usdt'] = this.usdt;
+    final data = <String, dynamic>{};
+    data['btc'] = btc;
+    data['eth'] = eth;
+    data['usdt'] = usdt;
     // data['xrp'] = this.xrp;
     // data['ltc'] = this.ltc;
     // data['ada'] = this.ada;
     // data['dot'] = this.dot;
     // data['bch'] = this.bch;
     // data['xlm'] = this.xlm;
-    data['bnb'] = this.bnb;
+    data['bnb'] = bnb;
     return data;
   }
 }

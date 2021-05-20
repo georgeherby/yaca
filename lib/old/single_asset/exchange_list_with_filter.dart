@@ -36,16 +36,16 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   void applyFilter() {
     tickers.clear();
-    List<String> _selectedCurrencies = currencyFilter
+    var _selectedCurrencies = currencyFilter
         .where((element) => element.selected)
         .map((e) => e.value)
         .toList();
-    List<Tickers> _flattenedMarkets = widget.exchanges
+    var _flattenedMarkets = widget.exchanges
         .map((e) => e.tickers)
         .expand((element) => element)
         .toList();
 
-    if (_selectedCurrencies.length > 0) {
+    if (_selectedCurrencies.isNotEmpty) {
 // lists.where((element) => element.)
       tickers.addAll(_flattenedMarkets
           .where((element) => _selectedCurrencies.contains(element.target)));
@@ -63,7 +63,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
             Row(
               children: [
                 Text(
-                  "Exchanges",
+                  'Exchanges',
                   style: Theme.of(context).textTheme.headline6,
                 )
               ],
@@ -72,7 +72,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
               color: Colors.transparent,
               height: 4,
             ),
-            Text("Select currency to filter",
+            Text('Select currency to filter',
                 style: Theme.of(context).textTheme.caption),
             Divider(
               color: Colors.transparent,
@@ -139,14 +139,14 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                           maxLines: 1,
                         )),
                     Spacer(),
-                    Text(tickers[index].base + "/" + tickers[index].target),
+                    Text(tickers[index].base + '/' + tickers[index].target),
                     Spacer(
                       flex: 5,
                     ),
                     Expanded(
                       flex: 2,
                       child: Text(
-                        tickers[index].trustScore?.toUpperCase() ?? "",
+                        tickers[index].trustScore?.toUpperCase() ?? '',
                         textAlign: TextAlign.right,
                       ),
                     ),
@@ -154,7 +154,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     Expanded(
                       flex: 4,
                       child: Text(
-                        "Vol: ${tickers[index].volume.volumeFormat()}",
+                        'Vol: ${tickers[index].volume.volumeFormat()}',
                         textAlign: TextAlign.right,
                       ),
                     ),
@@ -176,7 +176,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       onPressed: tickers[index].tradeUrl != null
                           ? () => launchURL(tickers[index].tradeUrl)
                           : null,
-                      child: Text("Trade"),
+                      child: Text('Trade'),
                     ),
                   ],
                 ),
@@ -186,7 +186,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
     );
   }
 
-  launchURL(url) async {
+  Future launchURL(url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {

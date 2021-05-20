@@ -11,12 +11,12 @@ class SimpleSparkLine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (data.length > 0) {
-      double maxPrice = data.reduce(max);
-      double minPrice = data.reduce(min);
-      double lastPrice = data.last;
-      double firstPrice = data.first;
-      Color graphColor = lastPrice > firstPrice ? positiveGreen : negativeRed;
+    if (data.isNotEmpty) {
+      var maxPrice = data.reduce(max);
+      var minPrice = data.reduce(min);
+      var lastPrice = data.last;
+      var firstPrice = data.first;
+      var graphColor = lastPrice > firstPrice ? positiveGreen : negativeRed;
 
       return SizedBox(
         height: 120,
