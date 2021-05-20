@@ -148,7 +148,6 @@ class _AssetGraphState extends State<AssetGraph> {
                         strokeWidth: 1,
                       );
                     }),
-
                 borderData: FlBorderData(
                     show: false,
                     border: Border(
@@ -159,7 +158,6 @@ class _AssetGraphState extends State<AssetGraph> {
                 axisTitleData: FlAxisTitleData(
                   show: true,
                 ),
-
                 titlesData: FlTitlesData(
                   show: true,
                   bottomTitles: SideTitles(
@@ -197,7 +195,6 @@ class _AssetGraphState extends State<AssetGraph> {
                 ),
                 minY: minPrice,
                 maxY: maxPrice,
-
                 lineTouchData: LineTouchData(
                   handleBuiltInTouches: true,
                   getTouchLineStart: (barData, index) =>
@@ -219,7 +216,12 @@ class _AssetGraphState extends State<AssetGraph> {
                     }).toList();
                   },
                   touchCallback: (LineTouchResponse response) {
-                    if (response.lineBarSpots != null && response.lineBarSpots!.length > 0) {
+                    if (response.lineBarSpots != null &&
+                        response.lineBarSpots!.length > 0) {
+                      // debugPrint(
+                      //     response.lineBarSpots!.first.spotIndex.toString());
+                      // debugPrint(widget.history.length.toString());
+
                       setState(() {
                         touchedTime = widget
                             .history[response.lineBarSpots!.first.spotIndex]
@@ -267,34 +269,6 @@ class _AssetGraphState extends State<AssetGraph> {
                             )),
                   ),
                 ],
-                // extraLinesData: ExtraLinesData(horizontalLines: [
-                //   HorizontalLine(
-                //       y: maxPrice,
-                //       color: _dashColour,
-                //       strokeWidth: 1.5,
-                //       dashArray: [5, 2],
-                //       label: HorizontalLineLabel(
-                //         show: true,
-                //         style: Theme.of(context).textTheme.bodyText1,
-                //         alignment: Alignment.topLeft,
-                //         labelResolver: (HorizontalLine line) {
-                //           return "max - ${maxPrice.coinCurrencyFormat()}";
-                //         },
-                //       )),
-                //   HorizontalLine(
-                //       y: minPrice,
-                //       color: _dashColour,
-                //       strokeWidth: 1.5,
-                //       dashArray: [5, 2],
-                //       label: HorizontalLineLabel(
-                //         show: true,
-                //         style: Theme.of(context).textTheme.bodyText1,
-                //         alignment: Alignment.bottomLeft,
-                //         labelResolver: (HorizontalLine line) {
-                //           return "min - ${minPrice.coinCurrencyFormat()}";
-                //         },
-                //       )),
-                // ]),
               ),
               swapAnimationDuration: Duration(milliseconds: 500),
             ),

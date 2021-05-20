@@ -25,6 +25,8 @@ class SingleAssetView extends StatelessWidget {
     required this.onFavourite,
   }) : super(key: key);
 
+  static const double kLeadingButtonWidth = 116;
+
   @override
   Widget build(BuildContext context) {
     const double _bottomAppBarHeight = 120;
@@ -45,7 +47,7 @@ class SingleAssetView extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 elevation: 0,
-                leadingWidth: 116,
+                leadingWidth: kLeadingButtonWidth,
                 leading: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -98,7 +100,7 @@ class SingleAssetView extends StatelessWidget {
                   marketCap: marketCoin.marketCap,
                   volume24: marketCoin.totalVolume),
               brightness: Theme.of(context).brightness,
-              leadingWidth: 116,
+              leadingWidth: kLeadingButtonWidth,
               leading: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
