@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/single_asset/exchange_list_with_filter.dart';
 import 'package:crypto_app/old/widgets/back_chevron_button.dart';
@@ -46,20 +48,26 @@ class SingleAssetView extends StatelessWidget {
           return Scaffold(
               appBar: AppBar(
                 elevation: 0,
-                leadingWidth: kLeadingButtonWidth,
-                leading: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 24,
-                      width: 32,
-                      alignment: AlignmentDirectional.center,
-                      child: BackChevronButton(
-                        onTapped: () => Navigator.pop(context),
-                      ),
-                    ),
-                  ],
-                ),
+                leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
+                    ? kLeadingButtonWidthMac
+                    : kLeadingButtonWidth,
+                leading: Theme.of(context).platform == TargetPlatform.macOS
+                    ? Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Container(
+                            height: 24,
+                            width: 32,
+                            alignment: AlignmentDirectional.center,
+                            child: BackChevronButton(
+                              onTapped: () => Navigator.pop(context),
+                            ),
+                          ),
+                        ],
+                      )
+                    : IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: Icon(CupertinoIcons.chevron_left)),
               ),
               body: Center(child: Icon(CupertinoIcons.exclamationmark)));
         }
@@ -92,20 +100,26 @@ class SingleAssetView extends StatelessWidget {
                   marketCap: marketCoin.marketCap,
                   volume24: marketCoin.totalVolume),
               brightness: Theme.of(context).brightness,
-              leadingWidth: kLeadingButtonWidth,
-              leading: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 24,
-                    width: 32,
-                    alignment: AlignmentDirectional.center,
-                    child: BackChevronButton(
-                      onTapped: () => Navigator.pop(context),
-                    ),
-                  ),
-                ],
-              ),
+              leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
+                  ? kLeadingButtonWidthMac
+                  : kLeadingButtonWidth,
+              leading: Theme.of(context).platform == TargetPlatform.macOS
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Container(
+                          height: 24,
+                          width: 32,
+                          alignment: AlignmentDirectional.center,
+                          child: BackChevronButton(
+                            onTapped: () => Navigator.pop(context),
+                          ),
+                        ),
+                      ],
+                    )
+                  : IconButton(
+                      onPressed: () => Navigator.pop(context),
+                      icon: Icon(CupertinoIcons.chevron_left)),
               actions: [
                 //TODO Add in once there is per item Bloc;
                 // Consumer<AssetViewModel>(

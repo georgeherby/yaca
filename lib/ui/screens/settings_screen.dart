@@ -18,20 +18,26 @@ class SettingsScreen extends StatelessWidget {
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         centerTitle: true,
-        leadingWidth: kLeadingButtonWidth,
-        leading: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(
-              height: 24,
-              width: 32,
-              alignment: AlignmentDirectional.center,
-              child: BackChevronButton(
-                onTapped: () => Navigator.pop(context),
-              ),
-            ),
-          ],
-        ),
+        leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
+            ? kLeadingButtonWidthMac
+            : kLeadingButtonWidth,
+        leading: Theme.of(context).platform == TargetPlatform.macOS
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 24,
+                    width: 32,
+                    alignment: AlignmentDirectional.center,
+                    child: BackChevronButton(
+                      onTapped: () => Navigator.pop(context),
+                    ),
+                  ),
+                ],
+              )
+            : IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: Icon(CupertinoIcons.chevron_left)),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -85,20 +91,28 @@ class SettingsScreen extends StatelessWidget {
                     builder: (context) => Scaffold(
                       appBar: AppBar(
                         toolbarHeight: kTitleBarMinHeight,
-                        leadingWidth: kLeadingButtonWidth,
-                        leading: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 24,
-                              width: 32,
-                              alignment: AlignmentDirectional.center,
-                              child: BackChevronButton(
-                                onTapped: () => Navigator.pop(context),
-                              ),
-                            ),
-                          ],
-                        ),
+                        leadingWidth:
+                            Theme.of(context).platform == TargetPlatform.macOS
+                                ? kLeadingButtonWidthMac
+                                : kLeadingButtonWidth,
+                        leading: Theme.of(context).platform ==
+                                TargetPlatform.macOS
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    height: 24,
+                                    width: 32,
+                                    alignment: AlignmentDirectional.center,
+                                    child: BackChevronButton(
+                                      onTapped: () => Navigator.pop(context),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : IconButton(
+                                onPressed: () => Navigator.pop(context),
+                                icon: Icon(CupertinoIcons.chevron_left)),
                       ),
                     ),
                   ),
