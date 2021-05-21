@@ -65,6 +65,7 @@ class SingleAssetView extends StatelessWidget {
                 marketCoin.name,
                 style: Theme.of(context).textTheme.headline6,
               ),
+              centerTitle: true,
               elevation: 0,
               bottom: AppBarBottom(
                   height: _bottomAppBarHeight,

@@ -46,6 +46,8 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
           'Whales',
           style: Theme.of(context).textTheme.headline6,
         ),
+                            centerTitle: true,
+
         elevation: Theme.of(context).appBarTheme.elevation,
         actions: [
           IconButton(

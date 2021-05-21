@@ -1,14 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteAssetsView extends StatelessWidget {
   const FavouriteAssetsView({
@@ -28,6 +26,7 @@ class FavouriteAssetsView extends StatelessWidget {
                       'Favourites',
                       style: Theme.of(context).textTheme.headline6,
                     ),
+                    centerTitle: true,
                     elevation: Theme.of(context).appBarTheme.elevation,
                     actions: [
                       IconButton(
@@ -47,8 +46,7 @@ class FavouriteAssetsView extends StatelessWidget {
                       onFavourite: (MarketCoin marketCoin, bool isChecked) =>
                           BlocProvider.of<AssetOverviewBloc>(context).add(
                               AssetFavourited(
-                                  state.allAssets, marketCoin, isChecked))
-                      ))
+                                  state.allAssets, marketCoin, isChecked))))
               : Center(
                   child: Text('No favourites'),
                 );

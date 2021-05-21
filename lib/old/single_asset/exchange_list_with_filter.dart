@@ -1,14 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/old/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/old/models/filter.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
@@ -51,7 +49,6 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
         .toList();
 
     if (_selectedCurrencies.isNotEmpty) {
-// lists.where((element) => element.)
       tickers.addAll(_flattenedMarkets
           .where((element) => _selectedCurrencies.contains(element.target)));
     } else {
@@ -62,6 +59,10 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   @override
   Widget build(BuildContext context) {
+    var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
+            .contains(Theme.of(context).platform) &&
+        MediaQuery.of(context).size.width < 600;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -137,32 +138,38 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ),
                     Spacer(),
                     Expanded(
-                        flex: 10,
+                        flex: 8,
                         child: Text(
                           tickers[index].market.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         )),
                     Spacer(),
-                    Text(tickers[index].base + '/' + tickers[index].target),
-                    Spacer(
-                      flex: 5,
-                    ),
                     Expanded(
-                      flex: 2,
+                      flex: 3,
                       child: Text(
-                        tickers[index].trustScore?.toUpperCase() ?? '',
-                        textAlign: TextAlign.right,
-                      ),
+                          tickers[index].base + '/' + tickers[index].target),
                     ),
-                    Spacer(),
-                    Expanded(
-                      flex: 4,
-                      child: Text(
-                        'Vol: ${tickers[index].volume.volumeFormat()}',
-                        textAlign: TextAlign.right,
-                      ),
-                    ),
+                    isMobile ? Container() : Spacer(),
+                    isMobile
+                        ? Container()
+                        : Expanded(
+                            flex: 3,
+                            child: Text(
+                              tickers[index].trustScore?.toUpperCase() ?? '',
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
+                    isMobile ? Container() : Spacer(),
+                    isMobile
+                        ? Container()
+                        : Expanded(
+                            flex: 4,
+                            child: Text(
+                              'Vol: ${tickers[index].volume.volumeFormat()}',
+                              textAlign: TextAlign.right,
+                            ),
+                          ),
                     Spacer(),
                     Expanded(
                       flex: 4,
