@@ -127,6 +127,7 @@ class SingleAssetView extends StatelessWidget {
                   builder: (context, state) {
                     if (state is AssetOverviewLoaded) {
                       return IconButton(
+                        
                         icon: FavouriteIcon(
                           isSelected: marketCoin.isFavourited,
                           size: 22,

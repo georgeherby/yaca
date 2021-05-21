@@ -248,8 +248,8 @@ class AssetsDataTable extends StatelessWidget {
                                         ? TextAlign.center
                                         : TextAlign.end,
                                   ),
-                                  favourite: InkWell(
-                                    onTap: () {
+                                  favourite: IconButton(
+                                    onPressed: () {
                                       if (mc.isFavourited) {
                                         print('MarketOverview ${mc.name}');
                                       } else {
@@ -258,11 +258,10 @@ class AssetsDataTable extends StatelessWidget {
                                       }
                                       onFavourite(mc, !mc.isFavourited);
                                     },
-                                    child: BlocBuilder<AssetOverviewBloc,
+                                    icon: BlocBuilder<AssetOverviewBloc,
                                         AssetOverviewState>(
                                       builder: (context, state) {
                                         if (state is AssetOverviewLoaded) {
-                                          print("Loading after a favourite");
                                           return FavouriteIcon(
                                             isSelected: mc.isFavourited,
                                             size: 24,
