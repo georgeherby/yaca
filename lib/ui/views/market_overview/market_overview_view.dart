@@ -27,7 +27,7 @@ class MarketOverviewView extends StatelessWidget {
         var mobileLarge = constraint.maxWidth < 600;
         return Row(
           mainAxisSize: MainAxisSize.max,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             mobileLarge
                 ? IconButton(
@@ -45,6 +45,7 @@ class MarketOverviewView extends StatelessWidget {
             Expanded(
               flex: 4,
               child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
@@ -53,7 +54,7 @@ class MarketOverviewView extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .subtitle1
                           ?.copyWith(color: Colors.white),
                       textAlign: TextAlign.center,
                     ),
@@ -124,13 +125,14 @@ class MarketOverviewView extends StatelessWidget {
                 ? Expanded(
                     flex: 4,
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           'Dominance',
                           style: Theme.of(context)
                               .textTheme
-                              .headline6
+                              .subtitle1
                               ?.copyWith(color: Colors.white),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
@@ -192,7 +194,7 @@ class MarketOverviewView extends StatelessWidget {
             Expanded(
               flex: 4,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
@@ -201,7 +203,7 @@ class MarketOverviewView extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: Theme.of(context)
                         .textTheme
-                        .headline6
+                        .subtitle1
                         ?.copyWith(color: Colors.white),
                     textAlign: TextAlign.center,
                   ),

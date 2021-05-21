@@ -16,7 +16,7 @@ class AppBarDataBlock extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
@@ -31,7 +31,7 @@ class AppBarDataBlock extends StatelessWidget {
           amount,
           textAlign: TextAlign.center,
           style: TextStyle(
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w600,
               fontSize: 16,
               color: Theme.of(context).textTheme.bodyText1?.color),
         ),
