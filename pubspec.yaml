@@ -13,7 +13,6 @@ dependencies:
     sdk: flutter
   http:
     ^0.13.3
-    #^0.12.2
   intl: ^0.17.0
   # decimal: 1.0.0-nullsafety
   cupertino_icons: ^1.0.3
@@ -25,10 +24,9 @@ dependencies:
   sqflite: ^2.0.0+2
   shimmer: ^2.0.0
   # flutter_svg: ^0.20.0-nullsafety.3
-  url_launcher: ^6.0.3
+  url_launcher: ^6.0.4
   flutter_bloc: ^7.0.0
-  # equatable: ^2.0.0-nullsafety.1
-  equatable: ^2.0.0
+  equatable: ^2.0.2
   cached_network_image: ^3.0.0
   flutter_svg: ^0.22.0
   pedantic: ^1.11.0

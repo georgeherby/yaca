@@ -1,14 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class WhaleTransactionList extends StatelessWidget {
   final List<Transactions> transactions;
@@ -60,21 +58,27 @@ class WhaleTransactionList extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          '${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, false)}'),
-                      Text(
-                          'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencySymbol)}'),
-                      Text(
-                          "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
-                    ],
+                  Expanded(
+                    flex: 20,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                            '${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, false)}'),
+                        Text(
+                            'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencySymbol)}'),
+                        Text(
+                            "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
+                      ],
+                    ),
                   ),
                   Spacer(flex: 5),
-                  Text(
-                    formatDate.format(date),
-                    textAlign: TextAlign.right,
+                  Expanded(
+                    flex: 10,
+                    child: Text(
+                      formatDate.format(date),
+                      textAlign: TextAlign.right,
+                    ),
                   )
                 ],
               ),

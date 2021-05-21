@@ -24,24 +24,10 @@ class MarketOverviewView extends StatelessWidget {
     return Scaffold(
       appBar: AppBarStatic(body: LayoutBuilder(builder: (context, constraint) {
         var mobileCompressed = constraint.maxWidth < 500;
-        var mobileLarge = constraint.maxWidth < 600;
         return Row(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            mobileLarge
-                ? IconButton(
-                    tooltip: 'Open settings',
-                    onPressed: () => Navigator.of(context).push(
-                      CupertinoPageRoute(
-                        fullscreenDialog: true,
-                        builder: (context) => AppSettingsPage(),
-                      ),
-                    ),
-                    icon: Icon(CupertinoIcons.settings),
-                  )
-                : Container(),
-            mobileLarge ? Spacer() : Container(),
             Expanded(
               flex: 4,
               child: Column(

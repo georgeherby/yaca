@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +12,8 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+    var mobileLarge = MediaQuery.of(context).size.width < 600;
+
     return Theme(
       data: ThemeData(
           brightness: Brightness.dark,
@@ -43,6 +46,19 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 Spacer(
                   flex: 5,
                 ),
+                mobileLarge
+                    ? IconButton(
+                        tooltip: 'Open settings',
+                        onPressed: () => Navigator.of(context).push(
+                          CupertinoPageRoute(
+                            fullscreenDialog: true,
+                            builder: (context) => AppSettingsPage(),
+                          ),
+                        ),
+                        icon: Icon(CupertinoIcons.settings),
+                      )
+                    : Container(),
+                mobileLarge ? Spacer() : Container(),
                 Expanded(
                   flex: 150,
                   child: Column(
@@ -54,9 +70,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                     ],
                   ),
                 ),
-                Spacer(
-                  flex: 5,
-                ),
+                Spacer(),
                 refreshTapped != null
                     ? IconButton(
                         icon: Icon(CupertinoIcons.arrow_clockwise),
