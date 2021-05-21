@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'api/coingecko/market_coins.dart';
 
 class AssetsList {

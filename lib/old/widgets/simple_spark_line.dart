@@ -1,8 +1,14 @@
+// 🎯 Dart imports:
 import 'dart:math';
 
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:fl_chart/fl_chart.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:fl_chart/fl_chart.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/consts/colours.dart';
 
 class SimpleSparkLine extends StatelessWidget {
   final List<double> data;

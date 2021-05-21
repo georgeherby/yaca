@@ -1,16 +1,18 @@
+// 🐦 Flutter imports:
+// 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
+import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:crypto_app/old/widgets/simple_spark_line.dart';
+import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
+import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:crypto_app/old/single_asset/single_asset_view.dart';
-import 'package:crypto_app/old/utils/currency_formatters.dart';
-import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssetsDataTable extends StatelessWidget {
@@ -96,7 +98,7 @@ class AssetsDataTable extends StatelessWidget {
                                 CupertinoPageRoute(
                                   fullscreenDialog: true,
                                   builder: (context) {
-                                    return SingleAssetView(
+                                    return SingleAssetPage(
                                       marketCoin: mc,
                                       onFavourite: (String id, bool isChecked) {
                                         if (mc.isFavourited) {

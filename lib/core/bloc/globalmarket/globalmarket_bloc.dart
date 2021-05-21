@@ -1,9 +1,13 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
+// 📦 Package imports:
 import 'package:bloc/bloc.dart';
-import 'package:crypto_app/old/api/coingecko/global_market_repository.dart';
-import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
 import 'package:equatable/equatable.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
+import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
 
 part 'globalmarket_event.dart';
 part 'globalmarket_state.dart';

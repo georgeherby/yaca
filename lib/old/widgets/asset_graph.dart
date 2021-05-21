@@ -1,13 +1,19 @@
+// 🎯 Dart imports:
 import 'dart:math';
 
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/old/utils/currency_formatters.dart';
-import 'package:crypto_app/old/widgets/percentage_change_box.dart';
-import 'package:fl_chart/fl_chart.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
+import 'package:crypto_app/old/widgets/percentage_change_box.dart';
+import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class AssetGraph extends StatefulWidget {
   final List<TimeValuePair> history;
@@ -47,8 +53,7 @@ class _AssetGraphState extends State<AssetGraph> {
     var maxTime = widget.history.map((e) => e.timeEpochUtc).reduce(max);
     var minTime = widget.history.map((e) => e.timeEpochUtc).reduce(min);
 
-    var _dateTimeTouchedDate =
-       DateTime.fromMillisecondsSinceEpoch(touchedTime);
+    var _dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
     var price = touchedPrice;
     var currencySymbol =
@@ -97,9 +102,11 @@ class _AssetGraphState extends State<AssetGraph> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('high: ${maxPrice.currencyFormatWithPrefix(currencySymbol)}',
+                      Text(
+                          'high: ${maxPrice.currencyFormatWithPrefix(currencySymbol)}',
                           style: Theme.of(context).textTheme.caption),
-                      Text('low: ${minPrice..currencyFormatWithPrefix(currencySymbol)}',
+                      Text(
+                          'low: ${minPrice..currencyFormatWithPrefix(currencySymbol)}',
                           style: Theme.of(context).textTheme.caption),
                     ],
                   ),

@@ -1,23 +1,24 @@
-import 'dart:io';
-
+// 🐦 Flutter imports:
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/old/single_asset/exchange_list_with_filter.dart';
-import 'package:crypto_app/old/widgets/back_chevron_button.dart';
-import 'package:crypto_app/old/widgets/favourite_icon.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:crypto_app/old/api/coingecko/assets_api.dart';
-import 'package:crypto_app/old/api/coingecko/exchange_ticker_api.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/assets_api.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_api.dart';
 import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/old/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/single_asset/app_bar_bottom.dart';
+import 'package:crypto_app/old/single_asset/exchange_list_with_filter.dart';
 import 'package:crypto_app/old/widgets/asset_graph_with_switcher.dart';
+import 'package:crypto_app/old/widgets/back_chevron_button.dart';
+import 'package:crypto_app/old/widgets/favourite_icon.dart';
+import 'package:crypto_app/old/widgets/scaffold_with_back.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;
@@ -47,31 +48,11 @@ class SingleAssetView extends StatelessWidget {
         if (snapshot.hasError) {
           print(snapshot.error);
           print(snapshot.stackTrace);
-          return Scaffold(
-              appBar: AppBar(
-                elevation: 0,
-                leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
-                    ? kLeadingButtonWidthMac
-                    : kLeadingButtonWidth,
-                leading: Theme.of(context).platform == TargetPlatform.macOS
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Container(
-                            height: 24,
-                            width: 32,
-                            alignment: AlignmentDirectional.center,
-                            child: BackChevronButton(
-                              onTapped: () => Navigator.pop(context),
-                            ),
-                          ),
-                        ],
-                      )
-                    : IconButton(
-                        onPressed: () => Navigator.pop(context),
-                        icon: Icon(CupertinoIcons.chevron_left)),
-              ),
-              body: Center(child: Icon(CupertinoIcons.exclamationmark)));
+          return ScaffoldWithBack(
+            body: Center(
+              child: Icon(CupertinoIcons.exclamationmark),
+            ),
+          );
         }
 
         if (snapshot.hasData) {
@@ -127,7 +108,6 @@ class SingleAssetView extends StatelessWidget {
                   builder: (context, state) {
                     if (state is AssetOverviewLoaded) {
                       return IconButton(
-                        
                         icon: FavouriteIcon(
                           isSelected: marketCoin.isFavourited,
                           size: 22,

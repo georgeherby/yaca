@@ -1,13 +1,17 @@
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:crypto_app/old/utils/currency_formatters.dart';
+
+// 🌎 Project imports:
 import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class PriceDelta extends StatelessWidget {
   final double? priceChangeDelta;
   final double? textSize;
 
-  const PriceDelta(this.priceChangeDelta, {Key? key, this.textSize}) : super(key: key);
+  const PriceDelta(this.priceChangeDelta, {Key? key, this.textSize})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +24,9 @@ class PriceDelta extends StatelessWidget {
           Text(
             (priceChangeDelta!.deltaFormat()),
             style: Theme.of(context).textTheme.caption?.copyWith(
-                color: color, fontSize: textSize ?? Theme.of(context).textTheme.caption!.fontSize),
+                color: color,
+                fontSize:
+                    textSize ?? Theme.of(context).textTheme.caption!.fontSize),
           ),
           SizedBox(
             width: 2,

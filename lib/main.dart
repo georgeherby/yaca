@@ -1,23 +1,21 @@
+// 🐦 Flutter imports:
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/preferences/currency_preference.dart';
-import 'package:crypto_app/old/api/coingecko/global_market_repository.dart';
-import 'package:crypto_app/old/api/coingecko/market_overview_api.dart';
-import 'package:crypto_app/old/api/whalealerts/whale_transactions_api.dart';
-import 'package:crypto_app/old/data/dao/favourites_dao.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/market_overview_api.dart';
+import 'package:crypto_app/core/repositories/api/whalealerts/whale_transactions_api.dart';
+import 'package:crypto_app/core/repositories/favouritess_repository.dart';
 import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/old/utils/view_builder/filter_list_bloc.dart';
-import 'package:crypto_app/ui/screens/market_screen.dart';
-import 'package:crypto_app/ui/screens/settings_screen.dart';
-import 'package:crypto_app/ui/screens/whale_transactions_screen.dart';
+import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/pages/main/main_page.dart';
+import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+// 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/screens/favourite_assets_screen.dart';
 import 'package:http/http.dart' as http;
 
 import 'core/preferences/dark_theme_preference.dart';
@@ -108,6 +106,10 @@ class _MyAppState extends State<MyApp> {
                     debugShowCheckedModeBanner: false,
                     themeMode: state.theme,
                     theme: ThemeData(
+                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                        unselectedItemColor: Colors.black54,
+                        selectedItemColor: LightThemeColors().primary,
+                      ),
                       brightness: Brightness.light,
                       primaryColor: LightThemeColors().primary,
                       accentColor: LightThemeColors().accent,
@@ -165,6 +167,12 @@ class _MyAppState extends State<MyApp> {
                         elevation: 0,
                         color: DarkThemeColors().cardBackground,
                       ),
+                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          unselectedItemColor: Colors.white38,
+                          unselectedLabelStyle:
+                              TextStyle(color: Colors.white38),
+                          selectedItemColor: Colors.white,
+                          selectedLabelStyle: TextStyle(color: Colors.white)),
                       canvasColor: DarkThemeColors().cardBackground,
                       appBarTheme: AppBarTheme(
                           elevation: 0,
@@ -213,144 +221,5 @@ class _MyAppState extends State<MyApp> {
         },
       ),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({required Key key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _selectedIndex = 0;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Row(children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Expanded(
-                child: NavigationRail(
-                  minWidth: 55.0,
-                  groupAlignment: 0.0,
-                  selectedIndex: _selectedIndex, //_selectedIndex,
-                  onDestinationSelected: (int index) {
-                    if (_selectedIndex != index) {
-                      setState(() {
-                        _selectedIndex = index;
-                      });
-                    }
-                  },
-                  labelType: NavigationRailLabelType.all,
-                  destinations: [
-                    NavigationRailDestination(
-                        icon: Icon(CupertinoIcons.money_dollar_circle),
-                        selectedIcon:
-                            Icon(CupertinoIcons.money_dollar_circle_fill),
-                        label: Text(
-                          'Prices',
-                        )),
-                    NavigationRailDestination(
-                        icon: Icon(CupertinoIcons.star),
-                        selectedIcon: Icon(CupertinoIcons.star_fill),
-                        label: Text(
-                          'Favourites',
-                        )),
-                    // NavigationRailDestination(
-                    //     icon: Icon(CupertinoIcons.triangle),
-                    //     selectedIcon: Icon(CupertinoIcons.triangle_fill),
-                    //     label: Text(
-                    //       "Portfolio",
-                    //     )),
-                    // NavigationRailDestination(
-                    //     icon: Icon(CupertinoIcons.news),
-                    //     selectedIcon: Icon(CupertinoIcons.news_solid),
-                    //     label: Text(
-                    //       "News",
-                    //     ))
-                    NavigationRailDestination(
-                        icon: SvgPicture.asset(
-                          'assets/001-whale.svg',
-                          semanticsLabel: 'Whale unselected icon',
-                          height: Theme.of(context).iconTheme.size,
-                          width: Theme.of(context).iconTheme.size,
-                          color: Theme.of(context)
-                              .navigationRailTheme
-                              .unselectedIconTheme
-                              ?.color,
-                        ),
-                        selectedIcon: SvgPicture.asset(
-                          'assets/002-whale-1.svg',
-                          semanticsLabel: 'Whale selected icon',
-                          height: Theme.of(context).iconTheme.size,
-                          width: Theme.of(context).iconTheme.size,
-                          color: Theme.of(context)
-                              .navigationRailTheme
-                              .selectedIconTheme
-                              ?.color,
-                        ),
-                        label: Text(
-                          'Whales',
-                        ))
-                  ],
-                ),
-              ),
-              IconButton(
-                tooltip: 'Open settings',
-                onPressed: () => Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) => SettingsScreen(),
-                  ),
-                ),
-                icon: Icon(CupertinoIcons.settings),
-              ),
-              Divider(color: Colors.transparent)
-            ],
-          ),
-          Expanded(
-              child: Padding(
-            padding: const EdgeInsets.only(right: 8.0),
-            child: showPage(_selectedIndex),
-          ))
-        ]),
-      ),
-    );
-  }
-
-  Widget showPage(int index) {
-    switch (index) {
-      case 0:
-        return MarketScreen();
-      case 1:
-        return FavouriteAssetsScreen();
-      // case 2:
-      //   return Expanded(
-      //     child: Scaffold(
-      //       body: Center(
-      //         child: Text("Portfolio"),
-      //       ),
-      //     ),
-      //   );
-      // case 2:
-      //   return Expanded(
-      //     child: Scaffold(
-      //       body: Center(
-      //         child: Text("News"),
-      //       ),
-      //     ),
-      //   );
-      case 2:
-        return WhaleTransactionPage();
-      default:
-        return Icon(CupertinoIcons.exclamationmark);
-    }
   }
 }

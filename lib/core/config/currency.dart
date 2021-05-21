@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:crypto_app/old/models/settings/chosen_currency.dart';
 
 class AvailableCurrencies {

@@ -1,12 +1,18 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
-import 'package:crypto_app/old/api/coingecko/market_overview_api.dart';
-import 'package:crypto_app/old/data/dao/favourites_dao.dart';
-import 'package:crypto_app/old/data/models/favourites.dart';
-import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
-import 'package:equatable/equatable.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/models/favourites.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/market_overview_api.dart';
+import 'package:crypto_app/core/repositories/favouritess_repository.dart';
+import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 
 part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';

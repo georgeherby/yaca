@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:crypto_app/old/models/currency.dart';
 
 class AssetOverview {

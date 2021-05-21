@@ -1,0 +1,4 @@
+- repo: https://github.com/fluttercommunity/import_sorter
+  rev: "master"
+  hooks:
+    - id: flutter-import-sorter

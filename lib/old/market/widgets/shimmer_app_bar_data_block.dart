@@ -1,4 +1,7 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:shimmer/shimmer.dart';
 
 class ShimmerAppBarDataBlock extends StatelessWidget {
