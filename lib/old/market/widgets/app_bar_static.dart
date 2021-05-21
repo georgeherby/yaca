@@ -12,7 +12,9 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    var mobileLarge = MediaQuery.of(context).size.width < 600;
+        var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
+            .contains(Theme.of(context).platform) &&
+        MediaQuery.of(context).size.width < 600;
 
     return Theme(
       data: ThemeData(
@@ -46,7 +48,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 Spacer(
                   flex: 5,
                 ),
-                mobileLarge
+                isMobile
                     ? IconButton(
                         tooltip: 'Open settings',
                         onPressed: () => Navigator.of(context).push(
@@ -58,7 +60,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                         icon: Icon(CupertinoIcons.settings),
                       )
                     : Container(),
-                mobileLarge ? Spacer() : Container(),
+                isMobile ? Spacer() : Container(),
                 Expanded(
                   flex: 150,
                   child: Column(

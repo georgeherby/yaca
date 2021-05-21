@@ -10,7 +10,6 @@ import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
 import 'package:crypto_app/old/market/widgets/shimmer_app_bar_data_block.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
-import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:flutter/cupertino.dart';
