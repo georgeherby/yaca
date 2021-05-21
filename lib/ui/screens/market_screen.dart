@@ -15,7 +15,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MarketScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,7 +58,12 @@ class MarketScreen extends StatelessWidget {
                                             .currency
                                             .currencySymbol +
                                         compactNumberFormat.format(
-                                          state.globalMarket.data.totalMarketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode),
+                                          state.globalMarket.data.totalMarketCap
+                                              .getForCurrency(BlocProvider.of<
+                                                      AppSettingsBloc>(context)
+                                                  .state
+                                                  .currency
+                                                  .currencyCode),
                                         ),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
@@ -229,12 +233,9 @@ class MarketScreen extends StatelessWidget {
           ],
         );
       }), refreshTapped: () {
-        return null;
-        // Provider.of<AssetViewModel>(context).fetchAssets(
-        //     BlocProvider.of<AppSettingsBloc>(context)
-        //         .state
-        //         .currency
-        //         .currencyCode);
+        BlocProvider.of<GlobalMarketBloc>(context).add(GlobalMarketLoad());
+        BlocProvider.of<AssetOverviewBloc>(context).add(AssetOverviewLoad());
+        return;
       }),
       body: LayoutBuilder(
         builder: (context, constraint) {
@@ -243,12 +244,13 @@ class MarketScreen extends StatelessWidget {
             constraints: BoxConstraints(minWidth: constraint.maxWidth),
             child: BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
               builder: (context, state) {
-                if (state is AssetOverviewLoaded) {
+                if (state is AssetOverviewLoaded ) {
                   return AssetsDataTable(
                       marketCoins: state.allAssets,
-                      onFavourite: (MarketCoin a, bool isChecked) => null
-                      // ase.setFavourite(a, isChecked),
-                      );
+                      onFavourite: (MarketCoin marketCoin, bool isChecked) =>
+                          BlocProvider.of<AssetOverviewBloc>(context).add(
+                              AssetFavourited(
+                                  state.allAssets, marketCoin, isChecked)));
                 } else if (state is AssetOverviewLoading) {
                   return LayoutBuilder(builder: (context, constraint) {
                     return ConstrainedBox(

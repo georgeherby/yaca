@@ -51,7 +51,7 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
     }
   }
 
-  //TODO Review is they should review on failure
+  //TODO Review if they should refresh on failure
   bool _isRefreshPossible(ListEvent event) =>
       state is Success || state is Failure || state is Empty;
 

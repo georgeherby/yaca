@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
@@ -99,9 +100,11 @@ class AssetsDataTable extends StatelessWidget {
                                       marketCoin: mc,
                                       onFavourite: (String id, bool isChecked) {
                                         if (mc.isFavourited) {
-                                          print('Unfaovouriting ${mc.name}');
+                                          print(
+                                              'SingleAssetView Unfavouriting ${mc.name}');
                                         } else {
-                                          print('Favourite ${mc.name}');
+                                          print(
+                                              'SingleAssetView Favourite ${mc.name}');
                                         }
                                         onFavourite(mc, !mc.isFavourited);
                                       },
@@ -248,15 +251,25 @@ class AssetsDataTable extends StatelessWidget {
                                   favourite: InkWell(
                                     onTap: () {
                                       if (mc.isFavourited) {
-                                        print('Unfaovouriting ${mc.name}');
+                                        print('MarketOverview ${mc.name}');
                                       } else {
-                                        print('Favourite ${mc.name}');
+                                        print(
+                                            'MarketOverview Favourite ${mc.name}');
                                       }
                                       onFavourite(mc, !mc.isFavourited);
                                     },
-                                    child: FavouriteIcon(
-                                      isSelected: mc.isFavourited,
-                                      size: 24,
+                                    child: BlocBuilder<AssetOverviewBloc,
+                                        AssetOverviewState>(
+                                      builder: (context, state) {
+                                        if (state is AssetOverviewLoaded) {
+                                          print("Loading after a favourite");
+                                          return FavouriteIcon(
+                                            isSelected: mc.isFavourited,
+                                            size: 24,
+                                          );
+                                        }
+                                        return CupertinoActivityIndicator();
+                                      },
                                     ),
                                   ),
                                 ),

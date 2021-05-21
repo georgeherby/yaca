@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/single_asset/exchange_list_with_filter.dart';
 import 'package:crypto_app/old/widgets/back_chevron_button.dart';
+import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -121,19 +123,21 @@ class SingleAssetView extends StatelessWidget {
                       onPressed: () => Navigator.pop(context),
                       icon: Icon(CupertinoIcons.chevron_left)),
               actions: [
-                //TODO Add in once there is per item Bloc;
-                // Consumer<AssetViewModel>(
-                //     builder: (BuildContext context, AssetViewModel ase, _) {
-                //   debugPrint("consumer");
-                //   return IconButton(
-                //     icon: FavouriteIcon(
-                //       isSelected: marketCoin.isFavourited,
-                //       size: 22,
-                //     ),
-                //     onPressed: () =>
-                //         onFavourite(marketCoin.id, marketCoin.isFavourited),
-                //   );
-                // })
+                BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+                  builder: (context, state) {
+                    if (state is AssetOverviewLoaded) {
+                      return IconButton(
+                        icon: FavouriteIcon(
+                          isSelected: marketCoin.isFavourited,
+                          size: 22,
+                        ),
+                        onPressed: () =>
+                            onFavourite(marketCoin.id, marketCoin.isFavourited),
+                      );
+                    }
+                    return CupertinoActivityIndicator();
+                  },
+                )
               ],
             ),
             body: SingleChildScrollView(

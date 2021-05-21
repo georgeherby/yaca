@@ -165,7 +165,6 @@ class USD implements Currency {
   }
 
   @override
-  // TODO: implement
   String get currencySymbol => '\$';
 }
 

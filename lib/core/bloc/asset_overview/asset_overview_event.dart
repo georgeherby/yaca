@@ -13,3 +13,13 @@ class AssetOverviewLoad extends AssetOverviewEvent {
   @override
   List<Object> get props => [];
 }
+
+class AssetFavourited extends AssetOverviewEvent {
+  final List<MarketCoin> allMarketCoins;
+  final MarketCoin marketCoin;
+  final bool isChecked;
+  const AssetFavourited(this.allMarketCoins, this.marketCoin, this.isChecked);
+
+  @override
+  List<Object> get props => [allMarketCoins, marketCoin, isChecked];
+}

@@ -22,17 +22,15 @@ class AssetOverviewLoading extends AssetOverviewState {
 }
 
 class AssetOverviewLoaded extends AssetOverviewState {
-  final List<MarketCoin> _assets;
+  final List<MarketCoin> allAssets;
 
-  const AssetOverviewLoaded(this._assets);
+  const AssetOverviewLoaded(this.allAssets);
 
   List<MarketCoin> get favouriteAssets =>
-      _assets.where((element) => element.isFavourited).toList();
-
-  List<MarketCoin> get allAssets => _assets;
+      allAssets.where((element) => element.isFavourited).toList();
 
   @override
-  List<Object> get props => [_assets];
+  List<Object> get props => [allAssets, favouriteAssets];
 }
 
 class AssetOverviewError extends AssetOverviewState {

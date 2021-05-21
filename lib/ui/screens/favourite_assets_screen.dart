@@ -38,11 +38,12 @@ class FavouriteAssetsScreen extends StatelessWidget {
                     ],
                   ),
                   body: AssetsDataTable(
-                    marketCoins: state.favouriteAssets,
-                    onFavourite: (MarketCoin a, bool isChecked) =>
-                    null
-                      //ase.setFavourite(a, isChecked),
-                  ))
+                      marketCoins: state.favouriteAssets,
+                      onFavourite: (MarketCoin marketCoin, bool isChecked) =>
+                          BlocProvider.of<AssetOverviewBloc>(context).add(
+                              AssetFavourited(
+                                  state.allAssets, marketCoin, isChecked))
+                      ))
               : Center(
                   child: Text('No favourites'),
                 );
@@ -59,7 +60,6 @@ class FavouriteAssetsScreen extends StatelessWidget {
               ),
             );
           });
-        
         }
         return Icon(CupertinoIcons.exclamationmark);
       },
