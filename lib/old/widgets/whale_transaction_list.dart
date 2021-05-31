@@ -64,20 +64,27 @@ class WhaleTransactionList extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                            '${transaction.amount} ${transaction.symbol.toUpperCase()} for ${transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, context, false)}'),
+                            "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
                         Text(
                             'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencySymbol, context)}'),
                         Text(
-                            "From ${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"} "),
+                          formatDate.format(date),
+                        ),
                       ],
                     ),
                   ),
                   Spacer(flex: 5),
                   Expanded(
                     flex: 10,
-                    child: Text(
-                      formatDate.format(date),
-                      textAlign: TextAlign.right,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text(
+                            '${transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, context, false)}'),
+                        SizedBox(height: 8),
+                        Text(
+                            '${transaction.amount} ${transaction.symbol.toUpperCase()}'),
+                      ],
                     ),
                   )
                 ],
