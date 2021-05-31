@@ -1,14 +1,12 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:http/http.dart' as http;
-
 // 🌎 Project imports:
 import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
+// � Flutter imports:
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:http/http.dart' as http;
 
 class GlobalMarketRespository {
   final String currencyCode;
@@ -23,7 +21,7 @@ class GlobalMarketRespository {
         'https://api.coingecko.com/api/v3/global?vs_currency=$currencyCode';
     final response = await client.get(Uri.parse(url));
 
-    print(response.statusCode);
+    debugPrint(response.statusCode.toString());
     if (response.statusCode != 200) {
       debugPrint(response.headers.toString());
       debugPrint('Error getting Market Overivew');

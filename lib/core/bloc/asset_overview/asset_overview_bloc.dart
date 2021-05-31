@@ -73,23 +73,10 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
             listOfAssets.indexWhere((item) => item.id == event.marketCoin.id);
 
         if (index > -1) {
-          print('start');
-          print(currentState.allAssets == listOfAssets);
-          print('Before:  ${currentState.allAssets.first.isFavourited}');
-          print('After:  ${listOfAssets.first.isFavourited}');
-          print('-------------');
-
-          // yield AssetOverviewLoading(); //Linked to new TODO without this it does not udpate :(
           if (event.isChecked) {
             debugPrint('isChecked');
             var idForRecord = await _favouriteDao.insertIgnore(Favourites(
                 name: event.marketCoin.name, symbol: event.marketCoin.symbol));
-
-            print('is checked before it gets udpated');
-            print(currentState.allAssets == listOfAssets);
-            print('Before:  ${currentState.allAssets.first.isFavourited}');
-            print('After:  ${listOfAssets.first.isFavourited}');
-            print('-------------');
 
             final updatedAssets = listOfAssets.map((e) {
               if (e.id == event.marketCoin.id) {
@@ -98,24 +85,14 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
                 return e;
               }
             });
-            print('is checked udpated');
-            print(currentState.allAssets == listOfAssets);
-            print('Before:  ${currentState.allAssets.first.isFavourited}');
-            print('After:  ${listOfAssets.first.isFavourited}');
-            print('-------------');
+
             yield AssetOverviewLoaded(updatedAssets.toList());
           } else {
             debugPrint('isNotChecked');
             if (listOfAssets[index].favouriteCacheId != null) {
               debugPrint('Remove from sql');
-
               await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
             }
-            print('is unchecked before it gets udpated');
-            print(currentState.allAssets == listOfAssets);
-            print('Before:  ${currentState.allAssets.first.isFavourited}');
-            print('After:  ${listOfAssets.first.isFavourited}');
-            print('-------------');
 
             final updatedAssets = listOfAssets.map((e) {
               if (e.id == event.marketCoin.id) {
@@ -124,25 +101,10 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
                 return e;
               }
             });
-
-            print('is unchecked updated');
-            print(currentState.allAssets == listOfAssets);
-            print('Before:  ${currentState.allAssets.first.isFavourited}');
-            print('After:  ${updatedAssets.first.isFavourited}');
-            print('After:  ${listOfAssets.first.isFavourited}');
-            print('-------------');
             yield AssetOverviewLoaded(updatedAssets.toList());
           }
-
-          print('end');
-          print(currentState.allAssets == listOfAssets);
-          print('Before:  ${currentState.allAssets.first.isFavourited}');
-          print('After:  ${listOfAssets.first.isFavourited}');
-
-          //TODO Work out my this state is not updating - the list seems to tbe the "same"
-
         } else {
-          print('Not in list rather worrying');
+          debugPrint('Not in list rather worrying');
         }
       }
     }

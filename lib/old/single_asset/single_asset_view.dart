@@ -46,8 +46,8 @@ class SingleAssetView extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<AssetHistorySplits> snapshot) {
         if (snapshot.hasError) {
-          print(snapshot.error);
-          print(snapshot.stackTrace);
+          debugPrint(snapshot.error.toString());
+          debugPrint(snapshot.stackTrace.toString());
           return ScaffoldWithBack(
             body: Center(
               child: Icon(CupertinoIcons.exclamationmark),
@@ -111,20 +111,16 @@ class SingleAssetView extends StatelessWidget {
                 BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                   builder: (context, state) {
                     if (state is AssetOverviewLoaded) {
-                      bool isFavourite = state.favouriteAssets
+                      var isFavourite = state.favouriteAssets
                           .where((element) => element.id == marketCoin.id)
                           .isNotEmpty;
 
-                      print("THINGS ${isFavourite}");
                       return IconButton(
                           icon: FavouriteIcon(
                             isSelected: isFavourite,
                             size: 22,
                           ),
-                          onPressed: () {
-                            print("Clicked");
-                            return onFavourite(marketCoin.id, !isFavourite);
-                          });
+                          onPressed: () => onFavourite(marketCoin.id, !isFavourite));
                     }
                     return CupertinoActivityIndicator();
                   },

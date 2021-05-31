@@ -30,11 +30,11 @@ class AssetsDataTable extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Material(
-          borderRadius: BorderRadius.circular(10),
-          // clipBehavior: Clip.antiAliasWithSaveLayer,
-          elevation: Theme.of(context).cardTheme.elevation!,
-          child: LayoutBuilder(
-              builder: (BuildContext context, BoxConstraints constraints) {
+        borderRadius: BorderRadius.circular(10),
+        // clipBehavior: Clip.antiAliasWithSaveLayer,
+        elevation: Theme.of(context).cardTheme.elevation!,
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
             // debugPrint(constraints.maxWidth.toString());
             var collapsedView = constraints.maxWidth <= 800;
             var mobile = constraints.maxWidth <= 490;
@@ -100,16 +100,8 @@ class AssetsDataTable extends StatelessWidget {
                                 builder: (context) {
                                   return SingleAssetPage(
                                     marketCoin: mc,
-                                    onFavourite: (String id, bool isChecked) {
-                                      if (mc.isFavourited) {
-                                        print(
-                                            'SingleAssetView Unfavouriting ${mc.name}');
-                                      } else {
-                                        print(
-                                            'SingleAssetView Favourite ${mc.name}');
-                                      }
-                                      return onFavourite(mc, !mc.isFavourited);
-                                    },
+                                    onFavourite: (String id, bool isChecked) =>
+                                        onFavourite(mc, !mc.isFavourited),
                                   );
                                 },
                               ),
@@ -250,7 +242,6 @@ class AssetsDataTable extends StatelessWidget {
                                     AssetOverviewState>(
                                   builder: (context, state) {
                                     if (state is AssetOverviewLoaded) {
-                                      
                                       return IconButton(
                                           icon: FavouriteIcon(
                                             isSelected: mc.isFavourited,
@@ -274,7 +265,9 @@ class AssetsDataTable extends StatelessWidget {
                 ],
               ),
             );
-          },),),
+          },
+        ),
+      ),
     );
   }
 
