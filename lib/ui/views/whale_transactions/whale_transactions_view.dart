@@ -2,6 +2,7 @@
 // 🌎 Project imports:
 import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/old/widgets/whale_transaction_list.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
@@ -41,13 +42,14 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        toolbarHeight: 38,
+        toolbarHeight: Theme.of(context).platform == TargetPlatform.macOS
+            ? kTitleBarMacOSHeight
+            : kToolbarHeight,
         title: Text(
           'Whales',
           style: Theme.of(context).textTheme.headline6,
         ),
-                            centerTitle: true,
-
+        centerTitle: true,
         elevation: Theme.of(context).appBarTheme.elevation,
         actions: [
           IconButton(

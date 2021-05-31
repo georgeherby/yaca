@@ -19,13 +19,13 @@ dependencies:
   fl_chart: ^0.36.1
   provider: ^5.0.0
   # dart_rss: ^1.0.1
-  shared_preferences: ^2.0.5
-  path_provider: ^2.0.1
+  shared_preferences: ^2.0.6
+  path_provider: ^2.0.2
   sqflite: ^2.0.0+2
   shimmer: ^2.0.0
   # flutter_svg: ^0.20.0-nullsafety.3
   url_launcher: ^6.0.4
-  flutter_bloc: ^7.0.0
+  flutter_bloc: ^7.0.1
   equatable: ^2.0.2
   cached_network_image: ^3.0.0
   flutter_svg: ^0.22.0
@@ -33,7 +33,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  import_sorter: ^4.5.1
+  import_sorter: ^4.6.0
 flutter:
   uses-material-design: true
   assets:

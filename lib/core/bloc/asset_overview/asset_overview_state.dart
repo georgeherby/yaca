@@ -31,6 +31,10 @@ class AssetOverviewLoaded extends AssetOverviewState {
 
   @override
   List<Object> get props => [allAssets, favouriteAssets];
+
+  AssetOverviewLoaded copyWith({List<MarketCoin>? allAssets}) {
+    return AssetOverviewLoaded(allAssets ?? this.allAssets);
+  }
 }
 
 class AssetOverviewError extends AssetOverviewState {

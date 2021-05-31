@@ -3,6 +3,7 @@
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // 📦 Package imports:
@@ -21,7 +22,10 @@ class FavouriteAssetsView extends StatelessWidget {
           return state.favouriteAssets.isNotEmpty
               ? Scaffold(
                   appBar: AppBar(
-                    toolbarHeight: 38,
+                    toolbarHeight:
+                        Theme.of(context).platform == TargetPlatform.macOS
+                            ? kTitleBarMacOSHeight
+                            : kToolbarHeight,
                     title: Text(
                       'Favourites',
                       style: Theme.of(context).textTheme.headline6,

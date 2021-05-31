@@ -8,7 +8,7 @@
 PRODUCT_NAME = crypto_app
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.example.cryptoApp
+PRODUCT_BUNDLE_IDENTIFIER = com.georgeherby.cryptoApp
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2020 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2020 com.georgeherby. All rights reserved.

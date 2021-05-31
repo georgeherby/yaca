@@ -60,7 +60,10 @@ class SingleAssetView extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
-              toolbarHeight: kTitleBarMinHeight + _bottomAppBarHeight,
+              toolbarHeight: (Theme.of(context).platform == TargetPlatform.macOS
+                      ? kTitleBarMacOSHeight
+                      : kToolbarHeight) +
+                  _bottomAppBarHeight,
               title: Text(
                 marketCoin.name,
                 style: Theme.of(context).textTheme.headline6,
@@ -108,14 +111,20 @@ class SingleAssetView extends StatelessWidget {
                 BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                   builder: (context, state) {
                     if (state is AssetOverviewLoaded) {
+                      bool isFavourite = state.favouriteAssets
+                          .where((element) => element.id == marketCoin.id)
+                          .isNotEmpty;
+
+                      print("THINGS ${isFavourite}");
                       return IconButton(
-                        icon: FavouriteIcon(
-                          isSelected: marketCoin.isFavourited,
-                          size: 22,
-                        ),
-                        onPressed: () =>
-                            onFavourite(marketCoin.id, marketCoin.isFavourited),
-                      );
+                          icon: FavouriteIcon(
+                            isSelected: isFavourite,
+                            size: 22,
+                          ),
+                          onPressed: () {
+                            print("Clicked");
+                            return onFavourite(marketCoin.id, !isFavourite);
+                          });
                     }
                     return CupertinoActivityIndicator();
                   },
@@ -179,7 +188,7 @@ class SingleAssetView extends StatelessWidget {
           );
         } else {
           debugPrint('Loading');
-          return Scaffold(
+          return ScaffoldWithBack(
             body: Center(
               child: CupertinoActivityIndicator(),
             ),

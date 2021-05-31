@@ -16,7 +16,7 @@ class ScaffoldWithBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: kTitleBarMinHeight,
+          toolbarHeight: Theme.of(context).platform == TargetPlatform.macOS ?  kTitleBarMacOSHeight : kToolbarHeight,
           title: Text(
             title ?? '',
             style: Theme.of(context).appBarTheme.titleTextStyle,

@@ -1,40 +1,42 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
+
 List<MarketCoin> marketCoinFromJson(String str) =>
     List<MarketCoin>.from(json.decode(str).map((x) => MarketCoin.fromJson(x)));
 
 String marketCoinToJson(List<MarketCoin> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class MarketCoin {
-  late String id;
-  late String symbol;
-  late String name;
-  late String image;
-  late double currentPrice;
-  late int marketCap;
-  late int marketCapRank;
-  late int? fullyDilutedValuation;
-  late double? totalVolume;
-  late double? high24h;
-  late double? low24h;
-  late double? priceChange24h;
-  late double? priceChangePercentage24h;
-  late double? marketCapChange24h;
-  late double? marketCapChangePercentage24h;
-  late double? circulatingSupply;
-  late double? totalSupply;
-  late double? maxSupply;
-  late double? ath;
-  late double? athChangePercentage;
-  late String? athDate;
-  late String lastUpdated;
-  late SparklineIn7d? sparklineIn7d;
-  late double? priceChangePercentage1hInCurrency;
-  late double? priceChangePercentage24hInCurrency;
-  late double? priceChangePercentage7dInCurrency;
-  int? favouriteCacheId;
+class MarketCoin extends Equatable {
+  final String id;
+  final String symbol;
+  final String name;
+  final String image;
+  final double currentPrice;
+  final int marketCap;
+  final int marketCapRank;
+  final int? fullyDilutedValuation;
+  final double? totalVolume;
+  final double? high24h;
+  final double? low24h;
+  final double? priceChange24h;
+  final double? priceChangePercentage24h;
+  final double? marketCapChange24h;
+  final double? marketCapChangePercentage24h;
+  final double? circulatingSupply;
+  final double? totalSupply;
+  final double? maxSupply;
+  final double? ath;
+  final double? athChangePercentage;
+  final String? athDate;
+  final String lastUpdated;
+  final SparklineIn7d? sparklineIn7d;
+  final double? priceChangePercentage1hInCurrency;
+  final double? priceChangePercentage24hInCurrency;
+  final double? priceChangePercentage7dInCurrency;
+  final int? favouriteCacheId;
 
   MarketCoin(
       {required this.id,
@@ -62,37 +64,115 @@ class MarketCoin {
       required this.sparklineIn7d,
       required this.priceChangePercentage1hInCurrency,
       required this.priceChangePercentage24hInCurrency,
-      required this.priceChangePercentage7dInCurrency});
+      required this.priceChangePercentage7dInCurrency,
+      this.favouriteCacheId
+      });
 
-  MarketCoin.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    symbol = json['symbol'];
-    name = json['name'];
-    image = json['image'];
-    currentPrice = json['current_price'].toDouble();
-    marketCap = json['market_cap'];
-    marketCapRank = json['market_cap_rank'];
-    fullyDilutedValuation = json['fully_diluted_valuation'];
-    totalVolume = json['total_volume'] != null ? json['total_volume'].toDouble() : null;
-    high24h = json['high_24h'] != null ? json['high_24h'].toDouble() : null;
-    low24h = json['low_24h'] != null ? json['low_24h'].toDouble() : null;
-    priceChange24h = json['price_change_24h'];
-    priceChangePercentage24h = json['price_change_percentage_24h'];
-    marketCapChange24h =
-        json['market_cap_change_24h'] != null ? json['market_cap_change_24h'].toDouble() : null;
-    marketCapChangePercentage24h = json['market_cap_change_percentage_24h'];
-    circulatingSupply = json['circulating_supply'];
-    totalSupply = json['total_supply'];
-    maxSupply = json['max_supply'];
-    ath = json['ath'].toDouble();
-    athChangePercentage = json['ath_change_percentage'];
-    athDate = json['ath_date'];
-    lastUpdated = json['last_updated'];
-    sparklineIn7d =
-        json['sparkline_in_7d'] != null ? SparklineIn7d.fromJson(json['sparkline_in_7d']) : null;
-    priceChangePercentage1hInCurrency = json['price_change_percentage_1h_in_currency'];
-    priceChangePercentage24hInCurrency = json['price_change_percentage_24h_in_currency'];
-    priceChangePercentage7dInCurrency = json['price_change_percentage_7d_in_currency'];
+
+  MarketCoin copyWith({
+    String? id,
+    String? symbol,
+    String? name,
+    String? image,
+    double? currentPrice,
+    int? marketCap,
+    int? marketCapRank,
+    int? fullyDilutedValuation,
+    double? totalVolume,
+    double? high24h,
+    double? low24h,
+    double? priceChange24h,
+    double? priceChangePercentage24h,
+    double? marketCapChange24h,
+    double? marketCapChangePercentage24h,
+    double? circulatingSupply,
+    double? totalSupply,
+    double? maxSupply,
+    double? ath,
+    double? athChangePercentage,
+    String? athDate,
+    String? lastUpdated,
+    SparklineIn7d? sparklineIn7d,
+    double? priceChangePercentage1hInCurrency,
+    double? priceChangePercentage24hInCurrency,
+    double? priceChangePercentage7dInCurrency,
+    int? favouriteCacheId,
+  }) {
+    return MarketCoin(
+      id: id ?? this.id,
+      symbol: symbol ?? this.symbol,
+      name: name ?? this.name,
+      image: image ?? this.image,
+      currentPrice: currentPrice ?? this.currentPrice,
+      marketCap: marketCap ?? this.marketCap,
+      marketCapRank: marketCapRank ?? this.marketCapRank,
+      fullyDilutedValuation:
+          fullyDilutedValuation ?? this.fullyDilutedValuation,
+      totalVolume: totalVolume ?? this.totalVolume,
+      high24h: high24h ?? this.high24h,
+      low24h: low24h ?? this.low24h,
+      priceChange24h: priceChange24h ?? this.priceChange24h,
+      priceChangePercentage24h:
+          priceChangePercentage24h ?? this.priceChangePercentage24h,
+      marketCapChange24h: marketCapChange24h ?? this.marketCapChange24h,
+      marketCapChangePercentage24h:
+          marketCapChangePercentage24h ?? this.marketCapChangePercentage24h,
+      circulatingSupply: circulatingSupply ?? this.circulatingSupply,
+      totalSupply: totalSupply ?? this.totalSupply,
+      maxSupply: maxSupply ?? this.maxSupply,
+      ath: ath ?? this.ath,
+      athChangePercentage: athChangePercentage ?? this.athChangePercentage,
+      athDate: athDate ?? this.athDate,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
+      sparklineIn7d: sparklineIn7d ?? this.sparklineIn7d,
+      priceChangePercentage1hInCurrency: priceChangePercentage1hInCurrency ??
+          this.priceChangePercentage1hInCurrency,
+      priceChangePercentage24hInCurrency: priceChangePercentage24hInCurrency ??
+          this.priceChangePercentage24hInCurrency,
+      priceChangePercentage7dInCurrency: priceChangePercentage7dInCurrency ??
+          this.priceChangePercentage7dInCurrency,
+      favouriteCacheId: favouriteCacheId, //As null is a state i may set this to null when not set 
+    );
+  }
+
+
+  factory MarketCoin.fromJson(Map<String, dynamic> json) {
+    return MarketCoin(
+        id: json['id'],
+        symbol: json['symbol'],
+        name: json['name'],
+        image: json['image'],
+        currentPrice: json['current_price'].toDouble(),
+        marketCap: json['market_cap'],
+        marketCapRank: json['market_cap_rank'],
+        fullyDilutedValuation: json['fully_diluted_valuation'],
+        totalVolume: json['total_volume'] != null
+            ? json['total_volume'].toDouble()
+            : null,
+        high24h: json['high_24h'] != null ? json['high_24h'].toDouble() : null,
+        low24h: json['low_24h'] != null ? json['low_24h'].toDouble() : null,
+        priceChange24h: json['price_change_24h'],
+        priceChangePercentage24h: json['price_change_percentage_24h'],
+        marketCapChange24h: json['market_cap_change_24h'] != null
+            ? json['market_cap_change_24h'].toDouble()
+            : null,
+        marketCapChangePercentage24h: json['market_cap_change_percentage_24h'],
+        circulatingSupply: json['circulating_supply'],
+        totalSupply: json['total_supply'],
+        maxSupply: json['max_supply'],
+        ath: json['ath'].toDouble(),
+        athChangePercentage: json['ath_change_percentage'],
+        athDate: json['ath_date'],
+        lastUpdated: json['last_updated'],
+        sparklineIn7d: json['sparkline_in_7d'] != null
+            ? SparklineIn7d.fromJson(json['sparkline_in_7d'])
+            : null,
+        priceChangePercentage1hInCurrency:
+            json['price_change_percentage_1h_in_currency'],
+        priceChangePercentage24hInCurrency:
+            json['price_change_percentage_24h_in_currency'],
+        priceChangePercentage7dInCurrency:
+            json['price_change_percentage_7d_in_currency']);
   }
 
   Map<String, dynamic> toJson() {
@@ -123,13 +203,17 @@ class MarketCoin {
     if (sparklineIn7d != null) {
       data['sparkline_in_7d'] = sparklineIn7d?.toJson();
     }
-    data['price_change_percentage_1h_in_currency'] = priceChangePercentage1hInCurrency;
-    data['price_change_percentage_24h_in_currency'] = priceChangePercentage24hInCurrency;
-    data['price_change_percentage_7d_in_currency'] = priceChangePercentage7dInCurrency;
+    data['price_change_percentage_1h_in_currency'] =
+        priceChangePercentage1hInCurrency;
+    data['price_change_percentage_24h_in_currency'] =
+        priceChangePercentage24hInCurrency;
+    data['price_change_percentage_7d_in_currency'] =
+        priceChangePercentage7dInCurrency;
     return data;
   }
 
   bool get isFavourited => favouriteCacheId != null;
+
 
   double? get priceChange1h => priceChangePercentage1hInCurrency != null
       ? (priceChangePercentage1hInCurrency! / 100) * currentPrice
@@ -138,15 +222,18 @@ class MarketCoin {
   double? get priceChange7d => priceChangePercentage7dInCurrency != null
       ? (priceChangePercentage7dInCurrency! / 100) * currentPrice
       : null;
+
+  @override
+  List<Object?> get props => [currentPrice, favouriteCacheId];
 }
 
 class SparklineIn7d {
-  late List<double> price;
+  final List<double> price;
 
   SparklineIn7d({required this.price});
 
-  SparklineIn7d.fromJson(Map<String, dynamic> json) {
-    price = json['price'].cast<double>();
+  factory SparklineIn7d.fromJson(Map<String, dynamic> json) {
+    return SparklineIn7d(price: json['price'].cast<double>());
   }
 
   Map<String, dynamic> toJson() {

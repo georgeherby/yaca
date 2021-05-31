@@ -1,18 +1,16 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
+//  Package imports:
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/favourites.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_api.dart';
 import 'package:crypto_app/core/repositories/favouritess_repository.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
+import 'package:equatable/equatable.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
 
 part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';
@@ -23,6 +21,21 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
   AssetOverviewBloc(this._favouriteDao, this._marketOverviewRepository)
       : super(AssetOverviewInitial());
+
+  @override
+  void onEvent(AssetOverviewEvent event) {
+    if (event is AssetFavourited) {
+      print('isFaved  = ${event.marketCoin.name} to ${event.isChecked}');
+    }
+    super.onEvent(event);
+  }
+
+  @override
+  void onTransition(
+      Transition<AssetOverviewEvent, AssetOverviewState> transition) {
+    print(transition);
+    super.onTransition(transition);
+  }
 
   @override
   Stream<AssetOverviewState> mapEventToState(
@@ -42,7 +55,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
               fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
 
           if (favs.isNotEmpty) {
-            coinData.favouriteCacheId = favs.first.id;
+            return coinData.copyWith(favouriteCacheId: favs.first.id);
           }
           return coinData;
         }));
@@ -51,31 +64,86 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         yield AssetOverviewError(e.toString());
       }
     } else if (event is AssetFavourited) {
-      var index = event.allMarketCoins
-          .indexWhere((item) => item.id == event.marketCoin.id);
+      final currentState = state;
 
+      if (currentState is AssetOverviewLoaded) {
+        var listOfAssets = [...event.allMarketCoins];
 
-      if (index > -1) {
-        yield AssetOverviewLoading();
-        if (event.isChecked) {
-          debugPrint('isChecked');
-          var idForRecord = await _favouriteDao.insertIgnore(Favourites(
-              name: event.marketCoin.name, symbol: event.marketCoin.symbol));
-          event.allMarketCoins[index].favouriteCacheId = idForRecord;
-        } else {
-          debugPrint('isNotChecked');
-          if (event.allMarketCoins[index].favouriteCacheId != null) {
-            debugPrint('Remove from sql');
+        var index =
+            listOfAssets.indexWhere((item) => item.id == event.marketCoin.id);
 
-            await _favouriteDao
-                .delete(event.allMarketCoins[index].favouriteCacheId!);
+        if (index > -1) {
+          print('start');
+          print(currentState.allAssets == listOfAssets);
+          print('Before:  ${currentState.allAssets.first.isFavourited}');
+          print('After:  ${listOfAssets.first.isFavourited}');
+          print('-------------');
+
+          // yield AssetOverviewLoading(); //Linked to new TODO without this it does not udpate :(
+          if (event.isChecked) {
+            debugPrint('isChecked');
+            var idForRecord = await _favouriteDao.insertIgnore(Favourites(
+                name: event.marketCoin.name, symbol: event.marketCoin.symbol));
+
+            print('is checked before it gets udpated');
+            print(currentState.allAssets == listOfAssets);
+            print('Before:  ${currentState.allAssets.first.isFavourited}');
+            print('After:  ${listOfAssets.first.isFavourited}');
+            print('-------------');
+
+            final updatedAssets = listOfAssets.map((e) {
+              if (e.id == event.marketCoin.id) {
+                return e.copyWith(favouriteCacheId: idForRecord);
+              } else {
+                return e;
+              }
+            });
+            print('is checked udpated');
+            print(currentState.allAssets == listOfAssets);
+            print('Before:  ${currentState.allAssets.first.isFavourited}');
+            print('After:  ${listOfAssets.first.isFavourited}');
+            print('-------------');
+            yield AssetOverviewLoaded(updatedAssets.toList());
+          } else {
+            debugPrint('isNotChecked');
+            if (listOfAssets[index].favouriteCacheId != null) {
+              debugPrint('Remove from sql');
+
+              await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
+            }
+            print('is unchecked before it gets udpated');
+            print(currentState.allAssets == listOfAssets);
+            print('Before:  ${currentState.allAssets.first.isFavourited}');
+            print('After:  ${listOfAssets.first.isFavourited}');
+            print('-------------');
+
+            final updatedAssets = listOfAssets.map((e) {
+              if (e.id == event.marketCoin.id) {
+                return e.copyWith(favouriteCacheId: null);
+              } else {
+                return e;
+              }
+            });
+
+            print('is unchecked updated');
+            print(currentState.allAssets == listOfAssets);
+            print('Before:  ${currentState.allAssets.first.isFavourited}');
+            print('After:  ${updatedAssets.first.isFavourited}');
+            print('After:  ${listOfAssets.first.isFavourited}');
+            print('-------------');
+            yield AssetOverviewLoaded(updatedAssets.toList());
           }
-          event.allMarketCoins[index].favouriteCacheId = null;
-        }
 
-        yield AssetOverviewLoaded(event.allMarketCoins);
-      } else {
-        print('Not in list rather worrying');
+          print('end');
+          print(currentState.allAssets == listOfAssets);
+          print('Before:  ${currentState.allAssets.first.isFavourited}');
+          print('After:  ${listOfAssets.first.isFavourited}');
+
+          //TODO Work out my this state is not updating - the list seems to tbe the "same"
+
+        } else {
+          print('Not in list rather worrying');
+        }
       }
     }
   }
