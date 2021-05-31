@@ -1,15 +1,13 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/single_asset/app_bar_bottom_data_block.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   final double height;
@@ -76,7 +74,8 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                                                   context)
                                               .state
                                               .currency
-                                              .currencySymbol)
+                                              .currencySymbol,
+                                          context)
                                       .toString() ??
                                   '-',
                               style: TextStyle(fontSize: 16),
@@ -115,20 +114,20 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                         AppBarBottomDataBlock(
                             title: 'Market Cap',
                             widgetData: Text(
-                              "${currencySymbol ?? ""}${compactNumberFormat.format(marketCap)}",
+                              "${currencySymbol ?? ""}${compactNumberFormat(context).format(marketCap)}",
                               textAlign: TextAlign.center,
                             )),
                         AppBarBottomDataBlock(
                             title: 'Circulating Supply',
                             widgetData: Text(
-                              '${symbol.toUpperCase()} ${compactNumberFormat.format(circulatingSupply)}',
+                              '${symbol.toUpperCase()} ${compactNumberFormat(context).format(circulatingSupply)}',
                               textAlign: TextAlign.center,
                             )),
                         AppBarBottomDataBlock(
                           title: 'Volumne 24h',
                           widgetData: volume24 != null
                               ? Text(
-                                  "${currencySymbol ?? ""}${compactNumberFormat.format(volume24)}",
+                                  "${currencySymbol ?? ""}${compactNumberFormat(context).format(volume24)}",
                                   textAlign: TextAlign.center,
                                 )
                               : null,

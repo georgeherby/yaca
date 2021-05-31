@@ -11,8 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  http:
-    ^0.13.3
+  http: ^0.13.3
   intl: ^0.17.0
   # decimal: 1.0.0-nullsafety
   cupertino_icons: ^1.0.3
@@ -35,6 +34,7 @@ dev_dependencies:
     sdk: flutter
   import_sorter: ^4.6.0
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/001-whale.svg

@@ -1,11 +1,12 @@
 // 📦 Package imports:
+import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension CurrencyFormatters on num {
-  String currencyFormatWithPrefix(String currencyPrefix,
+  String currencyFormatWithPrefix(String currencyPrefix, BuildContext context,
       [bool showDecimals = true]) {
     return NumberFormat.currency(
-            //TODO Add in locale
+            locale: Localizations.localeOf(context).toString(),
             symbol: currencyPrefix,
             decimalDigits: showDecimals
                 ? toInt() >= 1000 || toInt() <= -1000
@@ -28,23 +29,24 @@ extension CurrencyFormatters on num {
     ).format(this);
   }
 
-  String volumeFormat() {
+  String volumeFormat(BuildContext context) {
     var formatString = toInt() >= 2 || toInt() <= -2
         ? '##,###,###,###.00'
         : '##,###,###,##0.00###';
 
     return NumberFormat(
       formatString,
-      'en_GB',
+      Localizations.localeOf(context).toString(),
     ).format(this);
   }
 }
 
-NumberFormat compactCurrencyFormat = NumberFormat.compactSimpleCurrency(
-  decimalDigits: 2,
-  locale: 'en_GB',
-);
+NumberFormat compactCurrencyFormat(BuildContext context) {
+  return NumberFormat.compactSimpleCurrency(
+      decimalDigits: 2, locale: Localizations.localeOf(context).toString());
+}
 
-NumberFormat compactNumberFormat = NumberFormat.compactLong(
-  locale: 'en_GB',
-);
+NumberFormat compactNumberFormat(BuildContext context) {
+  return NumberFormat.compactLong(
+      locale: Localizations.localeOf(context).toString());
+}

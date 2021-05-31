@@ -233,7 +233,8 @@ class AssetsDataTable extends StatelessWidget {
                                       BlocProvider.of<AppSettingsBloc>(context)
                                           .state
                                           .currency
-                                          .currencySymbol),
+                                          .currencySymbol,
+                                      context),
                                   textAlign: collapsedView
                                       ? TextAlign.center
                                       : TextAlign.end,

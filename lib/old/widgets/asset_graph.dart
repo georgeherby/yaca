@@ -92,7 +92,7 @@ class _AssetGraphState extends State<AssetGraph> {
               Row(
                 children: [
                   Text(
-                    price.currencyFormatWithPrefix(currencySymbol),
+                    price.currencyFormatWithPrefix(currencySymbol, context),
                     style: Theme.of(context)
                         .textTheme
                         .headline5
@@ -103,10 +103,10 @@ class _AssetGraphState extends State<AssetGraph> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          'high: ${maxPrice.currencyFormatWithPrefix(currencySymbol)}',
+                          'high: ${maxPrice.currencyFormatWithPrefix(currencySymbol, context)}',
                           style: Theme.of(context).textTheme.caption),
                       Text(
-                          'low: ${minPrice..currencyFormatWithPrefix(currencySymbol)}',
+                          'low: ${minPrice..currencyFormatWithPrefix(currencySymbol, context)}',
                           style: Theme.of(context).textTheme.caption),
                     ],
                   ),
@@ -198,7 +198,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     getTextStyles: (value) =>
                         Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
-                      return '${value.currencyFormatWithPrefix(currencySymbol)}';
+                      return '${value.currencyFormatWithPrefix(currencySymbol, context)}';
                     },
                     reservedSize: 72,
                     margin: 8,

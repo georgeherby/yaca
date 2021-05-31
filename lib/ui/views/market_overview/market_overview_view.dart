@@ -61,7 +61,7 @@ class MarketOverviewView extends StatelessWidget {
                                             .state
                                             .currency
                                             .currencySymbol +
-                                        compactNumberFormat.format(
+                                        compactNumberFormat(context).format(
                                           state.globalMarket.data.totalMarketCap
                                               .getForCurrency(BlocProvider.of<
                                                       AppSettingsBloc>(context)
@@ -210,7 +210,7 @@ class MarketOverviewView extends StatelessWidget {
                                         .state
                                         .currency
                                         .currencySymbol +
-                                    compactNumberFormat.format(
+                                    compactNumberFormat(context).format(
                                       state.globalMarket.data.totalVolume.gbp,
                                     ),
                                 style: TextStyle(

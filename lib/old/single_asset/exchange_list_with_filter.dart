@@ -166,7 +166,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         : Expanded(
                             flex: 4,
                             child: Text(
-                              'Vol: ${tickers[index].volume.volumeFormat()}',
+                              'Vol: ${tickers[index].volume.volumeFormat(context)}',
                               textAlign: TextAlign.right,
                             ),
                           ),
@@ -175,7 +175,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       flex: 4,
                       child: Text(
                         tickers[index].last.currencyFormatWithPrefix(
-                            tickers[index].target.toUpperCase()),
+                            tickers[index].target.toUpperCase(), context),
                         textAlign: TextAlign.right,
                       ),
                     ),
