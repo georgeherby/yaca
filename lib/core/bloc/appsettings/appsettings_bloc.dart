@@ -1,25 +1,24 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
+//  Package imports:
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/config/currency.dart';
 import 'package:crypto_app/core/extensions/chosen_currency.dart';
+import 'package:crypto_app/core/extensions/theme_mode.dart';
 import 'package:crypto_app/core/preferences/currency_preference.dart';
-import 'package:crypto_app/core/preferences/dark_theme_preference.dart';
+import 'package:crypto_app/core/preferences/theme_preference.dart';
 import 'package:crypto_app/old/models/settings/chosen_currency.dart';
+import 'package:equatable/equatable.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
 
 part 'appsettings_event.dart';
 part 'appsettings_state.dart';
 
 class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
-  final DarkThemePreferenceRepository _darkThemePreferenceRepository;
+  final ThemePreferenceRepository _darkThemePreferenceRepository;
   final CurrencyPreferenceRepository _currencyPreferenceRepository;
 
   AppSettingsBloc(
@@ -31,10 +30,7 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     AppSettingsEvent event,
   ) async* {
     if (event is LoadAppSettings) {
-      var theme = await _darkThemePreferenceRepository.isDarkTheme()
-          ? ThemeMode.dark
-          : ThemeMode.light;
-
+      var theme = await _darkThemePreferenceRepository.getThemeMode();
       var currency =
           (await _currencyPreferenceRepository.get()).toChosenCurrency();
 
@@ -42,10 +38,12 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     } else if (event is UpdateCurrencyOptionEvent) {
       await _currencyPreferenceRepository
           .set(event.newCurrencyChoice.currencyCode);
+
       yield AppSettingsLoaded(event.theme, event.newCurrencyChoice);
     } else if (event is UpdateThemeOptionEvent) {
-      await _darkThemePreferenceRepository
-          .setDarkTheme(event.newTheme == ThemeMode.dark);
+      debugPrint(event.newTheme.toStr());
+      await _darkThemePreferenceRepository.setThemeMode(event.newTheme);
+
       yield AppSettingsLoaded(event.newTheme, event.currency);
     }
   }

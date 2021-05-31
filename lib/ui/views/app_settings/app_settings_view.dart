@@ -1,7 +1,9 @@
 // 🐦 Flutter imports:
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/core/extensions/theme_mode.dart';
 import 'package:crypto_app/ui/views/app_settings/currency_choice_view.dart';
+import 'package:crypto_app/ui/views/app_settings/theme_choice_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // 📦 Package imports:
@@ -21,41 +23,6 @@ class AppSettingsView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: SizedBox(
-                height: 48,
-                child: Row(
-                  children: [
-                    Icon(CupertinoIcons.cloud_moon),
-                    VerticalDivider(color: Colors.transparent),
-                    Text('Enable dark mode'),
-                    Spacer(),
-                    BlocBuilder<AppSettingsBloc, AppSettingsState>(
-                      builder: (context, state) {
-                        debugPrint(state.theme.toString());
-                        debugPrint((state.theme == ThemeMode.dark).toString());
-
-                        return CupertinoSwitch(
-                            activeColor: Theme.of(context).primaryColor,
-                            value: state.theme == ThemeMode.dark,
-                            onChanged: (bool value) {
-                              var bloc =
-                                  BlocProvider.of<AppSettingsBloc>(context);
-                              print('New value to set $value');
-                              bloc.add(UpdateThemeOptionEvent(state.currency,
-                                  value ? ThemeMode.dark : ThemeMode.light));
-                            });
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            Divider(
-              thickness: 1,
-              height: 1,
-            ),
             InkWell(
               onTap: () async => await Navigator.push(
                 context,
@@ -78,6 +45,38 @@ class AppSettingsView extends StatelessWidget {
                           .currency
                           .currencyCode
                           .toUpperCase()),
+                      VerticalDivider(color: Colors.transparent),
+                      Icon(CupertinoIcons.chevron_right),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Divider(
+              thickness: 1,
+              height: 1,
+            ),
+            InkWell(
+              onTap: () async => await Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => ThemeChoiceView(),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: SizedBox(
+                  height: 48,
+                  child: Row(
+                    children: [
+                      Icon(CupertinoIcons.paintbrush),
+                      VerticalDivider(color: Colors.transparent),
+                      Text('Choose theme'),
+                      Spacer(),
+                      Icon(BlocProvider.of<AppSettingsBloc>(context)
+                          .state
+                          .theme
+                          .toIcon()),
                       VerticalDivider(color: Colors.transparent),
                       Icon(CupertinoIcons.chevron_right),
                     ],

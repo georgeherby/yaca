@@ -18,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
-import 'core/preferences/dark_theme_preference.dart';
+import 'core/preferences/theme_preference.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -72,7 +72,7 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider<AppSettingsBloc>(
             create: (BuildContext context) => AppSettingsBloc(
-                DarkThemePreferenceRepository(), CurrencyPreferenceRepository())
+                ThemePreferenceRepository(), CurrencyPreferenceRepository())
               ..add(LoadAppSettings())),
       ],
       child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
