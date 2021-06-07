@@ -23,7 +23,7 @@ dependencies:
   sqflite: ^2.0.0+2
   shimmer: ^2.0.0
   # flutter_svg: ^0.20.0-nullsafety.3
-  url_launcher: ^6.0.4
+  url_launcher: ^6.0.6
   flutter_bloc: ^7.0.1
   equatable: ^2.0.2
   cached_network_image: ^3.0.0
