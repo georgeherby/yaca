@@ -31,11 +31,9 @@ class AssetsDataTable extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Material(
         borderRadius: BorderRadius.circular(10),
-        // clipBehavior: Clip.antiAliasWithSaveLayer,
         elevation: Theme.of(context).cardTheme.elevation!,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            // debugPrint(constraints.maxWidth.toString());
             var collapsedView = constraints.maxWidth <= 800;
             var mobile = constraints.maxWidth <= 490;
             return Padding(
@@ -65,7 +63,7 @@ class AssetsDataTable extends StatelessWidget {
                           textAlign: TextAlign.center),
                       price: Text('Price',
                           style: Theme.of(context).textTheme.subtitle1,
-                          textAlign: TextAlign.right),
+                          textAlign: TextAlign.center),
                       favourite: Text('', textAlign: TextAlign.center),
                     ),
                   ),
@@ -106,7 +104,6 @@ class AssetsDataTable extends StatelessWidget {
                                 },
                               ),
                             );
-                            debugPrint('Finished');
                           },
                           child: SizedBox(
                             height: 72,
@@ -123,9 +120,6 @@ class AssetsDataTable extends StatelessWidget {
                                     CachedNetworkImage(
                                       imageUrl: mc.image,
                                       filterQuality: FilterQuality.high,
-                                      // isAntiAlias: true,
-                                      // cacheWidth: 44,
-                                      // cacheHeight: 44,
                                       width: 44,
                                       height: 44,
                                       errorWidget: (context, url, error) {
@@ -152,7 +146,7 @@ class AssetsDataTable extends StatelessWidget {
                                     ),
                                     ConstrainedBox(
                                       constraints: BoxConstraints(
-                                          maxWidth: collapsedView ? 64 : 120),
+                                          maxWidth: collapsedView ? 72 : 120),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -169,19 +163,15 @@ class AssetsDataTable extends StatelessWidget {
                                           Text(
                                             mc.name,
                                             maxLines: 2,
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                            .brightness ==
-                                                        Brightness.light
-                                                    ? Colors.black54
-                                                    : Colors.white54),
                                           ),
                                         ],
                                       ),
                                     ),
-                                    Spacer(
-                                      flex: 2,
-                                    ),
+                                    collapsedView
+                                        ? Container()
+                                        : Spacer(
+                                            flex: 2,
+                                          ),
                                     collapsedView
                                         ? Container()
                                         : Padding(

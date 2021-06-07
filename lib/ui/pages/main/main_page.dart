@@ -27,6 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       bottomNavigationBar: isMobile
           ? BottomNavigationBar(
+              showUnselectedLabels: false,
               onTap: onTabTapped, // new
               currentIndex: _selectedIndex, // new
               items: [

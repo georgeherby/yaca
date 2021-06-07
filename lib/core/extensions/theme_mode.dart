@@ -23,7 +23,7 @@ extension ThemeModeToString on ThemeMode {
         return CupertinoIcons.sun_max;
       case ThemeMode.system:
       default:
-        return CupertinoIcons.phone;
+        return CupertinoIcons.paintbrush;
     }
   }
 }

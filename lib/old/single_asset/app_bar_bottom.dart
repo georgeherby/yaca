@@ -100,7 +100,11 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                         Spacer(flex: 5),
                       ],
                     ),
-                    Divider(color: Colors.transparent),
+                    Divider(
+                      color: Colors.transparent,
+                      thickness: 1,
+                      height: 4,
+                    ),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,

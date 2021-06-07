@@ -16,6 +16,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
 import 'core/preferences/theme_preference.dart';
@@ -106,6 +107,9 @@ class _MyAppState extends State<MyApp> {
                     debugShowCheckedModeBanner: false,
                     themeMode: state.theme,
                     theme: ThemeData(
+                      textTheme: GoogleFonts.openSansTextTheme(
+                        ThemeData.light().textTheme,
+                      ),
                       bottomNavigationBarTheme: BottomNavigationBarThemeData(
                         unselectedItemColor: Colors.black54,
                         selectedItemColor: LightThemeColors().primary,
@@ -160,6 +164,9 @@ class _MyAppState extends State<MyApp> {
                       visualDensity: VisualDensity.adaptivePlatformDensity,
                     ),
                     darkTheme: ThemeData(
+                      textTheme: GoogleFonts.openSansTextTheme(
+                        ThemeData.dark().textTheme,
+                      ),
                       brightness: Brightness.dark,
                       primaryColor: DarkThemeColors().primary,
                       accentColor: DarkThemeColors().accent,
