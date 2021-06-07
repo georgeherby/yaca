@@ -1,12 +1,15 @@
 // 🐦 Flutter imports:
-// 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class WhaleTransactionList extends StatelessWidget {
   final List<Transactions> transactions;
@@ -22,10 +25,15 @@ class WhaleTransactionList extends StatelessWidget {
         BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: [TargetPlatform.android, TargetPlatform.iOS]
+              .contains(Theme.of(context).platform)
+          ? EdgeInsets.zero
+          : EdgeInsets.only(bottom: 8.0),
       child: Material(
-        borderRadius: BorderRadius.circular(10),
-        // clipBehavior: Clip.antiAliasWithSaveLayer,
+        borderRadius: Theme.of(context).platform.isMobile()
+            ? BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))
+            : BorderRadius.circular(10),
         elevation: Theme.of(context).cardTheme.elevation!,
         child: ListView.separated(
           separatorBuilder: (BuildContext context, int index) {
@@ -48,15 +56,18 @@ class WhaleTransactionList extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 16.0),
-                    child: CircleAvatar(
-                      child: Text(
-                        '${transaction.symbol.toUpperCase()}',
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                      ),
+                  CircleAvatar(
+                    minRadius: 20,
+                    maxRadius: 20,
+                    child: Text(
+                      '${transaction.symbol.toUpperCase()}',
+                      textAlign: TextAlign.center,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.bodyText1,
                     ),
+                  ),
+                  VerticalDivider(
+                    color: Colors.transparent,
                   ),
                   Expanded(
                     flex: 20,

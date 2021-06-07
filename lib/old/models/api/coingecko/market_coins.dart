@@ -1,6 +1,7 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
+// 📦 Package imports:
 import 'package:equatable/equatable.dart';
 
 List<MarketCoin> marketCoinFromJson(String str) =>

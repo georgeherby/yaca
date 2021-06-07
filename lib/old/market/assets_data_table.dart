@@ -1,9 +1,11 @@
 // 🐦 Flutter imports:
-// 📦 Package imports:
+
+//  Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
@@ -11,6 +13,7 @@ import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:crypto_app/old/widgets/simple_spark_line.dart';
 import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,9 +31,15 @@ class AssetsDataTable extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('AssetsDataTable - build');
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8.0),
+      padding: [TargetPlatform.android, TargetPlatform.iOS]
+              .contains(Theme.of(context).platform)
+          ? EdgeInsets.zero
+          : EdgeInsets.only(bottom: 8.0),
       child: Material(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: Theme.of(context).platform.isMobile()
+            ? BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10))
+            : BorderRadius.circular(10),
         elevation: Theme.of(context).cardTheme.elevation!,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
@@ -120,8 +129,8 @@ class AssetsDataTable extends StatelessWidget {
                                     CachedNetworkImage(
                                       imageUrl: mc.image,
                                       filterQuality: FilterQuality.high,
-                                      width: 44,
-                                      height: 44,
+                                      width: collapsedView ? 32 : 44,
+                                      height: collapsedView ? 32 : 44,
                                       errorWidget: (context, url, error) {
                                         debugPrint(error.toString());
                                         return CircleAvatar(
@@ -145,8 +154,8 @@ class AssetsDataTable extends StatelessWidget {
                                       color: Colors.transparent,
                                     ),
                                     ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                          maxWidth: collapsedView ? 72 : 120),
+                                      constraints:
+                                          BoxConstraints(maxWidth: 120),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,

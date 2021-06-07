@@ -1,7 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 
 class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
   final Widget body;

@@ -1,12 +1,16 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
-// 🌎 Project imports:
-import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
-// � Flutter imports:
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:http/http.dart' as http;
+
+// 🌎 Project imports:
+import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
+
+// � Flutter imports:
 
 class GlobalMarketRespository {
   final String currencyCode;

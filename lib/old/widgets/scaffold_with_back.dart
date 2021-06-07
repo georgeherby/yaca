@@ -1,3 +1,5 @@
+// 🐦 Flutter imports:
+// 🌎 Project imports:
 import 'package:crypto_app/old/widgets/back_chevron_button.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,7 +18,9 @@ class ScaffoldWithBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          toolbarHeight: Theme.of(context).platform == TargetPlatform.macOS ?  kTitleBarMacOSHeight : kToolbarHeight,
+          toolbarHeight: Theme.of(context).platform == TargetPlatform.macOS
+              ? kTitleBarMacOSHeight
+              : kToolbarHeight,
           title: Text(
             title ?? '',
             style: Theme.of(context).appBarTheme.titleTextStyle,

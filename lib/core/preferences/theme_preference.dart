@@ -1,9 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/core/extensions/theme_mode.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/extensions/theme_mode.dart';
 
 class ThemePreferenceRepository {
   static const THEME_MODE = 'THEME_MODE';

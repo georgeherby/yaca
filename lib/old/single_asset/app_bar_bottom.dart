@@ -1,13 +1,17 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/old/single_asset/app_bar_bottom_data_block.dart';
 import 'package:crypto_app/old/widgets/percentage_change_box.dart';
 import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   final double height;

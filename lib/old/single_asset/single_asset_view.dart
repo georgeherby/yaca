@@ -1,4 +1,13 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -14,11 +23,6 @@ import 'package:crypto_app/old/widgets/back_chevron_button.dart';
 import 'package:crypto_app/old/widgets/favourite_icon.dart';
 import 'package:crypto_app/old/widgets/scaffold_with_back.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;

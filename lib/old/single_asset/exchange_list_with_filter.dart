@@ -1,12 +1,16 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/old/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/old/models/filter.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;

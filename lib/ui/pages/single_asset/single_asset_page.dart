@@ -1,6 +1,9 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/old/single_asset/single_asset_view.dart';
-import 'package:flutter/material.dart';
 
 class SingleAssetPage extends StatelessWidget {
   final MarketCoin marketCoin;

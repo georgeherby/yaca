@@ -1,13 +1,17 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavouriteAssetsView extends StatelessWidget {
   const FavouriteAssetsView({
@@ -28,7 +32,7 @@ class FavouriteAssetsView extends StatelessWidget {
                             : kToolbarHeight,
                     title: Text(
                       'Favourites',
-                      style: Theme.of(context).textTheme.headline6,
+                      style: Theme.of(context).appBarTheme.titleTextStyle,
                     ),
                     centerTitle: true,
                     elevation: Theme.of(context).appBarTheme.elevation,
@@ -36,7 +40,6 @@ class FavouriteAssetsView extends StatelessWidget {
                       IconButton(
                         icon: Icon(
                           CupertinoIcons.arrow_clockwise,
-                          size: 19,
                         ),
                         onPressed: () =>
                             BlocProvider.of<AssetOverviewBloc>(context).add(

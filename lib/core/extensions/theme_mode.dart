@@ -1,6 +1,9 @@
-import 'package:crypto_app/ui/consts/constants.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 
 extension ThemeModeToString on ThemeMode {
   String toStr() {

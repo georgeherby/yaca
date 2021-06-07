@@ -1,4 +1,12 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/old/widgets/whale_transaction_list.dart';
@@ -6,10 +14,6 @@ import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({
@@ -47,7 +51,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
             : kToolbarHeight,
         title: Text(
           'Whales',
-          style: Theme.of(context).textTheme.headline6,
+          style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
         centerTitle: true,
         elevation: Theme.of(context).appBarTheme.elevation,
