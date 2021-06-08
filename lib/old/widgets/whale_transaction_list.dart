@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -57,13 +59,16 @@ class WhaleTransactionList extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   CircleAvatar(
-                    minRadius: 20,
-                    maxRadius: 20,
+                    minRadius: 16,
+                    maxRadius: 16,
                     child: Text(
                       '${transaction.symbol.toUpperCase()}',
                       textAlign: TextAlign.center,
                       maxLines: 1,
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          ?.copyWith(color: Colors.white),
                     ),
                   ),
                   VerticalDivider(
@@ -84,7 +89,7 @@ class WhaleTransactionList extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Spacer(flex: 5),
+                  Spacer(flex: 2),
                   Expanded(
                     flex: 10,
                     child: Column(

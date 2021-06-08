@@ -1,7 +1,17 @@
 // 🐦 Flutter imports:
 
 //  Package imports:
+
+//  Package imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -13,10 +23,6 @@ import 'package:crypto_app/old/widgets/price_delta.dart';
 import 'package:crypto_app/old/widgets/simple_spark_line.dart';
 import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
@@ -29,10 +35,8 @@ class AssetsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint('AssetsDataTable - build');
     return Padding(
-      padding: [TargetPlatform.android, TargetPlatform.iOS]
-              .contains(Theme.of(context).platform)
+      padding: Theme.of(context).platform.isMobile()
           ? EdgeInsets.zero
           : EdgeInsets.only(bottom: 8.0),
       child: Material(
@@ -43,18 +47,22 @@ class AssetsDataTable extends StatelessWidget {
         elevation: Theme.of(context).cardTheme.elevation!,
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints) {
-            var collapsedView = constraints.maxWidth <= 800;
-            var mobile = constraints.maxWidth <= 490;
+            var tablet =
+                constraints.maxWidth <= 800 && constraints.maxWidth > 480;
+            var mobile = constraints.maxWidth <= 480;
             return Padding(
               padding: const EdgeInsets.only(top: 8.0),
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.only(
-                        left: 8.0, right: 8.0, bottom: 8.0),
+                      left: 8.0,
+                      right: 8.0,
+                      bottom: 8.0,
+                    ),
                     child: buildRow(
-                      mobile: mobile,
-                      collapsed: collapsedView,
+                      mobileView: mobile,
+                      tabletView: tablet,
                       rank: Text('#',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
@@ -70,9 +78,11 @@ class AssetsDataTable extends StatelessWidget {
                       h1: Text('1h',
                           style: Theme.of(context).textTheme.subtitle1,
                           textAlign: TextAlign.center),
-                      price: Text('Price',
-                          style: Theme.of(context).textTheme.subtitle1,
-                          textAlign: TextAlign.center),
+                      price: Text(
+                        'Price',
+                        style: Theme.of(context).textTheme.subtitle1,
+                        textAlign: TextAlign.end,
+                      ),
                       favourite: Text('', textAlign: TextAlign.center),
                     ),
                   ),
@@ -120,8 +130,8 @@ class AssetsDataTable extends StatelessWidget {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 8.0),
                               child: buildRow(
-                                mobile: mobile,
-                                collapsed: collapsedView,
+                                mobileView: mobile,
+                                tabletView: tablet,
                                 rank: Text(mc.marketCapRank.toString(),
                                     textAlign: TextAlign.center),
                                 iconNameSpark: Row(
@@ -129,8 +139,8 @@ class AssetsDataTable extends StatelessWidget {
                                     CachedNetworkImage(
                                       imageUrl: mc.image,
                                       filterQuality: FilterQuality.high,
-                                      width: collapsedView ? 32 : 44,
-                                      height: collapsedView ? 32 : 44,
+                                      width: tablet || mobile ? 32 : 44,
+                                      height: tablet || mobile ? 32 : 44,
                                       errorWidget: (context, url, error) {
                                         debugPrint(error.toString());
                                         return CircleAvatar(
@@ -154,8 +164,9 @@ class AssetsDataTable extends StatelessWidget {
                                       color: Colors.transparent,
                                     ),
                                     ConstrainedBox(
-                                      constraints:
-                                          BoxConstraints(maxWidth: 120),
+                                      constraints: BoxConstraints(
+                                          maxWidth:
+                                              tablet || mobile ? 100 : 120),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -176,12 +187,12 @@ class AssetsDataTable extends StatelessWidget {
                                         ],
                                       ),
                                     ),
-                                    collapsedView
+                                    tablet || mobile
                                         ? Container()
                                         : Spacer(
                                             flex: 2,
                                           ),
-                                    collapsedView
+                                    tablet || mobile
                                         ? Container()
                                         : Padding(
                                             padding: const EdgeInsets.only(
@@ -234,9 +245,7 @@ class AssetsDataTable extends StatelessWidget {
                                           .currency
                                           .currencySymbol,
                                       context),
-                                  textAlign: collapsedView
-                                      ? TextAlign.center
-                                      : TextAlign.end,
+                                  textAlign: TextAlign.end,
                                 ),
                                 favourite: BlocBuilder<AssetOverviewBloc,
                                     AssetOverviewState>(
@@ -271,26 +280,50 @@ class AssetsDataTable extends StatelessWidget {
     );
   }
 
-  Row buildRow(
-      {required bool collapsed,
-      required Widget rank,
-      required Widget iconNameSpark,
-      required Widget d7,
-      required Widget h24,
-      required Widget h1,
-      required Widget price,
-      required Widget favourite,
-      required bool mobile}) {
-    return Row(
-      children: [
-        Expanded(flex: 15, child: rank),
-        Expanded(flex: collapsed ? 80 : 200, child: iconNameSpark),
-        !mobile ? Expanded(flex: collapsed ? 45 : 35, child: d7) : Container(),
-        !mobile ? Expanded(flex: collapsed ? 45 : 35, child: h24) : Container(),
-        !mobile ? Expanded(flex: collapsed ? 45 : 35, child: h1) : Container(),
-        Expanded(flex: collapsed ? 40 : 30, child: price),
-        Expanded(flex: 15, child: favourite),
-      ],
-    );
+  Row buildRow({
+    required bool tabletView,
+    required bool mobileView,
+    required Widget rank,
+    required Widget iconNameSpark,
+    required Widget d7,
+    required Widget h24,
+    required Widget h1,
+    required Widget price,
+    required Widget favourite,
+  }) {
+    if (mobileView) {
+      return Row(
+        children: [
+          Expanded(flex: 15, child: rank),
+          Expanded(flex: 80, child: iconNameSpark),
+          Expanded(flex: 40, child: price),
+          Expanded(flex: 15, child: favourite),
+        ],
+      );
+    } else if (tabletView) {
+      return Row(
+        children: [
+          Expanded(flex: 15, child: rank),
+          Expanded(flex: 80, child: iconNameSpark),
+          Expanded(flex: 45, child: d7),
+          Expanded(flex: 45, child: h24),
+          Expanded(flex: 45, child: h1),
+          Expanded(flex: 40, child: price),
+          Expanded(flex: 15, child: favourite),
+        ],
+      );
+    } else {
+      return Row(
+        children: [
+          Expanded(flex: 15, child: rank),
+          Expanded(flex: 200, child: iconNameSpark),
+          Expanded(flex: 35, child: d7),
+          Expanded(flex: 35, child: h24),
+          Expanded(flex: 35, child: h1),
+          Expanded(flex: 30, child: price),
+          Expanded(flex: 15, child: favourite),
+        ],
+      );
+    }
   }
 }
