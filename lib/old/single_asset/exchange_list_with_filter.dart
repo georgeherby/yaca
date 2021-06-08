@@ -1,6 +1,9 @@
 // 🐦 Flutter imports:
 
+//  Package imports:
+
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -8,6 +11,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/old/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/old/models/filter.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
@@ -63,9 +67,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   @override
   Widget build(BuildContext context) {
-    var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
-            .contains(Theme.of(context).platform) &&
-        MediaQuery.of(context).size.width < 600;
+    var isMobile = Theme.of(context).platform.isMobile() &&
+        MediaQuery.of(context).size.width <= 480;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,6 +98,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
               children: List.generate(
                 currencyFilter.length,
                 (index) => FilterChip(
+                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   shape: StadiumBorder(
                       side: BorderSide(color: Theme.of(context).primaryColor)),
                   selected: currencyFilter[index].selected,
@@ -112,7 +116,6 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                   ),
                   selectedColor: Theme.of(context).primaryColor,
                   onSelected: (bool selected) {
-                    debugPrint(selected.toString());
                     setState(() {
                       currencyFilter[index].selected = selected;
                       applyFilter();
@@ -121,80 +124,82 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                 ),
               ),
             ),
-            Divider(
-              color: Colors.transparent,
-              height: 8,
-            ),
+            Divider(color: Colors.transparent, height: 8),
           ] +
           List<Widget>.generate(
             tickers.length,
             (index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
-                      child: CachedNetworkImage(
-                        imageUrl: tickers[index].market.logoUrl,
-                        fit: BoxFit.fill,
+                child: GestureDetector(
+                  onTap: () =>
+                      tickers[index].tradeUrl != null ? print('tapped') : null,
+                  child: Row(
+                    children: [
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(8.0),
+                        child: CachedNetworkImage(
+                          width: 32,
+                          filterQuality: FilterQuality.high,
+                          imageUrl: tickers[index].market.logoUrl,
+                          fit: BoxFit.fill,
+                        ),
                       ),
-                    ),
-                    Spacer(),
-                    Expanded(
-                        flex: 8,
+                      Spacer(flex: 5),
+                      Expanded(
+                          flex: isMobile ? 50 : 80,
+                          child: Text(
+                            tickers[index].market.name,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          )),
+                      Spacer(flex: 5),
+                      Expanded(
+                        flex: 30,
                         child: Text(
-                          tickers[index].market.name,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        )),
-                    Spacer(),
-                    Expanded(
-                      flex: 3,
-                      child: Text(
-                          tickers[index].base + '/' + tickers[index].target),
-                    ),
-                    isMobile ? Container() : Spacer(),
-                    isMobile
-                        ? Container()
-                        : Expanded(
-                            flex: 3,
-                            child: Text(
-                              tickers[index].trustScore?.toUpperCase() ?? '',
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                    isMobile ? Container() : Spacer(),
-                    isMobile
-                        ? Container()
-                        : Expanded(
-                            flex: 4,
-                            child: Text(
-                              'Vol: ${tickers[index].volume.volumeFormat(context)}',
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
-                    Spacer(),
-                    Expanded(
-                      flex: 4,
-                      child: Text(
-                        tickers[index].last.currencyFormatWithPrefix(
-                            tickers[index].target.toUpperCase(), context),
-                        textAlign: TextAlign.right,
+                            tickers[index].base + '/' + tickers[index].target),
                       ),
-                    ),
-                    Spacer(),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Theme.of(context).primaryColor,
-                        elevation: Theme.of(context).cardTheme.elevation!,
+                      isMobile ? Container() : Spacer(flex: 5),
+                      isMobile
+                          ? Container()
+                          : Expanded(
+                              flex: 30,
+                              child: Text(
+                                tickers[index].trustScore?.toUpperCase() ?? '',
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                      isMobile ? Container() : Spacer(flex: 5),
+                      isMobile
+                          ? Container()
+                          : Expanded(
+                              flex: 40,
+                              child: Text(
+                                'Vol: ${tickers[index].volume.volumeFormat(context)}',
+                                textAlign: TextAlign.right,
+                              ),
+                            ),
+                      Spacer(flex: 5),
+                      Expanded(
+                        flex: 50,
+                        child: Text(
+                          tickers[index].last.currencyFormatWithPrefix(
+                              tickers[index].target.toUpperCase() + ' ',
+                              context),
+                          textAlign: TextAlign.right,
+                        ),
                       ),
-                      onPressed: tickers[index].tradeUrl != null
-                          ? () => launchURL(tickers[index].tradeUrl)
-                          : null,
-                      child: Text('Trade'),
-                    ),
-                  ],
+                      tickers[index].tradeUrl != null
+                          ? Icon(
+                              CupertinoIcons.chevron_compact_right,
+                              color: Theme.of(context)
+                                  .iconTheme
+                                  .color
+                                  ?.withOpacity(0.6),
+                            )
+                          : SizedBox(width: 24),
+                    ],
+                  ),
                 ),
               );
             },

@@ -68,6 +68,7 @@ class ThemeChoiceView extends StatelessWidget {
     return InkWell(
       onTap: () {
         bloc.add(UpdateThemeOptionEvent(bloc.state.currency, themeToUse));
+      
         Navigator.pop(context);
       },
       child: Padding(

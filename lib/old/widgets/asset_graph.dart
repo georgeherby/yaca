@@ -229,10 +229,6 @@ class _AssetGraphState extends State<AssetGraph> {
                   touchCallback: (LineTouchResponse response) {
                     if (response.lineBarSpots != null &&
                         response.lineBarSpots!.isNotEmpty) {
-                      // debugPrint(
-                      //     response.lineBarSpots!.first.spotIndex.toString());
-                      // debugPrint(widget.history.length.toString());
-
                       setState(() {
                         touchedTime = widget
                             .history[response.lineBarSpots!.first.spotIndex]

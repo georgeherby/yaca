@@ -23,7 +23,7 @@ class GlobalMarketBloc extends Bloc<GlobalMarketEvent, GlobalMarketState> {
     if (event is GlobalMarketLoad) {
       try {
         yield GlobalMarketLoading();
-        var market = await repository.fetchMarketOverview();
+        var market = await repository.fetchMarketOverview(event.currency);
         yield GlobalMarketLoaded(market);
       } catch (e) {
         yield GlobalMarketError(e.toString());

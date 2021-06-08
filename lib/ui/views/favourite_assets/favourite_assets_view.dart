@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/old/market/assets_data_table.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
@@ -43,7 +44,11 @@ class FavouriteAssetsView extends StatelessWidget {
                         ),
                         onPressed: () =>
                             BlocProvider.of<AssetOverviewBloc>(context).add(
-                          AssetOverviewLoad(),
+                          AssetOverviewLoad(
+                              BlocProvider.of<AppSettingsBloc>(context)
+                                  .state
+                                  .currency
+                                  .currencyCode),
                         ),
                       )
                     ],

@@ -1,18 +1,17 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
+//  Package imports:
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/favourites.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_api.dart';
 import 'package:crypto_app/core/repositories/favouritess_repository.dart';
 import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
+import 'package:equatable/equatable.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
 
 //  Package imports:
 
@@ -20,11 +19,22 @@ part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';
 
 class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
+
+  late StreamSubscription subscription;
+
+
+  final AppSettingsBloc settingsBloc;
   final FavouritesDao _favouriteDao;
   final MarketOverviewRepository _marketOverviewRepository;
 
-  AssetOverviewBloc(this._favouriteDao, this._marketOverviewRepository)
-      : super(AssetOverviewInitial());
+  AssetOverviewBloc(this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
+      : super(AssetOverviewInitial()){
+        subscription = settingsBloc.listen((stateOfOverview) {
+          if(stateOfOverview is AppSettingsLoaded){
+            add(AssetOverviewLoad(stateOfOverview.currency.currencyCode));
+          }
+        });
+      }
 
   @override
   void onEvent(AssetOverviewEvent event) {
@@ -52,7 +62,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
         var usersFavourites = await _favouriteDao.getAll();
         var marketCoinsResponse =
-            (await _marketOverviewRepository.fetchCoinMarkets());
+            (await _marketOverviewRepository.fetchCoinMarkets(event.currency));
         _marketCoins.addAll(marketCoinsResponse.map((coinData) {
           var favs = (usersFavourites.where((Favourites fav) =>
               fav.name.toLowerCase() == coinData.name.toLowerCase() &&

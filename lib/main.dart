@@ -1,14 +1,3 @@
-// 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -22,6 +11,14 @@ import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/pages/main/main_page.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+
 import 'core/preferences/theme_preference.dart';
 
 class MyBlocObserver extends BlocObserver {
@@ -87,6 +84,8 @@ class _MyAppState extends State<MyApp> {
                 .currency
                 .currencyCode;
 
+            print('SETTINGS REBUILD $currencyCode');
+
             return MultiBlocProvider(
                 providers: [
                   BlocProvider(
@@ -94,15 +93,15 @@ class _MyAppState extends State<MyApp> {
                           WhaleTransactionReposiotry())),
                   BlocProvider<GlobalMarketBloc>(
                     create: (BuildContext context) => GlobalMarketBloc(
-                      GlobalMarketRespository(
-                          client: _client, currencyCode: currencyCode),
-                    )..add(GlobalMarketLoad()),
+                      GlobalMarketRespository(client: _client),
+                    )..add(GlobalMarketLoad(currencyCode)),
                   ),
                   BlocProvider<AssetOverviewBloc>(
                     create: (BuildContext context) => AssetOverviewBloc(
+                        BlocProvider.of<AppSettingsBloc>(context),
                         FavouritesDao(),
-                        MarketOverviewRepository(_client, currencyCode))
-                      ..add(AssetOverviewLoad()),
+                        MarketOverviewRepository(_client))
+                      ..add(AssetOverviewLoad(currencyCode)),
                   )
                 ],
                 child: MaterialApp(

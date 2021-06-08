@@ -10,15 +10,12 @@ import 'package:http/http.dart' as http;
 // 🌎 Project imports:
 import 'package:crypto_app/old/models/api/coingecko/global_market.dart';
 
-// � Flutter imports:
-
 class GlobalMarketRespository {
-  final String currencyCode;
   final http.Client client;
 
-  GlobalMarketRespository({required this.currencyCode, required this.client});
+  GlobalMarketRespository({required this.client});
 
-  Future<GlobalMarket> fetchMarketOverview() async {
+  Future<GlobalMarket> fetchMarketOverview(String currencyCode) async {
     debugPrint('fetchMarketOverview called for currency $currencyCode');
 
     var url =

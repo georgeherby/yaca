@@ -8,10 +8,11 @@ abstract class AssetOverviewEvent extends Equatable {
 }
 
 class AssetOverviewLoad extends AssetOverviewEvent {
-  const AssetOverviewLoad();
+  final String currency;
+  const AssetOverviewLoad(this.currency);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [currency];
 }
 
 class AssetFavourited extends AssetOverviewEvent {

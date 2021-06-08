@@ -8,8 +8,10 @@ abstract class GlobalMarketEvent extends Equatable {
 }
 
 class GlobalMarketLoad extends GlobalMarketEvent {
-  const GlobalMarketLoad();
+  final String currency;
+
+  const GlobalMarketLoad(this.currency);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [currency];
 }

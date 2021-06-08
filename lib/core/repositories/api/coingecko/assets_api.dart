@@ -55,7 +55,6 @@ Future<AssetHistory> _core(http.Client client, String url) async {
     debugPrint(response.headers.toString());
     debugPrint('Rate Limted!');
       throw RateLimitException();
-    
   }
 
   return AssetHistory.fromJson(jsonDecode(response.body));

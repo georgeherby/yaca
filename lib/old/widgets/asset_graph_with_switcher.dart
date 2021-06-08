@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
@@ -68,12 +70,15 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
       ),
       Wrap(
         spacing: 8,
+        runSpacing: 6,
         children: List.generate(_chips.length, (listIndex) {
           var _selected = listIndex == _index;
           return Theme(
             data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
             child: ChoiceChip(
-              shape: StadiumBorder(side: BorderSide(color: Theme.of(context).primaryColor)),
+              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              shape: StadiumBorder(
+                  side: BorderSide(color: Theme.of(context).primaryColor)),
               padding: EdgeInsets.symmetric(horizontal: 3),
               selectedColor: Theme.of(context).chipTheme.selectedColor,
               label: Text(
@@ -81,7 +86,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 textAlign: TextAlign.center,
                 style: Theme.of(context).chipTheme.labelStyle.copyWith(
                     fontWeight: _selected ? FontWeight.bold : FontWeight.normal,
-                    color: _selected && Theme.of(context).brightness == Brightness.light
+                    color: _selected &&
+                            Theme.of(context).brightness == Brightness.light
                         ? Colors.white
                         : Theme.of(context).chipTheme.labelStyle.color),
               ),
@@ -98,7 +104,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
     ]);
   }
 
-  List<TimeValuePair> applyFilter(AssetHistorySplits historySplits, Duration? duration) {
+  List<TimeValuePair> applyFilter(
+      AssetHistorySplits historySplits, Duration? duration) {
     List<TimeValuePair> data;
 
     if (duration != null) {
@@ -113,7 +120,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
 
       return data
           .where((element) =>
-              element.timeEpochUtc > DateTime.now().subtract(duration).millisecondsSinceEpoch)
+              element.timeEpochUtc >
+              DateTime.now().subtract(duration).millisecondsSinceEpoch)
           .toList();
     } else {
       return historySplits.allMonths.prices;
