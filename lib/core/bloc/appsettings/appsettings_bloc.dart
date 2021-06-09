@@ -1,20 +1,20 @@
 // 🎯 Dart imports:
 import 'dart:async';
 
-// � Package imports:
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/config/currency.dart';
 import 'package:crypto_app/core/extensions/chosen_currency.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
-// � Flutter imports:
 import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
 import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
-
-//  Package imports:
 
 part 'appsettings_event.dart';
 part 'appsettings_state.dart';

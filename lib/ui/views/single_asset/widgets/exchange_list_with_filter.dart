@@ -1,10 +1,4 @@
 // 🐦 Flutter imports:
-
-//  Package imports:
-
-// 🐦 Flutter imports:
-import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
-import 'package:crypto_app/core/models/filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +8,8 @@ import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
+import 'package:crypto_app/core/models/filter.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
@@ -139,7 +135,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: CachedNetworkImage(
-                          width: 32,
+                          width: isMobile ? 32 : 44,
                           filterQuality: FilterQuality.high,
                           imageUrl: tickers[index].market.logoUrl,
                           fit: BoxFit.fill,
@@ -189,9 +185,10 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                           textAlign: TextAlign.right,
                         ),
                       ),
+                      Spacer(flex: 5),
                       tickers[index].tradeUrl != null
                           ? Icon(
-                              CupertinoIcons.chevron_compact_right,
+                              CupertinoIcons.chevron_right,
                               color: Theme.of(context)
                                   .iconTheme
                                   .color

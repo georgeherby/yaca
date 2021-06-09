@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,25 +32,10 @@ class AppSettingsView extends StatelessWidget {
                     CupertinoPageRoute(
                       builder: (context) => CurrencyChoiceView(),
                     ));
-
-                // print('>>>>>>>>>>>>>>>>>>>>>>>' +
-                //     BlocProvider.of<AppSettingsBloc>(context)
-                //         .state
-                //         .currency
-                //         .currencyCode);
-                // BlocProvider.of<GlobalMarketBloc>(context).add(GlobalMarketLoad(
-                //     BlocProvider.of<AppSettingsBloc>(context)
-                //         .state
-                //         .currency
-                //         .currencyCode));
-                // BlocProvider.of<AssetOverviewBloc>(context).add(
-                //     AssetOverviewLoad(BlocProvider.of<AppSettingsBloc>(context)
-                //         .state
-                //         .currency
-                //         .currencyCode));
               },
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                 child: SizedBox(
                   height: 48,
                   child: Row(
@@ -85,7 +68,8 @@ class AppSettingsView extends StatelessWidget {
                 ),
               ),
               child: Padding(
-                padding: const EdgeInsets.all(12.0),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
                 child: SizedBox(
                   height: 48,
                   child: Row(

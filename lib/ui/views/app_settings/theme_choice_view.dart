@@ -49,11 +49,7 @@ class ThemeChoiceView extends StatelessWidget {
                 'Dark theme',
                 CupertinoIcons.moon,
                 ThemeMode.dark,
-              ),
-              Divider(
-                thickness: 1,
-                height: 1,
-              ),
+              )
             ],
           ),
         ),
@@ -68,26 +64,23 @@ class ThemeChoiceView extends StatelessWidget {
     return InkWell(
       onTap: () {
         bloc.add(UpdateThemeOptionEvent(bloc.state.currency, themeToUse));
-      
+
         Navigator.pop(context);
       },
       child: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
         child: SizedBox(
           height: 48,
           child: Row(
             children: [
-              Icon(themeToUse.toIcon()),
+              Icon(themeToUse.toIcon() ?? CupertinoIcons.paintbrush),
               VerticalDivider(color: Colors.transparent),
               Text(title),
               Spacer(),
               bloc.state.theme == themeToUse
-                  ? Icon(
-                      CupertinoIcons.check_mark,
-                    )
+                  ? Icon(CupertinoIcons.check_mark)
                   : Container(),
               VerticalDivider(color: Colors.transparent),
-              Icon(CupertinoIcons.chevron_right),
             ],
           ),
         ),

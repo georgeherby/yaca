@@ -1,7 +1,4 @@
 // 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -11,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/ui/views/widgets/assets_data_table.dart';
+import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:crypto_app/ui/views/widgets/assets_data_table.dart';
 
 class FavouriteAssetsView extends StatelessWidget {
   const FavouriteAssetsView({

@@ -18,7 +18,7 @@ extension ThemeModeToString on ThemeMode {
     }
   }
 
-  IconData toIcon() {
+  IconData? toIcon() {
     switch (this) {
       case ThemeMode.dark:
         return CupertinoIcons.moon;
@@ -26,7 +26,7 @@ extension ThemeModeToString on ThemeMode {
         return CupertinoIcons.sun_max;
       case ThemeMode.system:
       default:
-        return CupertinoIcons.paintbrush;
+        return null;
     }
   }
 }

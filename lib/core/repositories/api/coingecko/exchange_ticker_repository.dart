@@ -1,12 +1,14 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
-// 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
-// � Flutter imports:
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:http/http.dart' as http;
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 
 class ExchangeTickerRespository {
   final http.Client _client;
