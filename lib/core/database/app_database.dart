@@ -7,7 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/repositories/favouritess_repository.dart';
+import 'package:crypto_app/core/repositories/favourites_repository.dart';
 
 class DatabaseHelper {
   static final _databaseName = 'crypto_app.db';

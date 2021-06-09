@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/old/widgets/selectable_icon.dart';
+import 'package:crypto_app/ui/views/widgets/selectable_icon.dart';
 
 class FavouriteIcon extends StatelessWidget {
   final bool isSelected;

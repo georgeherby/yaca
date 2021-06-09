@@ -1,28 +1,20 @@
-// 🐦 Flutter imports:
-
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:http/http.dart' as http;
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/assets_api.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_api.dart';
-import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/old/models/api/coingecko/exchange_ticker.dart';
-import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/old/single_asset/app_bar_bottom.dart';
-import 'package:crypto_app/old/single_asset/exchange_list_with_filter.dart';
-import 'package:crypto_app/old/widgets/asset_graph_with_switcher.dart';
-import 'package:crypto_app/old/widgets/back_chevron_button.dart';
-import 'package:crypto_app/old/widgets/favourite_icon.dart';
-import 'package:crypto_app/old/widgets/scaffold_with_back.dart';
+// 🐦 Flutter imports:
+import 'package:crypto_app/core/bloc/singleasset/singleasset_bloc.dart';
+import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
+import 'package:crypto_app/ui/views/single_asset/widgets/app_bar_bottom.dart';
+import 'package:crypto_app/ui/views/single_asset/widgets/exchange_list_with_filter.dart';
+import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
+import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
+import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph_with_switcher.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;
@@ -39,29 +31,9 @@ class SingleAssetView extends StatelessWidget {
     const _bottomAppBarHeight = 120.0;
     debugPrint('SingleAssetView');
 
-    return FutureBuilder(
-      future: fetchFullAssetHistory(
-          http.Client(),
-          marketCoin.id,
-          BlocProvider.of<AppSettingsBloc>(context)
-              .state
-              .currency
-              .currencyCode),
-      builder:
-          (BuildContext context, AsyncSnapshot<AssetHistorySplits> snapshot) {
-        if (snapshot.hasError) {
-          debugPrint(snapshot.error.toString());
-          debugPrint(snapshot.stackTrace.toString());
-          return ScaffoldWithBack(
-            body: Center(
-              child: Icon(CupertinoIcons.exclamationmark),
-            ),
-          );
-        }
-
-        if (snapshot.hasData) {
-          debugPrint('hasData');
-
+    return BlocBuilder<SingleAssetBloc, SingleAssetState>(
+      builder: (context, state) {
+        if (state is SingleAssetLoaded) {
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: (Theme.of(context).platform == TargetPlatform.macOS
@@ -78,8 +50,8 @@ class SingleAssetView extends StatelessWidget {
                   height: _bottomAppBarHeight,
                   rank: marketCoin.marketCapRank,
                   symbol: marketCoin.symbol,
-                  currentPrice: snapshot.data!.last24Hours.prices.isNotEmpty
-                      ? snapshot.data!.last24Hours.prices.last.value
+                  currentPrice: state.assetHistory.last24Hours.prices.isNotEmpty
+                      ? state.assetHistory.last24Hours.prices.last.value
                       : null,
                   currencySymbol: BlocProvider.of<AppSettingsBloc>(context)
                       .state
@@ -124,7 +96,8 @@ class SingleAssetView extends StatelessWidget {
                             isSelected: isFavourite,
                             size: 22,
                           ),
-                          onPressed: () => onFavourite(marketCoin.id, !isFavourite));
+                          onPressed: () =>
+                              onFavourite(marketCoin.id, !isFavourite));
                     }
                     return CupertinoActivityIndicator();
                   },
@@ -148,52 +121,42 @@ class SingleAssetView extends StatelessWidget {
                       elevation: Theme.of(context).cardTheme.elevation!,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 16.0),
-                        child:
-                            AssetGraphWithSwitcher(allHistory: snapshot.data!),
+                        child: AssetGraphWithSwitcher(
+                            allHistory: state.assetHistory),
                       ),
                     ),
                     Divider(height: 8, color: Colors.transparent),
-                    FutureBuilder(
-                        future:
-                            getAllExchangeTickers(http.Client(), marketCoin.id),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<ExchangeTicker>> snapshot) {
-                          if (snapshot.hasError) {
-                            print(snapshot.error.toString());
-                            print(snapshot.stackTrace);
-                          }
-                          if (snapshot.hasData) {
-                            return snapshot.data!.isNotEmpty
-                                ? Material(
-                                    borderRadius: BorderRadius.circular(10),
-                                    clipBehavior: Clip.antiAliasWithSaveLayer,
-                                    elevation:
-                                        Theme.of(context).cardTheme.elevation!,
-                                    child: Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: ExchangeListWithFilter(
-                                            exchanges: snapshot.data!)),
-                                  )
-                                : Container();
-                          } else {
-                            return Center(
-                              child: CupertinoActivityIndicator(),
-                            );
-                          }
-                        }),
+                    state.exchangeTickers.isNotEmpty
+                        ? Material(
+                            borderRadius: BorderRadius.circular(10),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
+                            elevation: Theme.of(context).cardTheme.elevation!,
+                            child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ExchangeListWithFilter(
+                                    exchanges: state.exchangeTickers)),
+                          )
+                        : Container()
                   ],
                 ),
               ),
             ),
           );
-        } else {
-          debugPrint('Loading');
+        } else if (state is SingleAssetError) {
+          debugPrint(state.error.toString());
           return ScaffoldWithBack(
             body: Center(
-              child: CupertinoActivityIndicator(),
+              child: Icon(CupertinoIcons.exclamationmark),
             ),
           );
         }
+
+        debugPrint('Loading');
+        return ScaffoldWithBack(
+          body: Center(
+            child: CupertinoActivityIndicator(),
+          ),
+        );
       },
     );
   }

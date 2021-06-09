@@ -1,26 +1,24 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/preferences/currency_preference.dart';
+import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_api.dart';
 import 'package:crypto_app/core/repositories/api/whalealerts/whale_transactions_api.dart';
-import 'package:crypto_app/core/repositories/favouritess_repository.dart';
-import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/core/repositories/favourites_repository.dart';
+import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
+import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/pages/main/main_page.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
-import 'core/preferences/theme_preference.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -74,8 +72,9 @@ class _MyAppState extends State<MyApp> {
       providers: [
         BlocProvider<AppSettingsBloc>(
             create: (BuildContext context) => AppSettingsBloc(
-                ThemePreferenceRepository(), CurrencyPreferenceRepository())
-              ..add(LoadAppSettings())),
+                  ThemePreferenceRepository(),
+                  CurrencyPreferenceRepository(),
+                )..add(LoadAppSettings())),
       ],
       child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
         builder: (context, state) {

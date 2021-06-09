@@ -1,11 +1,11 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
+import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/old/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/old/widgets/asset_graph.dart';
 
 class _AssetGraphChipConfig {
   final String label;

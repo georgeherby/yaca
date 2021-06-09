@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/old/models/settings/chosen_currency.dart';
-import 'package:crypto_app/old/widgets/scaffold_with_back.dart';
+import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
 class CurrencyChoiceView extends StatelessWidget {
   @override

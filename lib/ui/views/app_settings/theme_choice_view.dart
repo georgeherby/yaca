@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
-import 'package:crypto_app/old/widgets/scaffold_with_back.dart';
+import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
 class ThemeChoiceView extends StatelessWidget {
   @override

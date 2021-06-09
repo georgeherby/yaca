@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/old/widgets/back_chevron_button.dart';
+import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 
 class ScaffoldWithBack extends StatelessWidget {

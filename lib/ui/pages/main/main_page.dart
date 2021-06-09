@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
-                      'assets/001-whale.svg',
+                      'assets/whale_outline.svg',
                       semanticsLabel: 'Whale unselected icon',
                       height: Theme.of(context).iconTheme.size,
                       width: Theme.of(context).iconTheme.size,
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ?.color,
                     ),
                     activeIcon: SvgPicture.asset(
-                      'assets/002-whale-1.svg',
+                      'assets/whale_filled.svg',
                       semanticsLabel: 'Whale selected icon',
                       height: Theme.of(context).iconTheme.size,
                       width: Theme.of(context).iconTheme.size,
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           //     ))
                           NavigationRailDestination(
                               icon: SvgPicture.asset(
-                                'assets/001-whale.svg',
+                                'assets/whale_outline.svg',
                                 semanticsLabel: 'Whale unselected icon',
                                 height: Theme.of(context).iconTheme.size,
                                 width: Theme.of(context).iconTheme.size,
@@ -124,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ?.color,
                               ),
                               selectedIcon: SvgPicture.asset(
-                                'assets/002-whale-1.svg',
+                                'assets/whale_filled.svg',
                                 semanticsLabel: 'Whale selected icon',
                                 height: Theme.of(context).iconTheme.size,
                                 width: Theme.of(context).iconTheme.size,

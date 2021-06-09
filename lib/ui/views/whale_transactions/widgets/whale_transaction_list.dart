@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -10,7 +11,6 @@ import 'package:intl/intl.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/old/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class WhaleTransactionList extends StatelessWidget {
@@ -27,8 +27,7 @@ class WhaleTransactionList extends StatelessWidget {
         BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
 
     return Padding(
-      padding: [TargetPlatform.android, TargetPlatform.iOS]
-              .contains(Theme.of(context).platform)
+      padding: Theme.of(context).platform.isMobile()
           ? EdgeInsets.zero
           : EdgeInsets.only(bottom: 8.0),
       child: Material(

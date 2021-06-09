@@ -1,13 +1,13 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
 
 class MarketOverviewRepository {
   final http.Client client;

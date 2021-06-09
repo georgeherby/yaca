@@ -1,23 +1,23 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_data_block.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_static.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
+import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/extensions/chosen_currency.dart';
-import 'package:crypto_app/old/market/assets_data_table.dart';
-import 'package:crypto_app/old/market/widgets/app_bar_data_block.dart';
-import 'package:crypto_app/old/market/widgets/app_bar_static.dart';
-import 'package:crypto_app/old/market/widgets/shimmer_app_bar_data_block.dart';
-import 'package:crypto_app/old/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/old/widgets/percentage_change_box.dart';
+import 'package:crypto_app/ui/views/widgets/assets_data_table.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/utils/percentage_formatters.dart';
-// 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MarketOverviewView extends StatelessWidget {
   @override

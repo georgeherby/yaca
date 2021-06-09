@@ -1,5 +1,5 @@
 // 🌎 Project imports:
-import 'package:crypto_app/core/repositories/favouritess_repository.dart';
+import 'package:crypto_app/core/repositories/favourites_repository.dart';
 
 class Favourites {
   final int? id;

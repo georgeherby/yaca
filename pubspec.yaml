@@ -38,8 +38,8 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/001-whale.svg
-    - assets/002-whale-1.svg
+    - assets/whale_outline.svg
+    - assets/whale_filled.svg
 
 import_sorter:
   emojis: true
