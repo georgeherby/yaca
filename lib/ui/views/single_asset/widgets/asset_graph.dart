@@ -1,19 +1,17 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:fl_chart/fl_chart.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+// 📦 Package imports:
+import 'package:fl_chart/fl_chart.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 class AssetGraph extends StatefulWidget {
   final List<TimeValuePair> history;
@@ -33,6 +31,9 @@ class _AssetGraphState extends State<AssetGraph> {
 
   late double touchedPrice;
   late int touchedTime;
+
+  final int verticals = 4;
+  final int horizonals = 6;
 
   _AssetGraphState({
     required this.history,
@@ -103,10 +104,10 @@ class _AssetGraphState extends State<AssetGraph> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                          'high: ${maxPrice.currencyFormatWithPrefix(currencySymbol, context)}',
+                          'H: ${maxPrice.currencyFormatWithPrefix(currencySymbol, context)}',
                           style: Theme.of(context).textTheme.caption),
                       Text(
-                          'low: ${minPrice..currencyFormatWithPrefix(currencySymbol, context)}',
+                          'L: ${minPrice.currencyFormatWithPrefix(currencySymbol, context)}',
                           style: Theme.of(context).textTheme.caption),
                     ],
                   ),
@@ -137,7 +138,7 @@ class _AssetGraphState extends State<AssetGraph> {
           height: 250,
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.only(top: 0.0, right: 24),
+            padding: const EdgeInsets.only(top: 0.0, right: 0, left: 24),
             child: LineChart(
               LineChartData(
                 backgroundColor: Colors.transparent,
@@ -145,8 +146,8 @@ class _AssetGraphState extends State<AssetGraph> {
                     show: true,
                     drawVerticalLine: true,
                     drawHorizontalLine: true,
-                    verticalInterval: (maxTime - minTime) / 4,
-                    horizontalInterval: (maxPrice - minPrice) / 6,
+                    verticalInterval: (maxTime - minTime) / verticals,
+                    horizontalInterval: (maxPrice - minPrice) / horizonals,
                     getDrawingHorizontalLine: (double value) {
                       return FlLine(
                         color: Colors.grey.withOpacity(0.15),
@@ -173,7 +174,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   show: true,
                   bottomTitles: SideTitles(
                     showTitles: true,
-                    interval: ((maxTime - minTime) / 4),
+                    interval: ((maxTime - minTime) / verticals),
                     margin: 12,
                     reservedSize: 22,
                     getTextStyles: (value) =>
@@ -192,9 +193,10 @@ class _AssetGraphState extends State<AssetGraph> {
                       return '${formatter.format(DateTime.fromMillisecondsSinceEpoch(value.toInt()))}';
                     },
                   ),
-                  leftTitles: SideTitles(
+                  leftTitles: SideTitles(showTitles: false),
+                  rightTitles: SideTitles(
                     showTitles: true,
-                    interval: (maxPrice - minPrice) / 6,
+                    interval: (maxPrice - minPrice) / horizonals,
                     getTextStyles: (value) =>
                         Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
@@ -205,7 +207,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   ),
                 ),
                 minY: minPrice,
-                maxY: maxPrice,
+                maxY: maxPrice * 1.005,
                 lineTouchData: LineTouchData(
                   handleBuiltInTouches: true,
                   getTouchLineStart: (barData, index) =>

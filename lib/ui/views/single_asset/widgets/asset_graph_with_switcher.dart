@@ -1,9 +1,10 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
+import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 
 class _AssetGraphChipConfig {
   final String label;
@@ -59,46 +60,87 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
               height: 250,
               width: double.infinity,
               child: Center(
-                child: Text('No historical data found.'),
+                child: Text('No historical data found'),
               ),
             ),
       Divider(
         thickness: 8,
         color: Colors.transparent,
       ),
-      Wrap(
-        spacing: 8,
-        runSpacing: 6,
-        children: List.generate(_chips.length, (listIndex) {
-          var _selected = listIndex == _index;
-          return Theme(
-            data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
-            child: ChoiceChip(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              shape: StadiumBorder(
-                  side: BorderSide(color: Theme.of(context).primaryColor)),
-              padding: EdgeInsets.symmetric(horizontal: 3),
-              selectedColor: Theme.of(context).chipTheme.selectedColor,
-              label: Text(
-                _chips[listIndex].label,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).chipTheme.labelStyle.copyWith(
-                    fontWeight: _selected ? FontWeight.bold : FontWeight.normal,
-                    color: _selected &&
-                            Theme.of(context).brightness == Brightness.light
-                        ? Colors.white
-                        : Theme.of(context).chipTheme.labelStyle.color),
-              ),
-              selected: listIndex == _index,
-              onSelected: (bool selected) {
-                setState(() {
-                  _index = listIndex;
-                });
-              },
-            ),
-          );
-        }),
-      ),
+      (Theme.of(context).platform.isDesktop() || kIsWeb)
+          ? Wrap(
+              spacing: 8,
+              runSpacing: 6,
+              children: List.generate(_chips.length, (listIndex) {
+                var _selected = listIndex == _index;
+                return Theme(
+                  data: Theme.of(context)
+                      .copyWith(canvasColor: Colors.transparent),
+                  child: ChoiceChip(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: StadiumBorder(
+                        side:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    padding: EdgeInsets.symmetric(horizontal: 3),
+                    selectedColor: Theme.of(context).chipTheme.selectedColor,
+                    label: Text(
+                      _chips[listIndex].label,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).chipTheme.labelStyle.copyWith(
+                          fontWeight:
+                              _selected ? FontWeight.bold : FontWeight.normal,
+                          color: _selected &&
+                                  Theme.of(context).brightness ==
+                                      Brightness.light
+                              ? Colors.white
+                              : Theme.of(context).chipTheme.labelStyle.color),
+                    ),
+                    selected: listIndex == _index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _index = listIndex;
+                      });
+                    },
+                  ),
+                );
+              }),
+            )
+          : ListView(
+              scrollDirection: Axis.horizontal,
+              children: List.generate(_chips.length, (listIndex) {
+                var _selected = listIndex == _index;
+                return Theme(
+                  data: Theme.of(context)
+                      .copyWith(canvasColor: Colors.transparent),
+                  child: ChoiceChip(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    shape: StadiumBorder(
+                        side:
+                            BorderSide(color: Theme.of(context).primaryColor)),
+                    padding: EdgeInsets.symmetric(horizontal: 3),
+                    selectedColor: Theme.of(context).chipTheme.selectedColor,
+                    label: Text(
+                      _chips[listIndex].label,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).chipTheme.labelStyle.copyWith(
+                          fontWeight:
+                              _selected ? FontWeight.bold : FontWeight.normal,
+                          color: _selected &&
+                                  Theme.of(context).brightness ==
+                                      Brightness.light
+                              ? Colors.white
+                              : Theme.of(context).chipTheme.labelStyle.color),
+                    ),
+                    selected: listIndex == _index,
+                    onSelected: (bool selected) {
+                      setState(() {
+                        _index = listIndex;
+                      });
+                    },
+                  ),
+                );
+              }),
+            )
     ]);
   }
 

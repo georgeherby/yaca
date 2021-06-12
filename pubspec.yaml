@@ -30,6 +30,7 @@ dependencies:
   flutter_svg: ^0.22.0
   pedantic: ^1.11.0
   google_fonts: ^2.1.0
+  responsive_builder: 0.4.0-nullsafety.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
