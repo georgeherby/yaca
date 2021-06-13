@@ -29,9 +29,9 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   int _index = 1;
 
   final List<_AssetGraphChipConfig> _chips = [
-    // _AssetGraphChipConfig("15m", Duration(minutes: 15)),
+    // _AssetGraphChipConfig('15m', Duration(minutes: 15)),
     // _AssetGraphChipConfig("30m", Duration(minutes: 30)),
-    // _AssetGraphChipConfig("1H", Duration(hours: 1)),
+    _AssetGraphChipConfig('1H', Duration(hours: 1)),
     // _AssetGraphChipConfig("3h", Duration(hours: 3)),
     _AssetGraphChipConfig('12H', Duration(hours: 12)),
     _AssetGraphChipConfig('1D', Duration(days: 1)),
@@ -63,84 +63,97 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 child: Text('No historical data found'),
               ),
             ),
-      Divider(
-        thickness: 8,
-        color: Colors.transparent,
-      ),
-      (Theme.of(context).platform.isDesktop() || kIsWeb)
-          ? Wrap(
-              spacing: 8,
-              runSpacing: 6,
-              children: List.generate(_chips.length, (listIndex) {
-                var _selected = listIndex == _index;
-                return Theme(
-                  data: Theme.of(context)
-                      .copyWith(canvasColor: Colors.transparent),
-                  child: ChoiceChip(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: StadiumBorder(
-                        side:
-                            BorderSide(color: Theme.of(context).primaryColor)),
-                    padding: EdgeInsets.symmetric(horizontal: 3),
-                    selectedColor: Theme.of(context).chipTheme.selectedColor,
-                    label: Text(
-                      _chips[listIndex].label,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).chipTheme.labelStyle.copyWith(
-                          fontWeight:
-                              _selected ? FontWeight.bold : FontWeight.normal,
-                          color: _selected &&
-                                  Theme.of(context).brightness ==
-                                      Brightness.light
-                              ? Colors.white
-                              : Theme.of(context).chipTheme.labelStyle.color),
+      // Divider(
+      //   height: 16,
+      //   color: Colors.transparent,
+      // ),
+      Padding(
+        padding:
+            const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8, top: 16),
+        child: (Theme.of(context).platform.isDesktop() || kIsWeb)
+            ? Wrap(
+                spacing: 8,
+                runSpacing: 6,
+                children: List.generate(_chips.length, (listIndex) {
+                  var _selected = listIndex == _index;
+                  return Theme(
+                    data: Theme.of(context)
+                        .copyWith(canvasColor: Colors.transparent),
+                    child: ChoiceChip(
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: StadiumBorder(
+                          side: BorderSide(
+                              color: Theme.of(context).primaryColor)),
+                      padding: EdgeInsets.symmetric(horizontal: 3),
+                      selectedColor: Theme.of(context).chipTheme.selectedColor,
+                      label: Text(
+                        _chips[listIndex].label,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).chipTheme.labelStyle.copyWith(
+                            fontWeight:
+                                _selected ? FontWeight.bold : FontWeight.normal,
+                            color: _selected &&
+                                    Theme.of(context).brightness ==
+                                        Brightness.light
+                                ? Colors.white
+                                : Theme.of(context).chipTheme.labelStyle.color),
+                      ),
+                      selected: listIndex == _index,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _index = listIndex;
+                        });
+                      },
                     ),
-                    selected: listIndex == _index,
-                    onSelected: (bool selected) {
-                      setState(() {
-                        _index = listIndex;
-                      });
-                    },
-                  ),
-                );
-              }),
-            )
-          : ListView(
-              scrollDirection: Axis.horizontal,
-              children: List.generate(_chips.length, (listIndex) {
-                var _selected = listIndex == _index;
-                return Theme(
-                  data: Theme.of(context)
-                      .copyWith(canvasColor: Colors.transparent),
-                  child: ChoiceChip(
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    shape: StadiumBorder(
-                        side:
-                            BorderSide(color: Theme.of(context).primaryColor)),
-                    padding: EdgeInsets.symmetric(horizontal: 3),
-                    selectedColor: Theme.of(context).chipTheme.selectedColor,
-                    label: Text(
-                      _chips[listIndex].label,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).chipTheme.labelStyle.copyWith(
-                          fontWeight:
-                              _selected ? FontWeight.bold : FontWeight.normal,
-                          color: _selected &&
-                                  Theme.of(context).brightness ==
-                                      Brightness.light
-                              ? Colors.white
-                              : Theme.of(context).chipTheme.labelStyle.color),
-                    ),
-                    selected: listIndex == _index,
-                    onSelected: (bool selected) {
-                      setState(() {
-                        _index = listIndex;
-                      });
-                    },
-                  ),
-                );
-              }),
-            )
+                  );
+                }),
+              )
+            : SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: List.generate(_chips.length, (listIndex) {
+                    var _selected = listIndex == _index;
+                    return Theme(
+                      data: Theme.of(context)
+                          .copyWith(canvasColor: Colors.transparent),
+                      child: ChoiceChip(
+                        shape: StadiumBorder(
+                            side: BorderSide(
+                                color: Theme.of(context).primaryColor)),
+                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        selectedColor:
+                            Theme.of(context).chipTheme.selectedColor,
+                        label: Text(
+                          _chips[listIndex].label,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .chipTheme
+                              .labelStyle
+                              .copyWith(
+                                  fontWeight: _selected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: _selected &&
+                                          Theme.of(context).brightness ==
+                                              Brightness.light
+                                      ? Colors.white
+                                      : Theme.of(context)
+                                          .chipTheme
+                                          .labelStyle
+                                          .color),
+                        ),
+                        selected: listIndex == _index,
+                        onSelected: (bool selected) {
+                          setState(() {
+                            _index = listIndex;
+                          });
+                        },
+                      ),
+                    );
+                  }),
+                ),
+              ),
+      )
     ]);
   }
 

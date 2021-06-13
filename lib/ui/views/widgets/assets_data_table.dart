@@ -1,11 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -17,6 +12,9 @@ import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
@@ -81,8 +79,8 @@ class AssetsDataTable extends StatelessWidget {
                     ),
                   ),
                   Divider(
-                    indent: 24,
-                    endIndent: 24,
+                    indent: 8,
+                    endIndent: 8,
                     height: 1,
                     thickness: 1,
                   ),
@@ -90,8 +88,8 @@ class AssetsDataTable extends StatelessWidget {
                     child: ListView.separated(
                       separatorBuilder: (BuildContext context, int index) {
                         return Divider(
-                          indent: 24,
-                          endIndent: 24,
+                          indent: 8,
+                          endIndent: 8,
                           height: 1,
                           thickness: 1,
                         );
@@ -157,29 +155,55 @@ class AssetsDataTable extends StatelessWidget {
                                     VerticalDivider(
                                       color: Colors.transparent,
                                     ),
-                                    ConstrainedBox(
-                                      constraints: BoxConstraints(
-                                          maxWidth:
-                                              tablet || mobile ? 100 : 120),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            mc.symbol.toUpperCase(),
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .subtitle2,
-                                          ),
-                                          Text(
-                                            mc.name,
-                                            maxLines: 2,
-                                          ),
-                                        ],
-                                      ),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          mc.name,
+                                          maxLines: 2,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .subtitle2,
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Material(
+                                              color: Theme.of(context)
+                                                  .scaffoldBackgroundColor,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(6)),
+                                              elevation: 0,
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 2.0,
+                                                        horizontal: 6),
+                                                child: Text(
+                                                    mc.marketCapRank.toString(),
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .caption),
+                                              ),
+                                            ),
+                                            SizedBox(width: 4),
+                                            Text(mc.symbol.toUpperCase(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            mobile
+                                                ? SizedBox(width: 4)
+                                                : Container(),
+                                            mobile
+                                                ? PriceDelta(mc.priceChange24h)
+                                                : Container()
+                                          ],
+                                        ),
+                                      ],
                                     ),
                                     tablet || mobile
                                         ? Container()
@@ -288,8 +312,8 @@ class AssetsDataTable extends StatelessWidget {
     if (mobileView) {
       return Row(
         children: [
-          Expanded(flex: 15, child: rank),
-          Expanded(flex: 80, child: iconNameSpark),
+          // Expanded(flex: 15, child: rank),
+          Expanded(flex: 110, child: iconNameSpark),
           Expanded(flex: 40, child: price),
           Expanded(flex: 15, child: favourite),
         ],
@@ -297,7 +321,7 @@ class AssetsDataTable extends StatelessWidget {
     } else if (tabletView) {
       return Row(
         children: [
-          Expanded(flex: 15, child: rank),
+          // Expanded(flex: 15, child: rank),
           Expanded(flex: 80, child: iconNameSpark),
           Expanded(flex: 45, child: d7),
           Expanded(flex: 45, child: h24),
@@ -309,7 +333,7 @@ class AssetsDataTable extends StatelessWidget {
     } else {
       return Row(
         children: [
-          Expanded(flex: 15, child: rank),
+          // Expanded(flex: 15, child: rank),
           Expanded(flex: 200, child: iconNameSpark),
           Expanded(flex: 35, child: d7),
           Expanded(flex: 35, child: h24),

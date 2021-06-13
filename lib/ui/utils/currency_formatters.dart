@@ -1,6 +1,5 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:intl/intl.dart';
 
@@ -8,7 +7,7 @@ extension CurrencyFormatters on num {
   String currencyFormatWithPrefix(String currencyPrefix, BuildContext context,
       [bool showDecimals = true]) {
     var formatString = toInt() >= 2 || toInt() <= -2
-        ? '##,###,###,###.##'
+        ? '##,###,###,###.00'
         : '##,###,###,##0.00###';
 
     return NumberFormat(

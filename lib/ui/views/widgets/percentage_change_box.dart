@@ -1,10 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/percentage_formatters.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PercentageChangeBox extends StatelessWidget {
   final double? changePercent24Hr;
@@ -28,18 +27,6 @@ class PercentageChangeBox extends StatelessWidget {
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              percentageFormat.format(changePercent24Hr! / 100),
-              style: TextStyle(
-                  color: showBackground
-                      ? darkColor
-                      : changePercent24Hr!.toPositiveNegativeColor(),
-                  fontSize: textSize ??
-                      Theme.of(context).textTheme.caption!.fontSize),
-            ),
-            SizedBox(
-              width: 2,
-            ),
             Icon(
               changePercent24Hr! < 0
                   ? CupertinoIcons.arrowtriangle_down_fill
@@ -48,6 +35,18 @@ class PercentageChangeBox extends StatelessWidget {
                   ? darkColor
                   : changePercent24Hr!.toPositiveNegativeColor(),
               size: textSize ?? 12,
+            ),
+            SizedBox(
+              width: 2,
+            ),
+            Text(
+              percentageFormat.format(changePercent24Hr! / 100),
+              style: TextStyle(
+                  color: showBackground
+                      ? darkColor
+                      : changePercent24Hr!.toPositiveNegativeColor(),
+                  fontSize: textSize ??
+                      Theme.of(context).textTheme.caption!.fontSize),
             )
           ],
         ),

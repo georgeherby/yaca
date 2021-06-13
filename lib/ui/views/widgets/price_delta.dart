@@ -1,10 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class PriceDelta extends StatelessWidget {
   final double? priceChangeDelta;
@@ -21,6 +20,16 @@ class PriceDelta extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
+          Icon(
+            priceChangeDelta! < 0
+                ? CupertinoIcons.arrowtriangle_down_fill
+                : CupertinoIcons.arrowtriangle_up_fill,
+            color: color,
+            size: textSize ?? 12,
+          ),
+          SizedBox(
+            width: 2,
+          ),
           Text(
             (priceChangeDelta!.deltaFormat()),
             style: Theme.of(context).textTheme.caption?.copyWith(
@@ -28,16 +37,6 @@ class PriceDelta extends StatelessWidget {
                 fontSize:
                     textSize ?? Theme.of(context).textTheme.caption!.fontSize),
           ),
-          SizedBox(
-            width: 2,
-          ),
-          Icon(
-            priceChangeDelta! < 0
-                ? CupertinoIcons.arrowtriangle_down_fill
-                : CupertinoIcons.arrowtriangle_up_fill,
-            color: color,
-            size: textSize ?? 12,
-          )
         ],
       );
     } else {

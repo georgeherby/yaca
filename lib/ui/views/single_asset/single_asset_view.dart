@@ -1,10 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -17,6 +11,10 @@ import 'package:crypto_app/ui/views/single_asset/widgets/exchange_list_with_filt
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;
@@ -121,11 +119,8 @@ class SingleAssetView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
                       elevation: Theme.of(context).cardTheme.elevation!,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 16.0),
-                        child: AssetGraphWithSwitcher(
-                            allHistory: state.assetHistory),
-                      ),
+                      child: AssetGraphWithSwitcher(
+                          allHistory: state.assetHistory),
                     ),
                     Divider(height: 8, color: Colors.transparent),
                     state.exchangeTickers.isNotEmpty
