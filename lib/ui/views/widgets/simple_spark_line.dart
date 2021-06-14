@@ -12,8 +12,8 @@ import 'package:crypto_app/ui/consts/colours.dart';
 
 class SimpleSparkLine extends StatelessWidget {
   final List<double> data;
-
-  const SimpleSparkLine({Key? key, required this.data}) : super(key: key);
+  final double width;
+  const SimpleSparkLine({Key? key, required this.data, required this.width}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class SimpleSparkLine extends StatelessWidget {
 
       return SizedBox(
         height: 120,
-        width: 250,
+        width: width,
         child: LineChart(
           LineChartData(
             backgroundColor: Colors.transparent,

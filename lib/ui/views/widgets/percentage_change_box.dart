@@ -37,10 +37,12 @@ class PercentageChangeBox extends StatelessWidget {
               size: textSize ?? 12,
             ),
             SizedBox(
-              width: 2,
+              width: 1,
             ),
             Text(
               percentageFormat.format(changePercent24Hr! / 100),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                   color: showBackground
                       ? darkColor

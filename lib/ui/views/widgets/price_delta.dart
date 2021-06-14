@@ -28,10 +28,12 @@ class PriceDelta extends StatelessWidget {
             size: textSize ?? 12,
           ),
           SizedBox(
-            width: 2,
+            width: 1,
           ),
           Text(
             (priceChangeDelta!.deltaFormat()),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.caption?.copyWith(
                 color: color,
                 fontSize:

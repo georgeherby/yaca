@@ -6,9 +6,11 @@ import 'package:intl/intl.dart';
 extension CurrencyFormatters on num {
   String currencyFormatWithPrefix(String currencyPrefix, BuildContext context,
       [bool showDecimals = true]) {
-    var formatString = toInt() >= 2 || toInt() <= -2
-        ? '##,###,###,###.00'
-        : '##,###,###,##0.00###';
+    var formatString = toInt() >= 10000
+        ? '##,###,###,###'
+        : toInt() >= 2 || toInt() <= -2
+            ? '##,###,###,###.00'
+            : '##,###,###,##0.00###';
 
     return NumberFormat(
       currencyPrefix + formatString,
@@ -19,12 +21,12 @@ extension CurrencyFormatters on num {
   String deltaFormat() {
     var formatString = toInt() >= 2 || toInt() <= -2
         ? '##,###,###,###.00'
-        : '##,###,###,##0.00###';
+        : '##,###,###,##0.00##';
 
     return NumberFormat(
-      this > 0 ? '+' + formatString : formatString,
+      formatString,
       'en_GB',
-    ).format(this);
+    ).format(abs());
   }
 
   String volumeFormat(BuildContext context) {

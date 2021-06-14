@@ -4,7 +4,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
@@ -28,327 +27,478 @@ class AssetsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: Theme.of(context).platform.isMobile()
-          ? EdgeInsets.zero
-          : EdgeInsets.only(bottom: 8.0),
-      child: Material(
-        borderRadius: Theme.of(context).platform.isMobile()
-            ? BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10))
-            : BorderRadius.circular(10),
-        elevation: Theme.of(context).cardTheme.elevation!,
-        child: LayoutBuilder(
-          builder: (BuildContext context, BoxConstraints constraints) {
-            var tablet =
-                constraints.maxWidth <= 800 && constraints.maxWidth > 480;
-            var mobile = constraints.maxWidth <= 480;
-            return Padding(
-              padding:
-                  !mobile ? const EdgeInsets.only(top: 8.0) : EdgeInsets.zero,
-              child: Column(
-                children: [
-                  !mobile
-                      ? Padding(
-                          padding: const EdgeInsets.only(
-                            left: 8.0,
-                            right: 8.0,
-                            bottom: 8.0,
-                          ),
-                          child: buildRow(
-                            rank: Text('#',
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textAlign: TextAlign.center),
-                            iconNameSpark: Text('Name',
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textAlign: TextAlign.start),
-                            d7: Text('7d',
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textAlign: TextAlign.center),
-                            h24: Text('24h',
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textAlign: TextAlign.center),
-                            h1: Text('1h',
-                                style: Theme.of(context).textTheme.subtitle1,
-                                textAlign: TextAlign.center),
-                            price: Text(
-                              'Price',
-                              style: Theme.of(context).textTheme.subtitle1,
-                              textAlign: TextAlign.end,
-                            ),
-                            favourite: Text('', textAlign: TextAlign.center),
-                          ),
-                        )
-                      : Container(),
-                  !mobile
-                      ? Divider(
-                          indent: 8,
-                          endIndent: 8,
-                          height: 1,
-                          thickness: 1,
-                        )
-                      : Container(),
-                  Expanded(
-                    child: ListView.separated(
-                      separatorBuilder: (BuildContext context, int index) {
-                        return Divider(
-                          indent: 8,
-                          endIndent: 8,
-                          height: 1,
-                          thickness: 1,
-                        );
-                      },
-                      shrinkWrap: true,
-                      itemCount: marketCoins.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        var mc = marketCoins[index];
+    return Material(
+      borderRadius: getValueForScreenType<BorderRadius>(
+          context: context,
+          mobile: BorderRadius.only(
+              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+          tablet: BorderRadius.circular(10),
+          desktop: BorderRadius.circular(10)),
+      elevation: Theme.of(context).cardTheme.elevation!,
+      child: ListView.separated(
+        separatorBuilder: (BuildContext context, int index) {
+          return Divider(
+            indent: 8,
+            endIndent: 8,
+            height: 1,
+            thickness: 1,
+          );
+        },
+        shrinkWrap: false,
+        itemCount: marketCoins.length,
+        itemBuilder: (BuildContext context, int index) {
+          var mc = marketCoins[index];
 
-                        return InkWell(
-                          onTap: () async {
-                            await Navigator.push(
-                              context,
-                              CupertinoPageRoute(
-                                fullscreenDialog: true,
-                                builder: (context) {
-                                  return SingleAssetPage(
-                                    marketCoin: mc,
-                                    onFavourite: (String id, bool isChecked) =>
-                                        onFavourite(mc, !mc.isFavourited),
-                                  );
-                                },
-                              ),
-                            );
-                          },
-                          child: SizedBox(
-                            height: 72,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 12.0),
-                              child: buildRow(
-                                rank: Text(mc.marketCapRank.toString(),
-                                    textAlign: TextAlign.center),
-                                iconNameSpark: Row(
-                                  children: [
-                                    CachedNetworkImage(
-                                      imageUrl: mc.image,
-                                      filterQuality: FilterQuality.high,
-                                      width: tablet || mobile ? 32 : 44,
-                                      height: tablet || mobile ? 32 : 44,
-                                      errorWidget: (context, url, error) {
-                                        debugPrint(error.toString());
-                                        return CircleAvatar(
-                                          minRadius: 22,
-                                          maxRadius: 22,
-                                          backgroundColor:
-                                              Theme.of(context).accentColor,
-                                          child: Text(
-                                            mc.symbol.toUpperCase(),
-                                            overflow: TextOverflow.clip,
-                                            maxLines: 1,
-                                            textAlign: TextAlign.center,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption,
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                    VerticalDivider(
-                                      color: Colors.transparent,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          mc.name,
-                                          maxLines: 1,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .subtitle2,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Material(
-                                              color: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
-                                              borderRadius: BorderRadius.all(
-                                                  Radius.circular(6)),
-                                              elevation: 0,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.symmetric(
-                                                        vertical: 2.0,
-                                                        horizontal: 6),
-                                                child: Text(
-                                                    mc.marketCapRank.toString(),
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .caption),
-                                              ),
-                                            ),
-                                            SizedBox(width: 4),
-                                            Text(mc.symbol.toUpperCase(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .caption),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                    tablet || mobile
-                                        ? Container()
-                                        : Spacer(
-                                            flex: 2,
-                                          ),
-                                    tablet || mobile
-                                        ? Container()
-                                        : Padding(
-                                            padding: const EdgeInsets.only(
-                                                top: 8.0, bottom: 8.0),
-                                            child: mc.sparklineIn7d != null
-                                                ? SimpleSparkLine(
-                                                    data:
-                                                        mc.sparklineIn7d!.price)
-                                                : Container(),
-                                          ),
-                                    Spacer(
-                                      flex: 1,
-                                    ),
-                                  ],
-                                ),
-                                d7: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    PercentageChangeBox(
-                                        mc.priceChangePercentage7dInCurrency),
-                                    SizedBox(height: 4),
-                                    PriceDelta(mc.priceChange7d),
-                                  ],
-                                ),
-                                h24: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    PercentageChangeBox(
-                                        mc.priceChangePercentage24hInCurrency),
-                                    SizedBox(height: 4),
-                                    PriceDelta(mc.priceChange24h),
-                                  ],
-                                ),
-                                h1: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    PercentageChangeBox(
-                                        mc.priceChangePercentage1hInCurrency),
-                                    SizedBox(height: 4),
-                                    PriceDelta(mc.priceChange1h)
-                                  ],
-                                ),
-                                price: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      mc.currentPrice.currencyFormatWithPrefix(
-                                          BlocProvider.of<AppSettingsBloc>(
-                                                  context)
-                                              .state
-                                              .currency
-                                              .currencySymbol,
-                                          context),
-                                      textAlign: TextAlign.end,
-                                    ),
-                                    mobile
-                                        ? PriceDelta(mc.priceChange24h)
-                                        : Container()
-                                  ],
-                                ),
-                                favourite: BlocBuilder<AssetOverviewBloc,
-                                    AssetOverviewState>(
-                                  builder: (context, state) {
-                                    if (state is AssetOverviewLoaded) {
-                                      return IconButton(
-                                          icon: FavouriteIcon(
-                                            isSelected: mc.isFavourited,
-                                            size: 22,
-                                          ),
-                                          onPressed: () {
-                                            return onFavourite(
-                                                mc, !mc.isFavourited);
-                                          });
-                                    }
-                                    return CupertinoActivityIndicator();
-                                  },
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  )
-                ],
-              ),
-            );
-          },
-        ),
+          return InkWell(
+            onTap: () async {
+              await Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  fullscreenDialog: true,
+                  builder: (context) {
+                    return SingleAssetPage(
+                      marketCoin: mc,
+                      onFavourite: (String id, bool isChecked) =>
+                          onFavourite(mc, !mc.isFavourited),
+                    );
+                  },
+                ),
+              );
+            },
+            child: SizedBox(
+              height: 72,
+              child: buildRow(
+                  rank: mc.marketCapRank,
+                  symbol: mc.symbol,
+                  name: mc.name,
+                  sparkline: mc.sparklineIn7d,
+                  iconUrl: mc.image,
+                  sevenDayChange: mc.priceChange7d,
+                  sevenDayPercentageChange:
+                      mc.priceChangePercentage7dInCurrency,
+                  oneDayChange: mc.priceChange24h,
+                  oneDayPercentageChange: mc.priceChangePercentage24hInCurrency,
+                  oneHourChange: mc.priceChange1h,
+                  oneHourPercentageChange: mc.priceChangePercentage1hInCurrency,
+                  price: mc.currentPrice,
+                  isFavourited: mc.isFavourited,
+                  onFavourite: () => onFavourite(mc, !mc.isFavourited)),
+            ),
+          );
+        },
       ),
     );
   }
 
-  Widget buildRow({
-    required Widget rank,
-    required Widget iconNameSpark,
-    required Widget d7,
-    required Widget h24,
-    required Widget h1,
-    required Widget price,
-    required Widget favourite,
-  }) {
+  Widget buildRow(
+      {required int rank,
+      required String symbol,
+      required String name,
+      required String iconUrl,
+      required SparklineIn7d? sparkline,
+      required double? sevenDayPercentageChange,
+      required double? sevenDayChange,
+      required double? oneDayPercentageChange,
+      required double? oneDayChange,
+      required double? oneHourPercentageChange,
+      required double? oneHourChange,
+      required double price,
+      required bool isFavourited,
+      required VoidCallback onFavourite}) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
-          return Row(
-            children: [
-              Expanded(flex: 200, child: iconNameSpark),
-              Expanded(flex: 35, child: d7),
-              Expanded(flex: 35, child: h24),
-              Expanded(flex: 35, child: h1),
-              Expanded(flex: 30, child: price),
-              Expanded(flex: 15, child: favourite),
-            ],
+          var blockSize = MediaQuery.of(context).size.width / 100;
+
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 8),
+            child: Row(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: iconUrl,
+                  filterQuality: FilterQuality.high,
+                  width: 32,
+                  height: 32,
+                  errorWidget: (context, url, error) {
+                    debugPrint(error.toString());
+                    return CircleAvatar(
+                      minRadius: 16,
+                      maxRadius: 16,
+                      backgroundColor: Theme.of(context).accentColor,
+                      child: Text(
+                        symbol,
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(width: blockSize * 2),
+                SizedBox(
+                  width: blockSize * 16,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        name,
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.subtitle2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Material(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                            elevation: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 2.0, horizontal: 6),
+                              child: Text(rank.toString(),
+                                  style: Theme.of(context).textTheme.caption),
+                            ),
+                          ),
+                          SizedBox(width: 6),
+                          Text(symbol.toUpperCase(),
+                              style: Theme.of(context).textTheme.caption),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                sparkline != null
+                    ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: SimpleSparkLine(
+                            data: sparkline.price, width: blockSize * 20),
+                      )
+                    : Container(),
+                SizedBox(
+                  width: blockSize * 30,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: blockSize * 8,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PercentageChangeBox(sevenDayPercentageChange),
+                            SizedBox(height: 4),
+                            PriceDelta(sevenDayChange),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: blockSize * 1),
+                      SizedBox(
+                        width: blockSize * 8,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PercentageChangeBox(oneDayPercentageChange),
+                            SizedBox(height: 4),
+                            PriceDelta(oneDayChange),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: blockSize * 1),
+                      SizedBox(
+                        width: blockSize * 8,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PercentageChangeBox(oneHourPercentageChange),
+                            SizedBox(height: 4),
+                            PriceDelta(oneHourChange)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 25,
+                  child: Text(
+                    price.currencyFormatWithPrefix(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencySymbol,
+                        context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+                Spacer(flex: 1),
+                BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+                  builder: (context, state) {
+                    if (state is AssetOverviewLoaded) {
+                      return IconButton(
+                          icon: FavouriteIcon(
+                            isSelected: isFavourited,
+                            size: 22,
+                          ),
+                          onPressed: onFavourite);
+                    }
+                    return CupertinoActivityIndicator();
+                  },
+                ),
+              ],
+            ),
           );
         }
 
         if (sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
-          return Row(
-            children: [
-              Expanded(flex: 80, child: iconNameSpark),
-              Expanded(flex: 45, child: d7),
-              Expanded(flex: 45, child: h24),
-              Expanded(flex: 45, child: h1),
-              Expanded(flex: 40, child: price),
-              Expanded(flex: 15, child: favourite),
-            ],
+          var blockSize = MediaQuery.of(context).size.width / 100;
+
+          return Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 8),
+            child: Row(
+              children: [
+                CachedNetworkImage(
+                  imageUrl: iconUrl,
+                  filterQuality: FilterQuality.high,
+                  width: 32,
+                  height: 32,
+                  errorWidget: (context, url, error) {
+                    debugPrint(error.toString());
+                    return CircleAvatar(
+                      minRadius: 16,
+                      maxRadius: 16,
+                      backgroundColor: Theme.of(context).accentColor,
+                      child: Text(
+                        symbol,
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    );
+                  },
+                ),
+                SizedBox(width: blockSize * 2),
+                SizedBox(
+                  width: blockSize * 16,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        name,
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.subtitle2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Material(
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(6)),
+                            elevation: 0,
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 2.0, horizontal: 6),
+                              child: Text(rank.toString(),
+                                  style: Theme.of(context).textTheme.caption),
+                            ),
+                          ),
+                          SizedBox(width: 6),
+                          Text(symbol.toUpperCase(),
+                              style: Theme.of(context).textTheme.caption),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: blockSize * 40,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      SizedBox(
+                        width: blockSize * 11,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PercentageChangeBox(sevenDayPercentageChange),
+                            SizedBox(height: 4),
+                            PriceDelta(sevenDayChange),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: blockSize * 1),
+                      SizedBox(
+                        width: blockSize * 11,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PercentageChangeBox(oneDayPercentageChange),
+                            SizedBox(height: 4),
+                            Row(
+                              children: [
+                                PriceDelta(oneDayChange),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(width: blockSize * 1),
+                      SizedBox(
+                        width: blockSize * 11,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            PercentageChangeBox(oneHourPercentageChange),
+                            SizedBox(height: 4),
+                            PriceDelta(oneHourChange)
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 40,
+                  child: Text(
+                    price.currencyFormatWithPrefix(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencySymbol,
+                        context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                  ),
+                ),
+                Spacer(flex: 5),
+                BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+                  builder: (context, state) {
+                    if (state is AssetOverviewLoaded) {
+                      return IconButton(
+                          icon: FavouriteIcon(
+                            isSelected: isFavourited,
+                            size: 22,
+                          ),
+                          onPressed: onFavourite);
+                    }
+                    return CupertinoActivityIndicator();
+                  },
+                ),
+              ],
+            ),
           );
         }
 
-        return Row(
-          children: [
-            Expanded(flex: 90, child: iconNameSpark),
-            Expanded(flex: 40, child: price),
-            Expanded(flex: 15, child: favourite),
-          ],
+        return Padding(
+          padding: const EdgeInsets.only(left: 16.0, right: 8),
+          child: Row(
+            children: [
+              CachedNetworkImage(
+                imageUrl: iconUrl,
+                filterQuality: FilterQuality.high,
+                width: 32,
+                height: 32,
+                errorWidget: (context, url, error) {
+                  debugPrint(error.toString());
+                  return CircleAvatar(
+                    minRadius: 16,
+                    maxRadius: 16,
+                    backgroundColor: Theme.of(context).accentColor,
+                    child: Text(
+                      symbol,
+                      overflow: TextOverflow.clip,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(context).textTheme.caption,
+                    ),
+                  );
+                },
+              ),
+              SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    name,
+                    maxLines: 1,
+                    style: Theme.of(context).textTheme.subtitle2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Material(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(6)),
+                        elevation: 0,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 2.0, horizontal: 6),
+                          child: Text(rank.toString(),
+                              style: Theme.of(context).textTheme.caption),
+                        ),
+                      ),
+                      SizedBox(width: 4),
+                      Text(symbol.toUpperCase(),
+                          style: Theme.of(context).textTheme.caption),
+                    ],
+                  ),
+                ],
+              ),
+              Spacer(
+                flex: 1,
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    price.currencyFormatWithPrefix(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencySymbol,
+                        context),
+                    textAlign: TextAlign.end,
+                  ),
+                  PriceDelta(oneDayChange)
+                ],
+              ),
+              BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+                builder: (context, state) {
+                  if (state is AssetOverviewLoaded) {
+                    return IconButton(
+                        icon: FavouriteIcon(
+                          isSelected: isFavourited,
+                          size: 22,
+                        ),
+                        onPressed: onFavourite);
+                  }
+                  return CupertinoActivityIndicator();
+                },
+              )
+            ],
+          ),
         );
       },
     );
