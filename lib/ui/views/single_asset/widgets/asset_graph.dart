@@ -12,6 +12,7 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class AssetGraph extends StatefulWidget {
   final List<TimeValuePair> history;
@@ -32,8 +33,8 @@ class _AssetGraphState extends State<AssetGraph> {
   late double touchedPrice;
   late int touchedTime;
 
-  final int verticals = 4;
-  final int horizonals = 6;
+  final int verticals = 3;
+  final int horizonals = 4;
 
   _AssetGraphState({
     required this.history,
@@ -61,7 +62,6 @@ class _AssetGraphState extends State<AssetGraph> {
         BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
 
     var formatDate = DateFormat('EEE, MMM dd, yyyy, HH:mm');
-    // DateFormat formatTime = DateFormat("HH:mm");
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -76,8 +76,6 @@ class _AssetGraphState extends State<AssetGraph> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Text(formatTime.format(_dateTimeTouchedDate)),
-
                   Text(
                     formatDate.format(_dateTimeTouchedDate),
                     style: Theme.of(context)
@@ -94,10 +92,21 @@ class _AssetGraphState extends State<AssetGraph> {
                 children: [
                   Text(
                     price.currencyFormatWithPrefix(currencySymbol, context),
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline5
-                        ?.copyWith(fontWeight: FontWeight.w600),
+                    style: getValueForScreenType<TextStyle?>(
+                      context: context,
+                      mobile: Theme.of(context)
+                          .textTheme
+                          .headline6
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                      tablet: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                      desktop: Theme.of(context)
+                          .textTheme
+                          .headline5
+                          ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
                   ),
                   VerticalDivider(),
                   Column(
@@ -135,7 +144,12 @@ class _AssetGraphState extends State<AssetGraph> {
           ),
         ),
         SizedBox(
-          height: 250,
+          height: getValueForScreenType<double>(
+            context: context,
+            mobile: 150,
+            tablet: 200,
+            desktop: 250,
+          ),
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.only(top: 0.0, right: 0, left: 24),

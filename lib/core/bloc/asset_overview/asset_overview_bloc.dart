@@ -33,7 +33,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
   AssetOverviewBloc(this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
       : super(AssetOverviewInitial()){
-        subscription = settingsBloc.listen((stateOfOverview) {
+        subscription = settingsBloc.stream.listen((stateOfOverview) {
           if(stateOfOverview is AppSettingsLoaded){
             add(AssetOverviewLoad(stateOfOverview.currency.currencyCode));
           }
