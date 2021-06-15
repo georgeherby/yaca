@@ -13,16 +13,13 @@ dependencies:
     sdk: flutter
   http: ^0.13.3
   intl: ^0.17.0
-  # decimal: 1.0.0-nullsafety
   cupertino_icons: ^1.0.3
   fl_chart: ^0.36.1
   provider: ^5.0.0
-  # dart_rss: ^1.0.1
   shared_preferences: ^2.0.6
   path_provider: ^2.0.2
   sqflite: ^2.0.0+2
   shimmer: ^2.0.0
-  # flutter_svg: ^0.20.0-nullsafety.3
   url_launcher: ^6.0.6
   flutter_bloc: ^7.0.1
   equatable: ^2.0.2
@@ -30,7 +27,7 @@ dependencies:
   flutter_svg: ^0.22.0
   pedantic: ^1.11.0
   google_fonts: ^2.1.0
-  responsive_builder: 0.4.0-nullsafety.1
+  responsive_builder: ^0.4.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
