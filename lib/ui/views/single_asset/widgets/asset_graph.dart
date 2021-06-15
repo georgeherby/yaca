@@ -44,6 +44,16 @@ class _AssetGraphState extends State<AssetGraph> {
   }
 
   @override
+  void didUpdateWidget(covariant AssetGraph oldWidget) {
+    if (oldWidget.duration != widget.duration) {
+      debugPrint('Duration changed reset touched values');
+      touchedPrice = history.last.value;
+      touchedTime = history.last.timeEpochUtc;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
   Widget build(BuildContext context) {
     var _dashColour = (Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700

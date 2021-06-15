@@ -31,8 +31,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   final List<_AssetGraphChipConfig> _chips = [
     // _AssetGraphChipConfig('15m', Duration(minutes: 15)),
     // _AssetGraphChipConfig("30m", Duration(minutes: 30)),
-    _AssetGraphChipConfig('1H', Duration(hours: 1)),
-    // _AssetGraphChipConfig("3h", Duration(hours: 3)),
+    // _AssetGraphChipConfig('1H', Duration(hours: 1)),
+    _AssetGraphChipConfig('3h', Duration(hours: 3)),
     _AssetGraphChipConfig('12H', Duration(hours: 12)),
     _AssetGraphChipConfig('1D', Duration(days: 1)),
     _AssetGraphChipConfig('3D', Duration(days: 3)),
@@ -63,10 +63,6 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 child: Text('No historical data found'),
               ),
             ),
-      // Divider(
-      //   height: 16,
-      //   color: Colors.transparent,
-      // ),
       Padding(
         padding:
             const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8, top: 16),
