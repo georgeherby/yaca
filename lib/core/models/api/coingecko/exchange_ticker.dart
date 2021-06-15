@@ -34,7 +34,7 @@ class Tickers {
   late ConvertedLast convertedLast;
   late ConvertedVolume convertedVolume;
   late String? trustScore;
-  late double bidAskSpreadPercentage;
+  late double? bidAskSpreadPercentage;
   late String timestamp;
   late String lastTradedAt;
   late String lastFetchAt;

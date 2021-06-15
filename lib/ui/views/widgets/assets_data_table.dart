@@ -27,65 +27,75 @@ class AssetsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      borderRadius: getValueForScreenType<BorderRadius>(
-          context: context,
-          mobile: BorderRadius.only(
-              topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-          tablet: BorderRadius.circular(10),
-          desktop: BorderRadius.circular(10)),
-      elevation: Theme.of(context).cardTheme.elevation!,
-      child: ListView.separated(
-        separatorBuilder: (BuildContext context, int index) {
-          return Divider(
-            indent: 8,
-            endIndent: 8,
-            height: 1,
-            thickness: 1,
-          );
-        },
-        shrinkWrap: false,
-        itemCount: marketCoins.length,
-        itemBuilder: (BuildContext context, int index) {
-          var mc = marketCoins[index];
+    return Padding(
+      padding: getValueForScreenType<EdgeInsets>(
+        context: context,
+        mobile: EdgeInsets.zero,
+        tablet: EdgeInsets.only(bottom: 8.0),
+        desktop: EdgeInsets.only(bottom: 8.0),
+      ),
+      child: Material(
+        borderRadius: getValueForScreenType<BorderRadius>(
+            context: context,
+            mobile: BorderRadius.only(
+                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+            tablet: BorderRadius.circular(10),
+            desktop: BorderRadius.circular(10)),
+        elevation: Theme.of(context).cardTheme.elevation!,
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) {
+            return Divider(
+              indent: 8,
+              endIndent: 8,
+              height: 1,
+              thickness: 1,
+            );
+          },
+          shrinkWrap: false,
+          itemCount: marketCoins.length,
+          itemBuilder: (BuildContext context, int index) {
+            var mc = marketCoins[index];
 
-          return InkWell(
-            onTap: () async {
-              await Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  fullscreenDialog: true,
-                  builder: (context) {
-                    return SingleAssetPage(
-                      marketCoin: mc,
-                      onFavourite: (String id, bool isChecked) =>
-                          onFavourite(mc, !mc.isFavourited),
-                    );
-                  },
-                ),
-              );
-            },
-            child: SizedBox(
-              height: 72,
-              child: buildRow(
-                  rank: mc.marketCapRank,
-                  symbol: mc.symbol,
-                  name: mc.name,
-                  sparkline: mc.sparklineIn7d,
-                  iconUrl: mc.image,
-                  sevenDayChange: mc.priceChange7d,
-                  sevenDayPercentageChange:
-                      mc.priceChangePercentage7dInCurrency,
-                  oneDayChange: mc.priceChange24h,
-                  oneDayPercentageChange: mc.priceChangePercentage24hInCurrency,
-                  oneHourChange: mc.priceChange1h,
-                  oneHourPercentageChange: mc.priceChangePercentage1hInCurrency,
-                  price: mc.currentPrice,
-                  isFavourited: mc.isFavourited,
-                  onFavourite: () => onFavourite(mc, !mc.isFavourited)),
-            ),
-          );
-        },
+            return InkWell(
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    fullscreenDialog: true,
+                    builder: (context) {
+                      return SingleAssetPage(
+                        marketCoin: mc,
+                        onFavourite: (String id, bool isChecked) =>
+                            onFavourite(mc, isChecked),
+                      );
+                    },
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: 72,
+                child: buildRow(
+                    rank: mc.marketCapRank,
+                    symbol: mc.symbol,
+                    name: mc.name,
+                    sparkline: mc.sparklineIn7d,
+                    iconUrl: mc.image,
+                    sevenDayChange: mc.priceChange7d,
+                    sevenDayPercentageChange:
+                        mc.priceChangePercentage7dInCurrency,
+                    oneDayChange: mc.priceChange24h,
+                    oneDayPercentageChange:
+                        mc.priceChangePercentage24hInCurrency,
+                    oneHourChange: mc.priceChange1h,
+                    oneHourPercentageChange:
+                        mc.priceChangePercentage1hInCurrency,
+                    price: mc.currentPrice,
+                    isFavourited: mc.isFavourited,
+                    onFavourite: () => onFavourite(mc, !mc.isFavourited)),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
