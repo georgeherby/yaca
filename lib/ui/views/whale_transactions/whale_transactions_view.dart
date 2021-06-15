@@ -64,8 +64,8 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         bloc: BlocProvider.of<FilterListBloc<Transactions, String>>(context),
         onLoading: (context) =>
             Center(child: const CupertinoActivityIndicator()),
-        onSuccess: (context, posts) =>
-            WhaleTransactionList(transactions: posts),
+        onSuccess: (context, transactions) =>
+            WhaleTransactionList(transactions: transactions),
         onRefreshing: (context, posts) =>
             Center(child: const CupertinoActivityIndicator()),
         onEmpty: (context) => const Center(child: Text('No posts found')),

@@ -266,9 +266,8 @@ class AssetsDataTable extends StatelessWidget {
               ],
             ),
           );
-        }
-
-        if (sizingInformation.deviceScreenType == DeviceScreenType.tablet) {
+        } else if (sizingInformation.deviceScreenType ==
+            DeviceScreenType.tablet) {
           var blockSize = MediaQuery.of(context).size.width / 100;
 
           return Padding(
@@ -423,13 +422,13 @@ class AssetsDataTable extends StatelessWidget {
               CachedNetworkImage(
                 imageUrl: iconUrl,
                 filterQuality: FilterQuality.high,
-                width: 32,
-                height: 32,
+                width: 44,
+                height: 44,
                 errorWidget: (context, url, error) {
                   debugPrint(error.toString());
                   return CircleAvatar(
-                    minRadius: 16,
-                    maxRadius: 16,
+                    minRadius: 22,
+                    maxRadius: 22,
                     backgroundColor: Theme.of(context).accentColor,
                     child: Text(
                       symbol,
@@ -450,7 +449,7 @@ class AssetsDataTable extends StatelessWidget {
                   Text(
                     name,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.subtitle1,
                     overflow: TextOverflow.ellipsis,
                   ),
                   Row(
@@ -465,12 +464,26 @@ class AssetsDataTable extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               vertical: 2.0, horizontal: 6),
                           child: Text(rank.toString(),
-                              style: Theme.of(context).textTheme.caption),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2
+                                  ?.copyWith(
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .caption
+                                          ?.color)),
                         ),
                       ),
                       SizedBox(width: 4),
                       Text(symbol.toUpperCase(),
-                          style: Theme.of(context).textTheme.caption),
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText2
+                              ?.copyWith(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      ?.color)),
                     ],
                   ),
                 ],
@@ -490,8 +503,10 @@ class AssetsDataTable extends StatelessWidget {
                             .currencySymbol,
                         context),
                     textAlign: TextAlign.end,
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
-                  PriceDelta(oneDayChange)
+                  PriceDelta(oneDayChange,
+                      textSize: Theme.of(context).textTheme.subtitle2?.fontSize)
                 ],
               ),
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(

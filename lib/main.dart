@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -92,7 +93,7 @@ class _MyAppState extends State<MyApp> {
                 providers: [
                   BlocProvider(
                       create: (_) => FilterListBloc<Transactions, String>(
-                          WhaleTransactionReposiotry())),
+                          WhaleTransactionReposiotry(apiPreferences: ApiTokensPreference()))),
                   BlocProvider<GlobalMarketBloc>(
                     create: (BuildContext context) => GlobalMarketBloc(
                       GlobalMarketRespository(client: _client),
