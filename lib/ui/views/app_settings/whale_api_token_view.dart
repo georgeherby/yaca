@@ -26,7 +26,7 @@ class WhaleApiTokenView extends StatelessWidget {
                   }
                   return null;
                 },
-                decoration: InputDecoration(hintText: "Enter Whales API token"),
+                decoration: InputDecoration(hintText: 'Enter Whales API token'),
               ),
             ),
             Row(

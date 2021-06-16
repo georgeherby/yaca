@@ -30,7 +30,6 @@ class SingleAssetView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const _bottomAppBarHeight = 120.0;
     debugPrint('SingleAssetView');
 
     return BlocBuilder<SingleAssetBloc, SingleAssetState>(

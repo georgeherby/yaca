@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SelectableIcon extends StatelessWidget {
   final IconData selectedIcon;
@@ -18,12 +19,14 @@ class SelectableIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Icon(
-      isSelected ? CupertinoIcons.star_fill : CupertinoIcons.star,
+    return FaIcon(
+      isSelected ? FontAwesomeIcons.solidStar : FontAwesomeIcons.star,
       size: size,
       color: isSelected
-          ? Color(0xFFF4C622)
-          : (Theme.of(context).brightness == Brightness.dark ? Colors.white24 : Colors.black26),
+          ? Color(0xFFE4B256)
+          : (Theme.of(context).brightness == Brightness.dark
+              ? Colors.white24
+              : Colors.black26),
     );
   }
 }

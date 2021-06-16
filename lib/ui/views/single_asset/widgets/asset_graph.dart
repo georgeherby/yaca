@@ -77,22 +77,40 @@ class _AssetGraphState extends State<AssetGraph> {
       children: [
         Padding(
           padding:
-              const EdgeInsets.only(bottom: 16.0, left: 8, right: 8, top: 8),
+              const EdgeInsets.only(bottom: 8.0, left: 8, right: 8, top: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    formatDate.format(_dateTimeTouchedDate),
-                    style: Theme.of(context)
-                        .textTheme
-                        .caption
-                        ?.copyWith(fontWeight: FontWeight.normal, fontSize: 13),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        formatDate.format(_dateTimeTouchedDate),
+                        style: Theme.of(context).textTheme.caption?.copyWith(
+                            fontWeight: FontWeight.normal, fontSize: 13),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          PercentageChangeBox(
+                              ((price - (history.last.value)) / price) * 100,
+                              textSize: 14),
+                          SizedBox(width: 4),
+                          Text(
+                            'on current price',
+                            style: TextStyle(fontSize: 14),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
+                  Spacer(),
                   Text(
                     price.currencyFormatWithPrefix(currencySymbol, context),
                     style: getValueForScreenType<TextStyle?>(
@@ -111,24 +129,6 @@ class _AssetGraphState extends State<AssetGraph> {
                           ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  PercentageChangeBox(
-                      ((price - (history.last.value)) / price) * 100,
-                      textSize: 14),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Text(
-                    'on current price',
-                    style: TextStyle(fontSize: 14),
-                  )
                 ],
               ),
             ],
@@ -207,7 +207,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     getTitles: (value) {
                       return '${value.currencyFormatWithPrefix(currencySymbol, context)}';
                     },
-                    reservedSize: 72,
+                    reservedSize: 56,
                     margin: 8,
                   ),
                 ),

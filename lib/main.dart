@@ -111,7 +111,6 @@ class _MyAppState extends State<MyApp> {
                     debugShowCheckedModeBanner: false,
                     themeMode: state.theme,
                     theme: ThemeData(
-                      dividerTheme: DividerThemeData(color: Colors.black54),
                       textTheme: GoogleFonts.openSansTextTheme(
                         ThemeData.light().textTheme,
                       ),
@@ -169,7 +168,6 @@ class _MyAppState extends State<MyApp> {
                       visualDensity: VisualDensity.adaptivePlatformDensity,
                     ),
                     darkTheme: ThemeData(
-                      dividerTheme: DividerThemeData(color: Colors.white54),
                       textTheme: GoogleFonts.openSansTextTheme(
                         ThemeData.dark().textTheme,
                       ),
