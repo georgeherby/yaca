@@ -83,8 +83,8 @@ class _AssetGraphState extends State<AssetGraph> {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     formatDate.format(_dateTimeTouchedDate),
@@ -93,13 +93,6 @@ class _AssetGraphState extends State<AssetGraph> {
                         .caption
                         ?.copyWith(fontWeight: FontWeight.normal, fontSize: 13),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              Row(
-                children: [
                   Text(
                     price.currencyFormatWithPrefix(currencySymbol, context),
                     style: getValueForScreenType<TextStyle?>(
@@ -117,18 +110,6 @@ class _AssetGraphState extends State<AssetGraph> {
                           .headline5
                           ?.copyWith(fontWeight: FontWeight.w600),
                     ),
-                  ),
-                  VerticalDivider(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                          'H: ${maxPrice.currencyFormatWithPrefix(currencySymbol, context)}',
-                          style: Theme.of(context).textTheme.caption),
-                      Text(
-                          'L: ${minPrice.currencyFormatWithPrefix(currencySymbol, context)}',
-                          style: Theme.of(context).textTheme.caption),
-                    ],
                   ),
                 ],
               ),

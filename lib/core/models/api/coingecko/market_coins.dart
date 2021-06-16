@@ -66,9 +66,7 @@ class MarketCoin extends Equatable {
       required this.priceChangePercentage1hInCurrency,
       required this.priceChangePercentage24hInCurrency,
       required this.priceChangePercentage7dInCurrency,
-      this.favouriteCacheId
-      });
-
+      this.favouriteCacheId});
 
   MarketCoin copyWith({
     String? id,
@@ -132,10 +130,10 @@ class MarketCoin extends Equatable {
           this.priceChangePercentage24hInCurrency,
       priceChangePercentage7dInCurrency: priceChangePercentage7dInCurrency ??
           this.priceChangePercentage7dInCurrency,
-      favouriteCacheId: favouriteCacheId, //As null is a state i may set this to null when not set 
+      favouriteCacheId:
+          favouriteCacheId, //As null is a state i may set this to null when not set
     );
   }
-
 
   factory MarketCoin.fromJson(Map<String, dynamic> json) {
     return MarketCoin(
@@ -214,7 +212,6 @@ class MarketCoin extends Equatable {
   }
 
   bool get isFavourited => favouriteCacheId != null;
-
 
   double? get priceChange1h => priceChangePercentage1hInCurrency != null
       ? (priceChangePercentage1hInCurrency! / 100) * currentPrice

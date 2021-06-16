@@ -422,13 +422,13 @@ class AssetsDataTable extends StatelessWidget {
               CachedNetworkImage(
                 imageUrl: iconUrl,
                 filterQuality: FilterQuality.high,
-                width: 44,
-                height: 44,
+                width: 32,
+                height: 32,
                 errorWidget: (context, url, error) {
                   debugPrint(error.toString());
                   return CircleAvatar(
-                    minRadius: 22,
-                    maxRadius: 22,
+                    minRadius: 16,
+                    maxRadius: 16,
                     backgroundColor: Theme.of(context).accentColor,
                     child: Text(
                       symbol,

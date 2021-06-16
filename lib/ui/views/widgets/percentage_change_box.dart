@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 class PercentageChangeBox extends StatelessWidget {
   final double? changePercent24Hr;
   final double? textSize;
+  final EdgeInsets? padding;
   final bool showBackground;
 
   PercentageChangeBox(this.changePercent24Hr,
-      {Key? key, this.textSize, this.showBackground = true})
+      {Key? key, this.textSize, this.padding, this.showBackground = true})
       : super(key: key);
 
   @override
@@ -20,7 +21,7 @@ class PercentageChangeBox extends StatelessWidget {
       var darkColor = changePercent24Hr!.toPositiveNegativeColorDark();
       var bkgColor = changePercent24Hr!.toPositiveNegativeColorLight();
       return Container(
-        padding: EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+        padding: padding ?? EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(4)),
             color: showBackground ? bkgColor : Colors.transparent),
@@ -34,7 +35,7 @@ class PercentageChangeBox extends StatelessWidget {
               color: showBackground
                   ? darkColor
                   : changePercent24Hr!.toPositiveNegativeColor(),
-              size: textSize ?? 12,
+              size: textSize ?? Theme.of(context).textTheme.bodyText1?.fontSize,
             ),
             SizedBox(
               width: 1,
