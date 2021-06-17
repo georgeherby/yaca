@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/ui/views/widgets/selectable_icon.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FavouriteIcon extends StatelessWidget {
   final bool isSelected;
@@ -14,8 +15,8 @@ class FavouriteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SelectableIcon(
-      selectedIcon: CupertinoIcons.star_fill,
-      unSelectedIcon: CupertinoIcons.star,
+      selectedIcon: FontAwesomeIcons.solidStar,
+      unSelectedIcon: FontAwesomeIcons.star,
       isSelected: isSelected,
       size: size,
     );

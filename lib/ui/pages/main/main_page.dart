@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +11,7 @@ import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/favourite_assets/favourite_assets_view.dart';
 import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({required Key key, required this.title}) : super(key: key);
@@ -37,13 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
               currentIndex: _selectedIndex, // new
               items: [
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.money_dollar_circle),
-                  activeIcon: Icon(CupertinoIcons.money_dollar_circle_fill),
+                  icon: FaIcon(FontAwesomeIcons.moneyBillAlt),
+                  activeIcon: FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
                   label: 'Prices',
                 ),
                 BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.star),
-                  activeIcon: Icon(CupertinoIcons.star_fill),
+                  icon: FaIcon(FontAwesomeIcons.star),
+                  activeIcon: FaIcon(FontAwesomeIcons.solidStar),
                   label: 'Favourites',
                 ),
                 BottomNavigationBarItem(
@@ -88,15 +90,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         labelType: NavigationRailLabelType.all,
                         destinations: [
                           NavigationRailDestination(
-                              icon: Icon(CupertinoIcons.money_dollar_circle),
+                              icon: FaIcon(FontAwesomeIcons.moneyBillAlt),
                               selectedIcon:
-                                  Icon(CupertinoIcons.money_dollar_circle_fill),
+                                  FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
                               label: Text(
                                 'Prices',
                               )),
                           NavigationRailDestination(
-                              icon: Icon(CupertinoIcons.star),
-                              selectedIcon: Icon(CupertinoIcons.star_fill),
+                              icon: FaIcon(FontAwesomeIcons.star),
+                              selectedIcon: FaIcon(FontAwesomeIcons.solidStar),
                               label: Text(
                                 'Favourites',
                               )),
@@ -147,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           builder: (context) => AppSettingsPage(),
                         ),
                       ),
-                      icon: Icon(CupertinoIcons.settings),
+                      icon: FaIcon(FontAwesomeIcons.cog),
                     ),
                     Divider(color: Colors.transparent)
                   ],

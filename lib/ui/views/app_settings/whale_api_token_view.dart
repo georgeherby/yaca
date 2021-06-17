@@ -68,13 +68,14 @@ class WhaleApiTokenView extends StatelessWidget {
                         },
                         child: Text(
                           'Clear',
-                          style: TextStyle(color: Colors.white),
+                          style: Theme.of(context).textTheme.button,
                         )),
                   ),
                   SizedBox(width: 16),
                   Expanded(
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
+                          
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
                         onPressed: () async {

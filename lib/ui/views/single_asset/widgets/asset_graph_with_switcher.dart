@@ -105,6 +105,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 }),
               )
             : SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(_chips.length, (listIndex) {

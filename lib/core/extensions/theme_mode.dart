@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 extension ThemeModeToString on ThemeMode {
   String toStr() {
@@ -21,9 +22,9 @@ extension ThemeModeToString on ThemeMode {
   IconData? toIcon() {
     switch (this) {
       case ThemeMode.dark:
-        return CupertinoIcons.moon;
+        return FontAwesomeIcons.moon;
       case ThemeMode.light:
-        return CupertinoIcons.sun_max;
+        return FontAwesomeIcons.sun;
       case ThemeMode.system:
       default:
         return null;

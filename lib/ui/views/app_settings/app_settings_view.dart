@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class AppSettingsView extends StatelessWidget {
                       height: 48,
                       child: Row(
                         children: [
-                          Icon(CupertinoIcons.money_dollar),
+                          FaIcon(FontAwesomeIcons.moneyBillAlt),
                           VerticalDivider(color: Colors.transparent),
                           Text('Choose default currency'),
                           Spacer(),
@@ -88,7 +89,7 @@ class AppSettingsView extends StatelessWidget {
                       height: 48,
                       child: Row(
                         children: [
-                          Icon(CupertinoIcons.paintbrush),
+                          FaIcon(FontAwesomeIcons.palette),
                           VerticalDivider(color: Colors.transparent),
                           Text('Choose theme'),
                           Spacer(),
@@ -148,7 +149,7 @@ class AppSettingsView extends StatelessWidget {
                             color: Theme.of(context).iconTheme.color,
                           ),
                           VerticalDivider(color: Colors.transparent),
-                          Expanded(child: Text('Whale transactions token')),
+                          Expanded(child: Text('Whale Transactions')),
                           VerticalDivider(color: Colors.transparent),
                           Icon(CupertinoIcons.chevron_right),
                         ],

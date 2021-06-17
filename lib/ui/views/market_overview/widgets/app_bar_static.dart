@@ -1,9 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
   final Widget body;
@@ -14,7 +14,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-        var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
+    var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
             .contains(Theme.of(context).platform) &&
         MediaQuery.of(context).size.width < 600;
 
@@ -59,7 +59,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                             builder: (context) => AppSettingsPage(),
                           ),
                         ),
-                        icon: Icon(CupertinoIcons.settings),
+                        icon: FaIcon(FontAwesomeIcons.cog),
                       )
                     : Container(),
                 isMobile ? Spacer() : Container(),
@@ -77,7 +77,7 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 Spacer(),
                 refreshTapped != null
                     ? IconButton(
-                        icon: Icon(CupertinoIcons.arrow_clockwise),
+                        icon: FaIcon(FontAwesomeIcons.syncAlt),
                         onPressed: refreshTapped)
                     : Container(),
                 Spacer(

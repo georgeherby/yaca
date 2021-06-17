@@ -9,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ThemeChoiceView extends StatelessWidget {
   @override
@@ -27,7 +28,7 @@ class ThemeChoiceView extends StatelessWidget {
               _buildRow(
                 context,
                 'System theme',
-                CupertinoIcons.paintbrush,
+                FontAwesomeIcons.palette,
                 ThemeMode.system,
               ),
               Divider(
@@ -37,7 +38,7 @@ class ThemeChoiceView extends StatelessWidget {
               _buildRow(
                 context,
                 'Light theme',
-                CupertinoIcons.sun_max,
+                FontAwesomeIcons.sun,
                 ThemeMode.light,
               ),
               Divider(
@@ -47,7 +48,7 @@ class ThemeChoiceView extends StatelessWidget {
               _buildRow(
                 context,
                 'Dark theme',
-                CupertinoIcons.moon,
+                FontAwesomeIcons.moon,
                 ThemeMode.dark,
               )
             ],
@@ -73,7 +74,7 @@ class ThemeChoiceView extends StatelessWidget {
           height: 48,
           child: Row(
             children: [
-              Icon(themeToUse.toIcon() ?? CupertinoIcons.paintbrush),
+              Icon(themeToUse.toIcon() ?? FontAwesomeIcons.palette),
               VerticalDivider(color: Colors.transparent),
               Text(title),
               Spacer(),

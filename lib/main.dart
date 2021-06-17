@@ -140,7 +140,8 @@ class _MyAppState extends State<MyApp> {
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(10.0),
                               ),
-                              borderSide: BorderSide(width: 1.0),
+                              borderSide:
+                                  BorderSide(color: Colors.black87, width: 1.0),
                             ),
                             errorBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -178,7 +179,8 @@ class _MyAppState extends State<MyApp> {
                               TextStyle(color: Colors.black, inherit: true),
                           color: LightThemeColors().appBarColour,
                           brightness: Brightness.light,
-                          iconTheme: IconThemeData(color: Colors.black),
+                          iconTheme: IconThemeData(
+                              color: Colors.black.withOpacity(0.70)),
                         ),
                         navigationRailTheme: NavigationRailThemeData(
                           backgroundColor:
@@ -196,7 +198,8 @@ class _MyAppState extends State<MyApp> {
                             buttonColor: LightThemeColors().primary),
                         scaffoldBackgroundColor:
                             LightThemeColors().scaffoldBackground,
-                        iconTheme: IconThemeData(color: Colors.black, size: 24),
+                        iconTheme: IconThemeData(
+                            color: Colors.black.withOpacity(0.70)),
                         chipTheme: ChipThemeData(
                           padding: EdgeInsets.all(0),
                           elevation: 0,
@@ -228,7 +231,9 @@ class _MyAppState extends State<MyApp> {
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(10.0),
                               ),
-                              borderSide: BorderSide(width: 1.0),
+                              borderSide: BorderSide(
+                                  color: Colors.white.withOpacity(0.87),
+                                  width: 1.0),
                             ),
                             focusedErrorBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -263,12 +268,14 @@ class _MyAppState extends State<MyApp> {
                             selectedLabelStyle: TextStyle(color: Colors.white)),
                         canvasColor: DarkThemeColors().cardBackground,
                         appBarTheme: AppBarTheme(
-                            elevation: 0,
-                            titleTextStyle:
-                                TextStyle(color: Colors.white, inherit: true),
-                            color: DarkThemeColors().appBarColour,
-                            brightness: Brightness.dark,
-                            iconTheme: IconThemeData(color: Colors.white)),
+                          elevation: 0,
+                          titleTextStyle:
+                              TextStyle(color: Colors.white, inherit: true),
+                          color: DarkThemeColors().appBarColour,
+                          brightness: Brightness.dark,
+                          iconTheme: IconThemeData(
+                              color: Colors.white.withOpacity(0.87)),
+                        ),
                         navigationRailTheme: NavigationRailThemeData(
                           backgroundColor: DarkThemeColors().scaffoldBackground,
                           unselectedIconTheme:
@@ -283,7 +290,8 @@ class _MyAppState extends State<MyApp> {
                             buttonColor: LightThemeColors().primary),
                         scaffoldBackgroundColor:
                             DarkThemeColors().scaffoldBackground,
-                        iconTheme: IconThemeData(color: Colors.white, size: 24),
+                        iconTheme: IconThemeData(
+                            color: Colors.white.withOpacity(0.87)),
                         chipTheme: ChipThemeData(
                           padding: EdgeInsets.all(0),
                           elevation: 0,
