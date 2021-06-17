@@ -69,167 +69,246 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
+    return MultiRepositoryProvider(
       providers: [
-        BlocProvider<AppSettingsBloc>(
-            create: (BuildContext context) => AppSettingsBloc(
-                  ThemePreferenceRepository(),
-                  CurrencyPreferenceRepository(),
-                )..add(LoadAppSettings())),
+        RepositoryProvider(
+            create: (BuildContext context) => ThemePreferenceRepository()),
+        RepositoryProvider(
+            create: (BuildContext context) => CurrencyPreferenceRepository()),
+        RepositoryProvider(
+            create: (BuildContext context) => ApiTokensPreference()),
+        RepositoryProvider(
+            create: (BuildContext context) =>
+                GlobalMarketRespository(client: _client)),
+        RepositoryProvider(
+            create: (BuildContext context) =>
+                MarketOverviewRepository(_client)),
       ],
-      child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-        builder: (context, state) {
-          if (state is AppSettingsLoaded) {
-            var currencyCode = BlocProvider.of<AppSettingsBloc>(context)
-                .state
-                .currency
-                .currencyCode;
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<AppSettingsBloc>(
+              create: (BuildContext context) => AppSettingsBloc(
+                    context.read<ThemePreferenceRepository>(),
+                    context.read<CurrencyPreferenceRepository>(),
+                  )..add(LoadAppSettings())),
+        ],
+        child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+          builder: (context, state) {
+            if (state is AppSettingsLoaded) {
+              var currencyCode = BlocProvider.of<AppSettingsBloc>(context)
+                  .state
+                  .currency
+                  .currencyCode;
 
-            print('SETTINGS REBUILD $currencyCode');
+              print('SETTINGS REBUILD $currencyCode');
 
-            return MultiBlocProvider(
-                providers: [
-                  BlocProvider(
-                      create: (_) => FilterListBloc<Transactions, String>(
-                          WhaleTransactionReposiotry(
-                              apiPreferences: ApiTokensPreference()))),
-                  BlocProvider<GlobalMarketBloc>(
-                    create: (BuildContext context) => GlobalMarketBloc(
-                      GlobalMarketRespository(client: _client),
-                    )..add(GlobalMarketLoad(currencyCode)),
-                  ),
-                  BlocProvider<AssetOverviewBloc>(
-                    create: (BuildContext context) => AssetOverviewBloc(
-                        BlocProvider.of<AppSettingsBloc>(context),
-                        FavouritesDao(),
-                        MarketOverviewRepository(_client))
-                      ..add(AssetOverviewLoad(currencyCode)),
-                  )
-                ],
-                child: MaterialApp(
-                    title: 'Crypo App',
-                    debugShowCheckedModeBanner: false,
-                    themeMode: state.theme,
-                    theme: ThemeData(
-                      textTheme: GoogleFonts.openSansTextTheme(
-                        ThemeData.light().textTheme,
-                      ),
-                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                        unselectedItemColor: Colors.black54,
-                        selectedItemColor: LightThemeColors().primary,
-                      ),
-                      brightness: Brightness.light,
-                      primaryColor: LightThemeColors().primary,
-                      accentColor: LightThemeColors().accent,
-                      cardTheme: CardTheme(
-                        elevation: 0,
-                        color: LightThemeColors().cardBackground,
-                      ),
-                      canvasColor: LightThemeColors().cardBackground,
-                      appBarTheme: AppBarTheme(
-                        elevation: 0,
-                        titleTextStyle:
-                            TextStyle(color: Colors.black, inherit: true),
-                        color: LightThemeColors().appBarColour,
-                        brightness: Brightness.light,
-                        iconTheme: IconThemeData(color: Colors.black),
-                      ),
-                      navigationRailTheme: NavigationRailThemeData(
-                        backgroundColor: LightThemeColors().scaffoldBackground,
-                        unselectedIconTheme:
-                            IconThemeData(color: Colors.black54),
-                        unselectedLabelTextStyle:
-                            TextStyle(color: Colors.black54),
-                        selectedIconTheme:
-                            IconThemeData(color: LightThemeColors().primary),
-                        selectedLabelTextStyle:
-                            TextStyle(color: LightThemeColors().primary),
-                      ),
-                      buttonTheme: ButtonThemeData(
-                          buttonColor: LightThemeColors().primary),
-                      scaffoldBackgroundColor:
-                          LightThemeColors().scaffoldBackground,
-                      iconTheme: IconThemeData(color: Colors.black, size: 24),
-                      chipTheme: ChipThemeData(
-                        padding: EdgeInsets.all(0),
-                        elevation: 0,
-                        pressElevation: 0,
-                        brightness: Brightness.light,
-                        checkmarkColor: Colors.white,
-                        secondaryLabelStyle: TextStyle(),
-                        labelStyle: TextStyle(color: Colors.black),
-                        disabledColor: Colors.transparent,
-                        backgroundColor: Colors.transparent,
-                        selectedColor: LightThemeColors().primary,
-                        secondarySelectedColor: LightThemeColors().primary,
-                        shadowColor: Colors.transparent,
-                        selectedShadowColor: Colors.transparent,
-                      ),
-                      visualDensity: VisualDensity.adaptivePlatformDensity,
+              return MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                        create: (_) => FilterListBloc<WhaleTransaction, String>(
+                            WhaleTransactionReposiotry(
+                                apiPreferences:
+                                    context.read<ApiTokensPreference>()))),
+                    BlocProvider<GlobalMarketBloc>(
+                      create: (BuildContext context) => GlobalMarketBloc(
+                        context.read<GlobalMarketRespository>(),
+                      )..add(GlobalMarketLoad(currencyCode)),
                     ),
-                    darkTheme: ThemeData(
-                      textTheme: GoogleFonts.openSansTextTheme(
-                        ThemeData.dark().textTheme,
-                      ),
-                      brightness: Brightness.dark,
-                      primaryColor: DarkThemeColors().primary,
-                      accentColor: DarkThemeColors().accent,
-                      cardTheme: CardTheme(
-                        elevation: 0,
-                        color: DarkThemeColors().cardBackground,
-                      ),
-                      bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                          unselectedItemColor: Colors.white38,
-                          unselectedLabelStyle:
-                              TextStyle(color: Colors.white38),
-                          selectedItemColor: Colors.white,
-                          selectedLabelStyle: TextStyle(color: Colors.white)),
-                      canvasColor: DarkThemeColors().cardBackground,
-                      appBarTheme: AppBarTheme(
+                    BlocProvider<AssetOverviewBloc>(
+                      create: (BuildContext context) => AssetOverviewBloc(
+                          BlocProvider.of<AppSettingsBloc>(context),
+                          FavouritesDao(),
+                          context.read<MarketOverviewRepository>())
+                        ..add(AssetOverviewLoad(currencyCode)),
+                    )
+                  ],
+                  child: MaterialApp(
+                      title: 'Crypo App',
+                      debugShowCheckedModeBanner: false,
+                      themeMode: state.theme,
+                      theme: ThemeData(
+                        inputDecorationTheme: InputDecorationTheme(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(width: 1.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                            errorStyle: TextStyle(color: Colors.red)),
+                        textTheme: GoogleFonts.openSansTextTheme(
+                          ThemeData.light().textTheme,
+                        ),
+                        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          unselectedItemColor: Colors.black54,
+                          selectedItemColor: LightThemeColors().primary,
+                        ),
+                        brightness: Brightness.light,
+                        primaryColor: LightThemeColors().primary,
+                        accentColor: LightThemeColors().accent,
+                        cardTheme: CardTheme(
+                          elevation: 0,
+                          color: LightThemeColors().cardBackground,
+                        ),
+                        canvasColor: LightThemeColors().cardBackground,
+                        appBarTheme: AppBarTheme(
                           elevation: 0,
                           titleTextStyle:
-                              TextStyle(color: Colors.white, inherit: true),
-                          color: DarkThemeColors().appBarColour,
-                          brightness: Brightness.dark,
-                          iconTheme: IconThemeData(color: Colors.white)),
-                      navigationRailTheme: NavigationRailThemeData(
-                        backgroundColor: DarkThemeColors().scaffoldBackground,
-                        unselectedIconTheme:
-                            IconThemeData(color: Colors.white38),
-                        unselectedLabelTextStyle:
-                            TextStyle(color: Colors.white38),
-                        selectedIconTheme: IconThemeData(color: Colors.white),
-                        selectedLabelTextStyle: TextStyle(color: Colors.white),
+                              TextStyle(color: Colors.black, inherit: true),
+                          color: LightThemeColors().appBarColour,
+                          brightness: Brightness.light,
+                          iconTheme: IconThemeData(color: Colors.black),
+                        ),
+                        navigationRailTheme: NavigationRailThemeData(
+                          backgroundColor:
+                              LightThemeColors().scaffoldBackground,
+                          unselectedIconTheme:
+                              IconThemeData(color: Colors.black54),
+                          unselectedLabelTextStyle:
+                              TextStyle(color: Colors.black54),
+                          selectedIconTheme:
+                              IconThemeData(color: LightThemeColors().primary),
+                          selectedLabelTextStyle:
+                              TextStyle(color: LightThemeColors().primary),
+                        ),
+                        buttonTheme: ButtonThemeData(
+                            buttonColor: LightThemeColors().primary),
+                        scaffoldBackgroundColor:
+                            LightThemeColors().scaffoldBackground,
+                        iconTheme: IconThemeData(color: Colors.black, size: 24),
+                        chipTheme: ChipThemeData(
+                          padding: EdgeInsets.all(0),
+                          elevation: 0,
+                          pressElevation: 0,
+                          brightness: Brightness.light,
+                          checkmarkColor: Colors.white,
+                          secondaryLabelStyle: TextStyle(),
+                          labelStyle: TextStyle(color: Colors.black),
+                          disabledColor: Colors.transparent,
+                          backgroundColor: Colors.transparent,
+                          selectedColor: LightThemeColors().primary,
+                          secondarySelectedColor: LightThemeColors().primary,
+                          shadowColor: Colors.transparent,
+                          selectedShadowColor: Colors.transparent,
+                        ),
+                        visualDensity: VisualDensity.adaptivePlatformDensity,
                       ),
-                      buttonTheme: ButtonThemeData(
-                          buttonColor: LightThemeColors().primary),
-                      scaffoldBackgroundColor:
-                          DarkThemeColors().scaffoldBackground,
-                      iconTheme: IconThemeData(color: Colors.white, size: 24),
-                      chipTheme: ChipThemeData(
-                        padding: EdgeInsets.all(0),
-                        elevation: 0,
-                        pressElevation: 0,
-                        checkmarkColor: Colors.white,
+                      darkTheme: ThemeData(
+                        inputDecorationTheme: InputDecorationTheme(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).primaryColor,
+                                  width: 2.0),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide: BorderSide(width: 1.0),
+                            ),
+                            focusedErrorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
+                              ),
+                              borderSide:
+                                  BorderSide(color: Colors.red, width: 2.0),
+                            ),
+                            errorStyle: TextStyle(color: Colors.red)),
+                        textTheme: GoogleFonts.openSansTextTheme(
+                          ThemeData.dark().textTheme,
+                        ),
                         brightness: Brightness.dark,
-                        secondaryLabelStyle: TextStyle(),
-                        labelStyle: TextStyle(color: Colors.white),
-                        disabledColor: Colors.transparent,
-                        backgroundColor: Colors.transparent,
-                        selectedColor: LightThemeColors().primary,
-                        secondarySelectedColor: LightThemeColors().primary,
-                        shadowColor: Colors.transparent,
-                        selectedShadowColor: Colors.transparent,
+                        primaryColor: DarkThemeColors().primary,
+                        accentColor: DarkThemeColors().accent,
+                        cardTheme: CardTheme(
+                          elevation: 0,
+                          color: DarkThemeColors().cardBackground,
+                        ),
+                        bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                            unselectedItemColor: Colors.white38,
+                            unselectedLabelStyle:
+                                TextStyle(color: Colors.white38),
+                            selectedItemColor: Colors.white,
+                            selectedLabelStyle: TextStyle(color: Colors.white)),
+                        canvasColor: DarkThemeColors().cardBackground,
+                        appBarTheme: AppBarTheme(
+                            elevation: 0,
+                            titleTextStyle:
+                                TextStyle(color: Colors.white, inherit: true),
+                            color: DarkThemeColors().appBarColour,
+                            brightness: Brightness.dark,
+                            iconTheme: IconThemeData(color: Colors.white)),
+                        navigationRailTheme: NavigationRailThemeData(
+                          backgroundColor: DarkThemeColors().scaffoldBackground,
+                          unselectedIconTheme:
+                              IconThemeData(color: Colors.white38),
+                          unselectedLabelTextStyle:
+                              TextStyle(color: Colors.white38),
+                          selectedIconTheme: IconThemeData(color: Colors.white),
+                          selectedLabelTextStyle:
+                              TextStyle(color: Colors.white),
+                        ),
+                        buttonTheme: ButtonThemeData(
+                            buttonColor: LightThemeColors().primary),
+                        scaffoldBackgroundColor:
+                            DarkThemeColors().scaffoldBackground,
+                        iconTheme: IconThemeData(color: Colors.white, size: 24),
+                        chipTheme: ChipThemeData(
+                          padding: EdgeInsets.all(0),
+                          elevation: 0,
+                          pressElevation: 0,
+                          checkmarkColor: Colors.white,
+                          brightness: Brightness.dark,
+                          secondaryLabelStyle: TextStyle(),
+                          labelStyle: TextStyle(color: Colors.white),
+                          disabledColor: Colors.transparent,
+                          backgroundColor: Colors.transparent,
+                          selectedColor: LightThemeColors().primary,
+                          secondarySelectedColor: LightThemeColors().primary,
+                          shadowColor: Colors.transparent,
+                          selectedShadowColor: Colors.transparent,
+                        ),
+                        visualDensity: VisualDensity.adaptivePlatformDensity,
                       ),
-                      visualDensity: VisualDensity.adaptivePlatformDensity,
-                    ),
-                    home: MyHomePage(
-                        key: const Key('home_screen_key'),
-                        title: 'Cryptocurrency')));
-          }
+                      home: MyHomePage(
+                          key: const Key('home_screen_key'),
+                          title: 'Cryptocurrency')));
+            }
 
-          return CupertinoActivityIndicator();
-        },
+            return CupertinoActivityIndicator();
+          },
+        ),
       ),
     );
   }

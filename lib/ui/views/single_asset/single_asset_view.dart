@@ -306,8 +306,12 @@ class SingleAssetView extends StatelessWidget {
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .caption),
-                                            Text(compactNumberFormat(context)
-                                                .format(marketCoin.totalSupply))
+                                            marketCoin.totalSupply != null
+                                                ? Text(compactNumberFormat(
+                                                        context)
+                                                    .format(
+                                                        marketCoin.totalSupply))
+                                                : Text('-')
                                           ],
                                         ),
                                         Row(
@@ -318,8 +322,12 @@ class SingleAssetView extends StatelessWidget {
                                                 style: Theme.of(context)
                                                     .textTheme
                                                     .caption),
-                                            Text(compactNumberFormat(context)
-                                                .format(marketCoin.maxSupply))
+                                            marketCoin.maxSupply != null
+                                                ? Text(compactNumberFormat(
+                                                        context)
+                                                    .format(
+                                                        marketCoin.maxSupply))
+                                                : Text('-')
                                           ],
                                         ),
                                       ],

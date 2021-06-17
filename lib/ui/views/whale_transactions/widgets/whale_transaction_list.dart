@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class WhaleTransactionList extends StatelessWidget {
-  final List<Transactions> transactions;
+  final List<WhaleTransaction> transactions;
 
   const WhaleTransactionList({Key? key, required this.transactions})
       : super(key: key);

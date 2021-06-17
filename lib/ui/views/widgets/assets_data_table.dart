@@ -509,6 +509,7 @@ class AssetsDataTable extends StatelessWidget {
                       textSize: Theme.of(context).textTheme.subtitle2?.fontSize)
                 ],
               ),
+              SizedBox(width: 8),
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {

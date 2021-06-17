@@ -1,23 +1,23 @@
-class WhaleTransactions {
+class WhaleTransactionResults {
   late String result;
   late String cursor;
   late int count;
-  late List<Transactions> transactions;
+  late List<WhaleTransaction> transactions;
 
-  WhaleTransactions(
+  WhaleTransactionResults(
       {required this.result,
       required this.cursor,
       required this.count,
       required this.transactions});
 
-  WhaleTransactions.fromJson(Map<String, dynamic> json) {
+  WhaleTransactionResults.fromJson(Map<String, dynamic> json) {
     result = json['result'];
     cursor = json['cursor'];
     count = json['count'];
     if (json['transactions'] != null) {
-      transactions = <Transactions>[];
+      transactions = <WhaleTransaction>[];
       json['transactions'].forEach((v) {
-        transactions.add(Transactions.fromJson(v));
+        transactions.add(WhaleTransaction.fromJson(v));
       });
     }
   }
@@ -33,7 +33,7 @@ class WhaleTransactions {
   }
 }
 
-class Transactions {
+class WhaleTransaction {
   late String blockchain;
   late String symbol;
   late String id;
@@ -46,7 +46,7 @@ class Transactions {
   late double amountUsd;
   late int transactionCount;
 
-  Transactions(
+  WhaleTransaction(
       {required this.blockchain,
       required this.symbol,
       required this.id,
@@ -59,7 +59,7 @@ class Transactions {
       required this.amountUsd,
       required this.transactionCount});
 
-  Transactions.fromJson(Map<String, dynamic> json) {
+  WhaleTransaction.fromJson(Map<String, dynamic> json) {
     blockchain = json['blockchain'];
     symbol = json['symbol'];
     id = json['id'];

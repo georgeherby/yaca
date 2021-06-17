@@ -95,16 +95,16 @@ class _AssetGraphState extends State<AssetGraph> {
                         style: Theme.of(context).textTheme.caption?.copyWith(
                             fontWeight: FontWeight.normal, fontSize: 13),
                       ),
+                      SizedBox(height: 4),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           PercentageChangeBox(
-                              ((price - (history.last.value)) / price) * 100,
-                              textSize: 14),
+                              ((price - (history.last.value)) / price) * 100),
                           SizedBox(width: 4),
                           Text(
                             'on current price',
-                            style: TextStyle(fontSize: 14),
+                            style: Theme.of(context).textTheme.bodyText1,
                           )
                         ],
                       ),
