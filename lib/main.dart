@@ -158,7 +158,7 @@ class _MyAppState extends State<MyApp> {
                                   BorderSide(color: Colors.red, width: 2.0),
                             ),
                             errorStyle: TextStyle(color: Colors.red)),
-                        textTheme: GoogleFonts.openSansTextTheme(
+                        textTheme: GoogleFonts.latoTextTheme(
                           ThemeData.light().textTheme,
                         ),
                         bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -250,7 +250,7 @@ class _MyAppState extends State<MyApp> {
                                   BorderSide(color: Colors.red, width: 2.0),
                             ),
                             errorStyle: TextStyle(color: Colors.red)),
-                        textTheme: GoogleFonts.openSansTextTheme(
+                        textTheme: GoogleFonts.latoTextTheme(
                           ThemeData.dark().textTheme,
                         ),
                         brightness: Brightness.dark,

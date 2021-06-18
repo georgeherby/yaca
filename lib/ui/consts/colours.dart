@@ -3,14 +3,16 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
-Color positiveGreenDark = Color(0xFF085839);
-Color negativeRedDark = Color(0xFF971A11);
+Color kPositiveGreenDark = const Color(0xFF085839);
+Color kNegativeRedDark = const Color(0xFF971A11);
 
-Color positiveGreen = Color(0xFF18C683);
-Color negativeRed = Color(0xFFF44336);
+Color kPositiveGreen = const Color(0xFF18C683);
+Color pNegativeRed = const Color(0xFFF44336);
 
-Color positiveGreenLight = Color(0xFFD9F8ED);
-Color negativeRedLight = Color(0xFFFCE4E1);
+Color kPositiveGreenLight = const Color(0xFFD9F8ED);
+Color kNegativeRedLight = const Color(0xFFFCE4E1);
+
+Color kGold = const Color(0xFFE4B256);
 
 abstract class ThemeColours {
   late Color primary;
@@ -60,16 +62,16 @@ class DarkThemeColors implements ThemeColours {
 
 extension PositiveNegativeColor on double {
   Color toPositiveNegativeColor({double opacity = 1.0}) {
-    return this < 0 ? negativeRed : positiveGreen.withOpacity(opacity);
+    return this < 0 ? pNegativeRed : kPositiveGreen.withOpacity(opacity);
   }
 
   Color toPositiveNegativeColorLight({double opacity = 1.0}) {
     return this < 0
-        ? negativeRedLight
-        : positiveGreenLight.withOpacity(opacity);
+        ? kNegativeRedLight
+        : kPositiveGreenLight.withOpacity(opacity);
   }
 
   Color toPositiveNegativeColorDark({double opacity = 1.0}) {
-    return this < 0 ? negativeRedDark : positiveGreenDark.withOpacity(opacity);
+    return this < 0 ? kNegativeRedDark : kPositiveGreenDark.withOpacity(opacity);
   }
 }

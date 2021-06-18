@@ -8,14 +8,16 @@ class SelectableIcon extends StatelessWidget {
   final IconData unSelectedIcon;
   final bool isSelected;
   final double size;
+  final Color selectedColor;
 
-  const SelectableIcon(
-      {Key? key,
-      required this.selectedIcon,
-      required this.unSelectedIcon,
-      required this.isSelected,
-      required this.size})
-      : super(key: key);
+  const SelectableIcon({
+    Key? key,
+    required this.selectedIcon,
+    required this.unSelectedIcon,
+    required this.isSelected,
+    required this.size,
+    required this.selectedColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class SelectableIcon extends StatelessWidget {
       isSelected ? FontAwesomeIcons.solidStar : FontAwesomeIcons.star,
       size: size,
       color: isSelected
-          ? Color(0xFFE4B256)
+          ? selectedColor
           : (Theme.of(context).brightness == Brightness.dark
               ? Colors.white24
               : Colors.black26),

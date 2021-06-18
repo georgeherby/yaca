@@ -1,16 +1,11 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/extensions/chosen_currency.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
+import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_data_block.dart';
@@ -18,8 +13,20 @@ import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_static.dart'
 import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
 import 'package:crypto_app/ui/views/widgets/assets_data_table.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class MarketOverviewView extends StatelessWidget {
+class MarketOverviewView extends StatefulWidget {
+  @override
+  _MarketOverviewViewState createState() => _MarketOverviewViewState();
+}
+
+class _MarketOverviewViewState extends State<MarketOverviewView> {
+  bool _showAllAssets = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,7 +54,7 @@ class MarketOverviewView extends StatelessWidget {
                               ?.copyWith(color: Colors.white),
                           textAlign: TextAlign.center,
                         ),
-                        Divider(color: Colors.transparent, height: 8),
+                        Divider(color: Colors.transparent, height: 4),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
@@ -92,7 +99,8 @@ class MarketOverviewView extends StatelessWidget {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
                                         children: [
-                                          Text('24h '),
+                                          Text('24h'),
+                                          SizedBox(width: 4),
                                           PercentageChangeBox(
                                             state.globalMarket.data
                                                 .marketCapChangePercentage24hUsd,
@@ -129,7 +137,7 @@ class MarketOverviewView extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.center,
                             ),
-                            Divider(color: Colors.transparent, height: 8),
+                            Divider(color: Colors.transparent, height: 4),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
@@ -202,7 +210,7 @@ class MarketOverviewView extends StatelessWidget {
                             ?.copyWith(color: Colors.white),
                         textAlign: TextAlign.center,
                       ),
-                      Divider(color: Colors.transparent, height: 8),
+                      Divider(color: Colors.transparent, height: 4),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -277,12 +285,60 @@ class MarketOverviewView extends StatelessWidget {
               builder: (context, state) {
                 if (state is AssetOverviewLoaded) {
                   print('rebuild AssetOverviewLoaded');
-                  return AssetsDataTable(
-                      marketCoins: state.allAssets,
-                      onFavourite: (MarketCoin marketCoin, bool isChecked) =>
-                          BlocProvider.of<AssetOverviewBloc>(context).add(
-                              AssetFavourited(
-                                  state.allAssets, marketCoin, isChecked)));
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          setState(() {
+                            _showAllAssets = !_showAllAssets;
+                          });
+                        },
+                        style: OutlinedButton.styleFrom(
+                          tapTargetSize: MaterialTapTargetSize.padded,
+                          visualDensity:
+                              VisualDensity(horizontal: 0, vertical: 0),
+                          primary: Theme.of(context).primaryColor,
+                          backgroundColor: _showAllAssets
+                              ? Theme.of(context).canvasColor
+                              : Theme.of(context).primaryColor,
+                          shape: const RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                        ),
+                        icon: FaIcon(
+                            _showAllAssets
+                                ? FontAwesomeIcons.star
+                                : FontAwesomeIcons.solidStar,
+                            size: 18,
+                            color: _showAllAssets
+                                ? Theme.of(context)
+                                    .iconTheme
+                                    .color
+                                    ?.withOpacity(0.5)
+                                : kGold),
+                        label: Text('Favourites',
+                            style: _showAllAssets
+                                ? Theme.of(context).textTheme.button
+                                : Theme.of(context)
+                                    .textTheme
+                                    .button
+                                    ?.copyWith(color: Colors.white)),
+                      ),
+                      Expanded(
+                        child: AssetsDataTable(
+                            marketCoins: _showAllAssets
+                                ? state.allAssets
+                                : state.favouriteAssets,
+                            onFavourite:
+                                (MarketCoin marketCoin, bool isChecked) =>
+                                    BlocProvider.of<AssetOverviewBloc>(context)
+                                        .add(AssetFavourited(state.allAssets,
+                                            marketCoin, isChecked))),
+                      ),
+                    ],
+                  );
                 } else if (state is AssetOverviewError) {
                   return Icon(CupertinoIcons.exclamationmark);
                 }

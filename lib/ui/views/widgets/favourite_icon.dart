@@ -1,9 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
+import 'package:crypto_app/ui/consts/colours.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/ui/views/widgets/selectable_icon.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FavouriteIcon extends StatelessWidget {
@@ -19,6 +19,7 @@ class FavouriteIcon extends StatelessWidget {
       unSelectedIcon: FontAwesomeIcons.star,
       isSelected: isSelected,
       size: size,
+      selectedColor: kGold,
     );
   }
 }

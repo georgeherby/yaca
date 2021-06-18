@@ -42,7 +42,7 @@ class PriceDelta extends StatelessWidget {
         ],
       );
     } else {
-      return Container(child: Text('-'));
+      return Container();
     }
   }
 }

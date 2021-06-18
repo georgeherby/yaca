@@ -1,10 +1,10 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ScaffoldWithBack extends StatelessWidget {
   final String? title;
@@ -47,7 +47,7 @@ class ScaffoldWithBack extends StatelessWidget {
                 )
               : IconButton(
                   onPressed: () => Navigator.pop(context),
-                  icon: Icon(CupertinoIcons.chevron_left)),
+                  icon: FaIcon(FontAwesomeIcons.chevronLeft)),
         ),
         body: body);
   }

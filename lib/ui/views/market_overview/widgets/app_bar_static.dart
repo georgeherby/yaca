@@ -16,14 +16,14 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
   Widget build(BuildContext context) {
     var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
             .contains(Theme.of(context).platform) &&
-        MediaQuery.of(context).size.width < 600;
+        MediaQuery.of(context).size.width < 480;
 
     return Theme(
       data: ThemeData(
           brightness: Brightness.dark,
           textTheme: TextTheme(bodyText1: TextStyle(color: Colors.white))),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        padding: const EdgeInsets.only(top: 8.0),
         child: Material(
           borderRadius: BorderRadius.circular(10),
           clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -35,21 +35,19 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                   begin: Alignment.topLeft,
                   end: Alignment.bottomRight,
                   stops: [
-                    0.25,
-                    0.75,
+                    0.20,
+                    0.80,
                   ],
                   colors: [
-                    // Color(0xFF5866DF),
-                    // Color(0xFFF35491),
-                    Color(0xFF385AEF),
-                    Color(0xFF6725CD),
+                    // Color(0xFF385AEF),
+                    // Color(0xFF6725CD),
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).accentColor,
                   ]),
             ),
             child: Row(
               children: [
-                Spacer(
-                  flex: 5,
-                ),
+                isMobile ? SizedBox(width: 8) : Container(),
                 isMobile
                     ? IconButton(
                         tooltip: 'Open settings',
@@ -78,11 +76,10 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
                 refreshTapped != null
                     ? IconButton(
                         icon: FaIcon(FontAwesomeIcons.syncAlt),
+                        tooltip: 'Refresh',
                         onPressed: refreshTapped)
                     : Container(),
-                Spacer(
-                  flex: 5,
-                ),
+                refreshTapped != null ? SizedBox(width: 8) : Container(),
               ],
             ),
           ),
@@ -92,5 +89,5 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight * 2);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight * 1.5);
 }

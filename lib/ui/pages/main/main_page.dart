@@ -1,16 +1,12 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_svg/svg.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
-import 'package:crypto_app/ui/views/favourite_assets/favourite_assets_view.dart';
 import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -43,11 +39,11 @@ class _MyHomePageState extends State<MyHomePage> {
                   activeIcon: FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
                   label: 'Prices',
                 ),
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.star),
-                  activeIcon: FaIcon(FontAwesomeIcons.solidStar),
-                  label: 'Favourites',
-                ),
+                // BottomNavigationBarItem(
+                //   icon: FaIcon(FontAwesomeIcons.star),
+                //   activeIcon: FaIcon(FontAwesomeIcons.solidStar),
+                //   label: 'Favourites',
+                // ),
                 BottomNavigationBarItem(
                     icon: SvgPicture.asset(
                       'assets/whale_outline.svg',
@@ -83,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Expanded(
                       child: NavigationRail(
-                        minWidth: 55.0,
+                        minWidth: 80.0,
                         groupAlignment: 0.0,
                         selectedIndex: _selectedIndex, //_selectedIndex,
                         onDestinationSelected: onTabTapped,
@@ -96,12 +92,12 @@ class _MyHomePageState extends State<MyHomePage> {
                               label: Text(
                                 'Prices',
                               )),
-                          NavigationRailDestination(
-                              icon: FaIcon(FontAwesomeIcons.star),
-                              selectedIcon: FaIcon(FontAwesomeIcons.solidStar),
-                              label: Text(
-                                'Favourites',
-                              )),
+                          // NavigationRailDestination(
+                          //     icon: FaIcon(FontAwesomeIcons.star),
+                          //     selectedIcon: FaIcon(FontAwesomeIcons.solidStar),
+                          //     label: Text(
+                          //       'Favourites',
+                          //     )),
                           // NavigationRailDestination(
                           //     icon: Icon(CupertinoIcons.triangle),
                           //     selectedIcon: Icon(CupertinoIcons.triangle_fill),
@@ -151,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       icon: FaIcon(FontAwesomeIcons.cog),
                     ),
-                    Divider(color: Colors.transparent)
+                    SizedBox(height: 8)
                   ],
                 ),
           Expanded(
@@ -179,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
       case 0:
         return MarketOverviewView();
       case 1:
-        return FavouriteAssetsView();
+        return WhaleTransactionView();
       // case 2:
       //   return Expanded(
       //     child: Scaffold(
@@ -196,8 +192,8 @@ class _MyHomePageState extends State<MyHomePage> {
       //       ),
       //     ),
       //   );
-      case 2:
-        return WhaleTransactionView();
+      // case 2:
+      //   return WhaleTransactionView();
       default:
         return Icon(CupertinoIcons.exclamationmark);
     }
