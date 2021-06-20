@@ -22,7 +22,7 @@ class SimpleSparkLine extends StatelessWidget {
       var minPrice = data.reduce(min);
       var lastPrice = data.last;
       var firstPrice = data.first;
-      var graphColor = lastPrice > firstPrice ? kPositiveGreen : pNegativeRed;
+      var graphColor = lastPrice > firstPrice ? kPositiveGreen : kNegativeRed;
 
       return SizedBox(
         height: 120,

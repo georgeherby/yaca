@@ -29,44 +29,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       bottomNavigationBar: isMobile
-          ? BottomNavigationBar(
-              showUnselectedLabels: false,
-              onTap: onTabTapped, // new
-              currentIndex: _selectedIndex, // new
-              items: [
-                BottomNavigationBarItem(
-                  icon: FaIcon(FontAwesomeIcons.moneyBillAlt),
-                  activeIcon: FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
-                  label: 'Prices',
-                ),
-                // BottomNavigationBarItem(
-                //   icon: FaIcon(FontAwesomeIcons.star),
-                //   activeIcon: FaIcon(FontAwesomeIcons.solidStar),
-                //   label: 'Favourites',
-                // ),
-                BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      'assets/whale_outline.svg',
-                      semanticsLabel: 'Whale unselected icon',
-                      height: Theme.of(context).iconTheme.size,
-                      width: Theme.of(context).iconTheme.size,
-                      color: Theme.of(context)
-                          .navigationRailTheme
+          ? SizedBox(
+              height: kBottomNavigationBarHeight,
+              child: BottomNavigationBar(
+                onTap: onTabTapped, // new
+                currentIndex: _selectedIndex, // new
+                items: [
+                  BottomNavigationBarItem(
+                    icon: FaIcon(
+                      FontAwesomeIcons.chartBar,
+                      size: Theme.of(context)
+                          .bottomNavigationBarTheme
                           .unselectedIconTheme
-                          ?.color,
+                          ?.size,
                     ),
-                    activeIcon: SvgPicture.asset(
-                      'assets/whale_filled.svg',
-                      semanticsLabel: 'Whale selected icon',
-                      height: Theme.of(context).iconTheme.size,
-                      width: Theme.of(context).iconTheme.size,
-                      color: Theme.of(context)
-                          .navigationRailTheme
+                    activeIcon: FaIcon(
+                      FontAwesomeIcons.solidChartBar,
+                      size: Theme.of(context)
+                          .bottomNavigationBarTheme
                           .selectedIconTheme
-                          ?.color,
+                          ?.size,
                     ),
-                    label: 'Whales')
-              ],
+                    label: 'Market',
+                  ),
+                  BottomNavigationBarItem(
+                      icon: SvgPicture.asset(
+                        'assets/whale_outline.svg',
+                        semanticsLabel: 'Whale unselected icon',
+                        height: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedIconTheme
+                            ?.size,
+                        width: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .unselectedIconTheme
+                            ?.size,
+                        color: Theme.of(context)
+                            .navigationRailTheme
+                            .unselectedIconTheme
+                            ?.color,
+                      ),
+                      activeIcon: SvgPicture.asset(
+                        'assets/whale_filled.svg',
+                        semanticsLabel: 'Whale selected icon',
+                        height: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedIconTheme
+                            ?.size,
+                        width: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedIconTheme
+                            ?.size,
+                        color: Theme.of(context)
+                            .navigationRailTheme
+                            .selectedIconTheme
+                            ?.color,
+                      ),
+                      label: 'Whales')
+                ],
+              ),
             )
           : null,
       body: SafeArea(
@@ -86,21 +107,18 @@ class _MyHomePageState extends State<MyHomePage> {
                         labelType: NavigationRailLabelType.all,
                         destinations: [
                           NavigationRailDestination(
-                              icon: FaIcon(FontAwesomeIcons.moneyBillAlt),
-                              selectedIcon:
-                                  FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
-                              label: Text(
-                                'Prices',
-                              )),
+                            icon: FaIcon(FontAwesomeIcons.chartBar),
+                            selectedIcon:
+                                FaIcon(FontAwesomeIcons.solidChartBar),
+                            label: Text(
+                              'Market',
+                            ),
+                          ),
+
                           // NavigationRailDestination(
-                          //     icon: FaIcon(FontAwesomeIcons.star),
-                          //     selectedIcon: FaIcon(FontAwesomeIcons.solidStar),
-                          //     label: Text(
-                          //       'Favourites',
-                          //     )),
-                          // NavigationRailDestination(
-                          //     icon: Icon(CupertinoIcons.triangle),
-                          //     selectedIcon: Icon(CupertinoIcons.triangle_fill),
+                          //  icon: FaIcon(FontAwesomeIcons.moneyBillAlt),
+                          //       selectedIcon:
+                          //           FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
                           //     label: Text(
                           //       "Portfolio",
                           //     )),
@@ -151,12 +169,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
           Expanded(
-              child: Padding(
-            padding: isMobile
-                ? const EdgeInsets.only(right: 8.0, left: 8.0)
-                : const EdgeInsets.only(right: 8.0),
             child: showPage(_selectedIndex),
-          ))
+          )
         ]),
       ),
     );

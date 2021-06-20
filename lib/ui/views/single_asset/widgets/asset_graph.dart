@@ -4,6 +4,7 @@ import 'dart:math';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
+import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 // 📦 Package imports:
@@ -55,6 +56,9 @@ class _AssetGraphState extends State<AssetGraph> {
 
   @override
   Widget build(BuildContext context) {
+    var positive = widget.history.isNotEmpty &&
+        widget.history.first.value < widget.history.last.value;
+
     var _dashColour = (Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700
         : Colors.white70);
@@ -256,10 +260,7 @@ class _AssetGraphState extends State<AssetGraph> {
                 lineBarsData: [
                   LineChartBarData(
                     isCurved: false,
-                    // curveSmoothness: 0.25,
-                    colors: [
-                      Theme.of(context).primaryColor,
-                    ],
+                    colors: [positive ? kPositiveGreen : kNegativeRed],
                     barWidth: 2.5,
                     isStrokeCapRound: true,
                     dotData: FlDotData(
@@ -269,7 +270,8 @@ class _AssetGraphState extends State<AssetGraph> {
                       show: true,
                       colors: [
                         Colors.transparent,
-                        Theme.of(context).primaryColor.withOpacity(0.3)
+                        (positive ? kPositiveGreen : kNegativeRed)
+                            .withOpacity(0.3)
                       ],
                       gradientFrom: Offset(0, 1),
                       gradientTo: Offset(0, 0),

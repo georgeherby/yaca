@@ -30,21 +30,22 @@ class AppBarStatic extends StatelessWidget with PreferredSizeWidget {
           elevation: Theme.of(context).appBarTheme.elevation!,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  stops: [
-                    0.20,
-                    0.80,
-                  ],
-                  colors: [
-                    // Color(0xFF385AEF),
-                    // Color(0xFF6725CD),
-                    Theme.of(context).primaryColor,
-                    Theme.of(context).accentColor,
-                  ]),
-            ),
+                borderRadius: BorderRadius.circular(10),
+                color: Theme.of(context).primaryColor
+                // gradient: LinearGradient(
+                //     begin: Alignment.topLeft,
+                //     end: Alignment.bottomRight,
+                //     stops: [
+                //       0.20,
+                //       0.80,
+                //     ],
+                //     colors: [
+                //       // Color(0xFF385AEF),
+                //       // Color(0xFF6725CD),
+                //       Theme.of(context).primaryColor,
+                //       Theme.of(context).accentColor,
+                //     ]),
+                ),
             child: Row(
               children: [
                 isMobile ? SizedBox(width: 8) : Container(),

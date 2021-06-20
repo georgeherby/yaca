@@ -403,7 +403,7 @@ class AssetsDataTable extends StatelessWidget {
                       return IconButton(
                           icon: FavouriteIcon(
                             isSelected: isFavourited,
-                            size: 22,
+                            size: 18,
                           ),
                           onPressed: onFavourite);
                     }
@@ -488,9 +488,7 @@ class AssetsDataTable extends StatelessWidget {
                   ),
                 ],
               ),
-              Spacer(
-                flex: 1,
-              ),
+              Spacer(flex: 1),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -509,14 +507,14 @@ class AssetsDataTable extends StatelessWidget {
                       textSize: Theme.of(context).textTheme.subtitle2?.fontSize)
                 ],
               ),
-              SizedBox(width: 8),
+              SizedBox(width: 4),
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {
                     return IconButton(
                         icon: FavouriteIcon(
                           isSelected: isFavourited,
-                          size: 22,
+                          size: 18,
                         ),
                         onPressed: onFavourite);
                   }

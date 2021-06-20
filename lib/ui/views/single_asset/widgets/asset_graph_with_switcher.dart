@@ -77,9 +77,6 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                         .copyWith(canvasColor: Colors.transparent),
                     child: ChoiceChip(
                       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      shape: StadiumBorder(
-                          side: BorderSide(
-                              color: Theme.of(context).primaryColor)),
                       padding: EdgeInsets.symmetric(horizontal: 3),
                       selectedColor: Theme.of(context).chipTheme.selectedColor,
                       label: Text(
@@ -95,6 +92,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                                 : Theme.of(context).chipTheme.labelStyle.color),
                       ),
                       selected: listIndex == _index,
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
                       onSelected: (bool selected) {
                         setState(() {
                           _index = listIndex;
@@ -114,9 +113,6 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                       data: Theme.of(context)
                           .copyWith(canvasColor: Colors.transparent),
                       child: ChoiceChip(
-                        shape: StadiumBorder(
-                            side: BorderSide(
-                                color: Theme.of(context).primaryColor)),
                         padding: EdgeInsets.symmetric(horizontal: 2),
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
@@ -140,6 +136,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                                           .color),
                         ),
                         selected: listIndex == _index,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
                         onSelected: (bool selected) {
                           setState(() {
                             _index = listIndex;

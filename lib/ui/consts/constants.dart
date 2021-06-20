@@ -5,3 +5,6 @@ const double kTitleBarMacOSHeight = 38;
 const String kSYSTEM_MODE = 'SYSTEM';
 const String kLIGHT_MODE = 'LIGHT';
 const String kDARK_MODE = 'DARK';
+
+const double kBottomNavBarIconSize = 18;
+const double kTickerTapHeight = 20;

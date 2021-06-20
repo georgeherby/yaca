@@ -95,6 +95,7 @@ class SingleAssetView extends StatelessWidget {
                   left: 8.0,
                   right: 8.0,
                   bottom: 8.0,
+                  top: 8.0,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,

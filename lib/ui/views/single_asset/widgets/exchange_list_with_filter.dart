@@ -1,16 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/core/models/filter.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
@@ -95,8 +93,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                 currencyFilter.length,
                 (index) => FilterChip(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                  shape: StadiumBorder(
-                      side: BorderSide(color: Theme.of(context).primaryColor)),
+          
                   selected: currencyFilter[index].selected,
                   checkmarkColor: Theme.of(context).chipTheme.checkmarkColor,
                   label: Text(
@@ -110,7 +107,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                             ? Colors.white
                             : Theme.of(context).chipTheme.labelStyle.color),
                   ),
-                  selectedColor: Theme.of(context).primaryColor,
+                  backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+                  selectedColor: Theme.of(context).chipTheme.selectedColor,
                   onSelected: (bool selected) {
                     setState(() {
                       currencyFilter[index].selected = selected;

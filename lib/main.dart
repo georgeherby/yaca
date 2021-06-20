@@ -12,6 +12,7 @@ import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.d
 import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
 import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/pages/main/main_page.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -162,8 +163,15 @@ class _MyAppState extends State<MyApp> {
                           ThemeData.light().textTheme,
                         ),
                         bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                          showSelectedLabels: false,
+                          showUnselectedLabels: false,
+                          backgroundColor: LightThemeColors().appBarColour,
                           unselectedItemColor: Colors.black54,
                           selectedItemColor: LightThemeColors().primary,
+                          unselectedIconTheme:
+                              IconThemeData(size: kBottomNavBarIconSize),
+                          selectedIconTheme:
+                              IconThemeData(size: kBottomNavBarIconSize + 2),
                         ),
                         brightness: Brightness.light,
                         primaryColor: LightThemeColors().primary,
@@ -209,8 +217,9 @@ class _MyAppState extends State<MyApp> {
                           secondaryLabelStyle: TextStyle(),
                           labelStyle: TextStyle(color: Colors.black),
                           disabledColor: Colors.transparent,
-                          backgroundColor: Colors.transparent,
-                          selectedColor: LightThemeColors().primary,
+                          backgroundColor:
+                              LightThemeColors().chipUnselectedColor,
+                          selectedColor: LightThemeColors().chipSelectedColor,
                           secondarySelectedColor: LightThemeColors().primary,
                           shadowColor: Colors.transparent,
                           selectedShadowColor: Colors.transparent,
@@ -261,9 +270,16 @@ class _MyAppState extends State<MyApp> {
                           color: DarkThemeColors().cardBackground,
                         ),
                         bottomNavigationBarTheme: BottomNavigationBarThemeData(
+                            showSelectedLabels: false,
+                            showUnselectedLabels: false,
+                            backgroundColor: DarkThemeColors().appBarColour,
                             unselectedItemColor: Colors.white38,
                             unselectedLabelStyle:
                                 TextStyle(color: Colors.white38),
+                            unselectedIconTheme:
+                                IconThemeData(size: kBottomNavBarIconSize),
+                            selectedIconTheme:
+                                IconThemeData(size: kBottomNavBarIconSize + 2),
                             selectedItemColor: Colors.white,
                             selectedLabelStyle: TextStyle(color: Colors.white)),
                         canvasColor: DarkThemeColors().cardBackground,
@@ -301,8 +317,9 @@ class _MyAppState extends State<MyApp> {
                           secondaryLabelStyle: TextStyle(),
                           labelStyle: TextStyle(color: Colors.white),
                           disabledColor: Colors.transparent,
-                          backgroundColor: Colors.transparent,
-                          selectedColor: LightThemeColors().primary,
+                          backgroundColor:
+                              DarkThemeColors().chipUnselectedColor,
+                          selectedColor: DarkThemeColors().chipSelectedColor,
                           secondarySelectedColor: LightThemeColors().primary,
                           shadowColor: Colors.transparent,
                           selectedShadowColor: Colors.transparent,
