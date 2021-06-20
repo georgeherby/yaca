@@ -29,10 +29,10 @@ class LightThemeColors implements ThemeColours {
   Color scaffoldBackground = const Color(0xFFEEEEEE);
 
   @override
-  Color accent = const Color(0xFF0F9C7B);
+  Color accent = const Color(0xFF9152F9);
 
   @override
-  Color primary = const Color(0xFF9152F9);
+  Color primary = const Color(0xFF0F9C7B);
 
   @override
   Color appBarColour = const Color(0xFFEEEEEE);
@@ -53,10 +53,10 @@ class DarkThemeColors implements ThemeColours {
   Color scaffoldBackground = const Color(0xFF12111A);
 
   @override
-  Color accent = const Color(0xFF0F9C7B);
+  Color accent = const Color(0xFF9152F9);
 
   @override
-  Color primary = const Color(0xFF9152F9);
+  Color primary = const Color(0xFF0F9C7B);
 
   @override
   Color appBarColour = const Color(0xFF12111A);

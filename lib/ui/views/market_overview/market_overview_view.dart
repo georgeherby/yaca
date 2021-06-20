@@ -55,6 +55,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                 return;
               })
         ],
+        toolbarHeight: kToolBarWithTickerHeight,
         leading: ResponsiveBuilder(
           builder: (context, sizingInformation) {
             if (sizingInformation.deviceScreenType ==
@@ -82,12 +83,13 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
         ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kTickerTapHeight),
-          child: Expanded(
+          child: SizedBox(
+            height: kTickerTapHeight,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
                 decoration: BoxDecoration(
-                  color: Theme.of(context).accentColor,
+                  color: Theme.of(context).primaryColor,
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(10.0),
                       bottomRight: Radius.circular(10.0),

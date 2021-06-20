@@ -29,65 +29,62 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       bottomNavigationBar: isMobile
-          ? SizedBox(
-              height: kBottomNavigationBarHeight,
-              child: BottomNavigationBar(
-                onTap: onTabTapped, // new
-                currentIndex: _selectedIndex, // new
-                items: [
-                  BottomNavigationBarItem(
-                    icon: FaIcon(
-                      FontAwesomeIcons.chartBar,
-                      size: Theme.of(context)
+          ? BottomNavigationBar(
+              onTap: onTabTapped, // new
+              currentIndex: _selectedIndex, // new
+              items: [
+                BottomNavigationBarItem(
+                  icon: FaIcon(
+                    FontAwesomeIcons.chartBar,
+                    size: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .unselectedIconTheme
+                        ?.size,
+                  ),
+                  activeIcon: FaIcon(
+                    FontAwesomeIcons.solidChartBar,
+                    size: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .selectedIconTheme
+                        ?.size,
+                  ),
+                  label: 'Market',
+                ),
+                BottomNavigationBarItem(
+                    icon: SvgPicture.asset(
+                      'assets/whale_outline.svg',
+                      semanticsLabel: 'Whale unselected icon',
+                      height: Theme.of(context)
                           .bottomNavigationBarTheme
                           .unselectedIconTheme
                           ?.size,
+                      width: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .unselectedIconTheme
+                          ?.size,
+                      color: Theme.of(context)
+                          .navigationRailTheme
+                          .unselectedIconTheme
+                          ?.color,
                     ),
-                    activeIcon: FaIcon(
-                      FontAwesomeIcons.solidChartBar,
-                      size: Theme.of(context)
+                    activeIcon: SvgPicture.asset(
+                      'assets/whale_filled.svg',
+                      semanticsLabel: 'Whale selected icon',
+                      height: Theme.of(context)
                           .bottomNavigationBarTheme
                           .selectedIconTheme
                           ?.size,
+                      width: Theme.of(context)
+                          .bottomNavigationBarTheme
+                          .selectedIconTheme
+                          ?.size,
+                      color: Theme.of(context)
+                          .navigationRailTheme
+                          .selectedIconTheme
+                          ?.color,
                     ),
-                    label: 'Market',
-                  ),
-                  BottomNavigationBarItem(
-                      icon: SvgPicture.asset(
-                        'assets/whale_outline.svg',
-                        semanticsLabel: 'Whale unselected icon',
-                        height: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .unselectedIconTheme
-                            ?.size,
-                        width: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .unselectedIconTheme
-                            ?.size,
-                        color: Theme.of(context)
-                            .navigationRailTheme
-                            .unselectedIconTheme
-                            ?.color,
-                      ),
-                      activeIcon: SvgPicture.asset(
-                        'assets/whale_filled.svg',
-                        semanticsLabel: 'Whale selected icon',
-                        height: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .selectedIconTheme
-                            ?.size,
-                        width: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .selectedIconTheme
-                            ?.size,
-                        color: Theme.of(context)
-                            .navigationRailTheme
-                            .selectedIconTheme
-                            ?.color,
-                      ),
-                      label: 'Whales')
-                ],
-              ),
+                    label: 'Whales')
+              ],
             )
           : null,
       body: SafeArea(

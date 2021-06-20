@@ -38,6 +38,7 @@ class WhaleTransactionList extends StatelessWidget {
             desktop: BorderRadius.circular(10)),
         elevation: Theme.of(context).cardTheme.elevation!,
         child: ListView.separated(
+          physics: BouncingScrollPhysics(),
           separatorBuilder: (BuildContext context, int index) {
             return Divider(
               indent: sidePadding,
