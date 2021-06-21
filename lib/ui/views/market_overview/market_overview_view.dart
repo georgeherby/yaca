@@ -56,23 +56,20 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
               })
         ],
         toolbarHeight: kToolBarWithTickerHeight,
-        leading: ResponsiveBuilder(
-          builder: (context, sizingInformation) {
-            if (sizingInformation.deviceScreenType ==
-                DeviceScreenType.desktop) {
-              return Container();
-            }
-            return IconButton(
-              tooltip: 'Open settings',
-              onPressed: () => Navigator.of(context).push(
-                CupertinoPageRoute(
-                  fullscreenDialog: true,
-                  builder: (context) => AppSettingsPage(),
-                ),
+        leading: getValueForScreenType<Widget>(
+          context: context,
+          desktop: Container(),
+          tablet: Container(),
+          mobile: IconButton(
+            tooltip: 'Open settings',
+            onPressed: () => Navigator.of(context).push(
+              CupertinoPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => AppSettingsPage(),
               ),
-              icon: FaIcon(FontAwesomeIcons.cog),
-            );
-          },
+            ),
+            icon: FaIcon(FontAwesomeIcons.cog),
+          ),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -203,7 +200,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       if (state is GlobalMarketError) {
                         return Icon(CupertinoIcons.exclamationmark);
                       }
-                      return Expanded(child: ShimmerAppBarDataBlock());
+                      return ShimmerAppBarDataBlock();
                     },
                   ),
                 ),

@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
 // 🌎 Project imports:
 import 'package:crypto_app/core/exceptions/missing_config_exception.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
@@ -14,6 +13,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({
@@ -55,18 +55,21 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
           'Whale Transactions',
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
-        leading: Theme.of(context).platform.isMobile()
-            ? IconButton(
-                tooltip: 'Open settings',
-                onPressed: () => Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) => AppSettingsPage(),
-                  ),
-                ),
-                icon: FaIcon(FontAwesomeIcons.cog),
-              )
-            : Container(),
+        leading: getValueForScreenType<Widget>(
+          context: context,
+          desktop: Container(),
+          tablet: Container(),
+          mobile: IconButton(
+            tooltip: 'Open settings',
+            onPressed: () => Navigator.of(context).push(
+              CupertinoPageRoute(
+                fullscreenDialog: true,
+                builder: (context) => AppSettingsPage(),
+              ),
+            ),
+            icon: FaIcon(FontAwesomeIcons.cog),
+          ),
+        ),
         centerTitle: true,
         elevation: Theme.of(context).appBarTheme.elevation,
         actions: [
