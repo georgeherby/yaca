@@ -53,29 +53,29 @@ class WhaleApiTokenView extends StatelessWidget {
                 children: [
                   Expanded(
                     child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                            // backgroundColor: Theme.of(context).primaryColor,
-                            ),
-                        onPressed: () async {
-                          await RepositoryProvider.of<ApiTokensPreference>(
-                                  context)
-                              .removeWhalesApiToken();
-                          tokenController.clear();
-                          BlocProvider.of<
-                                      FilterListBloc<WhaleTransaction, String>>(
-                                  context)
-                              .loadElements();
-                        },
-                        child: Text(
-                          'Clear',
-                          style: Theme.of(context).textTheme.button,
-                        )),
+                      style: OutlinedButton.styleFrom(
+                          // backgroundColor: Theme.of(context).primaryColor,
+                          ),
+                      onPressed: () async {
+                        await RepositoryProvider.of<ApiTokensPreference>(
+                                context)
+                            .removeWhalesApiToken();
+                        tokenController.clear();
+                        BlocProvider.of<
+                                    FilterListBloc<WhaleTransaction, String>>(
+                                context)
+                            .loadElements();
+                      },
+                      child: Text(
+                        'Clear',
+                        style: Theme.of(context).textTheme.button,
+                      ),
+                    ),
                   ),
                   SizedBox(width: 16),
                   Expanded(
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          
                           backgroundColor: Theme.of(context).primaryColor,
                         ),
                         onPressed: () async {

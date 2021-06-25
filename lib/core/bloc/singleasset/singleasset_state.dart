@@ -23,12 +23,11 @@ class SingleAssetLoading extends SingleAssetState {
 
 class SingleAssetLoaded extends SingleAssetState {
   final AssetHistorySplits assetHistory;
-  final List<ExchangeTicker> exchangeTickers;
 
-  const SingleAssetLoaded(this.assetHistory, this.exchangeTickers);
+  const SingleAssetLoaded(this.assetHistory);
 
   @override
-  List<Object> get props => [assetHistory, exchangeTickers];
+  List<Object> get props => [assetHistory];
 }
 
 class SingleAssetError extends SingleAssetState {

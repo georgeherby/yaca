@@ -13,7 +13,7 @@ class BackChevronButton extends StatelessWidget {
       onPressed: onTapped,
       child: Icon(
         CupertinoIcons.left_chevron,
-        size: 16,
+        size: 20,
         color: Theme.of(context).iconTheme.color,
       ),
     );

@@ -154,12 +154,16 @@ class AssetsDataTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        name,
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.subtitle2,
-                        overflow: TextOverflow.ellipsis,
+                      Hero(
+                        tag: 'coin-title-$name',
+                        child: Text(
+                          name,
+                          maxLines: 1,
+                          style: Theme.of(context).textTheme.subtitle2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      SizedBox(height: 4),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -304,12 +308,16 @@ class AssetsDataTable extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text(
-                        name,
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.subtitle2,
-                        overflow: TextOverflow.ellipsis,
+                      Hero(
+                        tag: 'coin-title-$name',
+                        child: Text(
+                          name,
+                          maxLines: 1,
+                          style: Theme.of(context).textTheme.subtitle2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
+                      SizedBox(height: 4),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -443,12 +451,16 @@ class AssetsDataTable extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    name,
-                    maxLines: 1,
-                    style: Theme.of(context).textTheme.subtitle1,
-                    overflow: TextOverflow.ellipsis,
+                  Hero(
+                    tag: 'coin-title-$name',
+                    child: Text(
+                      name,
+                      maxLines: 1,
+                      style: Theme.of(context).textTheme.subtitle2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
+                  SizedBox(height: 4),
                   Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,

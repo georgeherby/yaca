@@ -7,6 +7,7 @@ Color kPositiveGreenDark = const Color(0xFF085839);
 Color kNegativeRedDark = const Color(0xFF971A11);
 
 Color kPositiveGreen = const Color(0xFF18C683);
+Color kYellow = const Color(0xFFB9BB2C);
 Color kNegativeRed = const Color(0xFFF44336);
 
 Color kPositiveGreenLight = const Color(0xFFD9F8ED);

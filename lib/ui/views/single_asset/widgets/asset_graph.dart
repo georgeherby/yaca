@@ -100,17 +100,24 @@ class _AssetGraphState extends State<AssetGraph> {
                             fontWeight: FontWeight.normal, fontSize: 13),
                       ),
                       SizedBox(height: 4),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          PercentageChangeBox(
-                              ((price - (history.last.value)) / price) * 100),
-                          SizedBox(width: 4),
-                          Text(
-                            'on current price',
-                            style: Theme.of(context).textTheme.bodyText1,
-                          )
-                        ],
+                      SizedBox(
+                        height: 20,
+                        child: (price != history.last.value)
+                            ? Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  PercentageChangeBox(
+                                      ((price - (history.last.value)) / price) *
+                                          100),
+                                  SizedBox(width: 4),
+                                  Text(
+                                    'on current price',
+                                    style:
+                                        Theme.of(context).textTheme.bodyText1,
+                                  )
+                                ],
+                              )
+                            : Container(),
                       ),
                     ],
                   ),

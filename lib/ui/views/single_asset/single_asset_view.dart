@@ -3,16 +3,16 @@
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/singleasset/singleasset_bloc.dart';
+import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:crypto_app/ui/views/singe_asset_exchanges/single_asset_exchanges_view.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph_with_switcher.dart';
-import 'package:crypto_app/ui/views/single_asset/widgets/exchange_list_with_filter.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
-import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // 📦 Package imports:
@@ -33,63 +33,66 @@ class SingleAssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
 
-    return BlocBuilder<SingleAssetBloc, SingleAssetState>(
-      builder: (context, state) {
-        if (state is SingleAssetLoaded) {
-          return Scaffold(
-            appBar: AppBar(
-              toolbarHeight: (Theme.of(context).platform == TargetPlatform.macOS
-                  ? kTitleBarMacOSHeight
-                  : kToolbarHeight),
-              title: Text(
-                marketCoin.name,
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              centerTitle: true,
-              elevation: 0,
-              brightness: Theme.of(context).brightness,
-              leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
-                  ? kLeadingButtonWidthMac
-                  : kLeadingButtonWidth,
-              leading: Theme.of(context).platform == TargetPlatform.macOS
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Container(
-                          height: 24,
-                          width: 32,
-                          alignment: AlignmentDirectional.center,
-                          child: BackChevronButton(
-                            onTapped: () => Navigator.pop(context),
-                          ),
-                        ),
-                      ],
-                    )
-                  : IconButton(
-                      onPressed: () => Navigator.pop(context),
-                      icon: FaIcon(FontAwesomeIcons.chevronLeft)),
-              actions: [
-                BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
-                  builder: (context, state) {
-                    if (state is AssetOverviewLoaded) {
-                      var isFavourite = state.favouriteAssets
-                          .where((element) => element.id == marketCoin.id)
-                          .isNotEmpty;
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: (Theme.of(context).platform == TargetPlatform.macOS
+            ? kTitleBarMacOSHeight
+            : kToolbarHeight),
+        title: Hero(
+          tag: 'coin-title-${marketCoin.name}',
+          child: Text(
+            marketCoin.name,
+            style: Theme.of(context).textTheme.headline6,
+          ),
+        ),
+        centerTitle: true,
+        elevation: 0,
+        brightness: Theme.of(context).brightness,
+        leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
+            ? kLeadingButtonWidthMac
+            : kLeadingButtonWidth,
+        leading: Theme.of(context).platform == TargetPlatform.macOS
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Container(
+                    height: 28,
+                    width: 32,
+                    alignment: AlignmentDirectional.center,
+                    child: BackChevronButton(
+                      onTapped: () => Navigator.pop(context),
+                    ),
+                  ),
+                ],
+              )
+            : IconButton(
+                onPressed: () => Navigator.pop(context),
+                icon: FaIcon(FontAwesomeIcons.chevronLeft)),
+        actions: [
+          BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+            builder: (context, state) {
+              if (state is AssetOverviewLoaded) {
+                var isFavourite = state.favouriteAssets
+                    .where((element) => element.id == marketCoin.id)
+                    .isNotEmpty;
 
-                      return IconButton(
-                          icon: FavouriteIcon(
-                            isSelected: isFavourite,
-                            size: 22,
-                          ),
-                          onPressed: () =>
-                              onFavourite(marketCoin.id, !isFavourite));
-                    }
-                    return CupertinoActivityIndicator();
-                  },
-                )
-              ],
-            ),
-            body: SingleChildScrollView(
+                return IconButton(
+                    icon: FavouriteIcon(
+                      isSelected: isFavourite,
+                      size: 22,
+                    ),
+                    onPressed: () => onFavourite(marketCoin.id, !isFavourite));
+              }
+              return CupertinoActivityIndicator();
+            },
+          )
+        ],
+      ),
+      body: BlocBuilder<SingleAssetBloc, SingleAssetState>(
+        builder: (context, state) {
+          if (state is SingleAssetLoaded) {
+            return SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(
                   left: 8.0,
@@ -108,26 +111,6 @@ class SingleAssetView extends StatelessWidget {
                       child: AssetGraphWithSwitcher(
                           allHistory: state.assetHistory),
                     ),
-                    // Divider(height: 8, color: Colors.transparent),
-                    // AppBarBottom(
-                    // height: _bottomAppBarHeight,
-                    // rank: marketCoin.marketCapRank,
-                    // symbol: marketCoin.symbol,
-                    // currentPrice: state
-                    //         .assetHistory.last24Hours.prices.isNotEmpty
-                    //     ? state.assetHistory.last24Hours.prices.last.value
-                    //     : null,
-                    // currencySymbol:
-                    //     BlocProvider.of<AppSettingsBloc>(context)
-                    //         .state
-                    //         .currency
-                    //         .currencySymbol,
-                    // circulatingSupply: marketCoin.circulatingSupply,
-                    // percentageChange24h:
-                    //     marketCoin.priceChangePercentage24h,
-                    // priceChange24h: marketCoin.priceChange24h,
-                    // marketCap: marketCoin.marketCap,
-                    // volume24: marketCoin.totalVolume),
                     Divider(height: 8, color: Colors.transparent),
                     Material(
                       borderRadius: BorderRadius.circular(10),
@@ -413,38 +396,62 @@ class SingleAssetView extends StatelessWidget {
                       ),
                     ),
                     Divider(height: 8, color: Colors.transparent),
-                    state.exchangeTickers.isNotEmpty
-                        ? Material(
-                            borderRadius: BorderRadius.circular(10),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            elevation: Theme.of(context).cardTheme.elevation!,
-                            child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: ExchangeListWithFilter(
-                                    exchanges: state.exchangeTickers)),
-                          )
-                        : Container()
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: 40,
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
+                              side: BorderSide(color: Colors.transparent),
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10))),
+                              backgroundColor: Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? Theme.of(context).canvasColor
+                                  : Theme.of(context).primaryColor,
+                            ),
+                            onPressed: () async {
+                              BlocProvider.of<SingleAssetExchangeBloc>(context)
+                                  .add(SingleAssetExchangeLoad(
+                                      marketCoinId: marketCoin.id));
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        SingleAssetExchangeView()),
+                              );
+                            },
+                            child: Text(
+                              'View markets',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .button
+                                  ?.copyWith(color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
-            ),
-          );
-        } else if (state is SingleAssetError) {
-          debugPrint(state.error.toString());
-          return ScaffoldWithBack(
-            body: Center(
+            );
+          } else if (state is SingleAssetError) {
+            debugPrint(state.error.toString());
+            return Center(
               child: Icon(CupertinoIcons.exclamationmark),
-            ),
-          );
-        }
-
-        debugPrint('Loading');
-        return ScaffoldWithBack(
-          body: Center(
-            child: CupertinoActivityIndicator(),
-          ),
-        );
-      },
+            );
+          } else {
+            debugPrint('Loading');
+            return Center(
+              child: CupertinoActivityIndicator(),
+            );
+          }
+        },
+      ),
     );
   }
 }

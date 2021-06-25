@@ -22,6 +22,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 
+import 'core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'core/repositories/api/coingecko/exchange_ticker_repository.dart';
+
 class MyBlocObserver extends BlocObserver {
   @override
   void onCreate(BlocBase bloc) {
@@ -84,6 +87,9 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
             create: (BuildContext context) =>
                 MarketOverviewRepository(_client)),
+        RepositoryProvider(
+            create: (BuildContext context) =>
+                ExchangeTickerRespository(_client)),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -121,6 +127,12 @@ class _MyAppState extends State<MyApp> {
                           FavouritesDao(),
                           context.read<MarketOverviewRepository>())
                         ..add(AssetOverviewLoad(currencyCode)),
+                    ),
+                    BlocProvider<SingleAssetExchangeBloc>(
+                      create: (_) => SingleAssetExchangeBloc(
+                        exchangeTickerRespository:
+                            context.read<ExchangeTickerRespository>(),
+                      ),
                     )
                   ],
                   child: MaterialApp(
