@@ -28,7 +28,11 @@ class SingleAssetBloc extends Bloc<SingleAssetEvent, SingleAssetState> {
    
         print('done');
         var assetHistorySplits = await singleAssetRespository
-            .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);
+            .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);  
+            
+            
+        var assettDetails = await singleAssetRespository
+            .getSingleAssetData(event.marketCoinId);
 
         yield SingleAssetLoaded(assetHistorySplits);
       } on Exception catch (e) {

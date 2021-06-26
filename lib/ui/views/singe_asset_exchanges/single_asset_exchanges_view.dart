@@ -12,7 +12,7 @@ class SingleAssetExchangeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
-        title: "Exchanges",
+        title: 'Exchanges',
         body: BlocBuilder<SingleAssetExchangeBloc, SingleAssetExchangeState>(
           builder: (context, state) {
             if (state is SingleAssetExchangeLoaded) {

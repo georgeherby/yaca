@@ -118,6 +118,7 @@ class AssetsDataTable extends StatelessWidget {
       required VoidCallback onFavourite}) {
     return ResponsiveBuilder(
       builder: (context, sizingInformation) {
+        // Desktop Layout
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
           var blockSize = MediaQuery.of(context).size.width / 100;
 
@@ -271,7 +272,9 @@ class AssetsDataTable extends StatelessWidget {
               ],
             ),
           );
-        } else if (sizingInformation.deviceScreenType ==
+        }
+        // Tablet Layout
+        else if (sizingInformation.deviceScreenType ==
             DeviceScreenType.tablet) {
           var blockSize = MediaQuery.of(context).size.width / 100;
 
@@ -420,6 +423,7 @@ class AssetsDataTable extends StatelessWidget {
           );
         }
 
+        // Mobile Layout
         return Padding(
           padding: const EdgeInsets.only(left: 16.0, right: 8),
           child: Row(
@@ -446,60 +450,63 @@ class AssetsDataTable extends StatelessWidget {
                 },
               ),
               SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Hero(
-                    tag: 'coin-title-$name',
-                    child: Text(
-                      name,
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.subtitle2,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Material(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(6)),
-                        elevation: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 2.0, horizontal: 6),
-                          child: Text(rank.toString(),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText2
-                                  ?.copyWith(
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .caption
-                                          ?.color)),
-                        ),
+              Expanded(
+                flex: 12,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Hero(
+                      tag: 'coin-title-$name',
+                      child: Text(
+                        name,
+                        maxLines: 1,
+                        style: Theme.of(context).textTheme.subtitle2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(width: 4),
-                      Text(symbol.toUpperCase(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText2
-                              ?.copyWith(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      ?.color)),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(height: 4),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Material(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(6)),
+                          elevation: 0,
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2.0, horizontal: 6),
+                            child: Text(rank.toString(),
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyText2
+                                    ?.copyWith(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .caption
+                                            ?.color)),
+                          ),
+                        ),
+                        SizedBox(width: 4),
+                        Text(symbol.toUpperCase(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText2
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        ?.color)),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Spacer(),
               Expanded(
-                flex: 10,
+                flex: 5,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -521,7 +528,7 @@ class AssetsDataTable extends StatelessWidget {
                   ],
                 ),
               ),
-              Spacer(),
+              SizedBox(width: 4),
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {

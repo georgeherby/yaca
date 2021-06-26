@@ -417,7 +417,7 @@ class SingleAssetView extends StatelessWidget {
                               BlocProvider.of<SingleAssetExchangeBloc>(context)
                                   .add(SingleAssetExchangeLoad(
                                       marketCoinId: marketCoin.id));
-                              Navigator.push(
+                              await Navigator.push(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) =>
