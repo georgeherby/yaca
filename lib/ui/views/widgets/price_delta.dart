@@ -15,7 +15,7 @@ class PriceDelta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (priceChangeDelta != null) {
-      var color = priceChangeDelta!.toPositiveNegativeColor(opacity: 0.84);
+      var color = priceChangeDelta!.toPositiveNegativeColor();
 
       return Row(
         mainAxisSize: MainAxisSize.min,

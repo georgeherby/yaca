@@ -94,7 +94,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       bottomLeft: Radius.circular(10.0)),
                 ),
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: ClampingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
                   child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
                     builder: (context, state) {

@@ -89,7 +89,7 @@ class _AssetGraphState extends State<AssetGraph> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,8 +148,8 @@ class _AssetGraphState extends State<AssetGraph> {
         SizedBox(
           height: getValueForScreenType<double>(
             context: context,
-            mobile: 150,
-            tablet: 200,
+            mobile: 225,
+            tablet: 250,
             desktop: 250,
           ),
           width: double.infinity,
