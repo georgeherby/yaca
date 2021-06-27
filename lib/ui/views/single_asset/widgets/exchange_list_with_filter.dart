@@ -120,6 +120,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
       Divider(color: Colors.transparent, height: 8),
       Expanded(
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: tickers.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(

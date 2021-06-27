@@ -16,16 +16,16 @@ class SingleAssetData extends Equatable {
   final Image image;
   final String country_origin;
   final String? genesis_date;
-  final double sentiment_votes_up_percentage;
-  final double sentiment_votes_down_percentage;
-  final int market_cap_rank;
-  final int coingecko_rank;
-  final double coingecko_score;
-  final double developer_score;
-  final double community_score;
-  final double liquidity_score;
-  final double public_interest_score;
-  final MarketData market_data;
+  final double sentimentVotesUpPercentage;
+  final double sentimentVotesDownPercentage;
+  final int marketCapRank;
+  final int coingeckoRank;
+  final double coingeckoScore;
+  final double developerScore;
+  final double communityScore;
+  final double liquidityScore;
+  final double publicInterestScore;
+  final MarketData marketData;
   final CommunityData community_data;
   final DeveloperData developer_data;
   final PublicInterestStats public_interest_stats;
@@ -45,16 +45,16 @@ class SingleAssetData extends Equatable {
     required this.image,
     required this.country_origin,
     required this.genesis_date,
-    required this.sentiment_votes_up_percentage,
-    required this.sentiment_votes_down_percentage,
-    required this.market_cap_rank,
-    required this.coingecko_rank,
-    required this.coingecko_score,
-    required this.developer_score,
-    required this.community_score,
-    required this.liquidity_score,
-    required this.public_interest_score,
-    required this.market_data,
+    required this.sentimentVotesUpPercentage,
+    required this.sentimentVotesDownPercentage,
+    required this.marketCapRank,
+    required this.coingeckoRank,
+    required this.coingeckoScore,
+    required this.developerScore,
+    required this.communityScore,
+    required this.liquidityScore,
+    required this.publicInterestScore,
+    required this.marketData,
     required this.community_data,
     required this.developer_data,
     required this.public_interest_stats,
@@ -76,16 +76,16 @@ class SingleAssetData extends Equatable {
     Image? image,
     String? country_origin,
     String? genesis_date,
-    double? sentiment_votes_up_percentage,
-    double? sentiment_votes_down_percentage,
-    int? market_cap_rank,
-    int? coingecko_rank,
-    double? coingecko_score,
-    double? developer_score,
-    double? community_score,
-    double? liquidity_score,
-    double? public_interest_score,
-    MarketData? market_data,
+    double? sentimentVotesUpPercentage,
+    double? sentimentVotesDownPercentage,
+    int? marketCapRank,
+    int? coingeckoRank,
+    double? coingeckoScore,
+    double? developerScore,
+    double? communityScore,
+    double? liquidityScore,
+    double? publicInterestScore,
+    MarketData? marketData,
     CommunityData? community_data,
     DeveloperData? developer_data,
     PublicInterestStats? public_interest_stats,
@@ -107,19 +107,19 @@ class SingleAssetData extends Equatable {
       image: image ?? this.image,
       country_origin: country_origin ?? this.country_origin,
       genesis_date: genesis_date ?? this.genesis_date,
-      sentiment_votes_up_percentage:
-          sentiment_votes_up_percentage ?? this.sentiment_votes_up_percentage,
-      sentiment_votes_down_percentage: sentiment_votes_down_percentage ??
-          this.sentiment_votes_down_percentage,
-      market_cap_rank: market_cap_rank ?? this.market_cap_rank,
-      coingecko_rank: coingecko_rank ?? this.coingecko_rank,
-      coingecko_score: coingecko_score ?? this.coingecko_score,
-      developer_score: developer_score ?? this.developer_score,
-      community_score: community_score ?? this.community_score,
-      liquidity_score: liquidity_score ?? this.liquidity_score,
-      public_interest_score:
-          public_interest_score ?? this.public_interest_score,
-      market_data: market_data ?? this.market_data,
+      sentimentVotesUpPercentage:
+          sentimentVotesUpPercentage ?? this.sentimentVotesUpPercentage,
+      sentimentVotesDownPercentage: sentimentVotesDownPercentage ??
+          this.sentimentVotesDownPercentage,
+      marketCapRank: marketCapRank ?? this.marketCapRank,
+      coingeckoRank: coingeckoRank ?? this.coingeckoRank,
+      coingeckoScore: coingeckoScore ?? this.coingeckoScore,
+      developerScore: developerScore ?? this.developerScore,
+      communityScore: communityScore ?? this.communityScore,
+      liquidityScore: liquidityScore ?? this.liquidityScore,
+      publicInterestScore:
+          publicInterestScore ?? this.publicInterestScore,
+      marketData: marketData ?? this.marketData,
       community_data: community_data ?? this.community_data,
       developer_data: developer_data ?? this.developer_data,
       public_interest_stats:
@@ -144,16 +144,16 @@ class SingleAssetData extends Equatable {
       'image': image.toMap(),
       'country_origin': country_origin,
       'genesis_date': genesis_date,
-      'sentiment_votes_up_percentage': sentiment_votes_up_percentage,
-      'sentiment_votes_down_percentage': sentiment_votes_down_percentage,
-      'market_cap_rank': market_cap_rank,
-      'coingecko_rank': coingecko_rank,
-      'coingecko_score': coingecko_score,
-      'developer_score': developer_score,
-      'community_score': community_score,
-      'liquidity_score': liquidity_score,
-      'public_interest_score': public_interest_score,
-      'market_data': market_data.toMap(),
+      'sentiment_votes_up_percentage': sentimentVotesUpPercentage,
+      'sentiment_votes_down_percentage': sentimentVotesDownPercentage,
+      'market_cap_rank': marketCapRank,
+      'coingecko_rank': coingeckoRank,
+      'coingecko_score': coingeckoScore,
+      'developer_score': developerScore,
+      'community_score': communityScore,
+      'liquidity_score': liquidityScore,
+      'public_interest_score': publicInterestScore,
+      'market_data': marketData.toMap(),
       'community_data': community_data.toMap(),
       'developer_data': developer_data.toMap(),
       'public_interest_stats': public_interest_stats.toMap(),
@@ -177,18 +177,18 @@ class SingleAssetData extends Equatable {
       image: Image.fromMap(map['image']),
       country_origin: map['country_origin'],
       genesis_date: map['genesis_date'],
-      sentiment_votes_up_percentage:
+      sentimentVotesUpPercentage:
           map['sentiment_votes_up_percentage']?.toDouble(),
-      sentiment_votes_down_percentage:
+      sentimentVotesDownPercentage:
           map['sentiment_votes_down_percentage']?.toDouble(),
-      market_cap_rank: map['market_cap_rank']?.toInt(),
-      coingecko_rank: map['coingecko_rank']?.toInt(),
-      coingecko_score: map['coingecko_score']?.toDouble(),
-      developer_score: map['developer_score']?.toDouble(),
-      community_score: map['community_score']?.toDouble(),
-      liquidity_score: map['liquidity_score']?.toDouble(),
-      public_interest_score: map['public_interest_score']?.toDouble(),
-      market_data: MarketData.fromMap(map['market_data']),
+      marketCapRank: map['market_cap_rank']?.toInt(),
+      coingeckoRank: map['coingecko_rank']?.toInt(),
+      coingeckoScore: map['coingecko_score']?.toDouble(),
+      developerScore: map['developer_score']?.toDouble(),
+      communityScore: map['community_score']?.toDouble(),
+      liquidityScore: map['liquidity_score']?.toDouble(),
+      publicInterestScore: map['public_interest_score']?.toDouble(),
+      marketData: MarketData.fromMap(map['market_data']),
       community_data: CommunityData.fromMap(map['community_data']),
       developer_data: DeveloperData.fromMap(map['developer_data']),
       public_interest_stats:
@@ -222,16 +222,16 @@ class SingleAssetData extends Equatable {
       image,
       country_origin,
       genesis_date,
-      sentiment_votes_up_percentage,
-      sentiment_votes_down_percentage,
-      market_cap_rank,
-      coingecko_rank,
-      coingecko_score,
-      developer_score,
-      community_score,
-      liquidity_score,
-      public_interest_score,
-      market_data,
+      sentimentVotesUpPercentage,
+      sentimentVotesDownPercentage,
+      marketCapRank,
+      coingeckoRank,
+      coingeckoScore,
+      developerScore,
+      communityScore,
+      liquidityScore,
+      publicInterestScore,
+      marketData,
       community_data,
       developer_data,
       public_interest_stats,
@@ -928,7 +928,7 @@ class MarketData extends Equatable {
     ValuePerCurrency? price_change_percentage_30d_in_currency,
     ValuePerCurrency? price_change_percentage_60d_in_currency,
     ValuePerCurrency? price_change_percentage_200d_in_currency,
-    ValuePerCurrency? price_change_percentage_1y_in_currency,
+    ValuePerCurrency? priceChangePercentage1yInCurrency,
     MarketCapChange24hInCurrency? market_cap_change_24h_in_currency,
     MarketCapChangePercentage24hInCurrency?
         market_cap_change_percentage_24h_in_currency,
@@ -1001,7 +1001,7 @@ class MarketData extends Equatable {
           price_change_percentage_200d_in_currency ??
               this.price_change_percentage_200d_in_currency,
       priceChangePercentage1yInCurrency:
-          price_change_percentage_1y_in_currency ??
+          priceChangePercentage1yInCurrency ??
               this.priceChangePercentage1yInCurrency,
       market_cap_change_24h_in_currency: market_cap_change_24h_in_currency ??
           this.market_cap_change_24h_in_currency,

@@ -5,6 +5,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
+import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
 import 'package:equatable/equatable.dart';
 
@@ -31,10 +32,10 @@ class SingleAssetBloc extends Bloc<SingleAssetEvent, SingleAssetState> {
             .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);  
             
             
-        var assettDetails = await singleAssetRespository
+        var assetDetails = await singleAssetRespository
             .getSingleAssetData(event.marketCoinId);
 
-        yield SingleAssetLoaded(assetHistorySplits);
+        yield SingleAssetLoaded(assetDetails, assetHistorySplits);
       } on Exception catch (e) {
         yield SingleAssetError(e.toString());
       }

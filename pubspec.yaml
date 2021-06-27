@@ -30,6 +30,7 @@ dependencies:
   responsive_builder: ^0.4.1
   font_awesome_flutter: ^9.1.0
   macos_ui: ^0.6.0
+  flutter_html: ^2.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

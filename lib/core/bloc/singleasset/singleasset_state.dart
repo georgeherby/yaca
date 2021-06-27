@@ -2,17 +2,15 @@ part of 'singleasset_bloc.dart';
 
 abstract class SingleAssetState extends Equatable {
   const SingleAssetState();
-  
+
   @override
   List<Object> get props => [];
 }
 
 class SingleAssetInitial extends SingleAssetState {
-    @override
+  @override
   List<Object> get props => [];
 }
-
-
 
 class SingleAssetLoading extends SingleAssetState {
   const SingleAssetLoading();
@@ -22,12 +20,13 @@ class SingleAssetLoading extends SingleAssetState {
 }
 
 class SingleAssetLoaded extends SingleAssetState {
-  final AssetHistorySplits assetHistory;
+  final AssetHistorySplits assetHistorySplits;
+  final SingleAssetData singleAsset;
 
-  const SingleAssetLoaded(this.assetHistory);
+  const SingleAssetLoaded(this.singleAsset, this.assetHistorySplits);
 
   @override
-  List<Object> get props => [assetHistory];
+  List<Object> get props => [singleAsset, assetHistorySplits];
 }
 
 class SingleAssetError extends SingleAssetState {

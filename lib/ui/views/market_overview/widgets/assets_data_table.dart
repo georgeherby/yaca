@@ -506,7 +506,7 @@ class AssetsDataTable extends StatelessWidget {
               ),
               Spacer(),
               Expanded(
-                flex: 5,
+                flex: 6,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.center,
