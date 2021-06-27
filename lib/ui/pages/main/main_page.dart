@@ -1,13 +1,15 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({required Key key, required this.title}) : super(key: key);

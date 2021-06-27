@@ -1,13 +1,15 @@
 // 🐦 Flutter imports:
-// 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class WhaleTransactionList extends StatelessWidget {
   final List<WhaleTransaction> transactions;

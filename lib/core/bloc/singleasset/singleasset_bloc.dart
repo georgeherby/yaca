@@ -3,11 +3,12 @@ import 'dart:async';
 
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:equatable/equatable.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
-import 'package:equatable/equatable.dart';
 
 part 'singleasset_event.dart';
 part 'singleasset_state.dart';

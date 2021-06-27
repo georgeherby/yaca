@@ -1,9 +1,10 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/percentage_formatters.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class PercentageChangeBox extends StatelessWidget {
   final double? changePercent24Hr;

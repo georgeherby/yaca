@@ -1,6 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -11,10 +17,6 @@ import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
@@ -123,29 +125,32 @@ class AssetsDataTable extends StatelessWidget {
           var blockSize = MediaQuery.of(context).size.width / 100;
 
           return Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 8),
+            padding: const EdgeInsets.only(left: 12.0, right: 8),
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: iconUrl,
-                  filterQuality: FilterQuality.high,
-                  width: 32,
-                  height: 32,
-                  errorWidget: (context, url, error) {
-                    debugPrint(error.toString());
-                    return CircleAvatar(
-                      minRadius: 16,
-                      maxRadius: 16,
-                      backgroundColor: Theme.of(context).accentColor,
-                      child: Text(
-                        symbol,
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    );
-                  },
+                Hero(
+                  tag: 'coin-icon-$name',
+                  child: CachedNetworkImage(
+                    imageUrl: iconUrl,
+                    filterQuality: FilterQuality.high,
+                    width: 32,
+                    height: 32,
+                    errorWidget: (context, url, error) {
+                      debugPrint(error.toString());
+                      return CircleAvatar(
+                        minRadius: 16,
+                        maxRadius: 16,
+                        backgroundColor: Theme.of(context).accentColor,
+                        child: Text(
+                          symbol,
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(width: blockSize * 2),
                 SizedBox(
@@ -279,29 +284,32 @@ class AssetsDataTable extends StatelessWidget {
           var blockSize = MediaQuery.of(context).size.width / 100;
 
           return Padding(
-            padding: const EdgeInsets.only(left: 16.0, right: 8),
+            padding: const EdgeInsets.only(left: 12.0, right: 8),
             child: Row(
               children: [
-                CachedNetworkImage(
-                  imageUrl: iconUrl,
-                  filterQuality: FilterQuality.high,
-                  width: 32,
-                  height: 32,
-                  errorWidget: (context, url, error) {
-                    debugPrint(error.toString());
-                    return CircleAvatar(
-                      minRadius: 16,
-                      maxRadius: 16,
-                      backgroundColor: Theme.of(context).accentColor,
-                      child: Text(
-                        symbol,
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    );
-                  },
+                Hero(
+                  tag: 'coin-icon-$name',
+                  child: CachedNetworkImage(
+                    imageUrl: iconUrl,
+                    filterQuality: FilterQuality.high,
+                    width: 32,
+                    height: 32,
+                    errorWidget: (context, url, error) {
+                      debugPrint(error.toString());
+                      return CircleAvatar(
+                        minRadius: 16,
+                        maxRadius: 16,
+                        backgroundColor: Theme.of(context).accentColor,
+                        child: Text(
+                          symbol,
+                          overflow: TextOverflow.clip,
+                          maxLines: 1,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context).textTheme.caption,
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 SizedBox(width: blockSize * 2),
                 SizedBox(
@@ -425,29 +433,32 @@ class AssetsDataTable extends StatelessWidget {
 
         // Mobile Layout
         return Padding(
-          padding: const EdgeInsets.only(left: 16.0, right: 8),
+          padding: const EdgeInsets.only(left: 12.0, right: 0),
           child: Row(
             children: [
-              CachedNetworkImage(
-                imageUrl: iconUrl,
-                filterQuality: FilterQuality.high,
-                width: 32,
-                height: 32,
-                errorWidget: (context, url, error) {
-                  debugPrint(error.toString());
-                  return CircleAvatar(
-                    minRadius: 16,
-                    maxRadius: 16,
-                    backgroundColor: Theme.of(context).accentColor,
-                    child: Text(
-                      symbol,
-                      overflow: TextOverflow.clip,
-                      maxLines: 1,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.caption,
-                    ),
-                  );
-                },
+              Hero(
+                tag: 'coin-icon-$name',
+                child: CachedNetworkImage(
+                  imageUrl: iconUrl,
+                  filterQuality: FilterQuality.high,
+                  width: 32,
+                  height: 32,
+                  errorWidget: (context, url, error) {
+                    debugPrint(error.toString());
+                    return CircleAvatar(
+                      minRadius: 16,
+                      maxRadius: 16,
+                      backgroundColor: Theme.of(context).accentColor,
+                      child: Text(
+                        symbol,
+                        overflow: TextOverflow.clip,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.caption,
+                      ),
+                    );
+                  },
+                ),
               ),
               SizedBox(width: 16),
               Expanded(

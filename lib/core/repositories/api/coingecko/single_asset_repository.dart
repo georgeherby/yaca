@@ -1,15 +1,17 @@
 // 🎯 Dart imports:
 import 'dart:convert';
 
+// 🐦 Flutter imports:
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:http/http.dart' as http;
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
-// 🐦 Flutter imports:
 import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:http/http.dart' as http;
 
 class SingleAssetRespository {
   final http.Client _client;

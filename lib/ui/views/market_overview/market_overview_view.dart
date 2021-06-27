@@ -1,4 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -13,12 +21,6 @@ import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class MarketOverviewView extends StatefulWidget {
   @override
@@ -39,7 +41,12 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
         centerTitle: true,
         actions: [
           IconButton(
-              icon: FaIcon(FontAwesomeIcons.syncAlt),
+              icon: FaIcon(
+                FontAwesomeIcons.syncAlt,
+                size: Theme.of(context).platform == TargetPlatform.macOS
+                    ? 20
+                    : Theme.of(context).iconTheme.size,
+              ),
               tooltip: 'Refresh',
               onPressed: () {
                 BlocProvider.of<GlobalMarketBloc>(context).add(GlobalMarketLoad(
@@ -82,6 +89,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
           preferredSize: Size.fromHeight(kTickerTapHeight),
           child: SizedBox(
             height: kTickerTapHeight,
+            width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Container(
@@ -103,7 +111,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            VerticalDivider(color: Colors.transparent),
+                            SizedBox(width: 8),
                             Text(
                               'Total Market Cap:',
                               style: Theme.of(context)
@@ -113,8 +121,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                             ),
-                            VerticalDivider(
-                                width: 4, color: Colors.transparent),
+                            SizedBox(width: 4),
                             Text(
                               '${BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol + compactNumberFormat(context).format(state.globalMarket.data.totalMarketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode))}',
                               style: Theme.of(context)
@@ -122,8 +129,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   .bodyText1
                                   ?.copyWith(color: Colors.white),
                             ),
-                            VerticalDivider(
-                                width: 8, color: Colors.transparent),
+                            SizedBox(width: 8),
                             PercentageChangeBox(state.globalMarket.data
                                 .marketCapChangePercentage24hUsd),
                             VerticalDivider(
@@ -141,8 +147,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                             ),
-                            VerticalDivider(
-                                width: 4, color: Colors.transparent),
+                            SizedBox(width: 4),
                             Text(
                               '${BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol + compactNumberFormat(context).format(
                                     state.globalMarket.data.totalVolume.gbp,
@@ -167,8 +172,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                       fontWeight: FontWeight.bold,
                                       color: Colors.white),
                             ),
-                            VerticalDivider(
-                                width: 4, color: Colors.transparent),
+                            SizedBox(width: 4),
                             Text(
                               'BTC ${percentageFormat.format(state.globalMarket.data.marketCapPercentage.btc / 100)}',
                               style: Theme.of(context)
@@ -176,8 +180,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   .bodyText1
                                   ?.copyWith(color: Colors.white),
                             ),
-                            VerticalDivider(
-                                width: 8, color: Colors.transparent),
+                            SizedBox(width: 8),
                             Text(
                               'ETH ${percentageFormat.format(state.globalMarket.data.marketCapPercentage.eth / 100)}',
                               style: Theme.of(context)
@@ -185,8 +188,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   .bodyText1
                                   ?.copyWith(color: Colors.white),
                             ),
-                            VerticalDivider(
-                                width: 8, color: Colors.transparent),
+                            SizedBox(width: 8),
                             Text(
                               'BNB ${percentageFormat.format(state.globalMarket.data.marketCapPercentage.bnb / 100)}',
                               style: Theme.of(context)
@@ -194,7 +196,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   .bodyText1
                                   ?.copyWith(color: Colors.white),
                             ),
-                            VerticalDivider(color: Colors.transparent),
+                            SizedBox(width: 8),
                           ],
                         );
                       }
@@ -231,42 +233,47 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        OutlinedButton.icon(
-                          onPressed: () {
-                            setState(() {
-                              _showAllAssets = !_showAllAssets;
-                            });
-                          },
-                          style: OutlinedButton.styleFrom(
-                            tapTargetSize: MaterialTapTargetSize.padded,
-                            visualDensity:
-                                VisualDensity(horizontal: 0, vertical: 0),
-                            primary: Theme.of(context).primaryColor,
-                            backgroundColor: _showAllAssets
-                                ? Theme.of(context).chipTheme.backgroundColor
-                                : Theme.of(context).chipTheme.selectedColor,
-                            shape: const RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                          child: OutlinedButton.icon(
+                            onPressed: () {
+                              setState(() {
+                                _showAllAssets = !_showAllAssets;
+                              });
+                            },
+                            style: OutlinedButton.styleFrom(
+                              tapTargetSize: MaterialTapTargetSize.padded,
+                              visualDensity:
+                                  VisualDensity(horizontal: 0, vertical: 0),
+                              primary: Theme.of(context).primaryColor,
+                              backgroundColor: _showAllAssets
+                                  ? Theme.of(context).chipTheme.backgroundColor
+                                  : Theme.of(context).chipTheme.selectedColor,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(20),
+                                ),
+                              ),
+                            ),
+                            icon: FaIcon(
+                                _showAllAssets
+                                    ? FontAwesomeIcons.star
+                                    : FontAwesomeIcons.solidStar,
+                                size: 16,
+                                color: _showAllAssets
+                                    ? Theme.of(context)
+                                        .iconTheme
+                                        .color
+                                        ?.withOpacity(0.5)
+                                    : kGold),
+                            label: Text('Favourites',
+                                style: _showAllAssets
+                                    ? Theme.of(context).textTheme.bodyText2
+                                    : Theme.of(context)
+                                        .textTheme
+                                        .bodyText2
+                                        ?.copyWith(color: Colors.white)),
                           ),
-                          icon: FaIcon(
-                              _showAllAssets
-                                  ? FontAwesomeIcons.star
-                                  : FontAwesomeIcons.solidStar,
-                              size: 16,
-                              color: _showAllAssets
-                                  ? Theme.of(context)
-                                      .iconTheme
-                                      .color
-                                      ?.withOpacity(0.5)
-                                  : kGold),
-                          label: Text('Favourites',
-                              style: _showAllAssets
-                                  ? Theme.of(context).textTheme.bodyText2
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      ?.copyWith(color: Colors.white)),
                         ),
                         Expanded(
                           child: AssetsDataTable(

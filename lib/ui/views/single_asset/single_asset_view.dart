@@ -1,4 +1,15 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:url_launcher/url_launcher.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -15,14 +26,6 @@ import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:html/dom.dart' as dom;
-import 'package:url_launcher/url_launcher.dart';
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;
@@ -43,12 +46,28 @@ class SingleAssetView extends StatelessWidget {
         toolbarHeight: (Theme.of(context).platform == TargetPlatform.macOS
             ? kTitleBarMacOSHeight
             : kToolbarHeight),
-        title: Hero(
-          tag: 'coin-title-${marketCoin.name}',
-          child: Text(
-            marketCoin.name,
-            style: Theme.of(context).textTheme.headline6,
-          ),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Hero(
+              tag: 'coin-icon-${marketCoin.name}',
+              child: CachedNetworkImage(
+                imageUrl: marketCoin.image,
+                height: Theme.of(context).platform == TargetPlatform.macOS
+                    ? 24
+                    : 32,
+                width: 32,
+              ),
+            ),
+            SizedBox(width: 8),
+            Hero(
+              tag: 'coin-title-${marketCoin.name}',
+              child: Text(
+                marketCoin.name,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ),
+          ],
         ),
         centerTitle: true,
         elevation: 0,
@@ -85,7 +104,9 @@ class SingleAssetView extends StatelessWidget {
                 return IconButton(
                     icon: FavouriteIcon(
                       isSelected: isFavourite,
-                      size: 22,
+                      size: Theme.of(context).platform == TargetPlatform.macOS
+                          ? 20
+                          : 22,
                     ),
                     onPressed: () => onFavourite(marketCoin.id, !isFavourite));
               }

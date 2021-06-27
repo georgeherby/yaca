@@ -1,10 +1,15 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/exchange_list_with_filter.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class SingleAssetExchangeView extends StatelessWidget {
   const SingleAssetExchangeView({Key? key}) : super(key: key);
