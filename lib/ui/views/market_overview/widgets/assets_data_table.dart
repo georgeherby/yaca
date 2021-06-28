@@ -1,12 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -16,15 +10,22 @@ import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
   final Function(MarketCoin, bool) onFavourite;
+  final ValueGetter<Future<void>> onRefresh;
   const AssetsDataTable({
     Key? key,
     required this.marketCoins,
     required this.onFavourite,
+    required this.onRefresh,
   }) : super(key: key);
 
   @override
@@ -44,60 +45,63 @@ class AssetsDataTable extends StatelessWidget {
             tablet: BorderRadius.circular(10),
             desktop: BorderRadius.circular(10)),
         elevation: Theme.of(context).cardTheme.elevation!,
-        child: ListView.separated(
-          physics: ClampingScrollPhysics(),
-          separatorBuilder: (BuildContext context, int index) {
-            return Divider(
-              indent: 8,
-              endIndent: 8,
-              height: 1,
-              thickness: 1,
-            );
-          },
-          shrinkWrap: false,
-          itemCount: marketCoins.length,
-          itemBuilder: (BuildContext context, int index) {
-            var mc = marketCoins[index];
+        child: RefreshableList(
+          onRefresh: onRefresh,
+          child: ListView.separated(
+            physics: ClampingScrollPhysics(),
+            separatorBuilder: (BuildContext context, int index) {
+              return Divider(
+                indent: 8,
+                endIndent: 8,
+                height: 1,
+                thickness: 1,
+              );
+            },
+            shrinkWrap: false,
+            itemCount: marketCoins.length,
+            itemBuilder: (BuildContext context, int index) {
+              var mc = marketCoins[index];
 
-            return InkWell(
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) {
-                      return SingleAssetPage(
-                        marketCoin: mc,
-                        onFavourite: (String id, bool isChecked) =>
-                            onFavourite(mc, isChecked),
-                      );
-                    },
-                  ),
-                );
-              },
-              child: SizedBox(
-                height: 72,
-                child: buildRow(
-                    rank: mc.marketCapRank,
-                    symbol: mc.symbol,
-                    name: mc.name,
-                    sparkline: mc.sparklineIn7d,
-                    iconUrl: mc.image,
-                    sevenDayChange: mc.priceChange7d,
-                    sevenDayPercentageChange:
-                        mc.priceChangePercentage7dInCurrency,
-                    oneDayChange: mc.priceChange24h,
-                    oneDayPercentageChange:
-                        mc.priceChangePercentage24hInCurrency,
-                    oneHourChange: mc.priceChange1h,
-                    oneHourPercentageChange:
-                        mc.priceChangePercentage1hInCurrency,
-                    price: mc.currentPrice,
-                    isFavourited: mc.isFavourited,
-                    onFavourite: () => onFavourite(mc, !mc.isFavourited)),
-              ),
-            );
-          },
+              return InkWell(
+                onTap: () async {
+                  await Navigator.push(
+                    context,
+                    CupertinoPageRoute(
+                      fullscreenDialog: true,
+                      builder: (context) {
+                        return SingleAssetPage(
+                          marketCoin: mc,
+                          onFavourite: (String id, bool isChecked) =>
+                              onFavourite(mc, isChecked),
+                        );
+                      },
+                    ),
+                  );
+                },
+                child: SizedBox(
+                  height: 72,
+                  child: buildRow(
+                      rank: mc.marketCapRank,
+                      symbol: mc.symbol,
+                      name: mc.name,
+                      sparkline: mc.sparklineIn7d,
+                      iconUrl: mc.image,
+                      sevenDayChange: mc.priceChange7d,
+                      sevenDayPercentageChange:
+                          mc.priceChangePercentage7dInCurrency,
+                      oneDayChange: mc.priceChange24h,
+                      oneDayPercentageChange:
+                          mc.priceChangePercentage24hInCurrency,
+                      oneHourChange: mc.priceChange1h,
+                      oneHourPercentageChange:
+                          mc.priceChangePercentage1hInCurrency,
+                      price: mc.currentPrice,
+                      isFavourited: mc.isFavourited,
+                      onFavourite: () => onFavourite(mc, !mc.isFavourited)),
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

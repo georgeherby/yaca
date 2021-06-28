@@ -141,6 +141,7 @@ class _MyAppState extends State<MyApp> {
                       debugShowCheckedModeBanner: false,
                       themeMode: state.theme,
                       theme: ThemeData(
+                        
                         inputDecorationTheme: InputDecorationTheme(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
