@@ -415,8 +415,10 @@ class SingleAssetView extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Scentiment',
-                              style: Theme.of(context).textTheme.headline6),
+                          Text(
+                            'Scentiment',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                           SizedBox(height: 8),
                           Row(children: [
                             Expanded(
@@ -434,9 +436,15 @@ class SingleAssetView extends StatelessWidget {
                                   ),
                                 ),
                                 child: Center(
-                                  child: Text(state
-                                      .singleAsset.sentimentVotesDownPercentage
-                                      .toString()),
+                                  child: Text(
+                                    state.singleAsset
+                                        .sentimentVotesDownPercentage
+                                        .toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
@@ -456,9 +464,14 @@ class SingleAssetView extends StatelessWidget {
                                   ),
                                 ),
                                 child: Center(
-                                  child: Text(state
-                                      .singleAsset.sentimentVotesUpPercentage
-                                      .toString()),
+                                  child: Text(
+                                    state.singleAsset.sentimentVotesUpPercentage
+                                        .toString(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        ?.copyWith(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),

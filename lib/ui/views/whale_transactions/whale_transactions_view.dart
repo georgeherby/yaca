@@ -1,4 +1,11 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/exceptions/missing_config_exception.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
@@ -9,11 +16,6 @@ import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
 import 'package:crypto_app/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({

@@ -1,6 +1,9 @@
-import 'package:crypto_app/core/extensions/platform.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/core/extensions/platform.dart';
 
 class RefreshableList extends StatelessWidget {
   final ListView child;
@@ -14,6 +17,10 @@ class RefreshableList extends StatelessWidget {
   Widget build(BuildContext context) {
     return (Theme.of(context).platform.isDesktop() || kIsWeb)
         ? child
-        : RefreshIndicator(onRefresh: onRefresh, child: child);
+        : RefreshIndicator(
+            onRefresh: onRefresh,
+            backgroundColor: Theme.of(context).accentColor,
+            color: Colors.white,
+            child: child);
   }
 }
