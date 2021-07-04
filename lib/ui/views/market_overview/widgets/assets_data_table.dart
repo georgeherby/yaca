@@ -1,12 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -18,6 +12,10 @@ import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
@@ -81,7 +79,12 @@ class AssetsDataTable extends StatelessWidget {
                   );
                 },
                 child: SizedBox(
-                  height: 72,
+                  height: getValueForScreenType<double>(
+                    context: context,
+                    desktop: 62,
+                    tablet: 60,
+                    mobile: 60,
+                  ),
                   child: buildRow(
                       rank: mc.marketCapRank,
                       symbol: mc.symbol,

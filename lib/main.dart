@@ -141,7 +141,6 @@ class _MyAppState extends State<MyApp> {
                       debugShowCheckedModeBanner: false,
                       themeMode: state.theme,
                       theme: ThemeData(
-                        
                         inputDecorationTheme: InputDecorationTheme(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -344,7 +343,6 @@ class _MyAppState extends State<MyApp> {
                           key: const Key('home_screen_key'),
                           title: 'Cryptocurrency')));
             }
-
             return CupertinoActivityIndicator();
           },
         ),

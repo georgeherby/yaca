@@ -1,26 +1,21 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/extensions/chosen_currency.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/global_market_marque.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MarketOverviewView extends StatefulWidget {
   @override
@@ -105,104 +100,18 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                   child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
                     builder: (context, state) {
                       if (state is GlobalMarketLoaded) {
-                        return ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount:
-                              1000, //double.maxFinite.toInt(), https://github.com/flutter/flutter/issues/76640
-                          itemBuilder: (context, index) {
-                            return Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                SizedBox(width: 8),
-                                Text(
-                                  'Total Market Cap:',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  '${BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol + compactNumberFormat(context).format(state.globalMarket.data.totalMarketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode))}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: Colors.white),
-                                ),
-                                SizedBox(width: 8),
-                                PercentageChangeBox(state.globalMarket.data
-                                    .marketCapChangePercentage24hUsd),
-                                VerticalDivider(
-                                  thickness: 2,
-                                  color: Colors.white,
-                                  indent: kTickerTapHeight / 4,
-                                  endIndent: kTickerTapHeight / 4,
-                                ),
-                                Text(
-                                  '24h Volume:',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  '${BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol + compactNumberFormat(context).format(
-                                        state.globalMarket.data.totalVolume.gbp,
-                                      )}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: Colors.white),
-                                ),
-                                VerticalDivider(
-                                  thickness: 2,
-                                  color: Colors.white,
-                                  indent: kTickerTapHeight / 4,
-                                  endIndent: kTickerTapHeight / 4,
-                                ),
-                                Text(
-                                  'Dominance:',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                ),
-                                SizedBox(width: 4),
-                                Text(
-                                  'BTC ${percentageFormat.format(state.globalMarket.data.marketCapPercentage.btc / 100)}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: Colors.white),
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  'ETH ${percentageFormat.format(state.globalMarket.data.marketCapPercentage.eth / 100)}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: Colors.white),
-                                ),
-                                SizedBox(width: 8),
-                                Text(
-                                  'BNB ${percentageFormat.format(state.globalMarket.data.marketCapPercentage.bnb / 100)}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1
-                                      ?.copyWith(color: Colors.white),
-                                ),
-                                SizedBox(width: 8),
-                              ],
-                            );
-                          },
+                        return GlobalMarketMarque(
+                          currencySymbol:
+                              BlocProvider.of<AppSettingsBloc>(context)
+                                  .state
+                                  .currency
+                                  .currencySymbol,
+                          marketCap: state.globalMarket.data.totalMarketCap,
+                          marketCap24hChange: state.globalMarket.data
+                              .marketCapChangePercentage24hUsd,
+                          marketCapPercentage:
+                              state.globalMarket.data.marketCapPercentage,
+                          totalVolume: state.globalMarket.data.totalVolume,
                         );
                       }
 
