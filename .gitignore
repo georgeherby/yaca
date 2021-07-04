@@ -48,3 +48,5 @@ app.*.map.json
 .vscode/settings.json
 .vscode/settings.json
 .vscode/settings.json
+
+*.jks

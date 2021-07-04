@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 // 🌎 Project imports:
 import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
+import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
 
 class SingleAssetRespository {
   final http.Client _client;
@@ -65,5 +66,18 @@ class SingleAssetRespository {
     }
 
     return AssetHistory.fromJson(jsonDecode(response.body));
+  }
+
+  Future<SingleAssetData> getSingleAssetData(String marketCoinId) async {
+    final response = await _client.get(Uri.parse(
+        'https://api.coingecko.com/api/v3/coins/$marketCoinId?tickers=false&market_data=true&community_data=true&developer_data=true'));
+
+    if (response.statusCode == 429) {
+      debugPrint(response.headers.toString());
+      debugPrint('Rate Limted!');
+      throw RateLimitException();
+    }
+
+    return SingleAssetData.fromJson(response.body);
   }
 }

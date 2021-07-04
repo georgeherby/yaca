@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class ThemeChoiceView extends StatelessWidget {
   @override

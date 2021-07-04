@@ -1,19 +1,21 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-// 📦 Package imports:
-import 'package:fl_chart/fl_chart.dart';
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 class AssetGraph extends StatefulWidget {
   final List<TimeValuePair> history;
@@ -89,7 +91,7 @@ class _AssetGraphState extends State<AssetGraph> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,8 +150,8 @@ class _AssetGraphState extends State<AssetGraph> {
         SizedBox(
           height: getValueForScreenType<double>(
             context: context,
-            mobile: 150,
-            tablet: 200,
+            mobile: 225,
+            tablet: 250,
             desktop: 250,
           ),
           width: double.infinity,

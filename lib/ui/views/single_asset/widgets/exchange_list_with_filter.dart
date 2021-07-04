@@ -1,16 +1,18 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:macos_ui/macos_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/core/models/filter.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:macos_ui/macos_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
@@ -120,6 +122,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
       Divider(color: Colors.transparent, height: 8),
       Expanded(
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           itemCount: tickers.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(

@@ -1,3 +1,4 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 const double kLeadingButtonWidthMac = 108;
@@ -10,4 +11,4 @@ const String kDARK_MODE = 'DARK';
 
 const double kBottomNavBarIconSize = 20;
 const double kToolBarWithTickerHeight = kToolbarHeight + kTickerTapHeight;
-const double kTickerTapHeight = 40;
+const double kTickerTapHeight = 36;

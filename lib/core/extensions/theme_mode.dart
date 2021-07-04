@@ -2,9 +2,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// 📦 Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 extension ThemeModeToString on ThemeMode {
   String toStr() {

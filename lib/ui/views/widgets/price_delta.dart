@@ -1,9 +1,10 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class PriceDelta extends StatelessWidget {
   final double? priceChangeDelta;
@@ -15,7 +16,7 @@ class PriceDelta extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (priceChangeDelta != null) {
-      var color = priceChangeDelta!.toPositiveNegativeColor(opacity: 0.84);
+      var color = priceChangeDelta!.toPositiveNegativeColor();
 
       return Row(
         mainAxisSize: MainAxisSize.min,
