@@ -293,7 +293,7 @@ class AssetsDataTable extends StatelessWidget {
           var blockSize = MediaQuery.of(context).size.width / 100;
 
           return Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 8),
+            padding: const EdgeInsets.only(left: 12.0, right: 4),
             child: Row(
               children: [
                 Hero(
@@ -337,7 +337,6 @@ class AssetsDataTable extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      SizedBox(height: 4),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisSize: MainAxisSize.min,
@@ -548,7 +547,6 @@ class AssetsDataTable extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(width: 4),
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {

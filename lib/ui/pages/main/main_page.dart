@@ -1,15 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 // 🌎 Project imports:
+import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_svg/svg.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({required Key key, required this.title}) : super(key: key);
@@ -25,12 +24,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var isMobile = [TargetPlatform.iOS, TargetPlatform.android]
-            .contains(Theme.of(context).platform) &&
-        MediaQuery.of(context).size.width < 600;
+    var _isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Scaffold(
-      bottomNavigationBar: isMobile
+      bottomNavigationBar: _isPhoneOnly
           ? BottomNavigationBar(
               onTap: onTabTapped, // new
               currentIndex: _selectedIndex, // new
@@ -92,7 +89,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         bottom: false,
         child: Row(children: [
-          isMobile
+          _isPhoneOnly
               ? Container()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,

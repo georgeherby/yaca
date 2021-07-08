@@ -62,9 +62,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
               : Container()
         ],
         toolbarHeight: kToolBarWithTickerHeight,
-        leading: (Theme.of(context).platform.isDesktop())
-            ? Container()
-            : IconButton(
+        leading: (Theme.of(context).platform.onlyMobile(context))
+            ? IconButton(
                 tooltip: 'Open settings',
                 onPressed: () => Navigator.of(context).push(
                   CupertinoPageRoute(
@@ -73,7 +72,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                   ),
                 ),
                 icon: FaIcon(FontAwesomeIcons.cog),
-              ),
+              )
+            : Container(),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               // topRight: Radius.circular(40.0),
