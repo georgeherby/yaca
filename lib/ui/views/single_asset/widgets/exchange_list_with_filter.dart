@@ -1,18 +1,16 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:macos_ui/macos_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/core/models/filter.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
@@ -65,24 +63,11 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   @override
   Widget build(BuildContext context) {
-    var isMobile = Theme.of(context).platform.isMobile() &&
-        MediaQuery.of(context).size.width <= 480;
+    var _isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(
-        children: [
-          Text(
-            'Exchanges',
-            style: Theme.of(context).textTheme.headline6,
-          )
-        ],
-      ),
-      Divider(
-        color: Colors.transparent,
-        height: 4,
-      ),
       Text('Select currency to filter',
-          style: Theme.of(context).textTheme.caption),
+          style: Theme.of(context).textTheme.bodyText1),
       Divider(
         color: Colors.transparent,
         height: 8,
@@ -135,7 +120,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ClipRRect(
                       borderRadius: BorderRadius.circular(8.0),
                       child: CachedNetworkImage(
-                        width: isMobile ? 32 : 44,
+                        width: _isPhoneOnly ? 32 : 44,
                         filterQuality: FilterQuality.high,
                         imageUrl: tickers[index].market.logoUrl,
                         fit: BoxFit.fill,
@@ -143,7 +128,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ),
                     Spacer(flex: 5),
                     Expanded(
-                        flex: isMobile ? 50 : 80,
+                        flex: _isPhoneOnly ? 50 : 80,
                         child: Text(
                           tickers[index].market.name,
                           overflow: TextOverflow.ellipsis,
@@ -155,8 +140,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       child: Text(
                           tickers[index].base + '/' + tickers[index].target),
                     ),
-                    isMobile ? Container() : Spacer(flex: 5),
-                    isMobile
+                    _isPhoneOnly ? Container() : Spacer(flex: 5),
+                    _isPhoneOnly
                         ? Container()
                         : Expanded(
                             flex: 30,
@@ -177,8 +162,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                               unselectedolor: Theme.of(context).dividerColor,
                             ),
                           ),
-                    isMobile ? Container() : Spacer(flex: 5),
-                    isMobile
+                    _isPhoneOnly ? Container() : Spacer(flex: 5),
+                    _isPhoneOnly
                         ? Container()
                         : Expanded(
                             flex: 40,
