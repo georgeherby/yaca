@@ -39,11 +39,11 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       title: title,
       centerTitle: true,
       elevation: 0,
-      leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
+      leadingWidth: platform == TargetPlatform.macOS
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,
       leading: hasBackRoute
-          ? Theme.of(context).platform == TargetPlatform.macOS
+          ? platform == TargetPlatform.macOS
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -53,18 +53,21 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       width: 32,
                       alignment: AlignmentDirectional.center,
                       child: BackChevronButton(
+                        key: Key('back-chevron-macos'),
                         onTapped: () => Navigator.pop(context),
                       ),
                     ),
                   ],
                 )
               : IconButton(
+                  key: Key('back-chevron-other-os'),
                   onPressed: () => Navigator.pop(context),
                   icon: FaIcon(FontAwesomeIcons.chevronLeft),
                 )
-          : (Theme.of(context).platform.isDesktop())
+          : (platform.isDesktop())
               ? Container()
               : IconButton(
+                  key: Key('settings-cog-buton'),
                   tooltip: 'Open settings',
                   onPressed: () => Navigator.of(context).push(
                     CupertinoPageRoute(
