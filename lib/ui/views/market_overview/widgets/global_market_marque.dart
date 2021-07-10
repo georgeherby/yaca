@@ -1,5 +1,13 @@
+// 🎯 Dart imports:
 import 'dart:async';
 
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/chosen_currency.dart';
 import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
@@ -7,8 +15,6 @@ import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GlobalMarketMarque extends StatefulWidget {
   GlobalMarketMarque({

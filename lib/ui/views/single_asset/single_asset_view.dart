@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,13 +16,12 @@ import 'package:crypto_app/core/bloc/singleasset/singleasset_bloc.dart';
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/singe_asset_exchanges/single_asset_exchanges_view.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph_with_switcher.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/expandable_card.dart';
-import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
+import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
 
@@ -42,10 +40,9 @@ class SingleAssetView extends StatelessWidget {
     debugPrint('SingleAssetView');
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: (Theme.of(context).platform == TargetPlatform.macOS
-            ? kTitleBarMacOSHeight
-            : kToolbarHeight),
+      appBar: GeneralAppBar(
+        platform: Theme.of(context).platform,
+        hasBackRoute: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -56,7 +53,9 @@ class SingleAssetView extends StatelessWidget {
                 height: Theme.of(context).platform == TargetPlatform.macOS
                     ? 24
                     : 32,
-                width: 32,
+                width: Theme.of(context).platform == TargetPlatform.macOS
+                    ? 24
+                    : 32,
               ),
             ),
             SizedBox(width: 8),
@@ -69,30 +68,6 @@ class SingleAssetView extends StatelessWidget {
             ),
           ],
         ),
-        centerTitle: true,
-        elevation: 0,
-        brightness: Theme.of(context).brightness,
-        leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
-            ? kLeadingButtonWidthMac
-            : kLeadingButtonWidth,
-        leading: Theme.of(context).platform == TargetPlatform.macOS
-            ? Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Container(
-                    height: 28,
-                    width: 32,
-                    alignment: AlignmentDirectional.center,
-                    child: BackChevronButton(
-                      onTapped: () => Navigator.pop(context),
-                    ),
-                  ),
-                ],
-              )
-            : IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: FaIcon(FontAwesomeIcons.chevronLeft)),
         actions: [
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
@@ -125,7 +100,7 @@ class SingleAssetView extends StatelessWidget {
                   left: 8.0,
                   right: 8.0,
                   bottom: 8.0,
-                  top: 8.0,
+                  // top: 8.0,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -135,8 +110,7 @@ class SingleAssetView extends StatelessWidget {
                       context,
                       true,
                       AssetGraphWithSwitcher(
-                        allHistory: state.assetHistorySplits,
-                      ),
+                          allHistory: state.assetHistorySplits),
                     ),
                     SizedBox(height: 8),
                     buildCard(
