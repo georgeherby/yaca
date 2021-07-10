@@ -1,12 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:http/http.dart' as http;
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -23,6 +15,13 @@ import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/pages/main/main_page.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+
 import 'core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'core/repositories/api/coingecko/exchange_ticker_repository.dart';
 
@@ -172,7 +171,7 @@ class _MyAppState extends State<MyApp> {
                                   BorderSide(color: Colors.red, width: 2.0),
                             ),
                             errorStyle: TextStyle(color: Colors.red)),
-                        textTheme: GoogleFonts.latoTextTheme(
+                        textTheme: GoogleFonts.openSansTextTheme(
                           ThemeData.light().textTheme,
                         ),
                         bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -272,7 +271,7 @@ class _MyAppState extends State<MyApp> {
                                   BorderSide(color: Colors.red, width: 2.0),
                             ),
                             errorStyle: TextStyle(color: Colors.red)),
-                        textTheme: GoogleFonts.latoTextTheme(
+                        textTheme: GoogleFonts.openSansTextTheme(
                           ThemeData.dark().textTheme,
                         ),
                         brightness: Brightness.dark,

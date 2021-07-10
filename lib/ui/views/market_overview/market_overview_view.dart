@@ -64,26 +64,6 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                   })
               : Container()
         ],
-        // toolbarHeight: kToolBarWithTickerHeight,
-        // leading: (Theme.of(context).platform.onlyMobile(context))
-        //     ? IconButton(
-        //         tooltip: 'Open settings',
-        //         onPressed: () => Navigator.of(context).push(
-        //           CupertinoPageRoute(
-        //             fullscreenDialog: true,
-        //             builder: (context) => AppSettingsPage(),
-        //           ),
-        //         ),
-        //         icon: FaIcon(FontAwesomeIcons.cog),
-        //       )
-        //     : Container(),
-        // shape: RoundedRectangleBorder(
-        //   borderRadius: BorderRadius.only(
-        //       // topRight: Radius.circular(40.0),
-        //       bottomRight: Radius.circular(10.0),
-        //       // topLeft: Radius.circular(40.0),
-        //       bottomLeft: Radius.circular(10.0)),
-        // ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kTickerTapHeight),
           child: SizedBox(
