@@ -1,15 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+// 📦 Package imports:
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget title;
@@ -70,7 +69,8 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                   key: Key('settings-cog-buton'),
                   tooltip: 'Open settings',
                   onPressed: () => Navigator.of(context).push(
-                    CupertinoPageRoute(
+                    platformPageRoute(
+                      context: context,
                       fullscreenDialog: true,
                       builder: (context) => AppSettingsPage(),
                     ),

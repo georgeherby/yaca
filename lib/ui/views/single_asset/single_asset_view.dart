@@ -1,14 +1,6 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_html/flutter_html.dart';
-import 'package:html/dom.dart' as dom;
-import 'package:url_launcher/url_launcher.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -24,6 +16,12 @@ import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_html/flutter_html.dart';
+import 'package:html/dom.dart' as dom;
+import 'package:url_launcher/url_launcher.dart';
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;
@@ -39,6 +37,9 @@ class SingleAssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
 
+    var iconSize =
+        Theme.of(context).platform == TargetPlatform.macOS ? 24.0 : 32.0;
+
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
@@ -50,12 +51,17 @@ class SingleAssetView extends StatelessWidget {
               tag: 'coin-icon-${marketCoin.name}',
               child: CachedNetworkImage(
                 imageUrl: marketCoin.image,
-                height: Theme.of(context).platform == TargetPlatform.macOS
-                    ? 24
-                    : 32,
-                width: Theme.of(context).platform == TargetPlatform.macOS
-                    ? 24
-                    : 32,
+                height: iconSize,
+                width: iconSize,
+                imageBuilder: (context, imageProvider) => Container(
+                  width: iconSize,
+                  height: iconSize,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: imageProvider, fit: BoxFit.cover),
+                  ),
+                ),
               ),
             ),
             SizedBox(width: 8),

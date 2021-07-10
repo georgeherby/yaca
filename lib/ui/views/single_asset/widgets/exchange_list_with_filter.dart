@@ -1,18 +1,16 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:macos_ui/macos_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/core/models/filter.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:macos_ui/macos_ui.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
@@ -126,7 +124,15 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         width: _isPhoneOnly ? 32 : 44,
                         filterQuality: FilterQuality.high,
                         imageUrl: tickers[index].market.logoUrl,
-                        fit: BoxFit.fill,
+                        imageBuilder: (context, imageProvider) => Container(
+                          width: _isPhoneOnly ? 32 : 44,
+                          height: _isPhoneOnly ? 32 : 44,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                                image: imageProvider, fit: BoxFit.cover),
+                          ),
+                        ),
                       ),
                     ),
                     Spacer(flex: 5),

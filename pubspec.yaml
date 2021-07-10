@@ -31,6 +31,7 @@ dependencies:
   font_awesome_flutter: ^9.1.0
   macos_ui: ^0.6.0
   flutter_html: ^2.1.0
+  flutter_platform_widgets: ^1.9.5
 dev_dependencies:
   flutter_test:
     sdk: flutter
