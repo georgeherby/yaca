@@ -115,8 +115,9 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: GestureDetector(
-                onTap: () =>
-                    tickers[index].tradeUrl != null ? print('tapped') : null,
+                onTap: () => tickers[index].tradeUrl != null
+                    ? _launchURL(tickers[index].tradeUrl)
+                    : null,
                 child: Row(
                   children: [
                     ClipRRect(
@@ -148,7 +149,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         : Expanded(
                             flex: 30,
                             child: RelevanceIndicator(
-                              value: trustScoreToInt(tickers[index]
+                              value: _trustScoreToInt(tickers[index]
                                           .trustScore
                                           ?.toUpperCase() ??
                                       '') *
@@ -157,7 +158,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                               barWidth: 2.5,
                               semanticLabel:
                                   "Trust score is ${tickers[index].trustScore?.toUpperCase() ?? 'n/a'}",
-                              selectedColor: trustScoreToColor(
+                              selectedColor: _trustScoreToColor(
                                   context,
                                   tickers[index].trustScore?.toUpperCase() ??
                                       ''),
@@ -203,7 +204,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
     ]);
   }
 
-  int trustScoreToInt(String trustScore) {
+  int _trustScoreToInt(String trustScore) {
     switch (trustScore.toUpperCase()) {
       case 'GREEN':
         return 3;
@@ -217,7 +218,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
     }
   }
 
-  Color trustScoreToColor(context, String trustScore) {
+  Color _trustScoreToColor(context, String trustScore) {
     switch (trustScore.toUpperCase()) {
       case 'GREEN':
         return kPositiveGreen;
@@ -231,7 +232,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
     }
   }
 
-  Future launchURL(url) async {
+  Future _launchURL(url) async {
     if (await canLaunch(url)) {
       await launch(url);
     } else {

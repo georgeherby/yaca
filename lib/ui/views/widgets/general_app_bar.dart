@@ -64,7 +64,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                   onPressed: () => Navigator.pop(context),
                   icon: FaIcon(FontAwesomeIcons.chevronLeft),
                 )
-          : (platform.isDesktop())
+          : (!platform.onlyMobile(context))
               ? Container()
               : IconButton(
                   key: Key('settings-cog-buton'),
