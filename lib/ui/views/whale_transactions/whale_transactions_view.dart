@@ -10,12 +10,11 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crypto_app/core/exceptions/missing_config_exception.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
 import 'package:crypto_app/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
+import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({
@@ -50,28 +49,13 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: Theme.of(context).platform == TargetPlatform.macOS
-            ? kTitleBarMacOSHeight
-            : kToolbarHeight,
+      appBar: GeneralAppBar(
+        platform: Theme.of(context).platform,
         title: Text(
           'Whale Transactions',
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
-        leading: (Theme.of(context).platform.isDesktop())
-            ? Container()
-            : IconButton(
-                tooltip: 'Open settings',
-                onPressed: () => Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) => AppSettingsPage(),
-                  ),
-                ),
-                icon: FaIcon(FontAwesomeIcons.cog),
-              ),
-        centerTitle: true,
-        elevation: Theme.of(context).appBarTheme.elevation,
+        hasBackRoute: false,
         actions: [
           (Theme.of(context).platform.isDesktop())
               ? IconButton(

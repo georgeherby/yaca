@@ -6,6 +6,7 @@ import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 // 📦 Package imports:
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -154,7 +155,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     IconButton(
                       tooltip: 'Open settings',
                       onPressed: () => Navigator.of(context).push(
-                        CupertinoPageRoute(
+                        platformPageRoute(
+                          context: context,
                           fullscreenDialog: true,
                           builder: (context) => AppSettingsPage(),
                         ),

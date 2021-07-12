@@ -1,4 +1,11 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -7,15 +14,10 @@ import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/global_market_marque.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 
 class MarketOverviewView extends StatefulWidget {
   @override
@@ -28,12 +30,13 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: GeneralAppBar(
+        platform: Theme.of(context).platform,
         title: Text(
           'Crypto App',
           style: Theme.of(context).appBarTheme.titleTextStyle,
         ),
-        centerTitle: true,
+        hasBackRoute: false,
         actions: [
           (Theme.of(context).platform.isDesktop())
               ? IconButton(
@@ -61,26 +64,6 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                   })
               : Container()
         ],
-        toolbarHeight: kToolBarWithTickerHeight,
-        leading: (Theme.of(context).platform.onlyMobile(context))
-            ? IconButton(
-                tooltip: 'Open settings',
-                onPressed: () => Navigator.of(context).push(
-                  CupertinoPageRoute(
-                    fullscreenDialog: true,
-                    builder: (context) => AppSettingsPage(),
-                  ),
-                ),
-                icon: FaIcon(FontAwesomeIcons.cog),
-              )
-            : Container(),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-              // topRight: Radius.circular(40.0),
-              bottomRight: Radius.circular(10.0),
-              // topLeft: Radius.circular(40.0),
-              bottomLeft: Radius.circular(10.0)),
-        ),
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(kTickerTapHeight),
           child: SizedBox(

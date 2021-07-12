@@ -2,12 +2,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// 📦 Package imports:
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 // 🌎 Project imports:
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
+import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 
 class ScaffoldWithBack extends StatelessWidget {
   final String? title;
@@ -21,36 +17,14 @@ class ScaffoldWithBack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          toolbarHeight: Theme.of(context).platform == TargetPlatform.macOS
-              ? kTitleBarMacOSHeight
-              : kToolbarHeight,
+        appBar: GeneralAppBar(
+          hasBackRoute: true,
+          platform: Theme.of(context).platform,
           title: Text(
             title ?? '',
             style: Theme.of(context).appBarTheme.titleTextStyle,
           ),
           actions: actions ?? [],
-          centerTitle: true,
-          leadingWidth: Theme.of(context).platform == TargetPlatform.macOS
-              ? kLeadingButtonWidthMac
-              : kLeadingButtonWidth,
-          leading: Theme.of(context).platform == TargetPlatform.macOS
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Container(
-                      height: 24,
-                      width: 32,
-                      alignment: AlignmentDirectional.center,
-                      child: BackChevronButton(
-                        onTapped: () => Navigator.pop(context),
-                      ),
-                    ),
-                  ],
-                )
-              : IconButton(
-                  onPressed: () => Navigator.pop(context),
-                  icon: FaIcon(FontAwesomeIcons.chevronLeft)),
         ),
         body: body);
   }

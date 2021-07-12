@@ -111,16 +111,15 @@ class SingleAssetData extends Equatable {
       genesis_date: genesis_date ?? this.genesis_date,
       sentimentVotesUpPercentage:
           sentimentVotesUpPercentage ?? this.sentimentVotesUpPercentage,
-      sentimentVotesDownPercentage: sentimentVotesDownPercentage ??
-          this.sentimentVotesDownPercentage,
+      sentimentVotesDownPercentage:
+          sentimentVotesDownPercentage ?? this.sentimentVotesDownPercentage,
       marketCapRank: marketCapRank ?? this.marketCapRank,
       coingeckoRank: coingeckoRank ?? this.coingeckoRank,
       coingeckoScore: coingeckoScore ?? this.coingeckoScore,
       developerScore: developerScore ?? this.developerScore,
       communityScore: communityScore ?? this.communityScore,
       liquidityScore: liquidityScore ?? this.liquidityScore,
-      publicInterestScore:
-          publicInterestScore ?? this.publicInterestScore,
+      publicInterestScore: publicInterestScore ?? this.publicInterestScore,
       marketData: marketData ?? this.marketData,
       community_data: community_data ?? this.community_data,
       developer_data: developer_data ?? this.developer_data,
@@ -1002,9 +1001,8 @@ class MarketData extends Equatable {
       price_change_percentage_200d_in_currency:
           price_change_percentage_200d_in_currency ??
               this.price_change_percentage_200d_in_currency,
-      priceChangePercentage1yInCurrency:
-          priceChangePercentage1yInCurrency ??
-              this.priceChangePercentage1yInCurrency,
+      priceChangePercentage1yInCurrency: priceChangePercentage1yInCurrency ??
+          this.priceChangePercentage1yInCurrency,
       market_cap_change_24h_in_currency: market_cap_change_24h_in_currency ??
           this.market_cap_change_24h_in_currency,
       market_cap_change_percentage_24h_in_currency:
@@ -1081,7 +1079,10 @@ class MarketData extends Equatable {
           ? ValuePerCurrency.fromMap(map['total_value_locked'])
           : null,
       mcap_to_tvl_ratio: map['mcap_to_tvl_ratio'],
-      fdv_to_tvl_ratio: map['fdv_to_tvl_ratio'],
+      fdv_to_tvl_ratio:
+          map['fdv_to_tvl_ratio'] != null && map['fdv_to_tvl_ratio'] == '?'
+              ? null
+              : map['fdv_to_tvl_ratio'],
       roi: Roi.fromMap(map['roi']),
       ath: Ath.fromMap(map['ath']),
       ath_change_percentage:

@@ -15,6 +15,7 @@ import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 class AssetsDataTable extends StatelessWidget {
@@ -66,7 +67,8 @@ class AssetsDataTable extends StatelessWidget {
                 onTap: () async {
                   await Navigator.push(
                     context,
-                    CupertinoPageRoute(
+                    platformPageRoute(
+                      context: context,
                       fullscreenDialog: true,
                       builder: (context) {
                         return SingleAssetPage(
@@ -132,7 +134,7 @@ class AssetsDataTable extends StatelessWidget {
         // Desktop Layout
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
           var blockSize = MediaQuery.of(context).size.width / 100;
-
+          var iconSize = 32.0;
           return Padding(
             padding: const EdgeInsets.only(left: 12.0, right: 8),
             child: Row(
@@ -142,13 +144,22 @@ class AssetsDataTable extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: iconUrl,
                     filterQuality: FilterQuality.high,
-                    width: 32,
-                    height: 32,
+                    width: iconSize,
+                    height: iconSize,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: iconSize,
+                      height: iconSize,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
                     errorWidget: (context, url, error) {
                       debugPrint(error.toString());
                       return CircleAvatar(
-                        minRadius: 16,
-                        maxRadius: 16,
+                        minRadius: iconSize / 2,
+                        maxRadius: iconSize / 2,
                         backgroundColor: Theme.of(context).accentColor,
                         child: Text(
                           symbol,
@@ -291,7 +302,7 @@ class AssetsDataTable extends StatelessWidget {
         else if (sizingInformation.deviceScreenType ==
             DeviceScreenType.tablet) {
           var blockSize = MediaQuery.of(context).size.width / 100;
-
+          var iconSize = 32.0;
           return Padding(
             padding: const EdgeInsets.only(left: 12.0, right: 4),
             child: Row(
@@ -301,13 +312,22 @@ class AssetsDataTable extends StatelessWidget {
                   child: CachedNetworkImage(
                     imageUrl: iconUrl,
                     filterQuality: FilterQuality.high,
-                    width: 32,
-                    height: 32,
+                    width: iconSize,
+                    height: iconSize,
+                    imageBuilder: (context, imageProvider) => Container(
+                      width: iconSize,
+                      height: iconSize,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: imageProvider, fit: BoxFit.cover),
+                      ),
+                    ),
                     errorWidget: (context, url, error) {
                       debugPrint(error.toString());
                       return CircleAvatar(
-                        minRadius: 16,
-                        maxRadius: 16,
+                        minRadius: iconSize / 2,
+                        maxRadius: iconSize / 2,
                         backgroundColor: Theme.of(context).accentColor,
                         child: Text(
                           symbol,
@@ -438,7 +458,7 @@ class AssetsDataTable extends StatelessWidget {
             ),
           );
         }
-
+        var iconSize = 32.0;
         // Mobile Layout
         return Padding(
           padding: const EdgeInsets.only(left: 12.0, right: 0),
@@ -449,13 +469,22 @@ class AssetsDataTable extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: iconUrl,
                   filterQuality: FilterQuality.high,
-                  width: 32,
-                  height: 32,
+                  width: iconSize,
+                  height: iconSize,
+                  imageBuilder: (context, imageProvider) => Container(
+                    width: iconSize,
+                    height: iconSize,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: imageProvider, fit: BoxFit.cover),
+                    ),
+                  ),
                   errorWidget: (context, url, error) {
                     debugPrint(error.toString());
                     return CircleAvatar(
-                      minRadius: 16,
-                      maxRadius: 16,
+                      minRadius: iconSize / 2,
+                      maxRadius: iconSize / 2,
                       backgroundColor: Theme.of(context).accentColor,
                       child: Text(
                         symbol,
@@ -498,26 +527,12 @@ class AssetsDataTable extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(
                                 vertical: 2.0, horizontal: 6),
                             child: Text(rank.toString(),
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyText2
-                                    ?.copyWith(
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .caption
-                                            ?.color)),
+                                style: Theme.of(context).textTheme.caption),
                           ),
                         ),
                         SizedBox(width: 4),
                         Text(symbol.toUpperCase(),
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText2
-                                ?.copyWith(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .caption
-                                        ?.color)),
+                            style: Theme.of(context).textTheme.caption),
                       ],
                     ),
                   ],
