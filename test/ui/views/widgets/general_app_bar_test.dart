@@ -103,7 +103,7 @@ void main() {
       });
     });
   });
-  
+
   group('iOS', () {
     var platform = TargetPlatform.iOS;
     group('mobile', () {

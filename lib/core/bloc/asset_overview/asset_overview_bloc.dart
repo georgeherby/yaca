@@ -23,22 +23,21 @@ part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';
 
 class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
-
   late StreamSubscription subscription;
-
 
   final AppSettingsBloc settingsBloc;
   final FavouritesDao _favouriteDao;
   final MarketOverviewRepository _marketOverviewRepository;
 
-  AssetOverviewBloc(this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
-      : super(AssetOverviewInitial()){
-        subscription = settingsBloc.stream.listen((stateOfOverview) {
-          if(stateOfOverview is AppSettingsLoaded){
-            add(AssetOverviewLoad(stateOfOverview.currency.currencyCode));
-          }
-        });
+  AssetOverviewBloc(
+      this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
+      : super(AssetOverviewInitial()) {
+    subscription = settingsBloc.stream.listen((stateOfOverview) {
+      if (stateOfOverview is AppSettingsLoaded) {
+        add(AssetOverviewLoad(stateOfOverview.currency.currencyCode));
       }
+    });
+  }
 
   @override
   void onEvent(AssetOverviewEvent event) {

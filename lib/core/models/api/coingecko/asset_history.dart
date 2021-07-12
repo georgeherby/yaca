@@ -3,14 +3,18 @@ class AssetHistory {
   late List<TimeValuePair> marketCaps;
   late List<TimeValuePair> totalVolumes;
 
-  AssetHistory({required this.prices, required this.marketCaps, required this.totalVolumes});
+  AssetHistory(
+      {required this.prices,
+      required this.marketCaps,
+      required this.totalVolumes});
 
   AssetHistory.fromJson(Map<String, dynamic> json) {
     if (json['prices'] != null) {
       prices = <TimeValuePair>[];
       json['prices'].forEach((v) {
         if (v is List) {
-          prices.add(TimeValuePair(timeEpochUtc: v[0].toInt(), value: (v[1] ?? 0).toDouble()));
+          prices.add(TimeValuePair(
+              timeEpochUtc: v[0].toInt(), value: (v[1] ?? 0).toDouble()));
         }
       });
     }
@@ -18,7 +22,8 @@ class AssetHistory {
       marketCaps = <TimeValuePair>[];
       json['market_caps'].forEach((v) {
         if (v is List) {
-          marketCaps.add(TimeValuePair(timeEpochUtc: v[0].toInt(), value: (v[1] ?? 0).toDouble()));
+          marketCaps.add(TimeValuePair(
+              timeEpochUtc: v[0].toInt(), value: (v[1] ?? 0).toDouble()));
         }
       });
     }
@@ -26,8 +31,8 @@ class AssetHistory {
       totalVolumes = <TimeValuePair>[];
       json['total_volumes'].forEach((v) {
         if (v is List) {
-          totalVolumes
-              .add(TimeValuePair(timeEpochUtc: v[0].toInt(), value: (v[1] ?? 0).toDouble()));
+          totalVolumes.add(TimeValuePair(
+              timeEpochUtc: v[0].toInt(), value: (v[1] ?? 0).toDouble()));
         }
       });
     }

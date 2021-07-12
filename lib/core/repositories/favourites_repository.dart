@@ -22,6 +22,8 @@ class FavouritesDao {
   }
 
   Future<List<Favourites>> getAll() async {
-    return (await dbHelper.queryAllRows(TABLE_NAME)).map((e) => Favourites.fromMap(e)).toList();
+    return (await dbHelper.queryAllRows(TABLE_NAME))
+        .map((e) => Favourites.fromMap(e))
+        .toList();
   }
 }

@@ -1,13 +1,15 @@
 // 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WhaleApiTokenView extends StatelessWidget {
   WhaleApiTokenView({Key? key}) : super(key: key);

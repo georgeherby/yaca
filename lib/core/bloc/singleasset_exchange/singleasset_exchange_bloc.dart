@@ -12,11 +12,11 @@ import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repos
 part 'singleasset_exchange_event.dart';
 part 'singleasset_exchange_state.dart';
 
-class SingleAssetExchangeBloc extends Bloc<SingleAssetExchangeEvent, SingleAssetExchangeState> {
+class SingleAssetExchangeBloc
+    extends Bloc<SingleAssetExchangeEvent, SingleAssetExchangeState> {
   final ExchangeTickerRespository exchangeTickerRespository;
 
-  SingleAssetExchangeBloc({
-      required this.exchangeTickerRespository})
+  SingleAssetExchangeBloc({required this.exchangeTickerRespository})
       : super(SingleAssetExchangeInitial());
 
   @override
@@ -29,7 +29,6 @@ class SingleAssetExchangeBloc extends Bloc<SingleAssetExchangeEvent, SingleAsset
       try {
         var exchExchangeTicker = await exchangeTickerRespository
             .getAllExchangeTickers(event.marketCoinId);
-    
 
         yield SingleAssetExchangeLoaded(exchExchangeTicker);
       } on Exception catch (e) {
