@@ -11,7 +11,7 @@ abstract class ViewState extends Equatable {
   const ViewState();
 
   @override
-  List<Object> get props => [];
+  List<Object?> get props => [];
 }
 
 /// The initial view state.
@@ -70,12 +70,12 @@ class Success<T extends Object> extends ViewState {
 /// State indicating that loading or refreshing has failed. It contains an
 /// exact [error] that has occurred.
 class Failure extends ViewState {
-  final dynamic error;
+  final Exception? error;
 
   const Failure(this.error) : assert(error != null);
 
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [error];
 
   @override
   String toString() => 'Failure: $error';
