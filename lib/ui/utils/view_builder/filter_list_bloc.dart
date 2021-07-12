@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_repository.dart';
 import 'package:crypto_app/ui/utils/view_builder/list_events.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
@@ -81,7 +82,9 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
       yield elements.isNotEmpty
           ? Success<List<T>>(UnmodifiableListView(elements.reversed))
           : const Empty();
-    } catch (e, stacktrace) {
+    } on RateLimitException catch (e) {
+      yield Failure(e);
+    } on Exception catch (e, stacktrace) {
       debugPrint(stacktrace.toString());
       debugPrint(e.toString());
       yield Failure(e);

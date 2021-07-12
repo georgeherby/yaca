@@ -5,7 +5,6 @@ import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 
 extension ChosenCurrencyExtension on String {
   ChosenCurrency toChosenCurrency() {
-
     switch (toUpperCase()) {
       case 'GBP':
         return AvailableCurrencies.gbp;
@@ -31,7 +30,5 @@ extension TotalMarketCapForCurrency on TotalMarketCap {
       default:
         return usd;
     }
-
-
   }
 }

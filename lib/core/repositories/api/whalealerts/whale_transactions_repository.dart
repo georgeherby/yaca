@@ -37,7 +37,8 @@ class WhaleTransactionReposiotry
       if (response.statusCode == 429) {
         throw RateLimitException();
       }
-      return WhaleTransactionResults.fromJson(jsonDecode(response.body)).transactions;
+      return WhaleTransactionResults.fromJson(jsonDecode(response.body))
+          .transactions;
     } else {
       throw MissingConfigException('whale api token');
     }
@@ -51,6 +52,7 @@ class WhaleTransactionReposiotry
     var url =
         'https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000';
     final response = await client.get(Uri.parse(url));
-    return WhaleTransactionResults.fromJson(jsonDecode(response.body)).transactions;
+    return WhaleTransactionResults.fromJson(jsonDecode(response.body))
+        .transactions;
   }
 }

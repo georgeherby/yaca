@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
+import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
 class WhaleApiTokenView extends StatelessWidget {
@@ -79,27 +80,22 @@ class WhaleApiTokenView extends StatelessWidget {
                   ),
                   SizedBox(width: 16),
                   Expanded(
-                    child: OutlinedButton(
-                        style: OutlinedButton.styleFrom(
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ),
-                        onPressed: () async {
-                          if (_formKey.currentState!.validate()) {
-                            debugPrint('Saving ${tokenController.text}');
-                            await RepositoryProvider.of<ApiTokensPreference>(
-                                    context)
-                                .saveWhalesApiToken(tokenController.text);
-                            BlocProvider.of<
-                                    FilterListBloc<WhaleTransaction,
-                                        String>>(context)
-                                .loadElements();
-                            Navigator.pop(context);
-                          }
-                        },
-                        child: Text(
-                          'Save',
-                          style: TextStyle(color: Colors.white),
-                        )),
+                    child: PrimaryButton(
+                      buttonText: 'Save',
+                      onTap: () async {
+                        if (_formKey.currentState!.validate()) {
+                          debugPrint('Saving ${tokenController.text}');
+                          await RepositoryProvider.of<ApiTokensPreference>(
+                                  context)
+                              .saveWhalesApiToken(tokenController.text);
+                          BlocProvider.of<
+                                      FilterListBloc<WhaleTransaction, String>>(
+                                  context)
+                              .loadElements();
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

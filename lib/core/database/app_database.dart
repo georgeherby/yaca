@@ -30,7 +30,8 @@ class DatabaseHelper {
   Future<Database> _initDatabase() async {
     var documentsDirectory = await getApplicationDocumentsDirectory();
     var path = join(documentsDirectory.path, _databaseName);
-    return await openDatabase(path, version: _databaseVersion, onCreate: _onCreate);
+    return await openDatabase(path,
+        version: _databaseVersion, onCreate: _onCreate);
   }
 
   // SQL code to create the database table
@@ -66,7 +67,8 @@ class DatabaseHelper {
   // raw SQL commands. This method uses a raw query to give the row count.
   Future<int?> queryRowCount(String tableName) async {
     var db = await instance.database;
-    return Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM $tableName'));
+    return Sqflite.firstIntValue(
+        await db.rawQuery('SELECT COUNT(*) FROM $tableName'));
   }
 
   // We are assuming here that the id column in the map is set. The other
@@ -74,14 +76,15 @@ class DatabaseHelper {
   Future<int> update(String tableName, Map<String, dynamic> row) async {
     var db = await instance.database;
     int id = row[FavouritesDao.COLUMN_ID];
-    return await db
-        .update(tableName, row, where: '${FavouritesDao.COLUMN_ID} = ?', whereArgs: [id]);
+    return await db.update(tableName, row,
+        where: '${FavouritesDao.COLUMN_ID} = ?', whereArgs: [id]);
   }
 
   // Deletes the row specified by the id. The number of affected rows is
   // returned. This should be 1 as long as the row exists.
   Future<int> delete(String tableName, int id) async {
     var db = await instance.database;
-    return await db.delete(tableName, where: '${FavouritesDao.COLUMN_ID} = ?', whereArgs: [id]);
+    return await db.delete(tableName,
+        where: '${FavouritesDao.COLUMN_ID} = ?', whereArgs: [id]);
   }
 }
