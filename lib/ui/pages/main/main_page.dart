@@ -209,7 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // case 2:
       //   return WhaleTransactionView();
       default:
-        return Icon(CupertinoIcons.exclamationmark);
+        return Text('Uknown page');
     }
   }
 }

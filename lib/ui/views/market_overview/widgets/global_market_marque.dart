@@ -89,8 +89,8 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
             VerticalDivider(
               thickness: 2,
               color: Colors.white,
-              indent: kTickerTapHeight / 4,
-              endIndent: kTickerTapHeight / 4,
+              indent: kMarqueTapHeight / 4,
+              endIndent: kMarqueTapHeight / 4,
             ),
             Text(
               '24h Volume:',
@@ -112,8 +112,8 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
             VerticalDivider(
               thickness: 2,
               color: Colors.white,
-              indent: kTickerTapHeight / 4,
-              endIndent: kTickerTapHeight / 4,
+              indent: kMarqueTapHeight / 4,
+              endIndent: kMarqueTapHeight / 4,
             ),
             Text(
               'Dominance:',

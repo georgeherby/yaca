@@ -53,7 +53,12 @@ class SingleAssetExchangeView extends StatelessWidget {
             } else if (state is SingleAssetExchangeError) {
               debugPrint(state.error.toString());
               return Center(
-                child: Icon(CupertinoIcons.exclamationmark),
+                child: Column(
+                  children: [
+                    Icon(CupertinoIcons.exclamationmark),
+                    Text(state.error)
+                  ],
+                ),
               );
             } else {
               debugPrint('Loading');

@@ -548,7 +548,12 @@ class SingleAssetView extends StatelessWidget {
           } else if (state is SingleAssetError) {
             debugPrint(state.error.toString());
             return Center(
-              child: Icon(CupertinoIcons.exclamationmark),
+              child: Column(
+                children: [
+                  Icon(CupertinoIcons.exclamationmark),
+                  Text(state.error)
+                ],
+              ),
             );
           } else {
             debugPrint('Loading');
