@@ -1,16 +1,5 @@
 # crypto_app
 
-A new Flutter project.
+[![Codemagic build status](https://api.codemagic.io/apps/60a7bc9faaa50c0014b74011/60a7bc9faaa50c0014b74010/status_badge.svg)](https://codemagic.io/apps/60a7bc9faaa50c0014b74011/60a7bc9faaa50c0014b74010/latest_build)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https:
-- [Cookbook: Useful Flutter samples](https:
-
-For help getting started with Flutter, view our
-[online documentation](https:
-samples, guidance on mobile development, and a full API reference.
+[![codecov](https://codecov.io/gh/georgeherby/crypto_app/branch/main/graph/badge.svg?token=2EXQ0HUM6P)](https://codecov.io/gh/georgeherby/crypto_app)
