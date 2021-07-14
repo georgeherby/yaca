@@ -24,6 +24,7 @@ import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
 class SingleAssetView extends StatelessWidget {
   final MarketCoin marketCoin;
@@ -468,18 +469,8 @@ class SingleAssetView extends StatelessWidget {
                       children: [
                         SizedBox(
                           height: 40,
-                          child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: BorderSide(color: Colors.transparent),
-                              shape: const RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              backgroundColor: Theme.of(context).brightness ==
-                                      Brightness.dark
-                                  ? Theme.of(context).canvasColor
-                                  : Theme.of(context).primaryColor,
-                            ),
-                            onPressed: () async {
+                          child: PrimaryButton(
+                            onTap: () async {
                               BlocProvider.of<SingleAssetExchangeBloc>(context)
                                   .add(SingleAssetExchangeLoad(
                                       marketCoinId: marketCoin.id));
@@ -490,13 +481,7 @@ class SingleAssetView extends StatelessWidget {
                                         SingleAssetExchangeView()),
                               );
                             },
-                            child: Text(
-                              'View markets',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .button
-                                  ?.copyWith(color: Colors.white),
-                            ),
+                            buttonText: 'View markets',
                           ),
                         ),
                       ],

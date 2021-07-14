@@ -1,4 +1,11 @@
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -11,11 +18,6 @@ import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.da
 import 'package:crypto_app/ui/views/market_overview/widgets/global_market_marque.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-// 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MarketOverviewView extends StatefulWidget {
   @override
