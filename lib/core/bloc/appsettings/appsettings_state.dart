@@ -7,22 +7,15 @@ abstract class AppSettingsState extends Equatable {
   const AppSettingsState(this.theme, this.currency);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [theme, currency];
 }
 
 class AppSettingsInitial extends AppSettingsState {
   AppSettingsInitial()
       : super(ThemeMode.system, AvailableCurrencies.defaultCurrency);
-
-  @override
-  List<Object> get props =>
-      [ThemeMode.system, AvailableCurrencies.defaultCurrency];
 }
 
 class AppSettingsLoaded extends AppSettingsState {
   AppSettingsLoaded(ThemeMode theme, ChosenCurrency currency)
       : super(theme, currency);
-
-  @override
-  List<Object> get props => [theme, currency];
 }
