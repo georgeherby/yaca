@@ -33,6 +33,13 @@ void main() {
       expect: () => [],
     );
 
+    blocTest(
+        'verify initState is AppSettingsInitial when AppSettingsBloc is created',
+        build: () => AppSettingsBloc(mockTheme, mockCurrency),
+        verify: (AppSettingsBloc bloc) {
+          expect(bloc.state, equals(AppSettingsInitial()));
+        });
+
     blocTest('emits AppSettingsLoaded when Event is LoadAppSettings',
         build: () {
           when(() => mockTheme.getThemeMode())

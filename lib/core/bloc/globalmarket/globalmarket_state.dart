@@ -2,9 +2,6 @@ part of 'globalmarket_bloc.dart';
 
 abstract class GlobalMarketState extends Equatable {
   const GlobalMarketState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class GlobalMarketInitial extends GlobalMarketState {

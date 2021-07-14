@@ -2,9 +2,6 @@ part of 'singleasset_bloc.dart';
 
 abstract class SingleAssetEvent extends Equatable {
   const SingleAssetEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class SingleAssetLoad extends SingleAssetEvent {

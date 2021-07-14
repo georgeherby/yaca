@@ -2,9 +2,6 @@ part of 'singleasset_bloc.dart';
 
 abstract class SingleAssetState extends Equatable {
   const SingleAssetState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class SingleAssetInitial extends SingleAssetState {
