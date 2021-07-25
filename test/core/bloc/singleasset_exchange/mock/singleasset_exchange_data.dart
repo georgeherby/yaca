@@ -1,5 +1,7 @@
+// 🎯 Dart imports:
 import 'dart:convert';
 
+// 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 
 var binanceBtcTicker = ExchangeTicker.fromJson(jsonDecode('''

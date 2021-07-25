@@ -1,14 +1,11 @@
-// class SingleAssetExchangeBloc
-//     extends Bloc<SingleAssetExchangeEvent, SingleAssetExchangeState> {
-//   final ExchangeTickerRespository exchangeTickerRespository;
-
+// 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
-import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+// 🌎 Project imports:
+import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'mock/singleasset_exchange_data.dart';
 
 class MockExchangeTickerRespository extends Mock

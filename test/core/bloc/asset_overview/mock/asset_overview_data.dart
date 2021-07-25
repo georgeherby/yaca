@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/core/models/favourites.dart';
 

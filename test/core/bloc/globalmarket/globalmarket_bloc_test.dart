@@ -1,10 +1,12 @@
+// 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
-import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
+// 🌎 Project imports:
+import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:crypto_app/core/config/currency.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
 import 'mock/global_market_data.dart';
 
 class MockGlobalMarketRespository extends Mock

@@ -1,11 +1,16 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/config/currency.dart';
 import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
 import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 
 class MockThemePreferenceRepository extends Mock
     implements ThemePreferenceRepository {}

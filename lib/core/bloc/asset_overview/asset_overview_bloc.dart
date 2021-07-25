@@ -2,7 +2,6 @@
 import 'dart:async';
 
 // 🐦 Flutter imports:
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -13,6 +12,7 @@ import 'package:equatable/equatable.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/core/models/favourites.dart';
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:crypto_app/core/repositories/favourites_repository.dart';
 

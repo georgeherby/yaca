@@ -1,6 +1,8 @@
+// 📦 Package imports:
+import 'package:equatable/equatable.dart';
+
 // 🌎 Project imports:
 import 'package:crypto_app/core/repositories/favourites_repository.dart';
-import 'package:equatable/equatable.dart';
 
 class Favourites extends Equatable {
   final int? id;

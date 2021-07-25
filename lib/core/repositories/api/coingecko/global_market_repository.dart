@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 // 🐦 Flutter imports:
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -10,6 +9,7 @@ import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 
 class GlobalMarketRespository {
   final http.Client client;

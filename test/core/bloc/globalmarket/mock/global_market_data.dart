@@ -1,5 +1,7 @@
+// 🎯 Dart imports:
 import 'dart:convert';
 
+// 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
 
 var globalMarketData = GlobalMarket.fromJson(jsonDecode(

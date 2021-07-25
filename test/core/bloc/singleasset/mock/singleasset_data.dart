@@ -1,8 +1,9 @@
+// 🎯 Dart imports:
 import 'dart:convert';
 
+// 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
-
 import 'asset_history/last1Month.dart';
 import 'asset_history/last3Months.dart';
 import 'asset_history/maxMonths.dart';
