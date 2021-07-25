@@ -2,9 +2,6 @@ part of 'singleasset_exchange_bloc.dart';
 
 abstract class SingleAssetExchangeState extends Equatable {
   const SingleAssetExchangeState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class SingleAssetExchangeInitial extends SingleAssetExchangeState {

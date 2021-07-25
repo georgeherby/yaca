@@ -32,10 +32,8 @@ class SingleAssetPage extends StatelessWidget {
               // exchangeTickerRespository: ExchangeTickerRespository(_client),
               singleAssetRespository: SingleAssetRespository(_client))
             ..add(SingleAssetLoad(
-                currencyCode: BlocProvider.of<AppSettingsBloc>(context)
-                    .state
-                    .currency
-                    .currencyCode,
+                currencyCode:
+                    BlocProvider.of<AppSettingsBloc>(context).state.currency,
                 marketCoinId: marketCoin.id)),
         ),
       ],

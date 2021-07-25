@@ -5,7 +5,7 @@ abstract class SingleAssetEvent extends Equatable {
 }
 
 class SingleAssetLoad extends SingleAssetEvent {
-  final String currencyCode;
+  final ChosenCurrency currencyCode;
   final String marketCoinId;
 
   const SingleAssetLoad(

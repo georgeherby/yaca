@@ -72,7 +72,7 @@ class Tickers {
     base = json['base'];
     target = json['target'];
     market = Market.fromJson(json['market']);
-    last = json['last'];
+    last = json['last'].toDouble();
     volume = json['volume'];
     costToMoveUpUsd = json['cost_to_move_up_usd'];
     costToMoveDownUsd = json['cost_to_move_down_usd'];

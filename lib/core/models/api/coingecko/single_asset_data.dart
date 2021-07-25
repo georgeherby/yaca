@@ -202,7 +202,7 @@ class SingleAssetData extends Equatable {
   String toJson() => json.encode(toMap());
 
   factory SingleAssetData.fromJson(String source) =>
-      SingleAssetData.fromMap(json.decode(source));
+      SingleAssetData.fromMap(jsonDecode(source));
 
   @override
   bool get stringify => true;

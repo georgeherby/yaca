@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class SingleAssetRespository {
   SingleAssetRespository(this._client);
 
   Future<AssetHistorySplits> fetchFullAssetHistory(
-      String coinId, String currencyCode) async {
+      String coinId, ChosenCurrency currencyCode) async {
     debugPrint('fetchFullAssetHistory called for currency $currencyCode');
 
     return AssetHistorySplits(
@@ -30,30 +31,30 @@ class SingleAssetRespository {
   }
 
   Future<AssetHistory> _fetchAllHistory(
-      String coinId, String currencyCode) async {
-    debugPrint('_fetchAllHistory called for currency $currencyCode');
+      String coinId, ChosenCurrency chosenCurrency) async {
+    debugPrint('_fetchAllHistory called for currency $chosenCurrency');
 
     var url =
-        'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=$currencyCode&days=max';
+        'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=${chosenCurrency.currencyCode}&days=max';
 
     return await _core(url);
   }
 
   Future<AssetHistory> _fetch3mHistory(
-      String coinId, String currencyCode) async {
-    debugPrint('_fetch6mHistory called for currency $currencyCode');
+      String coinId, ChosenCurrency chosenCurrency) async {
+    debugPrint('_fetch6mHistory called for currency $chosenCurrency');
 
     var url =
-        'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=$currencyCode&days=90';
+        'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=${chosenCurrency.currencyCode}&days=90';
 
     return await _core(url);
   }
 
   Future<AssetHistory> _fetchLast24HoursHistory(
-      String coinId, String currencyCode) async {
-    debugPrint('_fetchLast24HoursHistory called for currency $currencyCode');
+      String coinId, ChosenCurrency chosenCurrency) async {
+    debugPrint('_fetchLast24HoursHistory called for currency ${chosenCurrency.currencyCode}');
     var url =
-        'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=$currencyCode&days=1';
+        'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=${chosenCurrency.currencyCode}&days=1';
     return await _core(url);
   }
 

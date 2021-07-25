@@ -3,6 +3,7 @@ import 'dart:async';
 
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
