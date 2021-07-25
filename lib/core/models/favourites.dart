@@ -1,7 +1,8 @@
 // 🌎 Project imports:
 import 'package:crypto_app/core/repositories/favourites_repository.dart';
+import 'package:equatable/equatable.dart';
 
-class Favourites {
+class Favourites extends Equatable {
   final int? id;
   final String name;
   final String symbol;
@@ -27,4 +28,7 @@ class Favourites {
       symbol: map[FavouritesDao.COLUMN_SYMBOL],
     );
   }
+
+  @override
+  List<Object?> get props => [id, name, symbol];
 }

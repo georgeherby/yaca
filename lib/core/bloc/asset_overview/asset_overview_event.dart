@@ -5,7 +5,7 @@ abstract class AssetOverviewEvent extends Equatable {
 }
 
 class AssetOverviewLoad extends AssetOverviewEvent {
-  final String currency;
+  final ChosenCurrency currency;
   const AssetOverviewLoad(this.currency);
 
   @override
@@ -15,9 +15,9 @@ class AssetOverviewLoad extends AssetOverviewEvent {
 class AssetFavourited extends AssetOverviewEvent {
   final List<MarketCoin> allMarketCoins;
   final MarketCoin marketCoin;
-  final bool isChecked;
-  const AssetFavourited(this.allMarketCoins, this.marketCoin, this.isChecked);
+  final bool addToFavourite;
+  const AssetFavourited(this.allMarketCoins, this.marketCoin, this.addToFavourite);
 
   @override
-  List<Object> get props => [allMarketCoins, marketCoin, isChecked];
+  List<Object> get props => [allMarketCoins, marketCoin, addToFavourite];
 }

@@ -2,6 +2,7 @@
 import 'dart:async';
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -32,9 +33,10 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   AssetOverviewBloc(
       this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
       : super(AssetOverviewInitial()) {
-    subscription = settingsBloc.stream.listen((stateOfOverview) {
-      if (stateOfOverview is AppSettingsLoaded) {
-        add(AssetOverviewLoad(stateOfOverview.currency.currencyCode));
+    subscription = settingsBloc.stream.listen((stateOfSettings) {
+      if (stateOfSettings is AppSettingsLoaded) {
+        print('Initial load');
+        add(AssetOverviewLoad(stateOfSettings.currency));
       }
     });
   }
@@ -42,7 +44,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   @override
   void onEvent(AssetOverviewEvent event) {
     if (event is AssetFavourited) {
-      print('isFaved  = ${event.marketCoin.name} to ${event.isChecked}');
+      print(
+          'addToFavourite  = ${event.marketCoin.name} to ${event.addToFavourite}');
     }
     super.onEvent(event);
   }
@@ -63,9 +66,11 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       try {
         var _marketCoins = <MarketCoin>[];
 
-        var usersFavourites = await _favouriteDao.getAll();
         var marketCoinsResponse =
             (await _marketOverviewRepository.fetchCoinMarkets(event.currency));
+
+        var usersFavourites = await _favouriteDao.getAll();
+
         _marketCoins.addAll(marketCoinsResponse.map((coinData) {
           var favs = (usersFavourites.where((Favourites fav) =>
               fav.name.toLowerCase() == coinData.name.toLowerCase() &&
@@ -78,50 +83,48 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         }));
         yield AssetOverviewLoaded(_marketCoins);
       } catch (e) {
+        print(e);
         yield AssetOverviewError(e.toString());
       }
     } else if (event is AssetFavourited) {
-      final currentState = state;
+      // final currentState = state;
 
-      if (currentState is AssetOverviewLoaded) {
-        var listOfAssets = [...event.allMarketCoins];
+      // if (currentState is AssetOverviewLoaded) {
+      var listOfAssets = [...event.allMarketCoins];
 
-        var index =
-            listOfAssets.indexWhere((item) => item.id == event.marketCoin.id);
+      var index =
+          listOfAssets.indexWhere((item) => item.id == event.marketCoin.id);
 
-        if (index > -1) {
-          if (event.isChecked) {
-            debugPrint('isChecked');
-            var idForRecord = await _favouriteDao.insertIgnore(Favourites(
-                name: event.marketCoin.name, symbol: event.marketCoin.symbol));
+      if (index > -1) {
+        if (event.addToFavourite) {
+          debugPrint('isChecked');
+          var idForRecord = await _favouriteDao.insertIgnore(Favourites(
+              name: event.marketCoin.name, symbol: event.marketCoin.symbol));
 
-            final updatedAssets = listOfAssets.map((e) {
-              if (e.id == event.marketCoin.id) {
-                return e.copyWith(favouriteCacheId: idForRecord);
-              } else {
-                return e;
-              }
-            });
-
-            yield AssetOverviewLoaded(updatedAssets.toList());
-          } else {
-            debugPrint('isNotChecked');
-            if (listOfAssets[index].favouriteCacheId != null) {
-              debugPrint('Remove from sql');
-              await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
+          final updatedAssets = listOfAssets.map((e) {
+            if (e.id == event.marketCoin.id) {
+              return e.copyWith(favouriteCacheId: idForRecord);
+            } else {
+              return e;
             }
+          });
 
-            final updatedAssets = listOfAssets.map((e) {
-              if (e.id == event.marketCoin.id) {
-                return e.copyWith(favouriteCacheId: null);
-              } else {
-                return e;
-              }
-            });
-            yield AssetOverviewLoaded(updatedAssets.toList());
-          }
+          yield AssetOverviewLoaded(updatedAssets.toList());
         } else {
-          debugPrint('Not in list rather worrying');
+          debugPrint('isNotChecked');
+          if (listOfAssets[index].favouriteCacheId != null) {
+            debugPrint('Remove from sql');
+            await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
+          }
+
+          final updatedAssets = listOfAssets.map((e) {
+            if (e.id == event.marketCoin.id) {
+              return e.copyWith(favouriteCacheId: null);
+            } else {
+              return e;
+            }
+          });
+          yield AssetOverviewLoaded(updatedAssets.toList());
         }
       }
     }

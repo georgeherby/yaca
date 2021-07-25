@@ -1,5 +1,4 @@
 // 🌎 Project imports:
-import 'package:crypto_app/core/database/app_database.dart';
 import 'package:crypto_app/core/models/favourites.dart';
 
 class FavouritesDao {
@@ -9,7 +8,9 @@ class FavouritesDao {
   static const COLUMN_NAME = 'name';
   static const COLUMN_SYMBOL = 'symbol';
 
-  final dbHelper = DatabaseHelper.instance;
+  final dbHelper;
+
+  const FavouritesDao({required this.dbHelper});
 
   Future<int> insertIgnore(Favourites _favourite) async {
     var db = await dbHelper.database;
@@ -23,7 +24,7 @@ class FavouritesDao {
 
   Future<List<Favourites>> getAll() async {
     return (await dbHelper.queryAllRows(TABLE_NAME))
-        .map((e) => Favourites.fromMap(e))
+        .map<Favourites>((e) => Favourites.fromMap(e))
         .toList();
   }
 }

@@ -52,14 +52,12 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                         GlobalMarketLoad(
                             BlocProvider.of<AppSettingsBloc>(context)
                                 .state
-                                .currency
-                                .currencyCode));
+                                .currency));
                     BlocProvider.of<AssetOverviewBloc>(context).add(
                         AssetOverviewLoad(
                             BlocProvider.of<AppSettingsBloc>(context)
                                 .state
-                                .currency
-                                .currencyCode));
+                                .currency));
                     return;
                   })
               : Container()
@@ -187,14 +185,12 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   GlobalMarketLoad(
                                       BlocProvider.of<AppSettingsBloc>(context)
                                           .state
-                                          .currency
-                                          .currencyCode));
+                                          .currency));
                               BlocProvider.of<AssetOverviewBloc>(context).add(
                                   AssetOverviewLoad(
                                       BlocProvider.of<AppSettingsBloc>(context)
                                           .state
-                                          .currency
-                                          .currencyCode));
+                                          .currency));
                               return;
                             },
                             onFavourite: (MarketCoin marketCoin,

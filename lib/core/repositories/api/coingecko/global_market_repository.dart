@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -15,11 +16,12 @@ class GlobalMarketRespository {
 
   GlobalMarketRespository({required this.client});
 
-  Future<GlobalMarket> fetchMarketOverview(String currencyCode) async {
-    debugPrint('fetchMarketOverview called for currency $currencyCode');
+  Future<GlobalMarket> fetchMarketOverview(ChosenCurrency currencyCode) async {
+    debugPrint(
+        'fetchMarketOverview called for currency ${currencyCode.currencyCode}');
 
     var url =
-        'https://api.coingecko.com/api/v3/global?vs_currency=$currencyCode';
+        'https://api.coingecko.com/api/v3/global?vs_currency=${currencyCode.currencyCode}';
     final response = await client.get(Uri.parse(url));
 
     debugPrint(response.statusCode.toString());

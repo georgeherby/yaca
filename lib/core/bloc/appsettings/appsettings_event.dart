@@ -2,9 +2,6 @@ part of 'appsettings_bloc.dart';
 
 abstract class AppSettingsEvent extends Equatable {
   const AppSettingsEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class UpdateCurrencyOptionEvent extends AppSettingsEvent {

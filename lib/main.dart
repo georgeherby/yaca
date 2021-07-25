@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/database/app_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -103,10 +104,8 @@ class _MyAppState extends State<MyApp> {
         child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
           builder: (context, state) {
             if (state is AppSettingsLoaded) {
-              var currencyCode = BlocProvider.of<AppSettingsBloc>(context)
-                  .state
-                  .currency
-                  .currencyCode;
+              var currencyCode =
+                  BlocProvider.of<AppSettingsBloc>(context).state.currency;
 
               print('SETTINGS REBUILD $currencyCode');
 
@@ -125,7 +124,7 @@ class _MyAppState extends State<MyApp> {
                     BlocProvider<AssetOverviewBloc>(
                       create: (BuildContext context) => AssetOverviewBloc(
                           BlocProvider.of<AppSettingsBloc>(context),
-                          FavouritesDao(),
+                          FavouritesDao(dbHelper: DatabaseHelper.instance),
                           context.read<MarketOverviewRepository>())
                         ..add(AssetOverviewLoad(currencyCode)),
                     ),

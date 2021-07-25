@@ -47,9 +47,7 @@ void main() {
           when(() => mockCurrency.get()).thenAnswer((_) =>
               Future.value(AvailableCurrencies.gbp.currencyCode.toUpperCase()));
 
-          var bloc = AppSettingsBloc(mockTheme, mockCurrency);
-
-          return bloc;
+          return AppSettingsBloc(mockTheme, mockCurrency);
         },
         act: (AppSettingsBloc bloc) => bloc.add(LoadAppSettings()),
         expect: () =>
@@ -64,9 +62,7 @@ void main() {
           when(() => mockCurrency.set(AvailableCurrencies.gbp.currencyCode))
               .thenAnswer((_) => Future.value());
 
-          var bloc = AppSettingsBloc(mockTheme, mockCurrency);
-
-          return bloc;
+          return AppSettingsBloc(mockTheme, mockCurrency);
         },
         act: (AppSettingsBloc bloc) => bloc.add(
             UpdateCurrencyOptionEvent(AvailableCurrencies.gbp, ThemeMode.dark)),
@@ -81,9 +77,7 @@ void main() {
           when(() => mockTheme.setThemeMode(ThemeMode.light))
               .thenAnswer((_) => Future.value());
 
-          var bloc = AppSettingsBloc(mockTheme, mockCurrency);
-
-          return bloc;
+          return AppSettingsBloc(mockTheme, mockCurrency);
         },
         act: (AppSettingsBloc bloc) => bloc.add(
             UpdateThemeOptionEvent(AvailableCurrencies.btc, ThemeMode.light)),

@@ -1,11 +1,11 @@
 import 'package:bloc_test/bloc_test.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
+import 'package:crypto_app/core/config/currency.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'data/global_market_data.dart';
+import 'mock/global_market_data.dart';
 
 class MockGlobalMarketRespository extends Mock
     implements GlobalMarketRespository {}
@@ -18,7 +18,7 @@ void main() {
   });
 
   group('GlobalMarketBloc', () {
-    var currency = "gbp";
+    var currency = AvailableCurrencies.gbp;
     blocTest(
       'verify initsate is GlobalMarketInitial when bloc is created',
       build: () => GlobalMarketBloc(mockRepository),

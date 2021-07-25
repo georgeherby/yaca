@@ -2,9 +2,6 @@ part of 'asset_overview_bloc.dart';
 
 abstract class AssetOverviewState extends Equatable {
   const AssetOverviewState();
-
-  @override
-  List<Object> get props => [];
 }
 
 class AssetOverviewInitial extends AssetOverviewState {
@@ -31,10 +28,6 @@ class AssetOverviewLoaded extends AssetOverviewState {
 
   @override
   List<Object> get props => [allAssets, favouriteAssets];
-
-  AssetOverviewLoaded copyWith({List<MarketCoin>? allAssets}) {
-    return AssetOverviewLoaded(allAssets ?? this.allAssets);
-  }
 }
 
 class AssetOverviewError extends AssetOverviewState {

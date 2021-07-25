@@ -5,7 +5,7 @@ abstract class GlobalMarketEvent extends Equatable {
 }
 
 class GlobalMarketLoad extends GlobalMarketEvent {
-  final String currency;
+  final ChosenCurrency currency;
 
   const GlobalMarketLoad(this.currency);
 
