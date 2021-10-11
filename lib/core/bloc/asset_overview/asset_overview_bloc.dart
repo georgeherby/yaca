@@ -77,7 +77,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
               fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
 
           if (favs.isNotEmpty) {
-            return coinData.copyWith(favouriteCacheId: favs.first.id);
+            return coinData.copyWith(favouriteCacheId: favs.first.key);
           }
           return coinData;
         }));

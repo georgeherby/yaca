@@ -1,36 +1,19 @@
 // 📦 Package imports:
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
-// 🌎 Project imports:
-import 'package:crypto_app/core/repositories/favourites_repository.dart';
+part 'favourites.g.dart';
 
-class Favourites extends Equatable {
-  final int? id;
+@HiveType(typeId: 1)
+class Favourites extends HiveObject {
+
+  @HiveField(1)
   final String name;
+  @HiveField(2)
   final String symbol;
 
   Favourites({
-    this.id,
     required this.name,
     required this.symbol,
   });
-
-  Map<String, dynamic> toMap() {
-    return {
-      '${FavouritesDao.COLUMN_ID}': id,
-      '${FavouritesDao.COLUMN_NAME}': name,
-      '${FavouritesDao.COLUMN_SYMBOL}': symbol,
-    };
-  }
-
-  static Favourites fromMap(Map<String, dynamic> map) {
-    return Favourites(
-      id: map[FavouritesDao.COLUMN_ID],
-      name: map[FavouritesDao.COLUMN_NAME],
-      symbol: map[FavouritesDao.COLUMN_SYMBOL],
-    );
-  }
-
-  @override
-  List<Object?> get props => [id, name, symbol];
 }

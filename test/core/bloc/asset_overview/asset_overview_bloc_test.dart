@@ -113,7 +113,7 @@ void main() {
         expect(
             bloc.state,
             equals(AssetOverviewLoaded([
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
               ethMarketCoin
             ])));
       },
@@ -188,7 +188,7 @@ void main() {
       // Tap favourite
       bloc.add(AssetFavourited(
         [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
           ethMarketCoin
         ],
         ethMarketCoin,
@@ -199,11 +199,11 @@ void main() {
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
             ethMarketCoin
           ]),
           AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
             ethMarketCoin.copyWith(favouriteCacheId: 13)
           ])
         ]),
@@ -219,7 +219,7 @@ void main() {
     when(() => mockFavouritesDao.getAll())
         .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-    when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
+    when(() => mockFavouritesDao.delete(btcFavouriteWithID.key!))
         .thenAnswer((_) => Future.value(1));
 
     whenListen(
@@ -240,7 +240,7 @@ void main() {
     // Tap favourite
     bloc.add(AssetFavourited(
       [
-        btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+        btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
         ethMarketCoin
       ],
       btcMarketCoin,
@@ -251,7 +251,7 @@ void main() {
       bloc.stream,
       emitsInOrder(<AssetOverviewState>[
         AssetOverviewLoaded([
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
           ethMarketCoin
         ]),
         AssetOverviewLoaded([

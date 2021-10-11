@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
@@ -14,6 +15,7 @@ import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/database/app_database.dart';
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/core/models/favourites.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:crypto_app/core/repositories/api/whalealerts/whale_transactions_repository.dart';
@@ -54,7 +56,13 @@ class MyBlocObserver extends BlocObserver {
   }
 }
 
-void main() {
+void main() async {
+  // Initialize hive
+  await Hive.initFlutter();
+  // Registering the adapter
+  Hive.registerAdapter(FavouritesAdapter());
+  // Opening the box
+  await Hive.openBox<Favourites>('favouriteBox');
   Bloc.observer = MyBlocObserver();
   runApp(MyApp());
 }
@@ -65,11 +73,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // AppSettingsViewModel appSettingsChangeProvider = AppSettingsViewModel();
+  late final Box<Favourites> box;
 
   @override
   void initState() {
     super.initState();
+    box = Hive.box<Favourites>('favouriteBox');
   }
 
   final http.Client _client = http.Client();
@@ -125,7 +134,7 @@ class _MyAppState extends State<MyApp> {
                     BlocProvider<AssetOverviewBloc>(
                       create: (BuildContext context) => AssetOverviewBloc(
                           BlocProvider.of<AppSettingsBloc>(context),
-                          FavouritesDao(dbHelper: DatabaseHelper.instance),
+                          FavouritesDao(box: box),
                           context.read<MarketOverviewRepository>())
                         ..add(AssetOverviewLoad(currencyCode)),
                     ),

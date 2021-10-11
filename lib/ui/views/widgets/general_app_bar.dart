@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -29,22 +30,22 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight((platform == TargetPlatform.macOS
-          ? kTitleBarMacOSHeight
-          : kToolbarHeight) +
-      (bottom == null ? 0 : kMarqueTapHeight));
+  Size get preferredSize => Size.fromHeight(
+      (platform.isDesktop() ? kTitleBarMacOSHeight : kToolbarHeight) +
+          (bottom == null ? 0 : kMarqueTapHeight));
 
   @override
   Widget build(BuildContext context) {
+    print(platform);
     return AppBar(
       title: title,
       centerTitle: true,
       elevation: 0,
-      leadingWidth: platform == TargetPlatform.macOS
+      leadingWidth: platform == TargetPlatform.macOS && !kIsWeb
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,
       leading: hasBackRoute
-          ? platform == TargetPlatform.macOS
+          ? platform == TargetPlatform.macOS && !kIsWeb
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,

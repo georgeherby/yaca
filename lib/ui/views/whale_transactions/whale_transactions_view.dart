@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -63,7 +64,8 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
               ? IconButton(
                   icon: FaIcon(
                     FontAwesomeIcons.syncAlt,
-                    size: Theme.of(context).platform == TargetPlatform.macOS
+                    size: Theme.of(context).platform == TargetPlatform.macOS &&
+                            !kIsWeb
                         ? 20
                         : Theme.of(context).iconTheme.size,
                   ),

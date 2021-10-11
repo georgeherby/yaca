@@ -30,17 +30,21 @@ dependencies:
   google_fonts: ^2.1.0
   responsive_builder: ^0.4.1
   font_awesome_flutter: ^9.1.0
-  macos_ui: ^0.7.2
+  macos_ui: ^0.8.1
   flutter_html: ^2.1.5
   flutter_platform_widgets: ^1.9.5
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   import_sorter: ^4.6.0
   bloc_test: ^8.3.0
   mocktail: ^0.1.4
+  hive_generator: ^1.1.1
+  build_runner: ^2.1.4
 flutter:
-  generate: true
   uses-material-design: true
   assets:
     - assets/whale_outline.svg

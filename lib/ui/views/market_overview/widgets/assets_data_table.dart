@@ -162,9 +162,10 @@ class AssetsDataTable extends StatelessWidget {
                       return CircleAvatar(
                         minRadius: iconSize / 2,
                         maxRadius: iconSize / 2,
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         child: Text(
-                          symbol,
+                          symbol.toUpperCase(),
                           overflow: TextOverflow.clip,
                           maxLines: 1,
                           textAlign: TextAlign.center,
@@ -330,9 +331,10 @@ class AssetsDataTable extends StatelessWidget {
                       return CircleAvatar(
                         minRadius: iconSize / 2,
                         maxRadius: iconSize / 2,
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         child: Text(
-                          symbol,
+                          symbol.toUpperCase(),
                           overflow: TextOverflow.clip,
                           maxLines: 1,
                           textAlign: TextAlign.center,
@@ -489,7 +491,7 @@ class AssetsDataTable extends StatelessWidget {
                       maxRadius: iconSize / 2,
                       backgroundColor: Theme.of(context).colorScheme.secondary,
                       child: Text(
-                        symbol,
+                        symbol.toUpperCase(),
                         overflow: TextOverflow.clip,
                         maxLines: 1,
                         textAlign: TextAlign.center,
