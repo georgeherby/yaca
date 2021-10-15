@@ -140,7 +140,7 @@ class _MyAppState extends State<MyApp> {
                       title: 'Crypo App',
                       debugShowCheckedModeBanner: false,
                       themeMode: state.theme,
-                      theme: ThemeData(
+                      theme: ThemeData.light().copyWith(
                         inputDecorationTheme: InputDecorationTheme(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -194,10 +194,9 @@ class _MyAppState extends State<MyApp> {
                         ),
                         canvasColor: LightThemeColors().cardBackground,
                         appBarTheme: AppBarTheme(
-                          systemOverlayStyle: SystemUiOverlayStyle.light,
+                          systemOverlayStyle: SystemUiOverlayStyle.dark,
                           elevation: 0,
-                          titleTextStyle:
-                              TextStyle(color: Colors.black, inherit: true),
+                          foregroundColor: Colors.black,
                           color: LightThemeColors().appBarColour,
                           iconTheme: IconThemeData(
                               color: Colors.black.withOpacity(0.70)),
@@ -241,7 +240,7 @@ class _MyAppState extends State<MyApp> {
                           brightness: Brightness.light,
                         ).copyWith(secondary: LightThemeColors().secondary),
                       ),
-                      darkTheme: ThemeData(
+                      darkTheme: ThemeData.dark().copyWith(
                         inputDecorationTheme: InputDecorationTheme(
                             focusedBorder: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
@@ -298,10 +297,9 @@ class _MyAppState extends State<MyApp> {
                             selectedLabelStyle: TextStyle(color: Colors.white)),
                         canvasColor: DarkThemeColors().cardBackground,
                         appBarTheme: AppBarTheme(
-                          systemOverlayStyle: SystemUiOverlayStyle.dark,
+                          systemOverlayStyle: SystemUiOverlayStyle.light,
                           elevation: 0,
-                          titleTextStyle:
-                              TextStyle(color: Colors.white, inherit: true),
+                          foregroundColor: Colors.white,
                           color: DarkThemeColors().appBarColour,
                           iconTheme: IconThemeData(
                               color: Colors.white.withOpacity(0.87)),
