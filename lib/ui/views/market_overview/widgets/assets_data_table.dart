@@ -1,5 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -19,6 +20,7 @@ import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
+import 'package:crypto_app/core/extensions/platform.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final List<MarketCoin> marketCoins;
@@ -89,7 +91,7 @@ class AssetsDataTable extends StatelessWidget {
                     tablet: 60,
                     mobile: 60,
                   ),
-                  child: buildRow(
+                  child: buildRow(context,
                       rank: mc.marketCapRank,
                       symbol: mc.symbol,
                       name: mc.name,
@@ -116,7 +118,7 @@ class AssetsDataTable extends StatelessWidget {
     );
   }
 
-  Widget buildRow(
+  Widget buildRow(BuildContext context,
       {required int rank,
       required String symbol,
       required String name,
@@ -132,7 +134,10 @@ class AssetsDataTable extends StatelessWidget {
       required bool isFavourited,
       required VoidCallback onFavourite}) {
     return ResponsiveBuilder(
+      isWebOrDesktop: kIsWeb || Theme.of(context).platform.isDesktop(),
       builder: (context, sizingInformation) {
+        print(sizingInformation.toString());
+
         // Desktop Layout
         if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
           var blockSize = MediaQuery.of(context).size.width / 100;

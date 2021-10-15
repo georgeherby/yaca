@@ -28,7 +28,11 @@ dependencies:
   flutter_svg: ^0.22.0
   pedantic: ^1.11.0
   google_fonts: ^2.1.0
-  responsive_builder: ^0.4.1
+  # responsive_builder: ^0.4.1
+  responsive_builder:
+    git:
+      url: git://github.com/georgeherby/responsive_builder.git
+      ref: master
   font_awesome_flutter: ^9.1.0
   macos_ui: ^0.8.1
   flutter_html: ^2.1.5

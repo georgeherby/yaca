@@ -13,7 +13,6 @@ import 'package:http/http.dart' as http;
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/database/app_database.dart';
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/core/models/favourites.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';

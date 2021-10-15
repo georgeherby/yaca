@@ -36,7 +36,6 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(platform);
     return AppBar(
       title: title,
       centerTitle: true,
@@ -64,7 +63,10 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
               : IconButton(
                   key: Key('back-chevron-other-os'),
                   onPressed: () => Navigator.pop(context),
-                  icon: FaIcon(FontAwesomeIcons.chevronLeft),
+                  icon: FaIcon(
+                    FontAwesomeIcons.chevronLeft,
+                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                  ),
                 )
           : (!platform.onlyMobile(context))
               ? Container()

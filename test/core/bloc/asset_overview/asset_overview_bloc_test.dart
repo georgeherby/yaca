@@ -10,16 +10,12 @@ import 'package:mocktail/mocktail.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/database/app_database.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:crypto_app/core/repositories/favourites_repository.dart';
 import 'mock/asset_overview_data.dart';
 
-class MockDatabaseHelper extends Mock implements DatabaseHelper {}
 
 class MockFavouritesDao extends Mock implements FavouritesDao {
-  @override
-  DatabaseHelper get dbHelper => MockDatabaseHelper();
 }
 
 class MockMarketOverviewRepository extends Mock
