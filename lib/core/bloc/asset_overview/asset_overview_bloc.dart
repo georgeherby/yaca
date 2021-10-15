@@ -77,7 +77,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
               fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
 
           if (favs.isNotEmpty) {
-            return coinData.copyWith(favouriteCacheId: favs.first.key);
+            return coinData.copyWith(favouriteCacheId: favs.first.id);
           }
           return coinData;
         }));
@@ -98,7 +98,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       if (index > -1) {
         if (event.addToFavourite) {
           debugPrint('isChecked');
-          var idForRecord = await _favouriteDao.insertIgnore(Favourites(
+          var idForRecord = await _favouriteDao.insertFavourite(Favourites(
               name: event.marketCoin.name, symbol: event.marketCoin.symbol));
 
           final updatedAssets = listOfAssets.map((e) {

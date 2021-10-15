@@ -14,10 +14,7 @@ import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repos
 import 'package:crypto_app/core/repositories/favourites_repository.dart';
 import 'mock/asset_overview_data.dart';
 
-
-class MockFavouritesDao extends Mock implements FavouritesDao {
-}
-
+class MockFavouritesDao extends Mock implements FavouritesDao {}
 class MockMarketOverviewRepository extends Mock
     implements MarketOverviewRepository {}
 
@@ -109,7 +106,7 @@ void main() {
         expect(
             bloc.state,
             equals(AssetOverviewLoaded([
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
               ethMarketCoin
             ])));
       },
@@ -163,7 +160,7 @@ void main() {
       when(() => mockFavouritesDao.getAll())
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-      when(() => mockFavouritesDao.insertIgnore(ethFavouriteNoId))
+      when(() => mockFavouritesDao.insertFavourite(ethFavouriteNoId))
           .thenAnswer((_) => Future.value(13));
 
       whenListen(
@@ -184,7 +181,7 @@ void main() {
       // Tap favourite
       bloc.add(AssetFavourited(
         [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
+          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ethMarketCoin
         ],
         ethMarketCoin,
@@ -195,11 +192,11 @@ void main() {
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin
           ]),
           AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin.copyWith(favouriteCacheId: 13)
           ])
         ]),
@@ -215,8 +212,8 @@ void main() {
     when(() => mockFavouritesDao.getAll())
         .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-    when(() => mockFavouritesDao.delete(btcFavouriteWithID.key!))
-        .thenAnswer((_) => Future.value(1));
+    when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
+        .thenAnswer((_) => Future.value());
 
     whenListen(
       mockAppSettingsBloc,
@@ -236,7 +233,7 @@ void main() {
     // Tap favourite
     bloc.add(AssetFavourited(
       [
-        btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
+        btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
         ethMarketCoin
       ],
       btcMarketCoin,
@@ -247,13 +244,10 @@ void main() {
       bloc.stream,
       emitsInOrder(<AssetOverviewState>[
         AssetOverviewLoaded([
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.key),
+          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ethMarketCoin
         ]),
-        AssetOverviewLoaded([
-          btcMarketCoin,
-          ethMarketCoin
-        ])
+        AssetOverviewLoaded([btcMarketCoin, ethMarketCoin])
       ]),
     );
   });

@@ -61,7 +61,7 @@ void main() async {
   // Registering the adapter
   Hive.registerAdapter(FavouritesAdapter());
   // Opening the box
-  await Hive.openBox<Favourites>('favouriteBox');
+  await Hive.openBox<Favourites>('favBox');
   Bloc.observer = MyBlocObserver();
   runApp(MyApp());
 }
@@ -77,7 +77,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    box = Hive.box<Favourites>('favouriteBox');
+    box = Hive.box<Favourites>('favBox');
   }
 
   final http.Client _client = http.Client();

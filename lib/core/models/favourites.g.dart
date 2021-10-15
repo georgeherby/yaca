@@ -8,7 +8,7 @@ part of 'favourites.dart';
 
 class FavouritesAdapter extends TypeAdapter<Favourites> {
   @override
-  final int typeId = 1;
+  final int typeId = 0;
 
   @override
   Favourites read(BinaryReader reader) {
@@ -17,6 +17,7 @@ class FavouritesAdapter extends TypeAdapter<Favourites> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return Favourites(
+      id: fields[0] as int?,
       name: fields[1] as String,
       symbol: fields[2] as String,
     );
@@ -25,7 +26,9 @@ class FavouritesAdapter extends TypeAdapter<Favourites> {
   @override
   void write(BinaryWriter writer, Favourites obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
+      ..writeByte(0)
+      ..write(obj.id)
       ..writeByte(1)
       ..write(obj.name)
       ..writeByte(2)
