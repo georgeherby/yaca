@@ -94,6 +94,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                         ),
                         Expanded(
                           child: AssetsDataTable(
+                            favouriteOnly: !_showAllAssets,
                             marketCoins: _showAllAssets
                                 ? state.allAssets
                                 : state.favouriteAssets,

@@ -31,14 +31,16 @@ class PriceDelta extends StatelessWidget {
           SizedBox(
             width: 1,
           ),
-          Text(
-            (priceChangeDelta!.deltaFormat()),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.caption?.copyWith(
-                color: color,
-                fontSize:
-                    textSize ?? Theme.of(context).textTheme.caption!.fontSize),
+          Flexible(
+            child: Text(
+              (priceChangeDelta!.deltaFormat()),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: Theme.of(context).textTheme.caption?.copyWith(
+                  color: color,
+                  fontSize: textSize ??
+                      Theme.of(context).textTheme.caption!.fontSize),
+            ),
           ),
         ],
       );

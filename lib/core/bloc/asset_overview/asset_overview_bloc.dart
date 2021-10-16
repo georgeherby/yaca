@@ -87,7 +87,6 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         yield AssetOverviewError(e.toString());
       }
     } else if (event is AssetFavourited) {
-      // final currentState = state;
 
       // if (currentState is AssetOverviewLoaded) {
       var listOfAssets = [...event.allMarketCoins];

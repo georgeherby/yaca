@@ -7,11 +7,13 @@ import 'package:intl/intl.dart';
 extension CurrencyFormatters on num {
   String currencyFormatWithPrefix(String currencyPrefix, BuildContext context,
       [bool showDecimals = true]) {
-    var formatString = toInt() >= 10000
+    var formatString = abs().toInt() >= 10000
         ? '##,###,###,###'
-        : toInt() >= 2 || toInt() <= -2
+        : abs().toInt() >= 2
             ? '##,###,###,###.00'
-            : '##,###,###,##0.00###';
+            : abs().toDouble() <= 0.00001
+                ? '##,###,###,##0.00##########'
+                : '##,###,###,##0.00###';
 
     return NumberFormat(
       currencyPrefix + formatString,
@@ -20,9 +22,11 @@ extension CurrencyFormatters on num {
   }
 
   String deltaFormat() {
-    var formatString = toInt() >= 2 || toInt() <= -2
+    var formatString = abs().toInt() >= 2
         ? '##,###,###,###.00'
-        : '##,###,###,##0.00##';
+        : abs().toDouble() <= 0.00001
+            ? '##,###,###,##0.00##########'
+            : '##,###,###,##0.00###';
 
     return NumberFormat(
       formatString,
