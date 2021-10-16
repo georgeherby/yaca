@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:intl/intl.dart';
-import 'package:number_display/number_display.dart';
 
 extension CurrencyFormatters on num {
   String currencyFormatWithPrefix(String currencyPrefix, BuildContext context,
