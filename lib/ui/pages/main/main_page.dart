@@ -65,7 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           .unselectedIconTheme
                           ?.size,
                       color: Theme.of(context)
-                          .navigationRailTheme
+                          .bottomNavigationBarTheme
                           .unselectedIconTheme
                           ?.color,
                     ),
@@ -81,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           .selectedIconTheme
                           ?.size,
                       color: Theme.of(context)
-                          .navigationRailTheme
+                          .bottomNavigationBarTheme
                           .selectedIconTheme
                           ?.color,
                     ),

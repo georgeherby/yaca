@@ -188,11 +188,14 @@ class _MyAppState extends State<MyApp> {
                           showUnselectedLabels: false,
                           backgroundColor: LightThemeColors().appBarColour,
                           unselectedItemColor: Colors.black54,
-                          selectedItemColor: LightThemeColors().primary,
+                          unselectedLabelStyle:
+                              TextStyle(color: Colors.black54),
                           unselectedIconTheme:
                               IconThemeData(size: kBottomNavBarIconSize),
                           selectedIconTheme:
                               IconThemeData(size: kBottomNavBarIconSize + 2),
+                              selectedItemColor: LightThemeColors().primary,
+                            selectedLabelStyle: TextStyle(color: LightThemeColors().primary,),
                         ),
                         brightness: Brightness.light,
                         primaryColor: LightThemeColors().primary,
@@ -212,6 +215,7 @@ class _MyAppState extends State<MyApp> {
                         navigationRailTheme: NavigationRailThemeData(
                           backgroundColor:
                               LightThemeColors().scaffoldBackground,
+                              
                           unselectedIconTheme:
                               IconThemeData(color: Colors.black54),
                           unselectedLabelTextStyle:
