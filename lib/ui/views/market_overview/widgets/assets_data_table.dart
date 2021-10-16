@@ -162,10 +162,11 @@ class AssetsDataTable extends StatelessWidget {
                       return CircleAvatar(
                         minRadius: iconSize / 2,
                         maxRadius: iconSize / 2,
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         child: Text(
                           symbol,
-                          overflow: TextOverflow.clip,
+                          overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                           textAlign: TextAlign.center,
                           style: Theme.of(context).textTheme.caption,
@@ -330,7 +331,8 @@ class AssetsDataTable extends StatelessWidget {
                       return CircleAvatar(
                         minRadius: iconSize / 2,
                         maxRadius: iconSize / 2,
-                        backgroundColor: Theme.of(context).colorScheme.secondary,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.secondary,
                         child: Text(
                           symbol,
                           overflow: TextOverflow.clip,
@@ -375,8 +377,13 @@ class AssetsDataTable extends StatelessWidget {
                             ),
                           ),
                           SizedBox(width: 6),
-                          Text(symbol.toUpperCase(),
-                              style: Theme.of(context).textTheme.caption),
+                          Flexible(
+                            child: Text(
+                              symbol.toUpperCase(),
+                              style: Theme.of(context).textTheme.caption,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -556,6 +563,7 @@ class AssetsDataTable extends StatelessWidget {
                           context),
                       textAlign: TextAlign.end,
                       maxLines: 1,
+                      overflow: TextOverflow.clip,
                       style: Theme.of(context).textTheme.subtitle1,
                     ),
                     PriceDelta(oneDayChange,
