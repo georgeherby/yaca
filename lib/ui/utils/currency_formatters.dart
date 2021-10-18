@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 extension CurrencyFormatters on num {
   String currencyFormatWithPrefix(String currencyPrefix, BuildContext context,
       [bool showDecimals = true]) {
-    var formatString = abs().toInt() >= 10000
+    var formatString = abs().toInt() >= 1000
         ? '##,###,###,###'
         : abs().toInt() >= 2
             ? '##,###,###,###.00'

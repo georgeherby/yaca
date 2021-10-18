@@ -65,9 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           .unselectedIconTheme
                           ?.size,
                       color: Theme.of(context)
-                          .navigationRailTheme
-                          .unselectedIconTheme
-                          ?.color,
+                          .bottomNavigationBarTheme
+                          .unselectedItemColor,
                     ),
                     activeIcon: SvgPicture.asset(
                       'assets/whale_filled.svg',
@@ -81,9 +80,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           .selectedIconTheme
                           ?.size,
                       color: Theme.of(context)
-                          .navigationRailTheme
-                          .selectedIconTheme
-                          ?.color,
+                          .bottomNavigationBarTheme
+                          .selectedItemColor
                     ),
                     label: 'Whales')
               ],
