@@ -1,4 +1,8 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/mobile_row.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -99,7 +103,7 @@ class AssetsDataTable extends StatelessWidget {
                           tablet: 60,
                           mobile: 60,
                         ),
-                        child: buildRow(context,
+                        child: _buildRow(context,
                             rank: mc.marketCapRank,
                             symbol: mc.symbol,
                             name: mc.name,
@@ -127,7 +131,7 @@ class AssetsDataTable extends StatelessWidget {
     );
   }
 
-  Widget buildRow(BuildContext context,
+  Widget _buildRow(BuildContext context,
       {required int rank,
       required String symbol,
       required String name,
@@ -142,467 +146,54 @@ class AssetsDataTable extends StatelessWidget {
       required double price,
       required bool isFavourited,
       required VoidCallback onFavourite}) {
-    return ResponsiveBuilder(
-      isWebOrDesktop: kIsWeb || Theme.of(context).platform.isDesktop(),
-      builder: (context, sizingInformation) {
-        print(sizingInformation.toString());
+    var blockSize = MediaQuery.of(context).size.width / 100;
 
-        // Desktop Layout
-        if (sizingInformation.deviceScreenType == DeviceScreenType.desktop) {
-          var blockSize = MediaQuery.of(context).size.width / 100;
-          var iconSize = 32.0;
-          return Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 8),
-            child: Row(
-              children: [
-                Hero(
-                  tag: 'coin-icon-$name',
-                  child: CachedNetworkImage(
-                    imageUrl: iconUrl,
-                    filterQuality: FilterQuality.high,
-                    width: iconSize,
-                    height: iconSize,
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: iconSize,
-                      height: iconSize,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) {
-                      debugPrint(error.toString());
-                      return CircleAvatar(
-                        minRadius: iconSize / 2,
-                        maxRadius: iconSize / 2,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: Text(
-                          symbol.toUpperCase(),
-                          overflow: TextOverflow.clip,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.caption,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(width: blockSize * 2),
-                SizedBox(
-                  width: blockSize * 16,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Hero(
-                        tag: 'coin-title-$name',
-                        child: Text(
-                          name,
-                          maxLines: 1,
-                          style: Theme.of(context).textTheme.subtitle2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Material(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                            elevation: 0,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 6),
-                              child: Text(rank.toString(),
-                                  style: Theme.of(context).textTheme.caption),
-                            ),
-                          ),
-                          SizedBox(width: 6),
-                          Text(symbol.toUpperCase(),
-                              style: Theme.of(context).textTheme.caption),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                sparkline != null
-                    ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: SimpleSparkLine(
-                            data: sparkline.price, width: blockSize * 20),
-                      )
-                    : Container(),
-                SizedBox(
-                  width: blockSize * 30,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: blockSize * 8,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PercentageChangeBox(sevenDayPercentageChange),
-                            SizedBox(height: 4),
-                            PriceDelta(sevenDayChange),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: blockSize * 1),
-                      SizedBox(
-                        width: blockSize * 8,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PercentageChangeBox(oneDayPercentageChange),
-                            SizedBox(height: 4),
-                            PriceDelta(oneDayChange),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: blockSize * 1),
-                      SizedBox(
-                        width: blockSize * 8,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PercentageChangeBox(oneHourPercentageChange),
-                            SizedBox(height: 4),
-                            PriceDelta(oneHourChange)
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Expanded(
-                  flex: 25,
-                  child: Text(
-                    price.currencyFormatWithPrefix(
-                        BlocProvider.of<AppSettingsBloc>(context)
-                            .state
-                            .currency
-                            .currencySymbol,
-                        context),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.end,
-                  ),
-                ),
-                Spacer(flex: 1),
-                BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
-                  builder: (context, state) {
-                    if (state is AssetOverviewLoaded) {
-                      return IconButton(
-                          icon: FavouriteIcon(
-                            isSelected: isFavourited,
-                            size: 22,
-                          ),
-                          onPressed: onFavourite);
-                    }
-                    return CupertinoActivityIndicator();
-                  },
-                ),
-              ],
-            ),
-          );
-        }
-        // Tablet Layout
-        else if (sizingInformation.deviceScreenType ==
-            DeviceScreenType.tablet) {
-          var blockSize = MediaQuery.of(context).size.width / 100;
-          var iconSize = 32.0;
-          return Padding(
-            padding: const EdgeInsets.only(left: 12.0, right: 4),
-            child: Row(
-              children: [
-                Hero(
-                  tag: 'coin-icon-$name',
-                  child: CachedNetworkImage(
-                    imageUrl: iconUrl,
-                    filterQuality: FilterQuality.high,
-                    width: iconSize,
-                    height: iconSize,
-                    imageBuilder: (context, imageProvider) => Container(
-                      width: iconSize,
-                      height: iconSize,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: imageProvider, fit: BoxFit.cover),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) {
-                      debugPrint(error.toString());
-                      return CircleAvatar(
-                        minRadius: iconSize / 2,
-                        maxRadius: iconSize / 2,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.secondary,
-                        child: Text(
-                          symbol.toUpperCase(),
-                          overflow: TextOverflow.clip,
-                          maxLines: 1,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context).textTheme.caption,
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                SizedBox(width: blockSize * 2),
-                SizedBox(
-                  width: blockSize * 15,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Hero(
-                        tag: 'coin-title-$name',
-                        child: Text(
-                          name,
-                          maxLines: 1,
-                          style: Theme.of(context).textTheme.subtitle2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Material(
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                            borderRadius: BorderRadius.all(Radius.circular(6)),
-                            elevation: 0,
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 2.0, horizontal: 6),
-                              child: Text(rank.toString(),
-                                  style: Theme.of(context).textTheme.caption),
-                            ),
-                          ),
-                          SizedBox(width: 6),
-                          Flexible(
-                            child: Text(
-                              symbol.toUpperCase(),
-                              style: Theme.of(context).textTheme.caption,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-
-                SizedBox(
-                  width: blockSize * 40,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: blockSize * 12,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PercentageChangeBox(sevenDayPercentageChange),
-                            SizedBox(height: 4),
-                            PriceDelta(sevenDayChange),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: blockSize * 1),
-                      SizedBox(
-                        width: blockSize * 12,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PercentageChangeBox(oneDayPercentageChange),
-                            SizedBox(height: 4),
-                            PriceDelta(oneDayChange),
-                          ],
-                        ),
-                      ),
-                      SizedBox(width: blockSize * 1),
-                      SizedBox(
-                        width: blockSize * 12,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            PercentageChangeBox(oneHourPercentageChange),
-                            SizedBox(height: 4),
-                            PriceDelta(oneHourChange)
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  price.currencyFormatWithPrefix(
-                      BlocProvider.of<AppSettingsBloc>(context)
-                          .state
-                          .currency
-                          .currencySymbol,
-                      context),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.end,
-                ),
-
-                // Spacer(),
-                BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
-                  builder: (context, state) {
-                    if (state is AssetOverviewLoaded) {
-                      return IconButton(
-                          icon: FavouriteIcon(
-                            isSelected: isFavourited,
-                            size: 18,
-                          ),
-                          onPressed: onFavourite);
-                    }
-                    return CupertinoActivityIndicator();
-                  },
-                ),
-              ],
-            ),
-          );
-        }
-        var iconSize = 32.0;
-        // Mobile Layout
-        return Padding(
-          padding: const EdgeInsets.only(left: 12.0, right: 0),
-          child: Row(
-            children: [
-              Hero(
-                tag: 'coin-icon-$name',
-                child: CachedNetworkImage(
-                  imageUrl: iconUrl,
-                  filterQuality: FilterQuality.high,
-                  width: iconSize,
-                  height: iconSize,
-                  imageBuilder: (context, imageProvider) => Container(
-                    width: iconSize,
-                    height: iconSize,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: imageProvider, fit: BoxFit.cover),
-                    ),
-                  ),
-                  errorWidget: (context, url, error) {
-                    debugPrint(error.toString());
-                    return CircleAvatar(
-                      minRadius: iconSize / 2,
-                      maxRadius: iconSize / 2,
-                      backgroundColor: Theme.of(context).colorScheme.secondary,
-                      child: Text(
-                        symbol.toUpperCase(),
-                        overflow: TextOverflow.clip,
-                        maxLines: 1,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.caption,
-                      ),
-                    );
-                  },
-                ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                flex: 12,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Hero(
-                      tag: 'coin-title-$name',
-                      child: Text(
-                        name,
-                        maxLines: 1,
-                        style: Theme.of(context).textTheme.subtitle2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    SizedBox(height: 4),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Material(
-                          color: Theme.of(context).scaffoldBackgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(6)),
-                          elevation: 0,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 2.0, horizontal: 6),
-                            child: Text(rank.toString(),
-                                style: Theme.of(context).textTheme.caption),
-                          ),
-                        ),
-                        SizedBox(width: 4),
-                        Text(symbol.toUpperCase(),
-                            style: Theme.of(context).textTheme.caption),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Spacer(),
-              Expanded(
-                flex: 6,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      price.currencyFormatWithPrefix(
-                          BlocProvider.of<AppSettingsBloc>(context)
-                              .state
-                              .currency
-                              .currencySymbol,
-                          context),
-                      textAlign: TextAlign.end,
-                      maxLines: 1,
-                      overflow: TextOverflow.clip,
-                      style: Theme.of(context).textTheme.subtitle1,
-                    ),
-                    PriceDelta(oneDayChange,
-                        textSize:
-                            Theme.of(context).textTheme.subtitle2?.fontSize)
-                  ],
-                ),
-              ),
-              BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
-                builder: (context, state) {
-                  if (state is AssetOverviewLoaded) {
-                    return IconButton(
-                        icon: FavouriteIcon(
-                          isSelected: isFavourited,
-                          size: 18,
-                        ),
-                        onPressed: onFavourite);
-                  }
-                  return CupertinoActivityIndicator();
-                },
-              )
-            ],
-          ),
-        );
-      },
+    return ScreenBuilder(
+      desktop: DesktopRow(blockSize,
+          rank: rank,
+          symbol: symbol,
+          name: name,
+          iconUrl: iconUrl,
+          sparkline: sparkline,
+          sevenDayPercentageChange: sevenDayPercentageChange,
+          sevenDayChange: sevenDayChange,
+          oneDayPercentageChange: oneDayPercentageChange,
+          oneDayChange: oneDayChange,
+          oneHourPercentageChange: oneHourPercentageChange,
+          oneHourChange: oneHourChange,
+          price: price,
+          isFavourited: isFavourited,
+          onFavourite: onFavourite),
+      tablet: TabletRow(blockSize,
+          rank: rank,
+          symbol: symbol,
+          name: name,
+          sparkline: sparkline,
+          iconUrl: iconUrl,
+          sevenDayChange: sevenDayChange,
+          sevenDayPercentageChange: sevenDayPercentageChange,
+          oneDayChange: oneDayChange,
+          oneDayPercentageChange: oneDayPercentageChange,
+          oneHourChange: oneHourChange,
+          oneHourPercentageChange: oneHourPercentageChange,
+          price: price,
+          isFavourited: isFavourited,
+          onFavourite: onFavourite),
+      mobile: MobileRow(blockSize,
+          rank: rank,
+          symbol: symbol,
+          name: name,
+          sparkline: sparkline,
+          iconUrl: iconUrl,
+          sevenDayChange: sevenDayChange,
+          sevenDayPercentageChange: sevenDayPercentageChange,
+          oneDayChange: oneDayChange,
+          oneDayPercentageChange: oneDayPercentageChange,
+          oneHourChange: oneHourChange,
+          oneHourPercentageChange: oneHourPercentageChange,
+          price: price,
+          isFavourited: isFavourited,
+          onFavourite: onFavourite),
     );
   }
 }
