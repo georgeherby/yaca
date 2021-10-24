@@ -82,13 +82,13 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
           return coinData;
         }));
         yield AssetOverviewLoaded(_marketCoins);
-      } catch (e) {
-        print(e);
+      } catch (e, stacktrace) {
+        print('Error $e');
+        print('Error $stacktrace');
+        print(stacktrace);
         yield AssetOverviewError(e.toString());
       }
     } else if (event is AssetFavourited) {
-
-      // if (currentState is AssetOverviewLoaded) {
       var listOfAssets = [...event.allMarketCoins];
 
       var index =
@@ -99,6 +99,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
           debugPrint('isChecked');
           var idForRecord = await _favouriteDao.insertFavourite(Favourites(
               name: event.marketCoin.name, symbol: event.marketCoin.symbol));
+
+          print('Inserted id $idForRecord');
 
           final updatedAssets = listOfAssets.map((e) {
             if (e.id == event.marketCoin.id) {
@@ -112,7 +114,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         } else {
           debugPrint('isNotChecked');
           if (listOfAssets[index].favouriteCacheId != null) {
-            debugPrint('Remove from sql');
+            debugPrint('Remove from sql $index');
             await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
           }
 

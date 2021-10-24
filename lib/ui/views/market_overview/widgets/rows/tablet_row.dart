@@ -3,6 +3,8 @@ import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
+import 'package:crypto_app/ui/views/widgets/asset_network_icon.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';
@@ -54,35 +56,10 @@ class TabletRow extends StatelessWidget {
         children: [
           Hero(
             tag: 'coin-icon-$name',
-            child: CachedNetworkImage(
-              imageUrl: iconUrl,
-              filterQuality: FilterQuality.high,
-              width: iconSize,
-              height: iconSize,
-              imageBuilder: (context, imageProvider) => Container(
-                width: iconSize,
-                height: iconSize,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image:
-                      DecorationImage(image: imageProvider, fit: BoxFit.cover),
-                ),
-              ),
-              errorWidget: (context, url, error) {
-                debugPrint(error.toString());
-                return CircleAvatar(
-                  minRadius: iconSize / 2,
-                  maxRadius: iconSize / 2,
-                  backgroundColor: Theme.of(context).colorScheme.secondary,
-                  child: Text(
-                    symbol.toUpperCase(),
-                    overflow: TextOverflow.clip,
-                    maxLines: 1,
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                );
-              },
+            child: AssetIconWeb(
+              iconUrl,
+              iconSize: iconSize,
+              assetSymbol: symbol,
             ),
           ),
           SizedBox(width: blockSize * 2),
@@ -130,7 +107,6 @@ class TabletRow extends StatelessWidget {
               ],
             ),
           ),
-
           SizedBox(
             width: blockSize * 40,
             child: Row(

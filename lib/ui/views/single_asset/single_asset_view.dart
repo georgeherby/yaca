@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -53,19 +54,10 @@ class SingleAssetView extends StatelessWidget {
           children: [
             Hero(
               tag: 'coin-icon-${marketCoin.name}',
-              child: CachedNetworkImage(
-                imageUrl: marketCoin.image,
-                height: iconSize,
-                width: iconSize,
-                imageBuilder: (context, imageProvider) => Container(
-                  width: iconSize,
-                  height: iconSize,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: imageProvider, fit: BoxFit.cover),
-                  ),
-                ),
+              child: AssetIconWeb(
+                marketCoin.image,
+                assetSymbol: marketCoin.symbol,
+                iconSize: iconSize,
               ),
             ),
             SizedBox(width: 8),

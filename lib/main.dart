@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,8 +28,6 @@ import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/pages/main/main_page.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
-import 'core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'core/repositories/api/coingecko/exchange_ticker_repository.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -115,9 +115,6 @@ class _MyAppState extends State<MyApp> {
             if (state is AppSettingsLoaded) {
               var currencyCode =
                   BlocProvider.of<AppSettingsBloc>(context).state.currency;
-
-              print('SETTINGS REBUILD $currencyCode');
-
               return MultiBlocProvider(
                   providers: [
                     BlocProvider(

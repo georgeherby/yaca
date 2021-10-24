@@ -34,18 +34,11 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: LayoutBuilder(
           builder: (context, constraint) {
-            var currencyCode = BlocProvider.of<AppSettingsBloc>(context)
-                .state
-                .currency
-                .currencyCode;
-            debugPrint('MarketView layoutbuilder $currencyCode');
-
             return ConstrainedBox(
               constraints: BoxConstraints(minWidth: constraint.maxWidth),
               child: BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {
-                    print('rebuild AssetOverviewLoaded');
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
