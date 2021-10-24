@@ -1,7 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +14,9 @@ import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 
 class MarketOverviewView extends StatefulWidget {

@@ -1,7 +1,10 @@
-import 'package:crypto_app/ui/utils/screen_chooser/my_responsive_builder.dart';
-import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/utils/screen_chooser/my_responsive_builder.dart';
+import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
 
 class ScreenBuilder extends StatelessWidget {
   final WidgetBuilder mobile;

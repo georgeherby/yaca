@@ -1,10 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 
 class ScaffoldWithBack extends StatelessWidget {

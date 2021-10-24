@@ -1,6 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:cached_network_image/cached_network_image.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
 
 class AssetNetworkIcon extends StatelessWidget {
   const AssetNetworkIcon(this.iconUrl,

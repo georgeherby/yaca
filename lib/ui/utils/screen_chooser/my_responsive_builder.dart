@@ -1,6 +1,9 @@
-import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
 
 /// A widget with a builder that provides you with the sizingInformation
 ///

@@ -1,8 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/mobile_row.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +10,10 @@ import 'package:responsive_builder/responsive_builder.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/mobile_row.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_row.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 
 class AssetsDataTable extends StatelessWidget {

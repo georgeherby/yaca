@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +16,7 @@ import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
 import 'package:crypto_app/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 

@@ -1,11 +1,16 @@
+// 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+// 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/global_market_marque.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   AppBarBottom({Key? key, this.isAppBar = false}) : super(key: key);

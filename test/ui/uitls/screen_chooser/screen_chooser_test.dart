@@ -1,6 +1,11 @@
-import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:flutter_test/flutter_test.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
 
 void main() {
   

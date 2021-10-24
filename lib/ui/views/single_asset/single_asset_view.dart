@@ -1,7 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
-import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +20,8 @@ import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/singe_asset_exchanges/single_asset_exchanges_view.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph_with_switcher.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/expandable_card.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
+import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
