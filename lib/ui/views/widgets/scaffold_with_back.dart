@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,10 +22,7 @@ class ScaffoldWithBack extends StatelessWidget {
         appBar: GeneralAppBar(
           hasBackRoute: true,
           platform: Theme.of(context).platform,
-          title: Text(
-            title ?? '',
-            style: Theme.of(context).appBarTheme.titleTextStyle,
-          ),
+          title: AppbarTitle(title ?? ''),
           actions: actions ?? [],
         ),
         body: body);

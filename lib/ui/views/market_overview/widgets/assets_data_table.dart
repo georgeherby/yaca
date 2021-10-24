@@ -8,23 +8,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:crypto_app/ui/views/widgets/price_delta.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
-import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final bool favouriteOnly;

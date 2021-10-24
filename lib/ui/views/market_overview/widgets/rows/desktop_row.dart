@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/utils/web_builder/web_builder.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
-import 'package:crypto_app/ui/views/widgets/asset_network_icon.dart';
-import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/price_delta.dart';

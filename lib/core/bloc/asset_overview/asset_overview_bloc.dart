@@ -114,7 +114,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         } else {
           debugPrint('isNotChecked');
           if (listOfAssets[index].favouriteCacheId != null) {
-            debugPrint('Remove from sql $index');
+            debugPrint(
+                'Remove from sql ${listOfAssets[index].favouriteCacheId}');
             await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
           }
 

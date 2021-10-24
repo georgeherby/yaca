@@ -15,7 +15,7 @@ class FavouritesDao {
   }
 
   Future<void> delete(int idToDelete) async {
-    return await box.deleteAt(idToDelete);
+    return await box.delete(idToDelete);
   }
 
   Future<List<Favourites>> getAll() {

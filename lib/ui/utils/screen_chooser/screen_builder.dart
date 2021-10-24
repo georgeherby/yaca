@@ -22,13 +22,13 @@ class ScreenBuilder extends StatelessWidget {
     Widget? tabletDesktop,
     required Widget desktop,
     Widget? desktopWeb,
-  })  : this.mobile = _builderOrNull(mobile)!,
-        this.mobileDesktop = _builderOrNull(mobileDesktop),
-        this.tablet = _builderOrNull(tablet)!,
-        this.tabletWeb = _builderOrNull(tabletWeb),
-        this.tabletDesktop = _builderOrNull(tabletDesktop),
-        this.desktop = _builderOrNull(desktop)!,
-        this.desktopWeb = _builderOrNull(desktopWeb),
+  })  : mobile = _builderOrNull(mobile)!,
+        mobileDesktop = _builderOrNull(mobileDesktop),
+        tablet = _builderOrNull(tablet)!,
+        tabletWeb = _builderOrNull(tabletWeb),
+        tabletDesktop = _builderOrNull(tabletDesktop),
+        desktop = _builderOrNull(desktop)!,
+        desktopWeb = _builderOrNull(desktopWeb),
         super(key: key);
 
   const ScreenBuilder.builder({

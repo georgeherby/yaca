@@ -1,21 +1,6 @@
 import 'package:flutter/material.dart';
 
-// enum DeviceType {
-//   mobile,
-//   mobileNotWeb,
-//   tablet,
-//   tabletNotWeb,
-//   desktop,
-//   desktopNotWeb
-// }
 enum ScreenSize { small, medium, large }
-
-// class ScreenConfig {
-//   final DeviceType deviceType;
-//   final ScreenSize screenSize;
-//   ScreenConfig(this.deviceType, this.screenSize);
-// }
-
 extension PlatformFunctions on TargetPlatform {
   bool isMobilePlatform() {
     return [TargetPlatform.android, TargetPlatform.iOS].contains(this);

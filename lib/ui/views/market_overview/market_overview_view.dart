@@ -1,5 +1,7 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -147,10 +149,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
     } else {
       return GeneralAppBar(
         platform: Theme.of(context).platform,
-        title: Text(
-          'Crypto App',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
+        title: AppbarTitle('Crypto App'),
         hasBackRoute: false,
         actions: [
           (Theme.of(context).platform.isDesktop())

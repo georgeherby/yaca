@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -54,10 +56,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        title: Text(
-          'Whale Transactions',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
+        title: AppbarTitle('Whale Transcations'),
         hasBackRoute: false,
         actions: [
           (Theme.of(context).platform.isDesktop())
