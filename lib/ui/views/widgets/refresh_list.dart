@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 
 class RefreshableList extends StatelessWidget {
-  final ListView child;
+  final Widget child;
   final ValueGetter<Future<void>> onRefresh;
 
   const RefreshableList(

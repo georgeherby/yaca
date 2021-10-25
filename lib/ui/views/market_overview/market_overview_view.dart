@@ -1,10 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
@@ -116,7 +118,44 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       ],
                     );
                   } else if (state is AssetOverviewError) {
-                    return Icon(CupertinoIcons.exclamationmark);
+                    return LayoutBuilder(builder: (context, constraint) {
+                      return ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraint.maxHeight),
+                        child: RefreshableList(
+                          onRefresh: () async {
+                            BlocProvider.of<GlobalMarketBloc>(context).add(
+                                GlobalMarketLoad(
+                                    BlocProvider.of<AppSettingsBloc>(context)
+                                        .state
+                                        .currency));
+                            BlocProvider.of<AssetOverviewBloc>(context).add(
+                                AssetOverviewLoad(
+                                    BlocProvider.of<AppSettingsBloc>(context)
+                                        .state
+                                        .currency));
+                            return;
+                          },
+                          child: ListView(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(CupertinoIcons
+                                        .exclamationmark_triangle),
+                                    Text(state.error)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
                   }
                   return LayoutBuilder(builder: (context, constraint) {
                     return ConstrainedBox(
@@ -126,7 +165,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CupertinoActivityIndicator(),
+                          PlatformCircularProgressIndicator(),
                         ],
                       ),
                     );
