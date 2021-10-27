@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/extensions/list.dart';
+import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +14,7 @@ import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
-import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 
 class MobileRow extends StatelessWidget {
   final double blockSize;
@@ -20,7 +22,7 @@ class MobileRow extends StatelessWidget {
   final String symbol;
   final String name;
   final String iconUrl;
-  final SparklineIn7d? sparkline;
+  final SparklineIn7d? sparklineIn7d;
   final double? sevenDayPercentageChange;
   final double? sevenDayChange;
   final double? oneDayPercentageChange;
@@ -37,7 +39,7 @@ class MobileRow extends StatelessWidget {
       required this.symbol,
       required this.name,
       required this.iconUrl,
-      required this.sparkline,
+      required this.sparklineIn7d,
       required this.sevenDayPercentageChange,
       required this.sevenDayChange,
       required this.oneDayPercentageChange,
@@ -51,9 +53,9 @@ class MobileRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var iconSize = 32.0;
+    var iconSize = 24.0;
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0, right: 0),
+      padding: const EdgeInsets.only(left: 8.0, right: 0),
       child: Row(
         children: [
           Hero(
@@ -64,7 +66,7 @@ class MobileRow extends StatelessWidget {
               assetSymbol: symbol,
             ),
           ),
-          SizedBox(width: 16),
+          SizedBox(width: 8),
           Expanded(
             flex: 12,
             child: Column(
@@ -105,7 +107,21 @@ class MobileRow extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+            child: SimpleSparkLine(
+                data: sparklineIn7d!.price
+                    .mapIndexed((element, index) {
+                      if (index % 4 == 0) {
+                        return element;
+                      }
+                    })
+                    .whereType<double>()
+                    .toList(),
+                width: blockSize * 20),
+          ),
+          Spacer(flex: 2),
           Expanded(
             flex: 6,
             child: Column(
@@ -122,26 +138,33 @@ class MobileRow extends StatelessWidget {
                   textAlign: TextAlign.end,
                   maxLines: 1,
                   overflow: TextOverflow.clip,
-                  style: Theme.of(context).textTheme.subtitle1,
+                  style: Theme.of(context).textTheme.bodyText2,
                 ),
-                PriceDelta(oneDayChange,
-                    textSize: Theme.of(context).textTheme.subtitle2?.fontSize)
+                DeltaWithArrow(
+                    oneDayPercentageChange != null
+                        ? oneDayPercentageChange! / 100
+                        : null,
+                    isPercentage: true,
+                    textSize: Theme.of(context).textTheme.caption?.fontSize)
               ],
             ),
           ),
+          SizedBox(width: 8),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
               if (state is AssetOverviewLoaded) {
-                return IconButton(
-                    icon: FavouriteIcon(
-                      isSelected: isFavourited,
-                      size: 18,
-                    ),
-                    onPressed: onFavourite);
+                return GestureDetector(
+                  onTap: onFavourite,
+                  child: FavouriteIcon(
+                    isSelected: isFavourited,
+                    size: 14,
+                  ),
+                );
               }
               return CupertinoActivityIndicator();
             },
-          )
+          ),
+          SizedBox(width: 8),
         ],
       ),
     );

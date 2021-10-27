@@ -25,7 +25,7 @@ import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
 class SingleAssetView extends StatelessWidget {
@@ -191,7 +191,7 @@ class SingleAssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          PriceDelta(marketCoin.priceChange24h,
+                                          DeltaWithArrow(marketCoin.priceChange24h,
                                               textSize: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1

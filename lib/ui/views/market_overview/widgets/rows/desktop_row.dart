@@ -13,7 +13,7 @@ import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
 
 class DesktopRow extends StatelessWidget {
@@ -127,7 +127,7 @@ class DesktopRow extends StatelessWidget {
                     children: [
                       PercentageChangeBox(sevenDayPercentageChange),
                       SizedBox(height: 4),
-                      PriceDelta(sevenDayChange),
+                      DeltaWithArrow(sevenDayChange),
                     ],
                   ),
                 ),
@@ -140,7 +140,7 @@ class DesktopRow extends StatelessWidget {
                     children: [
                       PercentageChangeBox(oneDayPercentageChange),
                       SizedBox(height: 4),
-                      PriceDelta(oneDayChange),
+                      DeltaWithArrow(oneDayChange),
                     ],
                   ),
                 ),
@@ -153,7 +153,7 @@ class DesktopRow extends StatelessWidget {
                     children: [
                       PercentageChangeBox(oneHourPercentageChange),
                       SizedBox(height: 4),
-                      PriceDelta(oneHourChange)
+                      DeltaWithArrow(oneHourChange)
                     ],
                   ),
                 ),

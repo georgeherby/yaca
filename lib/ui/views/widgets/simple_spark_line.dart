@@ -52,12 +52,12 @@ class SimpleSparkLine extends StatelessWidget {
             lineBarsData: [
               LineChartBarData(
                 isCurved: true,
-                curveSmoothness: 0.5,
+                curveSmoothness: 1,
                 preventCurveOverShooting: true,
                 colors: [
                   graphColor,
                 ],
-                barWidth: 2,
+                barWidth: 1.5,
                 isStrokeCapRound: false,
                 dotData: FlDotData(
                   show: false,
@@ -66,9 +66,9 @@ class SimpleSparkLine extends StatelessWidget {
                   show: true,
                   colors: [
                     Colors.transparent,
-                    // graphColor.withOpacity(0.3),
+                    graphColor,
                   ],
-                  gradientFrom: Offset(0, 1),
+                  gradientFrom: Offset(0, 0.5),
                   gradientTo: Offset(0, 0),
                   gradientColorStops: [0, 1],
                 ),

@@ -9,7 +9,7 @@ import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/single_asset/widgets/app_bar_bottom_data_block.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:crypto_app/ui/views/widgets/price_delta.dart';
+import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   final double height;
@@ -91,7 +91,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                       AppBarBottomDataBlock(
                           title: 'Price Change 24h',
                           widgetData: priceChange24h != null
-                              ? PriceDelta(priceChange24h!, textSize: 16)
+                              ? DeltaWithArrow(priceChange24h!, textSize: 16)
                               : null),
                       Spacer(flex: 5),
                     ],

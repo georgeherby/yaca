@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,11 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
-class PriceDelta extends StatelessWidget {
+class DeltaWithArrow extends StatelessWidget {
   final double? priceChangeDelta;
   final double? textSize;
+  final bool isPercentage;
 
-  const PriceDelta(this.priceChangeDelta, {Key? key, this.textSize})
+  const DeltaWithArrow(this.priceChangeDelta,
+      {Key? key, this.textSize, this.isPercentage = false})
       : super(key: key);
 
   @override
@@ -33,11 +36,14 @@ class PriceDelta extends StatelessWidget {
           ),
           Flexible(
             child: Text(
-              (priceChangeDelta!.deltaFormat()),
+              isPercentage
+                  ? percentageFormatWithoutNegative
+                      .format(priceChangeDelta!.abs())
+                  : priceChangeDelta!.deltaFormat(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.caption?.copyWith(
-                  color: color,
+                  // color: color,
                   fontSize: textSize ??
                       Theme.of(context).textTheme.caption!.fontSize),
             ),

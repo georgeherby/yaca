@@ -173,7 +173,7 @@ class AssetsDataTable extends StatelessWidget {
           rank: rank,
           symbol: symbol,
           name: name,
-          sparkline: sparkline,
+          sparklineIn7d: sparkline,
           iconUrl: iconUrl,
           sevenDayChange: sevenDayChange,
           sevenDayPercentageChange: sevenDayPercentageChange,
