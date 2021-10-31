@@ -14,10 +14,10 @@ import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
 import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 
-class SingleAssetRespository {
+class AssetRespository {
   final http.Client _client;
 
-  SingleAssetRespository(this._client);
+  AssetRespository(this._client);
 
   Future<AssetHistorySplits> fetchFullAssetHistory(
       String coinId, ChosenCurrency currencyCode) async {

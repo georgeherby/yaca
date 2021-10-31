@@ -1,15 +1,15 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:crypto_app/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/ui/pages/single_asset/single_asset_page.dart';
 import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/mobile_row.dart';
@@ -71,20 +71,26 @@ class AssetsDataTable extends StatelessWidget {
 
                     return InkWell(
                       onTap: () async {
-                        await Navigator.push(
-                          context,
-                          platformPageRoute(
-                            context: context,
-                            fullscreenDialog: true,
-                            builder: (context) {
-                              return SingleAssetPage(
-                                marketCoin: mc,
-                                onFavourite: (String id, bool isChecked) =>
-                                    onFavourite(mc, isChecked),
-                              );
-                            },
-                          ),
-                        );
+                        await context.router.push(AssetRoute(
+                          id: mc.id,
+                          marketCoin: mc,
+                          onFavourite: (String id, bool isChecked) =>
+                              onFavourite(mc, isChecked),
+                        ));
+                        // await Navigator.push(
+                        //   context,
+                        //   platformPageRoute(
+                        //     context: context,
+                        //     fullscreenDialog: true,
+                        //     builder: (context) {
+                        //       return SingleAssetPage(
+                        //         marketCoin: mc,
+                        //         onFavourite: (String id, bool isChecked) =>
+                        //             onFavourite(mc, isChecked),
+                        //       );
+                        //     },
+                        //   ),
+                        // );
                       },
                       child: SizedBox(
                         height: getValueForScreenType<double>(

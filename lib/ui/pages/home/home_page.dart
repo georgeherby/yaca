@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:crypto_app/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,16 +15,14 @@ import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({required Key key, required this.title}) : super(key: key);
-
-  final String title;
+class HomePage extends StatefulWidget {
+  HomePage() : super();
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
 
   @override
@@ -68,21 +68,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           .bottomNavigationBarTheme
                           .unselectedItemColor,
                     ),
-                    activeIcon: SvgPicture.asset(
-                      'assets/whale_filled.svg',
-                      semanticsLabel: 'Whale selected icon',
-                      height: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .selectedIconTheme
-                          ?.size,
-                      width: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .selectedIconTheme
-                          ?.size,
-                      color: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .selectedItemColor
-                    ),
+                    activeIcon: SvgPicture.asset('assets/whale_filled.svg',
+                        semanticsLabel: 'Whale selected icon',
+                        height: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedIconTheme
+                            ?.size,
+                        width: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedIconTheme
+                            ?.size,
+                        color: Theme.of(context)
+                            .bottomNavigationBarTheme
+                            .selectedItemColor),
                     label: 'Whales')
               ],
             )
@@ -154,13 +152,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     IconButton(
                       tooltip: 'Open settings',
-                      onPressed: () => Navigator.of(context).push(
-                        platformPageRoute(
-                          context: context,
-                          fullscreenDialog: true,
-                          builder: (context) => AppSettingsPage(),
-                        ),
-                      ),
+                      onPressed: () =>
+                          context.router.push(const AppSettingsRoute()),
+
+                      //   Navigator.of(context).push(
+                      //     platformPageRoute(
+                      //       context: context,
+                      //       fullscreenDialog: true,
+                      //       builder: (context) => AppSettingsPage(),
+                      //     ),
+                      //   ),
                       icon: FaIcon(FontAwesomeIcons.cog),
                     ),
                     SizedBox(height: 8)

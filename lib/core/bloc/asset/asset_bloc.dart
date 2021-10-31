@@ -11,21 +11,21 @@ import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
 import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
 
-part 'singleasset_event.dart';
-part 'singleasset_state.dart';
+part 'asset_event.dart';
+part 'asset_state.dart';
 
-class SingleAssetBloc extends Bloc<SingleAssetEvent, SingleAssetState> {
-  final SingleAssetRespository singleAssetRespository;
+class AssetBloc extends Bloc<AssetEvent, AssetState> {
+  final AssetRespository singleAssetRespository;
 
-  SingleAssetBloc({required this.singleAssetRespository})
-      : super(SingleAssetInitial());
+  AssetBloc({required this.singleAssetRespository})
+      : super(AssetInitial());
 
   @override
-  Stream<SingleAssetState> mapEventToState(
-    SingleAssetEvent event,
+  Stream<AssetState> mapEventToState(
+    AssetEvent event,
   ) async* {
-    if (event is SingleAssetLoad) {
-      yield SingleAssetLoading();
+    if (event is AssetLoad) {
+      yield AssetLoading();
 
       try {
         print('done');
@@ -35,9 +35,9 @@ class SingleAssetBloc extends Bloc<SingleAssetEvent, SingleAssetState> {
         var assetDetails =
             await singleAssetRespository.getSingleAssetData(event.marketCoinId);
 
-        yield SingleAssetLoaded(assetDetails, assetHistorySplits);
+        yield AssetLoaded(assetDetails, assetHistorySplits);
       } on Exception catch (e) {
-        yield SingleAssetError(e.toString());
+        yield AssetError(e.toString());
       }
     }
   }

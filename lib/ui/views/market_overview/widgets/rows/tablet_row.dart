@@ -168,8 +168,6 @@ class TabletRow extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.end,
           ),
-
-          // Spacer(),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
               if (state is AssetOverviewLoaded) {

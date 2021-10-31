@@ -1,4 +1,10 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:crypto_app/app_router.dart';
+import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
+import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
+import 'package:crypto_app/ui/views/asset/widgets/expandable_card.dart';
+import 'package:crypto_app/ui/pages/asset/asset_exchanges_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,14 +18,10 @@ import 'package:url_launcher/url_launcher.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/bloc/singleasset/singleasset_bloc.dart';
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/views/singe_asset_exchanges/single_asset_exchanges_view.dart';
-import 'package:crypto_app/ui/views/single_asset/widgets/asset_graph_with_switcher.dart';
-import 'package:crypto_app/ui/views/single_asset/widgets/expandable_card.dart';
 import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
@@ -28,11 +30,11 @@ import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
-class SingleAssetView extends StatelessWidget {
+class AssetView extends StatelessWidget {
   final MarketCoin marketCoin;
   final Function(String, bool) onFavourite;
 
-  const SingleAssetView({
+  const AssetView({
     Key? key,
     required this.marketCoin,
     required this.onFavourite,
@@ -48,7 +50,7 @@ class SingleAssetView extends StatelessWidget {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        hasBackRoute: true,
+        hasBackRoute: !kIsWeb,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -89,9 +91,9 @@ class SingleAssetView extends StatelessWidget {
           )
         ],
       ),
-      body: BlocBuilder<SingleAssetBloc, SingleAssetState>(
+      body: BlocBuilder<AssetBloc, AssetState>(
         builder: (context, state) {
-          if (state is SingleAssetLoaded) {
+          if (state is AssetLoaded) {
             return SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               child: Padding(
@@ -191,7 +193,8 @@ class SingleAssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          DeltaWithArrow(marketCoin.priceChange24h,
+                                          DeltaWithArrow(
+                                              marketCoin.priceChange24h,
                                               textSize: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
@@ -464,12 +467,12 @@ class SingleAssetView extends StatelessWidget {
                               BlocProvider.of<SingleAssetExchangeBloc>(context)
                                   .add(SingleAssetExchangeLoad(
                                       marketCoinId: marketCoin.id));
-                              await Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        SingleAssetExchangeView()),
-                              );
+                              await context.router.push(const AssetExchangeRoute());
+                              // await Navigator.push(
+                              //   context,
+                              //   MaterialPageRoute(
+                              //       builder: (context) => AssetExchangeView()),
+                              // );
                             },
                             buttonText: 'View markets',
                           ),
@@ -520,7 +523,7 @@ class SingleAssetView extends StatelessWidget {
                 ),
               ),
             );
-          } else if (state is SingleAssetError) {
+          } else if (state is AssetError) {
             debugPrint(state.error.toString());
             return Center(
               child: Column(

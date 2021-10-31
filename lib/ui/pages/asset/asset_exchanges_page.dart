@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/asset/widgets/exchange_list_with_filter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,11 +9,10 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:crypto_app/ui/views/single_asset/widgets/exchange_list_with_filter.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
-class SingleAssetExchangeView extends StatelessWidget {
-  const SingleAssetExchangeView({Key? key}) : super(key: key);
+class AssetExchangePage extends StatelessWidget {
+  const AssetExchangePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

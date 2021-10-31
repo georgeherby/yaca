@@ -1,16 +1,16 @@
 // 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
+import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/singleasset/singleasset_bloc.dart';
 import 'package:crypto_app/core/config/currency.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
 import 'mock/singleasset_data.dart';
 
 class MockSingleAssetRespository extends Mock
-    implements SingleAssetRespository {}
+    implements AssetRespository {}
 
 void main() {
   var mockSingleAssetRespository = MockSingleAssetRespository();
@@ -20,19 +20,19 @@ void main() {
     reset(mockSingleAssetRespository);
   });
 
-  group('SingleAssetBloc', () {
+  group('AssetBloc', () {
     blocTest(
-      'verify state is SingleAssetInitial when bloc is created',
+      'verify state is AssetInitial when bloc is created',
       build: () {
-        return SingleAssetBloc(
+        return AssetBloc(
             singleAssetRespository: mockSingleAssetRespository);
       },
-      verify: (SingleAssetBloc bloc) {
-        expect(bloc.state, equals(SingleAssetInitial()));
+      verify: (AssetBloc bloc) {
+        expect(bloc.state, equals(AssetInitial()));
       },
     );
     blocTest(
-        'verify state is SingleAssetLoaded when bloc is event is SingleAssetLoad',
+        'verify state is AssetLoaded when bloc is event is AssetLoad',
         build: () {
           when(() => mockSingleAssetRespository.getSingleAssetData(coinId))
               .thenAnswer((invocation) => Future.value(singelAssetDataBtc));
@@ -40,14 +40,14 @@ void main() {
                   coinId, chosenCurrency))
               .thenAnswer((invocation) => Future.value(assetHistorySplitsBtc));
 
-          return SingleAssetBloc(
+          return AssetBloc(
               singleAssetRespository: mockSingleAssetRespository);
         },
-        act: (SingleAssetBloc bloc) => bloc.add(SingleAssetLoad(
+        act: (AssetBloc bloc) => bloc.add(AssetLoad(
             marketCoinId: coinId, currencyCode: chosenCurrency)),
         expect: () => [
-              SingleAssetLoading(),
-              SingleAssetLoaded(singelAssetDataBtc, assetHistorySplitsBtc)
+              AssetLoading(),
+              AssetLoaded(singelAssetDataBtc, assetHistorySplitsBtc)
             ]);
     blocTest('verify state is SingleAssetError when getSingleAssetData fails',
         build: () {
@@ -57,14 +57,14 @@ void main() {
                   coinId, chosenCurrency))
               .thenAnswer((invocation) => Future.value(assetHistorySplitsBtc));
 
-          return SingleAssetBloc(
+          return AssetBloc(
               singleAssetRespository: mockSingleAssetRespository);
         },
-        act: (SingleAssetBloc bloc) => bloc.add(SingleAssetLoad(
+        act: (AssetBloc bloc) => bloc.add(AssetLoad(
             marketCoinId: coinId, currencyCode: chosenCurrency)),
         expect: () => [
-              SingleAssetLoading(),
-              SingleAssetError(Exception('Error').toString())
+              AssetLoading(),
+              AssetError(Exception('Error').toString())
             ]);
     blocTest(
         'verify state is SingleAssetError when fetchFullAssetHistory fails',
@@ -72,18 +72,18 @@ void main() {
           when(() => mockSingleAssetRespository.fetchFullAssetHistory(
               coinId, chosenCurrency)).thenThrow(Exception('Error'));
 
-          return SingleAssetBloc(
+          return AssetBloc(
               singleAssetRespository: mockSingleAssetRespository);
         },
-        act: (SingleAssetBloc bloc) => bloc.add(SingleAssetLoad(
+        act: (AssetBloc bloc) => bloc.add(AssetLoad(
             marketCoinId: coinId, currencyCode: chosenCurrency)),
         verify: (_) {
           verifyNever(
               () => mockSingleAssetRespository.getSingleAssetData(any()));
         },
         expect: () => [
-              SingleAssetLoading(),
-              SingleAssetError(Exception('Error').toString())
+              AssetLoading(),
+              AssetError(Exception('Error').toString())
             ]);
   });
 }

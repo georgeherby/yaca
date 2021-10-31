@@ -1,14 +1,14 @@
-part of 'singleasset_bloc.dart';
+part of 'asset_bloc.dart';
 
-abstract class SingleAssetEvent extends Equatable {
-  const SingleAssetEvent();
+abstract class AssetEvent extends Equatable {
+  const AssetEvent();
 }
 
-class SingleAssetLoad extends SingleAssetEvent {
+class AssetLoad extends AssetEvent {
   final ChosenCurrency currencyCode;
   final String marketCoinId;
 
-  const SingleAssetLoad(
+  const AssetLoad(
       {required this.currencyCode, required this.marketCoinId});
 
   @override
