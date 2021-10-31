@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -344,7 +345,7 @@ class _MyAppState extends State<MyApp> {
                 ),
               );
             }
-            return CupertinoActivityIndicator();
+            return PlatformCircularProgressIndicator();
           },
         ),
       ),

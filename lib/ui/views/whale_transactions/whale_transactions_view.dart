@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
@@ -76,11 +77,11 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         bloc:
             BlocProvider.of<FilterListBloc<WhaleTransaction, String>>(context),
         onLoading: (context) =>
-            Center(child: const CupertinoActivityIndicator()),
+            Center(child: PlatformCircularProgressIndicator()),
         onSuccess: (context, transactions) => WhaleTransactionList(
             transactions: transactions, onRefresh: () => _refreshPosts()),
         onRefreshing: (context, posts) =>
-            Center(child: const CupertinoActivityIndicator()),
+            Center(child: PlatformCircularProgressIndicator()),
         onEmpty: (context) => const Center(child: Text('No posts found')),
         onError: (BuildContext context, error) {
           if (error is MissingConfigException) {
