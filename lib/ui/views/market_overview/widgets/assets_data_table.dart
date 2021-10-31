@@ -1,14 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
-import 'package:crypto_app/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';

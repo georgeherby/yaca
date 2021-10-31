@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +19,7 @@ import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart'
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
 import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
+import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 
 class MarketOverviewView extends StatefulWidget {
   @override

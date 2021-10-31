@@ -1,10 +1,10 @@
 // 📦 Package imports:
 import 'package:bloc_test/bloc_test.dart';
-import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
 import 'package:crypto_app/core/config/currency.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
 import 'mock/singleasset_data.dart';

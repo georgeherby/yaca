@@ -1,8 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:

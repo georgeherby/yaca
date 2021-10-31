@@ -1,15 +1,10 @@
 // 🐦 Flutter imports:
-import 'package:auto_route/annotations.dart';
-import 'package:auto_route/src/router/auto_router_x.dart';
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
-import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
-import 'package:crypto_app/ui/views/asset/widgets/expandable_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -17,18 +12,21 @@ import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
+import 'package:crypto_app/ui/views/asset/widgets/expandable_card.dart';
 import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
+import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
-import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
 class AssetView extends StatelessWidget {
