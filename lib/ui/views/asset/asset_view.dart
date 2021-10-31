@@ -1,10 +1,10 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/annotations.dart';
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
 import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
 import 'package:crypto_app/ui/views/asset/widgets/expandable_card.dart';
-import 'package:crypto_app/ui/pages/asset/asset_exchanges_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -31,14 +32,14 @@ import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
 class AssetView extends StatelessWidget {
-  final MarketCoin marketCoin;
-  final Function(String, bool) onFavourite;
-
-  const AssetView({
-    Key? key,
-    required this.marketCoin,
-    required this.onFavourite,
-  }) : super(key: key);
+  // final MarketCoin marketCoin;
+  // final Function(String, bool) onFavourite;
+  final String id;
+  const AssetView({Key? key, required this.id
+      // required this.marketCoin,
+      // required this.onFavourite,
+      })
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +47,11 @@ class AssetView extends StatelessWidget {
 
     var iconSize =
         Theme.of(context).platform == TargetPlatform.macOS ? 24.0 : 32.0;
+
+    var marketCoin = (BlocProvider.of<AssetOverviewBloc>(context).state
+            as AssetOverviewLoaded)
+        .allAssets
+        .firstWhere((element) => element.id == id);
 
     return Scaffold(
       appBar: GeneralAppBar(
@@ -78,15 +84,20 @@ class AssetView extends StatelessWidget {
                     .isNotEmpty;
 
                 return IconButton(
-                    icon: FavouriteIcon(
-                      isSelected: isFavourite,
-                      size: Theme.of(context).platform == TargetPlatform.macOS
-                          ? 20
-                          : 22,
-                    ),
-                    onPressed: () => onFavourite(marketCoin.id, !isFavourite));
+                  icon: FavouriteIcon(
+                    isSelected: isFavourite,
+                    size: Theme.of(context).platform == TargetPlatform.macOS
+                        ? 20
+                        : 22,
+                  ),
+                  onPressed: () =>
+                      BlocProvider.of<AssetOverviewBloc>(context).add(
+                    AssetFavourited(state.allAssets, marketCoin, !isFavourite),
+                  ),
+                );
+                // onPressed: () => onFavourite(marketCoin.id, !isFavourite));
               }
-              return CupertinoActivityIndicator();
+              return PlatformCircularProgressIndicator();
             },
           )
         ],
@@ -467,12 +478,8 @@ class AssetView extends StatelessWidget {
                               BlocProvider.of<SingleAssetExchangeBloc>(context)
                                   .add(SingleAssetExchangeLoad(
                                       marketCoinId: marketCoin.id));
-                              await context.router.push(const AssetExchangeRoute());
-                              // await Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //       builder: (context) => AssetExchangeView()),
-                              // );
+                              await context.router
+                                  .push(const AssetExchangeRoute());
                             },
                             buttonText: 'View markets',
                           ),
@@ -536,7 +543,7 @@ class AssetView extends StatelessWidget {
           } else {
             debugPrint('Loading');
             return Center(
-              child: CupertinoActivityIndicator(),
+              child: PlatformCircularProgressIndicator(),
             );
           }
         },

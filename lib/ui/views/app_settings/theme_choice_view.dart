@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -65,8 +66,7 @@ class ThemeChoiceView extends StatelessWidget {
     return InkWell(
       onTap: () {
         bloc.add(UpdateThemeOptionEvent(bloc.state.currency, themeToUse));
-
-        Navigator.pop(context);
+        context.router.pop();
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),

@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class CurrencyChoiceView extends StatelessWidget {
     return InkWell(
       onTap: () {
         bloc.add(UpdateCurrencyOptionEvent(currencyToUse, bloc.state.theme));
-        Navigator.pop(context);
+        context.router.pop();
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,

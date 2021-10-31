@@ -71,26 +71,11 @@ class AssetsDataTable extends StatelessWidget {
 
                     return InkWell(
                       onTap: () async {
-                        await context.router.push(AssetRoute(
-                          id: mc.id,
-                          marketCoin: mc,
-                          onFavourite: (String id, bool isChecked) =>
-                              onFavourite(mc, isChecked),
-                        ));
-                        // await Navigator.push(
-                        //   context,
-                        //   platformPageRoute(
-                        //     context: context,
-                        //     fullscreenDialog: true,
-                        //     builder: (context) {
-                        //       return SingleAssetPage(
-                        //         marketCoin: mc,
-                        //         onFavourite: (String id, bool isChecked) =>
-                        //             onFavourite(mc, isChecked),
-                        //       );
-                        //     },
-                        //   ),
-                        // );
+                        await context.router.push(
+                          AssetRoute(
+                            id: mc.id,
+                          ),
+                        );
                       },
                       child: SizedBox(
                         height: getValueForScreenType<double>(

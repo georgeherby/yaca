@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
+import 'package:crypto_app/ui/pages/app_settings/app_settings_home_page.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 
 class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -55,14 +56,14 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       alignment: AlignmentDirectional.center,
                       child: BackChevronButton(
                         key: Key('back-chevron-macos'),
-                        onTapped: () => Navigator.pop(context),
+                        onTapped: () => context.router.pop(),
                       ),
                     ),
                   ],
                 )
               : IconButton(
                   key: Key('back-chevron-other-os'),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => context.router.pop(),
                   icon: FaIcon(
                     FontAwesomeIcons.chevronLeft,
                     size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
@@ -77,7 +78,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                     platformPageRoute(
                       context: context,
                       fullscreenDialog: true,
-                      builder: (context) => AppSettingsPage(),
+                      builder: (context) => AppSettingsHomePage(),
                     ),
                   ),
                   icon: FaIcon(FontAwesomeIcons.cog),

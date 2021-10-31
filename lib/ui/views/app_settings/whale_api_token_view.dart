@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -92,7 +93,7 @@ class WhaleApiTokenView extends StatelessWidget {
                                       FilterListBloc<WhaleTransaction, String>>(
                                   context)
                               .loadElements();
-                          Navigator.pop(context);
+                          await context.router.pop();
                         }
                       },
                     ),

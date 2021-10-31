@@ -21,7 +21,8 @@ class AssetRespository {
 
   Future<AssetHistorySplits> fetchFullAssetHistory(
       String coinId, ChosenCurrency currencyCode) async {
-    debugPrint('fetchFullAssetHistory called for currency $currencyCode');
+    debugPrint(
+        'fetchFullAssetHistory $coinId called for currency $currencyCode');
 
     return AssetHistorySplits(
       last24Hours: (await _fetchLast24HoursHistory(coinId, currencyCode)),
@@ -52,7 +53,8 @@ class AssetRespository {
 
   Future<AssetHistory> _fetchLast24HoursHistory(
       String coinId, ChosenCurrency chosenCurrency) async {
-    debugPrint('_fetchLast24HoursHistory called for currency ${chosenCurrency.currencyCode}');
+    debugPrint(
+        '_fetchLast24HoursHistory called for currency ${chosenCurrency.currencyCode}');
     var url =
         'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=${chosenCurrency.currencyCode}&days=1';
     return await _core(url);
