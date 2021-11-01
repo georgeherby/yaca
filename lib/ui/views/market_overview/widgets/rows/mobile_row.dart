@@ -107,19 +107,22 @@ class MobileRow extends StatelessWidget {
               ],
             ),
           ),
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
-            child: SimpleSparkLine(
-                data: sparklineIn7d!.price
-                    .mapIndexed((element, index) {
-                      if (index % 4 == 0) {
-                        return element;
-                      }
-                    })
-                    .whereType<double>()
-                    .toList(),
-                width: blockSize * 20),
+          Expanded(
+            flex: 10,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+              child: SimpleSparkLine(
+                  data: sparklineIn7d!.price
+                      .mapIndexed((element, index) {
+                        if (index % 4 == 0) {
+                          return element;
+                        }
+                      })
+                      .whereType<double>()
+                      .toList(),
+                  width: blockSize * 20),
+            ),
           ),
           Spacer(flex: 2),
           Expanded(

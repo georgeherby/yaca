@@ -11,7 +11,6 @@ import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
-import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
@@ -107,13 +106,16 @@ class DesktopRow extends StatelessWidget {
               ],
             ),
           ),
-          sparkline != null
-              ? Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: SimpleSparkLine(
-                      data: sparkline!.price, width: blockSize * 20),
-                )
-              : Container(),
+          SizedBox(
+            width: blockSize * 20,
+            child: sparkline != null
+                ? Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: SimpleSparkLine(
+                        data: sparkline!.price, width: blockSize * 20),
+                  )
+                : Container(),
+          ),
           SizedBox(
             width: blockSize * 30,
             child: Row(
@@ -121,8 +123,7 @@ class DesktopRow extends StatelessWidget {
               children: [
                 SizedBox(
                   width: blockSize * 8,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(sevenDayPercentageChange),
@@ -132,8 +133,7 @@ class DesktopRow extends StatelessWidget {
                 SizedBox(width: blockSize * 1),
                 SizedBox(
                   width: blockSize * 8,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(oneDayPercentageChange),
@@ -143,8 +143,7 @@ class DesktopRow extends StatelessWidget {
                 SizedBox(width: blockSize * 1),
                 SizedBox(
                   width: blockSize * 8,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(oneHourPercentageChange),

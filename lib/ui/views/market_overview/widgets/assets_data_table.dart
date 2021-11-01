@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_header.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_header.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,8 @@ class AssetsDataTable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var blockSize = MediaQuery.of(context).size.width / 100;
+
     return Padding(
       padding: getValueForScreenType<EdgeInsets>(
         context: context,
@@ -38,81 +42,94 @@ class AssetsDataTable extends StatelessWidget {
         tablet: EdgeInsets.only(bottom: 8.0),
         desktop: EdgeInsets.only(bottom: 8.0),
       ),
-      child: Material(
-        borderRadius: getValueForScreenType<BorderRadius>(
-            context: context,
-            mobile: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            tablet: BorderRadius.circular(10),
-            desktop: BorderRadius.circular(10)),
-        elevation: Theme.of(context).cardTheme.elevation!,
-        child: favouriteOnly && marketCoins.isEmpty
-            ? Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [Center(child: Text('No Favourites'))])
-            : RefreshableList(
-                onRefresh: onRefresh,
-                child: ListView.separated(
-                  physics: ClampingScrollPhysics(),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return Divider(
-                      indent: 8,
-                      endIndent: 8,
-                      height: 1,
-                      thickness: 1,
-                    );
-                  },
-                  shrinkWrap: false,
-                  itemCount: marketCoins.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    var mc = marketCoins[index];
+      child: Column(
+        children: [
+          ScreenBuilder(
+              desktop: DesktopHeader(blockSize: blockSize),
+              tablet: TabletHeader(blockSize: blockSize),
+              mobile: Container()),
+          Expanded(
+            child: Material(
+              borderRadius: getValueForScreenType<BorderRadius>(
+                  context: context,
+                  mobile: BorderRadius.only(
+                      topLeft: Radius.circular(10),
+                      topRight: Radius.circular(10)),
+                  tablet: BorderRadius.circular(10),
+                  desktop: BorderRadius.circular(10)),
+              elevation: Theme.of(context).cardTheme.elevation!,
+              child: favouriteOnly && marketCoins.isEmpty
+                  ? Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [Center(child: Text('No Favourites'))])
+                  : RefreshableList(
+                      onRefresh: onRefresh,
+                      child: Expanded(
+                        child: ListView.separated(
+                          physics: ClampingScrollPhysics(),
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              indent: 8,
+                              endIndent: 8,
+                              height: 1,
+                              thickness: 1,
+                            );
+                          },
+                          shrinkWrap: false,
+                          itemCount: marketCoins.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            var mc = marketCoins[index];
 
-                    return InkWell(
-                      onTap: () async {
-                        await context.router.push(
-                          AssetRoute(
-                            id: mc.id,
-                          ),
-                        );
-                      },
-                      child: SizedBox(
-                        height: getValueForScreenType<double>(
-                          context: context,
-                          desktop: 62,
-                          tablet: 60,
-                          mobile: 60,
+                            return InkWell(
+                              onTap: () async {
+                                await context.router.push(
+                                  AssetRoute(
+                                    id: mc.id,
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                height: getValueForScreenType<double>(
+                                  context: context,
+                                  desktop: 62,
+                                  tablet: 60,
+                                  mobile: 60,
+                                ),
+                                child: _buildRow(context, blockSize,
+                                    rank: mc.marketCapRank,
+                                    symbol: mc.symbol,
+                                    name: mc.name,
+                                    sparkline: mc.sparklineIn7d,
+                                    iconUrl: mc.image,
+                                    sevenDayChange: mc.priceChange7d,
+                                    sevenDayPercentageChange:
+                                        mc.priceChangePercentage7dInCurrency,
+                                    oneDayChange: mc.priceChange24h,
+                                    oneDayPercentageChange:
+                                        mc.priceChangePercentage24hInCurrency,
+                                    oneHourChange: mc.priceChange1h,
+                                    oneHourPercentageChange:
+                                        mc.priceChangePercentage1hInCurrency,
+                                    price: mc.currentPrice,
+                                    isFavourited: mc.isFavourited,
+                                    onFavourite: () =>
+                                        onFavourite(mc, !mc.isFavourited)),
+                              ),
+                            );
+                          },
                         ),
-                        child: _buildRow(context,
-                            rank: mc.marketCapRank,
-                            symbol: mc.symbol,
-                            name: mc.name,
-                            sparkline: mc.sparklineIn7d,
-                            iconUrl: mc.image,
-                            sevenDayChange: mc.priceChange7d,
-                            sevenDayPercentageChange:
-                                mc.priceChangePercentage7dInCurrency,
-                            oneDayChange: mc.priceChange24h,
-                            oneDayPercentageChange:
-                                mc.priceChangePercentage24hInCurrency,
-                            oneHourChange: mc.priceChange1h,
-                            oneHourPercentageChange:
-                                mc.priceChangePercentage1hInCurrency,
-                            price: mc.currentPrice,
-                            isFavourited: mc.isFavourited,
-                            onFavourite: () =>
-                                onFavourite(mc, !mc.isFavourited)),
                       ),
-                    );
-                  },
-                ),
-              ),
+                    ),
+            ),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildRow(BuildContext context,
+  Widget _buildRow(BuildContext context, double blockSize,
       {required int rank,
       required String symbol,
       required String name,
@@ -127,8 +144,6 @@ class AssetsDataTable extends StatelessWidget {
       required double price,
       required bool isFavourited,
       required VoidCallback onFavourite}) {
-    var blockSize = MediaQuery.of(context).size.width / 100;
-
     return ScreenBuilder(
       desktop: DesktopRow(blockSize,
           rank: rank,

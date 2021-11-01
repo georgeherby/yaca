@@ -11,7 +11,6 @@ import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
-import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 
@@ -117,8 +116,7 @@ class TabletRow extends StatelessWidget {
               children: [
                 SizedBox(
                   width: blockSize * 12,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(sevenDayPercentageChange),
@@ -128,8 +126,7 @@ class TabletRow extends StatelessWidget {
                 SizedBox(width: blockSize * 1),
                 SizedBox(
                   width: blockSize * 12,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(oneDayPercentageChange),
@@ -139,8 +136,7 @@ class TabletRow extends StatelessWidget {
                 SizedBox(width: blockSize * 1),
                 SizedBox(
                   width: blockSize * 12,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(oneHourPercentageChange),

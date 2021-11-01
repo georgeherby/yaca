@@ -495,9 +495,7 @@ class AssetView extends StatelessWidget {
                           Text('Description',
                               style: Theme.of(context).textTheme.headline6),
                           SizedBox(height: 8),
-                          // Text('Description',
-                          //     style: Theme.of(context).textTheme.subtitle1),
-                          // SizedBox(height: 4),
+ 
                           ExpandableCard(
                             collapsedHeight: 80,
                             contents: SelectableHtml(

@@ -190,6 +190,7 @@ class _AssetGraphState extends State<AssetGraph> {
                 ),
                 titlesData: FlTitlesData(
                   show: true,
+                  topTitles: SideTitles(showTitles: false),
                   bottomTitles: SideTitles(
                     showTitles: true,
                     interval: ((maxTime - minTime) / verticals),
@@ -246,15 +247,22 @@ class _AssetGraphState extends State<AssetGraph> {
                       );
                     }).toList();
                   },
-                  touchCallback: (LineTouchResponse response) {
-                    if (response.lineBarSpots != null &&
-                        response.lineBarSpots!.isNotEmpty) {
+                  touchCallback:
+                      (FlTouchEvent event, LineTouchResponse? lineTouch) {
+                    if (!event.isInterestedForInteractions ||
+                        lineTouch == null ||
+                        lineTouch.lineBarSpots == null) {
+                      return;
+                    }
+
+                    if (lineTouch.lineBarSpots != null &&
+                        lineTouch.lineBarSpots!.isNotEmpty) {
                       setState(() {
                         touchedTime = widget
-                            .history[response.lineBarSpots!.first.spotIndex]
+                            .history[lineTouch.lineBarSpots!.first.spotIndex]
                             .timeEpochUtc;
                         touchedPrice = widget
-                            .history[response.lineBarSpots!.first.spotIndex]
+                            .history[lineTouch.lineBarSpots!.first.spotIndex]
                             .value;
                       });
                     }
