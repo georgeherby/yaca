@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -66,18 +67,9 @@ class WhaleTransactionList extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    CircleAvatar(
-                      minRadius: 16,
-                      maxRadius: 16,
-                      child: Text(
-                        '${transaction.symbol.toUpperCase()}',
-                        textAlign: TextAlign.center,
-                        maxLines: 1,
-                        style: Theme.of(context)
-                            .textTheme
-                            .caption
-                            ?.copyWith(color: Colors.white),
-                      ),
+                    AssetTextIcon(
+                      iconSize: 32,
+                      assetSymbol: transaction.symbol,
                     ),
                     SizedBox(width: sidePadding),
                     Expanded(

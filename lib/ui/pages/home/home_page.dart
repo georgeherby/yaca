@@ -107,20 +107,6 @@ class _HomePageState extends State<HomePage> {
                               'Market',
                             ),
                           ),
-
-                          // NavigationRailDestination(
-                          //  icon: FaIcon(FontAwesomeIcons.moneyBillAlt),
-                          //       selectedIcon:
-                          //           FaIcon(FontAwesomeIcons.solidMoneyBillAlt),
-                          //     label: Text(
-                          //       "Portfolio",
-                          //     )),
-                          // NavigationRailDestination(
-                          //     icon: Icon(CupertinoIcons.news),
-                          //     selectedIcon: Icon(CupertinoIcons.news_solid),
-                          //     label: Text(
-                          //       "News",
-                          //     ))
                           NavigationRailDestination(
                               icon: SvgPicture.asset(
                                 'assets/whale_outline.svg',
@@ -179,24 +165,6 @@ class _HomePageState extends State<HomePage> {
         return MarketOverviewView();
       case 1:
         return WhaleTransactionView();
-      // case 2:
-      //   return Expanded(
-      //     child: Scaffold(
-      //       body: Center(
-      //         child: Text("Portfolio"),
-      //       ),
-      //     ),
-      //   );
-      // case 2:
-      //   return Expanded(
-      //     child: Scaffold(
-      //       body: Center(
-      //         child: Text("News"),
-      //       ),
-      //     ),
-      //   );
-      // case 2:
-      //   return WhaleTransactionView();
       default:
         return Text('Uknown page');
     }

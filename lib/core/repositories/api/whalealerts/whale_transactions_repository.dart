@@ -32,7 +32,7 @@ class WhaleTransactionReposiotry
       //TODO Make the min value a configurable value
       var url =
           'https://api.whale-alert.io/v1/transactions?api_key=$token&min_value=5000000';
-      final response = await client.get(Uri.parse(url));
+      final response = await client.get(Uri.parse(url), headers: {'content-type': 'application/json'});
       debugPrint(response.statusCode.toString());
       if (response.statusCode == 429) {
         throw RateLimitException();

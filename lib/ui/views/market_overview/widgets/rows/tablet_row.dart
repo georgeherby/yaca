@@ -122,8 +122,6 @@ class TabletRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(sevenDayPercentageChange),
-                      SizedBox(height: 4),
-                      DeltaWithArrow(sevenDayChange),
                     ],
                   ),
                 ),
@@ -135,8 +133,6 @@ class TabletRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(oneDayPercentageChange),
-                      SizedBox(height: 4),
-                      DeltaWithArrow(oneDayChange),
                     ],
                   ),
                 ),
@@ -148,8 +144,6 @@ class TabletRow extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       PercentageChangeBox(oneHourPercentageChange),
-                      SizedBox(height: 4),
-                      DeltaWithArrow(oneHourChange)
                     ],
                   ),
                 ),

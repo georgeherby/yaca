@@ -64,10 +64,7 @@ class SimpleSparkLine extends StatelessWidget {
                 ),
                 belowBarData: BarAreaData(
                   show: true,
-                  colors: [
-                    Colors.transparent,
-                    graphColor,
-                  ],
+                  colors: [Colors.transparent, graphColor],
                   gradientFrom: Offset(0, 0.5),
                   gradientTo: Offset(0, 0),
                   gradientColorStops: [0, 1],
