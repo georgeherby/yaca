@@ -701,7 +701,7 @@ packages:
       path: "."
       ref: master
       resolved-ref: "0475688bb26f6d1f5966be1b9a371f02a136da45"
-      url: "git://github.com/georgeherby/responsive_builder.git"
+      url: "https://github.com/georgeherby/responsive_builder.git"
     source: git
     version: "0.4.1"
   rxdart:
@@ -1086,21 +1086,21 @@ packages:
       name: webview_flutter_android
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   webview_flutter_platform_interface:
     dependency: transitive
     description:
       name: webview_flutter_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.2.0"
+    version: "1.3.0"
   webview_flutter_wkwebview:
     dependency: transitive
     description:
       name: webview_flutter_wkwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.0"
   win32:
     dependency: transitive
     description:

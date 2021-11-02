@@ -34,7 +34,7 @@ dependencies:
   provider: ^6.0.0
   responsive_builder:
     git:
-      url: git://github.com/georgeherby/responsive_builder.git
+      url: https://github.com/georgeherby/responsive_builder.git
       ref: master
   shared_preferences: ^2.0.7
   shimmer: ^2.0.0
