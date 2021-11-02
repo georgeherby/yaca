@@ -152,13 +152,14 @@ class MobileRow extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 8),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
               if (state is AssetOverviewLoaded) {
-                return GestureDetector(
-                  onTap: onFavourite,
-                  child: FavouriteIcon(
+                return IconButton(
+                  visualDensity: VisualDensity.compact,
+                  padding: EdgeInsets.zero,
+                  onPressed: onFavourite,
+                  icon: FavouriteIcon(
                     isSelected: isFavourited,
                     size: 14,
                   ),
@@ -167,7 +168,6 @@ class MobileRow extends StatelessWidget {
               return CupertinoActivityIndicator();
             },
           ),
-          SizedBox(width: 8),
         ],
       ),
     );

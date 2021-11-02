@@ -60,8 +60,8 @@ SPEC CHECKSUMS:
   url_launcher: b6e016d912f04be9f5bf6e8e82dc599b7ba59649
   video_player: ecd305f42e9044793efd34846e1ce64c31ea6fcb
   wakelock: d0fc7c864128eac40eba1617cb5264d9c940b46f
-  webview_flutter_wkwebview: 44aa025fbcf6730d808f1e0d86a5af5ac25fa8de
+  webview_flutter_wkwebview: 02b129c6fe415e58e4ab7346512c8c2f79f678db
 
-PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 
 COCOAPODS: 1.10.1

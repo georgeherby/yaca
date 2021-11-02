@@ -66,60 +66,58 @@ class AssetsDataTable extends StatelessWidget {
                       children: [Center(child: Text('No Favourites'))])
                   : RefreshableList(
                       onRefresh: onRefresh,
-                      child: Expanded(
-                        child: ListView.separated(
-                          physics: ClampingScrollPhysics(),
-                          separatorBuilder: (BuildContext context, int index) {
-                            return Divider(
-                              indent: 8,
-                              endIndent: 8,
-                              height: 1,
-                              thickness: 1,
-                            );
-                          },
-                          shrinkWrap: false,
-                          itemCount: marketCoins.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var mc = marketCoins[index];
+                      child: ListView.separated(
+                        physics: ClampingScrollPhysics(),
+                        separatorBuilder: (BuildContext context, int index) {
+                          return Divider(
+                            indent: 8,
+                            endIndent: 8,
+                            height: 1,
+                            thickness: 1,
+                          );
+                        },
+                        shrinkWrap: false,
+                        itemCount: marketCoins.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var mc = marketCoins[index];
 
-                            return InkWell(
-                              onTap: () async {
-                                await context.router.push(
-                                  AssetRoute(
-                                    id: mc.id,
-                                  ),
-                                );
-                              },
-                              child: SizedBox(
-                                height: getValueForScreenType<double>(
-                                  context: context,
-                                  desktop: 62,
-                                  tablet: 60,
-                                  mobile: 60,
+                          return InkWell(
+                            onTap: () async {
+                              await context.router.push(
+                                AssetRoute(
+                                  id: mc.id,
                                 ),
-                                child: _buildRow(context, blockSize,
-                                    rank: mc.marketCapRank,
-                                    symbol: mc.symbol,
-                                    name: mc.name,
-                                    sparkline: mc.sparklineIn7d,
-                                    iconUrl: mc.image,
-                                    sevenDayChange: mc.priceChange7d,
-                                    sevenDayPercentageChange:
-                                        mc.priceChangePercentage7dInCurrency,
-                                    oneDayChange: mc.priceChange24h,
-                                    oneDayPercentageChange:
-                                        mc.priceChangePercentage24hInCurrency,
-                                    oneHourChange: mc.priceChange1h,
-                                    oneHourPercentageChange:
-                                        mc.priceChangePercentage1hInCurrency,
-                                    price: mc.currentPrice,
-                                    isFavourited: mc.isFavourited,
-                                    onFavourite: () =>
-                                        onFavourite(mc, !mc.isFavourited)),
+                              );
+                            },
+                            child: SizedBox(
+                              height: getValueForScreenType<double>(
+                                context: context,
+                                desktop: 62,
+                                tablet: 60,
+                                mobile: 60,
                               ),
-                            );
-                          },
-                        ),
+                              child: _buildRow(context, blockSize,
+                                  rank: mc.marketCapRank,
+                                  symbol: mc.symbol,
+                                  name: mc.name,
+                                  sparkline: mc.sparklineIn7d,
+                                  iconUrl: mc.image,
+                                  sevenDayChange: mc.priceChange7d,
+                                  sevenDayPercentageChange:
+                                      mc.priceChangePercentage7dInCurrency,
+                                  oneDayChange: mc.priceChange24h,
+                                  oneDayPercentageChange:
+                                      mc.priceChangePercentage24hInCurrency,
+                                  oneHourChange: mc.priceChange1h,
+                                  oneHourPercentageChange:
+                                      mc.priceChangePercentage1hInCurrency,
+                                  price: mc.currentPrice,
+                                  isFavourited: mc.isFavourited,
+                                  onFavourite: () =>
+                                      onFavourite(mc, !mc.isFavourited)),
+                            ),
+                          );
+                        },
                       ),
                     ),
             ),

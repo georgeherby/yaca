@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/app_router.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -74,13 +75,8 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
               : IconButton(
                   key: Key('settings-cog-buton'),
                   tooltip: 'Open settings',
-                  onPressed: () => Navigator.of(context).push(
-                    platformPageRoute(
-                      context: context,
-                      fullscreenDialog: true,
-                      builder: (context) => AppSettingsHomePage(),
-                    ),
-                  ),
+                  onPressed: () =>
+                      context.router.push(const AppSettingsHomeRoute()),
                   icon: FaIcon(FontAwesomeIcons.cog),
                 ),
       systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
