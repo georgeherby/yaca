@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class CurrencyChoiceView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Material(
           clipBehavior: Clip.antiAlias,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
           elevation: Theme.of(context).cardTheme.elevation!,
           child: Column(
               mainAxisSize: MainAxisSize.min,

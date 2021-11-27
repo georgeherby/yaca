@@ -32,15 +32,23 @@ class _ExpandableCardState extends State<ExpandableCard>
                   : BoxConstraints(maxHeight: widget.collapsedHeight),
               child: widget.contents),
         ),
-        IconButton(
-            onPressed: () {
-              setState(() {
-                expanded = !expanded;
-              });
-            },
-            icon: FaIcon(expanded
-                ? FontAwesomeIcons.chevronUp
-                : FontAwesomeIcons.chevronDown))
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              expanded = !expanded;
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Spacer(),
+              FaIcon(expanded
+                  ? FontAwesomeIcons.chevronUp
+                  : FontAwesomeIcons.chevronDown),
+              Spacer(),
+            ],
+          ),
+        ),
       ],
     );
   }

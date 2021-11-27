@@ -193,10 +193,6 @@ void main() {
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded([
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin
-          ]),
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin.copyWith(favouriteCacheId: 13)
           ])
         ]),
@@ -243,10 +239,6 @@ void main() {
     await expectLater(
       bloc.stream,
       emitsInOrder(<AssetOverviewState>[
-        AssetOverviewLoaded([
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ethMarketCoin
-        ]),
         AssetOverviewLoaded([btcMarketCoin, ethMarketCoin])
       ]),
     );

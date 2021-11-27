@@ -63,7 +63,12 @@ void main() async {
   Hive.registerAdapter(FavouritesAdapter());
   // Opening the box
   await Hive.openBox<Favourites>('favBox');
-  Bloc.observer = MyBlocObserver();
+  BlocOverrides.runZoned(
+    () {
+      // ...
+    },
+    blocObserver: MyBlocObserver(),
+  );
   runApp(MyApp());
 }
 

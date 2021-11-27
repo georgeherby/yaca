@@ -1,6 +1,3 @@
-// 🎯 Dart imports:
-import 'dart:async';
-
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -25,28 +22,40 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
 
   AppSettingsBloc(
       this._darkThemePreferenceRepository, this._currencyPreferenceRepository)
-      : super(AppSettingsInitial());
+      : super(AppSettingsInitial()) {
+    on<LoadAppSettings>(_onLoadAppSettings);
+    on<UpdateCurrencyOptionEvent>(_onUpdateCurrencyOptionEvent);
+    on<UpdateThemeOptionEvent>(_onUpdateThemeOptionEvent);
+  }
 
-  @override
-  Stream<AppSettingsState> mapEventToState(
-    AppSettingsEvent event,
-  ) async* {
-    if (event is LoadAppSettings) {
-      var theme = await _darkThemePreferenceRepository.getThemeMode();
-      var currency =
-          (await _currencyPreferenceRepository.get()).toChosenCurrency();
+  void _onLoadAppSettings(
+    LoadAppSettings event,
+    Emitter<AppSettingsState> emit,
+  ) async {
+    var theme = await _darkThemePreferenceRepository.getThemeMode();
+    var currency =
+        (await _currencyPreferenceRepository.get()).toChosenCurrency();
 
-      yield AppSettingsLoaded(theme, currency);
-    } else if (event is UpdateCurrencyOptionEvent) {
-      await _currencyPreferenceRepository
-          .set(event.newCurrencyChoice.currencyCode);
+    emit(AppSettingsLoaded(theme, currency));
+  }
 
-      yield AppSettingsLoaded(event.theme, event.newCurrencyChoice);
-    } else if (event is UpdateThemeOptionEvent) {
-      debugPrint(event.newTheme.toStr());
-      await _darkThemePreferenceRepository.setThemeMode(event.newTheme);
+  void _onUpdateCurrencyOptionEvent(
+    UpdateCurrencyOptionEvent event,
+    Emitter<AppSettingsState> emit,
+  ) async {
+    await _currencyPreferenceRepository
+        .set(event.newCurrencyChoice.currencyCode);
 
-      yield AppSettingsLoaded(event.newTheme, event.currency);
-    }
+    emit(AppSettingsLoaded(event.theme, event.newCurrencyChoice));
+  }
+
+  void _onUpdateThemeOptionEvent(
+    UpdateThemeOptionEvent event,
+    Emitter<AppSettingsState> emit,
+  ) async {
+    debugPrint(event.newTheme.toStr());
+    await _darkThemePreferenceRepository.setThemeMode(event.newTheme);
+
+    emit(AppSettingsLoaded(event.newTheme, event.currency));
   }
 }

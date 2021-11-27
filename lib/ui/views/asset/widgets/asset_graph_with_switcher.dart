@@ -62,44 +62,54 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
               ),
             ),
       Padding(
-        padding:
-            const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8, top: 16),
+        padding: const EdgeInsets.only(bottom: 8, top: 16),
         child: (Theme.of(context).platform.isDesktop() || kIsWeb)
-            ? Wrap(
-                spacing: 8,
-                runSpacing: 6,
-                children: List.generate(_chips.length, (listIndex) {
-                  var _selected = listIndex == _index;
-                  return Theme(
-                    data: Theme.of(context)
-                        .copyWith(canvasColor: Colors.transparent),
-                    child: ChoiceChip(
-                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      padding: EdgeInsets.symmetric(horizontal: 3),
-                      selectedColor: Theme.of(context).chipTheme.selectedColor,
-                      label: Text(
-                        _chips[listIndex].label,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).chipTheme.labelStyle.copyWith(
-                            fontWeight:
-                                _selected ? FontWeight.bold : FontWeight.normal,
-                            color: _selected &&
-                                    Theme.of(context).brightness ==
-                                        Brightness.light
-                                ? Colors.white
-                                : Theme.of(context).chipTheme.labelStyle.color),
+            ? Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: Wrap(
+                  spacing: 8,
+                  runSpacing: 6,
+                  children: List.generate(_chips.length, (listIndex) {
+                    var _selected = listIndex == _index;
+                    return Theme(
+                      data: Theme.of(context)
+                          .copyWith(canvasColor: Colors.transparent),
+                      child: ChoiceChip(
+                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        padding: EdgeInsets.symmetric(horizontal: 3),
+                        selectedColor:
+                            Theme.of(context).chipTheme.selectedColor,
+                        label: Text(
+                          _chips[listIndex].label,
+                          textAlign: TextAlign.center,
+                          style: Theme.of(context)
+                              .chipTheme
+                              .labelStyle
+                              .copyWith(
+                                  fontWeight: _selected
+                                      ? FontWeight.bold
+                                      : FontWeight.normal,
+                                  color: _selected &&
+                                          Theme.of(context).brightness ==
+                                              Brightness.light
+                                      ? Colors.white
+                                      : Theme.of(context)
+                                          .chipTheme
+                                          .labelStyle
+                                          .color),
+                        ),
+                        selected: listIndex == _index,
+                        backgroundColor:
+                            Theme.of(context).scaffoldBackgroundColor,
+                        onSelected: (bool selected) {
+                          setState(() {
+                            _index = listIndex;
+                          });
+                        },
                       ),
-                      selected: listIndex == _index,
-                      backgroundColor:
-                          Theme.of(context).scaffoldBackgroundColor,
-                      onSelected: (bool selected) {
-                        setState(() {
-                          _index = listIndex;
-                        });
-                      },
-                    ),
-                  );
-                }),
+                    );
+                  }),
+                ),
               )
             : SingleChildScrollView(
                 physics: ClampingScrollPhysics(),

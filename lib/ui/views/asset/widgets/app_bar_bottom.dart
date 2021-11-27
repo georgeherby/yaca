@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -44,12 +45,12 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
       height: height,
       child: Center(
         child: Material(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
           clipBehavior: Clip.antiAliasWithSaveLayer,
           elevation: Theme.of(context).cardTheme.elevation!,
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+              borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
             ),
             child: Padding(
               padding: const EdgeInsets.all(8.0),

@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -116,14 +118,14 @@ class AssetView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildCard(
+                    _buildCard(
                       context,
                       true,
                       AssetGraphWithSwitcher(
                           allHistory: state.assetHistorySplits),
                     ),
                     SizedBox(height: 8),
-                    buildCard(
+                    _buildCard(
                       context,
                       false,
                       Column(
@@ -239,7 +241,7 @@ class AssetView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-                    buildCard(
+                    _buildCard(
                       context,
                       false,
                       Column(
@@ -394,14 +396,14 @@ class AssetView extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 8),
-                    buildCard(
+                    _buildCard(
                       context,
                       false,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Scentiment',
+                            'Sentiment',
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           SizedBox(height: 8),
@@ -412,12 +414,15 @@ class AssetView extends StatelessWidget {
                                       100)
                                   .toInt(),
                               child: Container(
-                                height: 20,
+                                height: (kCornerRadiusCirlcular * 2) +
+                                    kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
                                   color: kNegativeRed,
                                   borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    bottomLeft: Radius.circular(10),
+                                    topLeft:
+                                        Radius.circular(kCornerRadiusCirlcular),
+                                    bottomLeft:
+                                        Radius.circular(kCornerRadiusCirlcular),
                                   ),
                                 ),
                                 child: Center(
@@ -440,12 +445,15 @@ class AssetView extends StatelessWidget {
                                       100)
                                   .toInt(),
                               child: Container(
-                                height: 20,
+                                height: (kCornerRadiusCirlcular * 2) +
+                                    kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
                                   color: kPositiveGreen,
                                   borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(10),
-                                    bottomRight: Radius.circular(10),
+                                    topRight:
+                                        Radius.circular(kCornerRadiusCirlcular),
+                                    bottomRight:
+                                        Radius.circular(kCornerRadiusCirlcular),
                                   ),
                                 ),
                                 child: Center(
@@ -485,7 +493,7 @@ class AssetView extends StatelessWidget {
                       ],
                     ),
                     SizedBox(height: 8),
-                    buildCard(
+                    _buildCard(
                       context,
                       false,
                       Column(
@@ -495,28 +503,19 @@ class AssetView extends StatelessWidget {
                           Text('Description',
                               style: Theme.of(context).textTheme.headline6),
                           SizedBox(height: 8),
- 
-                          ExpandableCard(
-                            collapsedHeight: 80,
-                            contents: SelectableHtml(
-                              shrinkWrap: true,
-                              data: state.singleAsset.description.en,
-                              onLinkTap: (String? url,
-                                  RenderContext context,
-                                  Map<String, String> attributes,
-                                  dom.Element? element) async {
-                                if (url != null) {
-                                  if (await canLaunch(url)) {
-                                    await launch(url);
-                                  } else {
-                                    debugPrint('Could not launch $url');
-                                    return null;
-                                  }
-                                } else {
-                                  return null;
-                                }
-                              },
+                          ScreenBuilder(
+                            mobile: ExpandableCard(
+                              collapsedHeight: 100,
+                              contents:
+                                  _buildHtml(state.singleAsset.description.en),
                             ),
+                            tablet: ExpandableCard(
+                              collapsedHeight: 120,
+                              contents:
+                                  _buildHtml(state.singleAsset.description.en),
+                            ),
+                            desktop:
+                                _buildHtml(state.singleAsset.description.en),
                           ),
                           SizedBox(height: 4),
                         ],
@@ -547,13 +546,34 @@ class AssetView extends StatelessWidget {
     );
   }
 
-  Widget buildCard(BuildContext context, bool removePadding, Widget content) {
+  Widget _buildHtml(String html) {
+    return SelectableHtml(
+      shrinkWrap: true,
+      data: html,
+      onLinkTap: (String? url, RenderContext context,
+          Map<String, String> attributes, dom.Element? element) async {
+        if (url != null) {
+          if (await canLaunch(url)) {
+            await launch(url);
+          } else {
+            debugPrint('Could not launch $url');
+            return null;
+          }
+        } else {
+          return null;
+        }
+      },
+    );
+  }
+
+  Widget _buildCard(BuildContext context, bool removePadding, Widget content) {
     return Material(
-        borderRadius: BorderRadius.circular(10),
-        clipBehavior: Clip.antiAliasWithSaveLayer,
-        elevation: Theme.of(context).cardTheme.elevation!,
-        child: Padding(
-            padding: removePadding ? EdgeInsets.zero : EdgeInsets.all(8.0),
-            child: content));
+      borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+      elevation: Theme.of(context).cardTheme.elevation!,
+      child: Padding(
+          padding: removePadding ? EdgeInsets.zero : EdgeInsets.all(8.0),
+          child: content),
+    );
   }
 }

@@ -33,7 +33,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
         child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(8.0)),
+              borderRadius: BorderRadius.all(Radius.circular(kCornerRadiusCirlcular)),
             ),
             child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
               builder: (context, state) {

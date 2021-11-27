@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -121,7 +122,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                 child: Row(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(8.0),
+                      borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
                       child: CachedNetworkImage(
                         width: _isPhoneOnly ? 32 : 44,
                         filterQuality: FilterQuality.high,

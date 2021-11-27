@@ -1,6 +1,3 @@
-// 🎯 Dart imports:
-import 'dart:async';
-
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -17,28 +14,24 @@ part 'asset_state.dart';
 class AssetBloc extends Bloc<AssetEvent, AssetState> {
   final AssetRespository singleAssetRespository;
 
-  AssetBloc({required this.singleAssetRespository})
-      : super(AssetInitial());
+  AssetBloc({required this.singleAssetRespository}) : super(AssetInitial()) {
+    on<AssetLoad>(_onAssetLoad);
+  }
 
-  @override
-  Stream<AssetState> mapEventToState(
-    AssetEvent event,
-  ) async* {
-    if (event is AssetLoad) {
-      yield AssetLoading();
+  void _onAssetLoad(AssetLoad event, Emitter<AssetState> emit) async {
+    emit(AssetLoading());
 
-      try {
-        print('done');
-        var assetHistorySplits = await singleAssetRespository
-            .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);
+    try {
+      print('done');
+      var assetHistorySplits = await singleAssetRespository
+          .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);
 
-        var assetDetails =
-            await singleAssetRespository.getSingleAssetData(event.marketCoinId);
+      var assetDetails =
+          await singleAssetRespository.getSingleAssetData(event.marketCoinId);
 
-        yield AssetLoaded(assetDetails, assetHistorySplits);
-      } on Exception catch (e) {
-        yield AssetError(e.toString());
-      }
+      emit(AssetLoaded(assetDetails, assetHistorySplits));
+    } on Exception catch (e) {
+      emit(AssetError(e.toString()));
     }
   }
 }

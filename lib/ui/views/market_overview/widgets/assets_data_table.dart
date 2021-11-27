@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_header.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_header.dart';
 import 'package:flutter/cupertino.dart';
@@ -53,10 +54,10 @@ class AssetsDataTable extends StatelessWidget {
               borderRadius: getValueForScreenType<BorderRadius>(
                   context: context,
                   mobile: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                  tablet: BorderRadius.circular(10),
-                  desktop: BorderRadius.circular(10)),
+                      topLeft: Radius.circular(kCornerRadiusCirlcular),
+                      topRight: Radius.circular(kCornerRadiusCirlcular)),
+                  tablet: BorderRadius.circular(kCornerRadiusCirlcular),
+                  desktop: BorderRadius.circular(kCornerRadiusCirlcular)),
               elevation: Theme.of(context).cardTheme.elevation!,
               child: favouriteOnly && marketCoins.isEmpty
                   ? Column(

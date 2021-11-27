@@ -29,7 +29,10 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
 
   FilterListBloc(FilterListRepository<T, F> repository)
       : _repository = repository,
-        super(const Initial());
+        super(const Initial()) {
+    on<LoadList<F>>(_onLoadList);
+    on<RefreshList<F>>(_onRefreshList);
+  }
 
   F? get filter => _filter;
 
@@ -49,12 +52,16 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
   /// loading indicator.
   void refreshElements({F? filter}) => add(RefreshList(filter));
 
-  @override
-  Stream<ViewState> mapEventToState(ListEvent event) async* {
-    if (event is LoadList<F>) {
-      yield* _mapLoadList(event.filter);
-    } else if (event is RefreshList<F> && _isRefreshPossible(event)) {
-      yield* _mapRefreshList(event.filter);
+  void _onLoadList(LoadList<F> event, Emitter<ViewState> emit) {
+    emit(const Loading());
+    _getListState(filter, emit);
+  }
+
+  void _onRefreshList(RefreshList<F> event, Emitter<ViewState> emit) {
+    if (_isRefreshPossible(event)) {
+      final elements = _getCurrentStateElements();
+      emit(Refreshing(elements));
+      _getListState(filter, emit);
     }
   }
 
@@ -62,32 +69,21 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
   bool _isRefreshPossible(ListEvent event) =>
       state is Success || state is Failure || state is Empty;
 
-  Stream<ViewState> _mapLoadList(F? filter) async* {
-    yield const Loading();
-    yield* _getListState(filter);
-  }
-
-  Stream<ViewState> _mapRefreshList(F? filter) async* {
-    final elements = _getCurrentStateElements();
-    yield Refreshing(elements);
-    yield* _getListState(filter);
-  }
-
   List<T> _getCurrentStateElements() =>
       (state is Success<List<T>>) ? (state as Success<List<T>>).data : [];
 
-  Stream<ViewState> _getListState(F? filter) async* {
+  void _getListState(F? filter, Emitter emit) async {
     try {
       final elements = await _getElementsFromRepository(filter);
-      yield elements.isNotEmpty
+      emit(elements.isNotEmpty
           ? Success<List<T>>(UnmodifiableListView(elements.reversed))
-          : const Empty();
+          : const Empty());
     } on RateLimitException catch (e) {
-      yield Failure(e);
+      emit(Failure(e));
     } on Exception catch (e, stacktrace) {
       debugPrint(stacktrace.toString());
       debugPrint(e.toString());
-      yield Failure(e);
+      emit(Failure(e));
     } finally {
       _filter = filter;
     }

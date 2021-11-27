@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -64,7 +65,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   : Theme.of(context).chipTheme.selectedColor,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
+                                  Radius.circular(kCornerRadiusCirlcular),
                                 ),
                               ),
                             ),

@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -35,7 +36,7 @@ class WhaleApiTokenView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Material(
           clipBehavior: Clip.antiAlias,
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
           elevation: Theme.of(context).cardTheme.elevation!,
           child: Padding(
             padding: const EdgeInsets.all(8.0),

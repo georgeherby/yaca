@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
 import 'package:flutter/material.dart';
 
@@ -39,9 +40,10 @@ class WhaleTransactionList extends StatelessWidget {
         borderRadius: getValueForScreenType<BorderRadius>(
             context: context,
             mobile: BorderRadius.only(
-                topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            tablet: BorderRadius.circular(10),
-            desktop: BorderRadius.circular(10)),
+                topLeft: Radius.circular(kCornerRadiusCirlcular),
+                topRight: Radius.circular(kCornerRadiusCirlcular)),
+            tablet: BorderRadius.circular(kCornerRadiusCirlcular),
+            desktop: BorderRadius.circular(kCornerRadiusCirlcular)),
         elevation: Theme.of(context).cardTheme.elevation!,
         child: RefreshableList(
           onRefresh: onRefresh,
