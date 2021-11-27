@@ -19,7 +19,7 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(routeData: routeData, child: HomePage());
     },
     AssetRoute.name: (routeData) {
-      final pathParams = routeData.pathParams;
+      final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<AssetRouteArgs>(
           orElse: () => AssetRouteArgs(id: pathParams.getString('assetId')));
       return MaterialPageX<dynamic>(
@@ -106,6 +106,11 @@ class AssetRouteArgs {
   final Key? key;
 
   final String id;
+
+  @override
+  String toString() {
+    return 'AssetRouteArgs{key: $key, id: $id}';
+  }
 }
 
 /// generated route for [AppSettingsHomePage]
@@ -128,6 +133,11 @@ class AssetDetailsRouteArgs {
   const AssetDetailsRouteArgs({this.key});
 
   final Key? key;
+
+  @override
+  String toString() {
+    return 'AssetDetailsRouteArgs{key: $key}';
+  }
 }
 
 /// generated route for [AssetExchangePage]
