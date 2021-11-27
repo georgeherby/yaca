@@ -1,21 +1,20 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
-import 'package:crypto_app/ui/views/app_settings/currency_choice_view.dart';
-import 'package:crypto_app/ui/views/app_settings/theme_choice_view.dart';
-import 'package:crypto_app/ui/views/app_settings/whale_api_token_view.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);
@@ -40,19 +39,14 @@ class AppSettingsView extends StatelessWidget {
           SizedBox(height: 6),
           Material(
             clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
             elevation: Theme.of(context).cardTheme.elevation!,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                  onTap: () async {
-                    await Navigator.push(
-                        context,
-                        platformPageRoute(
-                          context: context,
-                          builder: (context) => CurrencyChoiceView(),
-                        ));
+                  onTap: () {
+                    context.router.push(const AppSettingsCurrencyRoute());
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -63,7 +57,7 @@ class AppSettingsView extends StatelessWidget {
                         children: [
                           FaIcon(FontAwesomeIcons.moneyBillAlt),
                           VerticalDivider(color: Colors.transparent),
-                          Text('Choose default currency'),
+                          Text('Default currency'),
                           Spacer(),
                           Text(BlocProvider.of<AppSettingsBloc>(context)
                               .state
@@ -82,13 +76,9 @@ class AppSettingsView extends StatelessWidget {
                   height: 1,
                 ),
                 InkWell(
-                  onTap: () async => await Navigator.push(
-                    context,
-                    platformPageRoute(
-                      context: context,
-                      builder: (context) => ThemeChoiceView(),
-                    ),
-                  ),
+                  onTap: () {
+                    context.router.push(const AppSettingsThemeRoute());
+                  },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         vertical: 12.0, horizontal: 20),
@@ -98,7 +88,7 @@ class AppSettingsView extends StatelessWidget {
                         children: [
                           FaIcon(FontAwesomeIcons.palette),
                           VerticalDivider(color: Colors.transparent),
-                          Text('Choose theme'),
+                          Text('Theme'),
                           Spacer(),
                           Icon(BlocProvider.of<AppSettingsBloc>(context)
                               .state
@@ -129,19 +119,14 @@ class AppSettingsView extends StatelessWidget {
           SizedBox(height: 6),
           Material(
             clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
             elevation: Theme.of(context).cardTheme.elevation!,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 InkWell(
-                  onTap: () async {
-                    await Navigator.push(
-                        context,
-                        platformPageRoute(
-                          context: context,
-                          builder: (context) => WhaleApiTokenView(),
-                        ));
+                  onTap: () {
+                    context.router.push(const AppSettingsWhaleRoute());
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(

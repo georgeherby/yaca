@@ -25,62 +25,46 @@ class SimpleSparkLine extends StatelessWidget {
       var firstPrice = data.first;
       var graphColor = lastPrice > firstPrice ? kPositiveGreen : kNegativeRed;
 
-      return SizedBox(
-        height: 120,
-        width: width,
-        child: LineChart(
-          LineChartData(
-            backgroundColor: Colors.transparent,
-            gridData: FlGridData(
-              show: false,
-            ),
-            borderData: FlBorderData(show: false),
-            axisTitleData: FlAxisTitleData(
-              show: true,
-            ),
-            titlesData: FlTitlesData(
-                show: true,
-                bottomTitles: SideTitles(showTitles: false),
-                leftTitles: SideTitles(
-                  showTitles: false,
-                )),
-            minY: minPrice,
-            maxY: maxPrice,
-            lineTouchData: LineTouchData(
-              handleBuiltInTouches: false,
-            ),
-            lineBarsData: [
-              LineChartBarData(
-                isCurved: true,
-                curveSmoothness: 0.5,
-                preventCurveOverShooting: true,
-                colors: [
-                  graphColor,
-                ],
-                barWidth: 2,
-                isStrokeCapRound: false,
-                dotData: FlDotData(
-                  show: false,
-                ),
-                belowBarData: BarAreaData(
-                  show: true,
-                  colors: [
-                    Colors.transparent,
-                    // graphColor.withOpacity(0.3),
-                  ],
-                  gradientFrom: Offset(0, 1),
-                  gradientTo: Offset(0, 0),
-                  gradientColorStops: [0, 1],
-                ),
-                spots: List.generate(
-                    data.length,
-                    (index) => FlSpot(
-                          index + 1,
-                          data[index],
-                        )),
-              ),
-            ],
+      return LineChart(
+        LineChartData(
+          backgroundColor: Colors.transparent,
+          gridData: FlGridData(
+            show: false,
           ),
+          borderData: FlBorderData(show: false),
+          axisTitleData: FlAxisTitleData(
+            show: false,
+          ),
+          titlesData: FlTitlesData(show: false),
+          minY: minPrice,
+          maxY: maxPrice,
+          lineTouchData: LineTouchData(
+            handleBuiltInTouches: false,
+          ),
+          lineBarsData: [
+            LineChartBarData(
+              isCurved: true,
+              curveSmoothness: 1,
+              preventCurveOverShooting: true,
+              colors: [
+                graphColor,
+              ],
+              barWidth: 2,
+              isStrokeCapRound: false,
+              dotData: FlDotData(
+                show: false,
+              ),
+              belowBarData: BarAreaData(
+                show: false,
+              ),
+              spots: List.generate(
+                  data.length,
+                  (index) => FlSpot(
+                        index + 1,
+                        data[index],
+                      )),
+            ),
+          ],
         ),
       );
     } else {

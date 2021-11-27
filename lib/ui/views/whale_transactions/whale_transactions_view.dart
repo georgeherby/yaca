@@ -1,9 +1,11 @@
 // 🐦 Flutter imports:
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
@@ -15,6 +17,7 @@ import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
 import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
 import 'package:crypto_app/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
@@ -53,17 +56,15 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        title: Text(
-          'Whale Transactions',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
+        title: AppbarTitle('Whale Transcations'),
         hasBackRoute: false,
         actions: [
           (Theme.of(context).platform.isDesktop())
               ? IconButton(
                   icon: FaIcon(
                     FontAwesomeIcons.syncAlt,
-                    size: Theme.of(context).platform == TargetPlatform.macOS
+                    size: Theme.of(context).platform == TargetPlatform.macOS &&
+                            !kIsWeb
                         ? 20
                         : Theme.of(context).iconTheme.size,
                   ),
@@ -76,11 +77,11 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         bloc:
             BlocProvider.of<FilterListBloc<WhaleTransaction, String>>(context),
         onLoading: (context) =>
-            Center(child: const CupertinoActivityIndicator()),
+            Center(child: PlatformCircularProgressIndicator()),
         onSuccess: (context, transactions) => WhaleTransactionList(
             transactions: transactions, onRefresh: () => _refreshPosts()),
         onRefreshing: (context, posts) =>
-            Center(child: const CupertinoActivityIndicator()),
+            Center(child: PlatformCircularProgressIndicator()),
         onEmpty: (context) => const Center(child: Text('No posts found')),
         onError: (BuildContext context, error) {
           if (error is MissingConfigException) {

@@ -14,14 +14,15 @@ import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
 import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
 import 'package:crypto_app/core/models/settings/chosen_currency.dart';
 
-class SingleAssetRespository {
+class AssetRespository {
   final http.Client _client;
 
-  SingleAssetRespository(this._client);
+  AssetRespository(this._client);
 
   Future<AssetHistorySplits> fetchFullAssetHistory(
       String coinId, ChosenCurrency currencyCode) async {
-    debugPrint('fetchFullAssetHistory called for currency $currencyCode');
+    debugPrint(
+        'fetchFullAssetHistory $coinId called for currency $currencyCode');
 
     return AssetHistorySplits(
       last24Hours: (await _fetchLast24HoursHistory(coinId, currencyCode)),
@@ -52,7 +53,8 @@ class SingleAssetRespository {
 
   Future<AssetHistory> _fetchLast24HoursHistory(
       String coinId, ChosenCurrency chosenCurrency) async {
-    debugPrint('_fetchLast24HoursHistory called for currency ${chosenCurrency.currencyCode}');
+    debugPrint(
+        '_fetchLast24HoursHistory called for currency ${chosenCurrency.currencyCode}');
     var url =
         'https://api.coingecko.com/api/v3/coins/$coinId/market_chart?vs_currency=${chosenCurrency.currencyCode}&days=1';
     return await _core(url);

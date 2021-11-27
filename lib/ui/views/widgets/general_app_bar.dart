@@ -1,15 +1,16 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/app_router.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/pages/app_settings/app_settings_page.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 
 class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
@@ -29,10 +30,9 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       : super(key: key);
 
   @override
-  Size get preferredSize => Size.fromHeight((platform == TargetPlatform.macOS
-          ? kTitleBarMacOSHeight
-          : kToolbarHeight) +
-      (bottom == null ? 0 : kMarqueTapHeight));
+  Size get preferredSize => Size.fromHeight(
+      (platform.isDesktop() ? kTitleBarMacOSHeight : kToolbarHeight) +
+          (bottom == null ? 0 : kMarqueTapHeight));
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +40,11 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       title: title,
       centerTitle: true,
       elevation: 0,
-      leadingWidth: platform == TargetPlatform.macOS
+      leadingWidth: platform == TargetPlatform.macOS && !kIsWeb
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,
       leading: hasBackRoute
-          ? platform == TargetPlatform.macOS
+          ? platform == TargetPlatform.macOS && !kIsWeb
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -55,28 +55,26 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       alignment: AlignmentDirectional.center,
                       child: BackChevronButton(
                         key: Key('back-chevron-macos'),
-                        onTapped: () => Navigator.pop(context),
+                        onTapped: () => context.router.pop(),
                       ),
                     ),
                   ],
                 )
               : IconButton(
                   key: Key('back-chevron-other-os'),
-                  onPressed: () => Navigator.pop(context),
-                  icon: FaIcon(FontAwesomeIcons.chevronLeft),
+                  onPressed: () => context.router.pop(),
+                  icon: FaIcon(
+                    FontAwesomeIcons.chevronLeft,
+                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                  ),
                 )
           : (!platform.onlyMobile(context))
               ? Container()
               : IconButton(
                   key: Key('settings-cog-buton'),
                   tooltip: 'Open settings',
-                  onPressed: () => Navigator.of(context).push(
-                    platformPageRoute(
-                      context: context,
-                      fullscreenDialog: true,
-                      builder: (context) => AppSettingsPage(),
-                    ),
-                  ),
+                  onPressed: () =>
+                      context.router.push(const AppSettingsHomeRoute()),
                   icon: FaIcon(FontAwesomeIcons.cog),
                 ),
       systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,

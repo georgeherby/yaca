@@ -38,12 +38,12 @@ class GlobalMarketMarque extends StatefulWidget {
 
 class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
   final ScrollController _scrollController = ScrollController();
-  final Duration _animationDuration = Duration(milliseconds: 5000);
+  final Duration _animationDuration = Duration(milliseconds: 1000);
   late Timer _animateTicker;
 
   void scroll() {
     if (_scrollController.hasClients) {
-      _scrollController.animateTo(_scrollController.offset + 200,
+      _scrollController.animateTo(_scrollController.offset + 40,
           duration: _animationDuration, curve: Curves.linear);
     }
   }

@@ -10,18 +10,11 @@ import 'package:mocktail/mocktail.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/database/app_database.dart';
 import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:crypto_app/core/repositories/favourites_repository.dart';
 import 'mock/asset_overview_data.dart';
 
-class MockDatabaseHelper extends Mock implements DatabaseHelper {}
-
-class MockFavouritesDao extends Mock implements FavouritesDao {
-  @override
-  DatabaseHelper get dbHelper => MockDatabaseHelper();
-}
-
+class MockFavouritesDao extends Mock implements FavouritesDao {}
 class MockMarketOverviewRepository extends Mock
     implements MarketOverviewRepository {}
 
@@ -167,7 +160,7 @@ void main() {
       when(() => mockFavouritesDao.getAll())
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-      when(() => mockFavouritesDao.insertIgnore(ethFavouriteNoId))
+      when(() => mockFavouritesDao.insertFavourite(ethFavouriteNoId))
           .thenAnswer((_) => Future.value(13));
 
       whenListen(
@@ -200,10 +193,6 @@ void main() {
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded([
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin
-          ]),
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin.copyWith(favouriteCacheId: 13)
           ])
         ]),
@@ -220,7 +209,7 @@ void main() {
         .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
     when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
-        .thenAnswer((_) => Future.value(1));
+        .thenAnswer((_) => Future.value());
 
     whenListen(
       mockAppSettingsBloc,
@@ -250,14 +239,7 @@ void main() {
     await expectLater(
       bloc.stream,
       emitsInOrder(<AssetOverviewState>[
-        AssetOverviewLoaded([
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ethMarketCoin
-        ]),
-        AssetOverviewLoaded([
-          btcMarketCoin,
-          ethMarketCoin
-        ])
+        AssetOverviewLoaded([btcMarketCoin, ethMarketCoin])
       ]),
     );
   });

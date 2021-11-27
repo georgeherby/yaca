@@ -1,6 +1,3 @@
-// 🎯 Dart imports:
-import 'dart:async';
-
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -17,23 +14,23 @@ class SingleAssetExchangeBloc
   final ExchangeTickerRespository exchangeTickerRespository;
 
   SingleAssetExchangeBloc({required this.exchangeTickerRespository})
-      : super(SingleAssetExchangeInitial());
+      : super(SingleAssetExchangeInitial()) {
+    on<SingleAssetExchangeLoad>(_onSingleAssetExchangeLoad);
+  }
 
-  @override
-  Stream<SingleAssetExchangeState> mapEventToState(
-    SingleAssetExchangeEvent event,
-  ) async* {
-    if (event is SingleAssetExchangeLoad) {
-      yield SingleAssetExchangeLoading();
+  void _onSingleAssetExchangeLoad(
+    SingleAssetExchangeLoad event,
+    Emitter<SingleAssetExchangeState> emit,
+  ) async {
+    emit(SingleAssetExchangeLoading());
 
-      try {
-        var exchExchangeTicker = await exchangeTickerRespository
-            .getAllExchangeTickers(event.marketCoinId);
+    try {
+      var exchExchangeTicker = await exchangeTickerRespository
+          .getAllExchangeTickers(event.marketCoinId);
 
-        yield SingleAssetExchangeLoaded(exchExchangeTicker);
-      } on Exception catch (e) {
-        yield SingleAssetExchangeError(e.toString());
-      }
+      emit(SingleAssetExchangeLoaded(exchExchangeTicker));
+    } on Exception catch (e) {
+      emit(SingleAssetExchangeError(e.toString()));
     }
   }
 }

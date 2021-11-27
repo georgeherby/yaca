@@ -10,5 +10,7 @@ const String kLIGHT_MODE = 'LIGHT';
 const String kDARK_MODE = 'DARK';
 
 const double kBottomNavBarIconSize = 20;
+const double kCornerRadiusCirlcular = 10;
+
 const double kToolBarWithTickerHeight = kToolbarHeight + kMarqueTapHeight;
-const double kMarqueTapHeight = 36;
+const double kMarqueTapHeight = kCornerRadiusCirlcular * 4;

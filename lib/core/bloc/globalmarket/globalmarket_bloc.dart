@@ -1,6 +1,3 @@
-// 🎯 Dart imports:
-import 'dart:async';
-
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -15,20 +12,18 @@ part 'globalmarket_state.dart';
 
 class GlobalMarketBloc extends Bloc<GlobalMarketEvent, GlobalMarketState> {
   final GlobalMarketRespository repository;
-  GlobalMarketBloc(this.repository) : super(GlobalMarketInitial());
+  GlobalMarketBloc(this.repository) : super(GlobalMarketInitial()) {
+    on<GlobalMarketLoad>(_onGlobalMarketLoad);
+  }
 
-  @override
-  Stream<GlobalMarketState> mapEventToState(
-    GlobalMarketEvent event,
-  ) async* {
-    if (event is GlobalMarketLoad) {
-      try {
-        yield GlobalMarketLoading();
-        var market = await repository.fetchMarketOverview(event.currency);
-        yield GlobalMarketLoaded(market);
-      } catch (e) {
-        yield GlobalMarketError(e.toString());
-      }
+  void _onGlobalMarketLoad(
+      GlobalMarketLoad event, Emitter<GlobalMarketState> emit) async {
+    try {
+      emit(GlobalMarketLoading());
+      var market = await repository.fetchMarketOverview(event.currency);
+      emit(GlobalMarketLoaded(market));
+    } catch (e) {
+      emit(GlobalMarketError(e.toString()));
     }
   }
 }

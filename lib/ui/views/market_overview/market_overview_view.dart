@@ -1,9 +1,12 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
@@ -13,11 +16,11 @@ import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/global_market_marque.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
+import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
+import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 
 class MarketOverviewView extends StatefulWidget {
   @override
@@ -30,105 +33,16 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: GeneralAppBar(
-        platform: Theme.of(context).platform,
-        title: Text(
-          'Crypto App',
-          style: Theme.of(context).appBarTheme.titleTextStyle,
-        ),
-        hasBackRoute: false,
-        actions: [
-          (Theme.of(context).platform.isDesktop())
-              ? IconButton(
-                  icon: FaIcon(
-                    FontAwesomeIcons.syncAlt,
-                    size: Theme.of(context).platform == TargetPlatform.macOS
-                        ? 20
-                        : Theme.of(context).iconTheme.size,
-                  ),
-                  tooltip: 'Refresh',
-                  onPressed: () {
-                    BlocProvider.of<GlobalMarketBloc>(context).add(
-                        GlobalMarketLoad(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency));
-                    BlocProvider.of<AssetOverviewBloc>(context).add(
-                        AssetOverviewLoad(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency));
-                    return;
-                  })
-              : Container()
-        ],
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(kMarqueTapHeight),
-          child: SizedBox(
-            height: kMarqueTapHeight,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(10.0),
-                        bottomRight: Radius.circular(10.0),
-                        topLeft: Radius.circular(10.0),
-                        bottomLeft: Radius.circular(10.0)),
-                  ),
-                  child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
-                    builder: (context, state) {
-                      if (state is GlobalMarketLoaded) {
-                        return GlobalMarketMarque(
-                          currencySymbol:
-                              BlocProvider.of<AppSettingsBloc>(context)
-                                  .state
-                                  .currency
-                                  .currencySymbol,
-                          marketCap: state.globalMarket.data.totalMarketCap,
-                          marketCap24hChange: state.globalMarket.data
-                              .marketCapChangePercentage24hUsd,
-                          marketCapPercentage:
-                              state.globalMarket.data.marketCapPercentage,
-                          totalVolume: state.globalMarket.data.totalVolume,
-                        );
-                      }
-
-                      if (state is GlobalMarketError) {
-                        return Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Icon(CupertinoIcons.exclamationmark),
-                            Text(state.error)
-                          ],
-                        );
-                      }
-                      return ShimmerAppBarDataBlock();
-                    },
-                  )),
-            ),
-          ),
-        ),
-      ),
+      appBar: _appBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: LayoutBuilder(
           builder: (context, constraint) {
-            var currencyCode = BlocProvider.of<AppSettingsBloc>(context)
-                .state
-                .currency
-                .currencyCode;
-            debugPrint('MarketView layoutbuilder $currencyCode');
-
             return ConstrainedBox(
               constraints: BoxConstraints(minWidth: constraint.maxWidth),
               child: BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {
-                    print('rebuild AssetOverviewLoaded');
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -151,7 +65,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   : Theme.of(context).chipTheme.selectedColor,
                               shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
-                                  Radius.circular(20),
+                                  Radius.circular(kCornerRadiusCirlcular),
                                 ),
                               ),
                             ),
@@ -205,7 +119,44 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       ],
                     );
                   } else if (state is AssetOverviewError) {
-                    return Icon(CupertinoIcons.exclamationmark);
+                    return LayoutBuilder(builder: (context, constraint) {
+                      return ConstrainedBox(
+                        constraints:
+                            BoxConstraints(minHeight: constraint.maxHeight),
+                        child: RefreshableList(
+                          onRefresh: () async {
+                            BlocProvider.of<GlobalMarketBloc>(context).add(
+                                GlobalMarketLoad(
+                                    BlocProvider.of<AppSettingsBloc>(context)
+                                        .state
+                                        .currency));
+                            BlocProvider.of<AssetOverviewBloc>(context).add(
+                                AssetOverviewLoad(
+                                    BlocProvider.of<AppSettingsBloc>(context)
+                                        .state
+                                        .currency));
+                            return;
+                          },
+                          child: ListView(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Icon(CupertinoIcons
+                                        .exclamationmark_triangle),
+                                    Text(state.error)
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
                   }
                   return LayoutBuilder(builder: (context, constraint) {
                     return ConstrainedBox(
@@ -215,7 +166,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          CupertinoActivityIndicator(),
+                          PlatformCircularProgressIndicator(),
                         ],
                       ),
                     );
@@ -227,5 +178,43 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
         ),
       ),
     );
+  }
+
+  PreferredSizeWidget _appBar() {
+    if (kIsWeb) {
+      return AppBarBottom(
+        isAppBar: true,
+      );
+    } else {
+      return GeneralAppBar(
+        platform: Theme.of(context).platform,
+        title: AppbarTitle('Crypto App'),
+        hasBackRoute: false,
+        actions: [
+          (Theme.of(context).platform.isDesktop())
+              ? IconButton(
+                  icon: FaIcon(
+                    FontAwesomeIcons.syncAlt,
+                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                  ),
+                  tooltip: 'Refresh',
+                  onPressed: () {
+                    BlocProvider.of<GlobalMarketBloc>(context).add(
+                        GlobalMarketLoad(
+                            BlocProvider.of<AppSettingsBloc>(context)
+                                .state
+                                .currency));
+                    BlocProvider.of<AssetOverviewBloc>(context).add(
+                        AssetOverviewLoad(
+                            BlocProvider.of<AppSettingsBloc>(context)
+                                .state
+                                .currency));
+                    return;
+                  })
+              : Container()
+        ],
+        bottom: AppBarBottom(),
+      );
+    }
   }
 }
