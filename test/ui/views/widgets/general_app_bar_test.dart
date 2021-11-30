@@ -28,7 +28,7 @@ void main() {
               title: Text('title'),
               actions: [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: LeadingButtonType.SETTINGS),
         )));
 
         expect(cogFinder, findsOneWidget);
@@ -46,7 +46,7 @@ void main() {
                   title: Text('title'),
                   actions: [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.BACK),
             ),
           ),
         );
@@ -72,7 +72,7 @@ void main() {
               title: Text('title'),
               actions: [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: null),
         )));
 
         expect(cogFinder, findsNothing);
@@ -90,7 +90,7 @@ void main() {
                   title: Text('title'),
                   actions: [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.BACK),
             ),
           ),
         );
@@ -118,7 +118,7 @@ void main() {
               title: Text('title'),
               actions: [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: LeadingButtonType.SETTINGS),
         )));
 
         expect(cogFinder, findsOneWidget);
@@ -136,7 +136,7 @@ void main() {
                   title: Text('title'),
                   actions: [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.BACK),
             ),
           ),
         );
@@ -162,7 +162,7 @@ void main() {
               title: Text('title'),
               actions: [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: null),
         )));
 
         expect(cogFinder, findsNothing);
@@ -180,7 +180,7 @@ void main() {
                   title: Text('title'),
                   actions: [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.BACK),
             ),
           ),
         );
@@ -203,7 +203,7 @@ void main() {
             title: Text('title'),
             actions: [],
             platform: platform,
-            hasBackRoute: false),
+            leadingButtonType: null),
       )));
 
       expect(cogFinder, findsNothing);
@@ -221,7 +221,7 @@ void main() {
                 title: Text('title'),
                 actions: [],
                 platform: platform,
-                hasBackRoute: true),
+                leadingButtonType: LeadingButtonType.BACK),
           ),
         ),
       );

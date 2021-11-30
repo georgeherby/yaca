@@ -1,7 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -181,40 +180,33 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   }
 
   PreferredSizeWidget _appBar() {
-    if (kIsWeb) {
-      return AppBarBottom(
-        isAppBar: true,
-      );
-    } else {
-      return GeneralAppBar(
-        platform: Theme.of(context).platform,
-        title: AppbarTitle('Crypto App'),
-        hasBackRoute: false,
-        actions: [
-          (Theme.of(context).platform.isDesktop())
-              ? IconButton(
-                  icon: FaIcon(
-                    FontAwesomeIcons.syncAlt,
-                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
-                  ),
-                  tooltip: 'Refresh',
-                  onPressed: () {
-                    BlocProvider.of<GlobalMarketBloc>(context).add(
-                        GlobalMarketLoad(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency));
-                    BlocProvider.of<AssetOverviewBloc>(context).add(
-                        AssetOverviewLoad(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency));
-                    return;
-                  })
-              : Container()
-        ],
-        bottom: AppBarBottom(),
-      );
-    }
+    return GeneralAppBar(
+      platform: Theme.of(context).platform,
+      title: AppbarTitle('Crypto App'),
+      leadingButtonType: Theme.of(context).platform.onlyMobile(context) ? LeadingButtonType.SETTINGS : null,
+      actions: [
+        (Theme.of(context).platform.isDesktop())
+            ? IconButton(
+                icon: FaIcon(
+                  FontAwesomeIcons.syncAlt,
+                  size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                ),
+                tooltip: 'Refresh',
+                onPressed: () {
+                  BlocProvider.of<GlobalMarketBloc>(context).add(
+                      GlobalMarketLoad(BlocProvider.of<AppSettingsBloc>(context)
+                          .state
+                          .currency));
+                  BlocProvider.of<AssetOverviewBloc>(context).add(
+                      AssetOverviewLoad(
+                          BlocProvider.of<AppSettingsBloc>(context)
+                              .state
+                              .currency));
+                  return;
+                })
+            : Container()
+      ],
+      bottom: AppBarBottom(),
+    );
   }
 }

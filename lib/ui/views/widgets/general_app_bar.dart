@@ -13,19 +13,21 @@ import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
 
+enum LeadingButtonType { BACK, SETTINGS }
+
 class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget title;
   final PreferredSizeWidget? bottom;
   final List<Widget> actions;
   final TargetPlatform platform;
-  final bool hasBackRoute;
+  final LeadingButtonType? leadingButtonType;
 
   const GeneralAppBar(
       {Key? key,
       required this.title,
       required this.actions,
       required this.platform,
-      required this.hasBackRoute,
+      required this.leadingButtonType,
       this.bottom})
       : super(key: key);
 
@@ -43,7 +45,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       leadingWidth: platform == TargetPlatform.macOS && !kIsWeb
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,
-      leading: hasBackRoute
+      leading: leadingButtonType == LeadingButtonType.BACK
           ? platform == TargetPlatform.macOS && !kIsWeb
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,15 +70,17 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                     size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
                   ),
                 )
-          : (!platform.onlyMobile(context))
-              ? Container()
-              : IconButton(
-                  key: Key('settings-cog-buton'),
-                  tooltip: 'Open settings',
-                  onPressed: () =>
-                      context.router.push(const AppSettingsHomeRoute()),
-                  icon: FaIcon(FontAwesomeIcons.cog),
-                ),
+          : leadingButtonType == LeadingButtonType.SETTINGS
+              ? (platform.onlyMobile(context))
+                  ? IconButton(
+                      key: Key('settings-cog-buton'),
+                      tooltip: 'Open settings',
+                      onPressed: () =>
+                          context.router.push(const AppSettingsHomeRoute()),
+                      icon: FaIcon(FontAwesomeIcons.cog),
+                    )
+                  : Container()
+              : Container(),
       systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
       actions: actions,
       bottom: bottom,

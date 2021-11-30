@@ -57,7 +57,9 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
         title: AppbarTitle('Whale Transcations'),
-        hasBackRoute: false,
+        leadingButtonType: Theme.of(context).platform.onlyMobile(context)
+            ? LeadingButtonType.SETTINGS
+            : null,
         actions: [
           (Theme.of(context).platform.isDesktop())
               ? IconButton(

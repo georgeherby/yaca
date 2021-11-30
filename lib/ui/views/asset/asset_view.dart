@@ -56,7 +56,7 @@ class AssetView extends StatelessWidget {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        hasBackRoute: !kIsWeb,
+        leadingButtonType: kIsWeb ? null : LeadingButtonType.BACK,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

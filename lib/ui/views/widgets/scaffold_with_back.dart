@@ -20,7 +20,7 @@ class ScaffoldWithBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: GeneralAppBar(
-          hasBackRoute: !kIsWeb,
+          leadingButtonType: kIsWeb ? null : LeadingButtonType.BACK,
           platform: Theme.of(context).platform,
           title: AppbarTitle(title ?? ''),
           actions: actions ?? [],
