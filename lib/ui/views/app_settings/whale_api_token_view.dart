@@ -1,14 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
@@ -51,12 +51,12 @@ class WhaleApiTokenView extends StatelessWidget {
                     }
                     return null;
                   },
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     hintText: 'Enter API token',
                   ),
                 ),
               ),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               Row(
                 children: [
                   Expanded(
@@ -80,7 +80,7 @@ class WhaleApiTokenView extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   Expanded(
                     child: PrimaryButton(
                       buttonText: 'Save',

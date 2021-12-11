@@ -30,16 +30,16 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   int _index = 1;
 
   final List<_AssetGraphChipConfig> _chips = [
-    _AssetGraphChipConfig('3h', Duration(hours: 3)),
-    _AssetGraphChipConfig('12H', Duration(hours: 12)),
-    _AssetGraphChipConfig('1D', Duration(days: 1)),
-    _AssetGraphChipConfig('3D', Duration(days: 3)),
-    _AssetGraphChipConfig('1W', Duration(days: 7)),
-    _AssetGraphChipConfig('1M', Duration(days: 30)),
-    _AssetGraphChipConfig('3M', Duration(days: 90)),
-    _AssetGraphChipConfig('6M', Duration(days: 180)),
-    _AssetGraphChipConfig('1Y', Duration(days: 365)),
-    _AssetGraphChipConfig('3Y', Duration(days: 365 * 3)),
+    _AssetGraphChipConfig('3h', const Duration(hours: 3)),
+    _AssetGraphChipConfig('12H', const Duration(hours: 12)),
+    _AssetGraphChipConfig('1D', const Duration(days: 1)),
+    _AssetGraphChipConfig('3D', const Duration(days: 3)),
+    _AssetGraphChipConfig('1W', const Duration(days: 7)),
+    _AssetGraphChipConfig('1M', const Duration(days: 30)),
+    _AssetGraphChipConfig('3M', const Duration(days: 90)),
+    _AssetGraphChipConfig('6M', const Duration(days: 180)),
+    _AssetGraphChipConfig('1Y', const Duration(days: 365)),
+    _AssetGraphChipConfig('3Y', const Duration(days: 365 * 3)),
     _AssetGraphChipConfig('All', null),
   ];
 
@@ -54,7 +54,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
               history: _data,
               duration: _duration,
             )
-          : SizedBox(
+          : const SizedBox(
               height: 250,
               width: double.infinity,
               child: Center(
@@ -76,7 +76,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                           .copyWith(canvasColor: Colors.transparent),
                       child: ChoiceChip(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        padding: EdgeInsets.symmetric(horizontal: 3),
+                        padding: const EdgeInsets.symmetric(horizontal: 3),
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
                         label: Text(
@@ -112,7 +112,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 ),
               )
             : SingleChildScrollView(
-                physics: ClampingScrollPhysics(),
+                physics: const ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(_chips.length, (listIndex) {
@@ -121,7 +121,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                       data: Theme.of(context)
                           .copyWith(canvasColor: Colors.transparent),
                       child: ChoiceChip(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
                         label: Text(
@@ -166,9 +166,9 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
 
     if (duration != null) {
       debugPrint(duration.toString());
-      if (duration <= Duration(hours: 24)) {
+      if (duration <= const Duration(hours: 24)) {
         data = historySplits.last24Hours.prices;
-      } else if (duration <= Duration(days: 90)) {
+      } else if (duration <= const Duration(days: 90)) {
         data = historySplits.last3Month.prices;
       } else {
         data = historySplits.allMonths.prices;

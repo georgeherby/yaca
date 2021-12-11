@@ -41,7 +41,7 @@ void main() {
         act: (SingleAssetExchangeBloc bloc) =>
             bloc.add(SingleAssetExchangeLoad(marketCoinId: coinId)),
         expect: () => [
-              SingleAssetExchangeLoading(),
+              const SingleAssetExchangeLoading(),
               SingleAssetExchangeLoaded([binanceBtcTicker])
             ]);
     blocTest(
@@ -56,7 +56,7 @@ void main() {
         act: (SingleAssetExchangeBloc bloc) =>
             bloc.add(SingleAssetExchangeLoad(marketCoinId: coinId)),
         expect: () => [
-              SingleAssetExchangeLoading(),
+              const SingleAssetExchangeLoading(),
               SingleAssetExchangeError(Exception('Error').toString())
             ]);
   });

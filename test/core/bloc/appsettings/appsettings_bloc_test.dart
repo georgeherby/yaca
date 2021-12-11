@@ -54,7 +54,7 @@ void main() {
 
           return AppSettingsBloc(mockTheme, mockCurrency);
         },
-        act: (AppSettingsBloc bloc) => bloc.add(LoadAppSettings()),
+        act: (AppSettingsBloc bloc) => bloc.add(const LoadAppSettings()),
         expect: () =>
             [AppSettingsLoaded(ThemeMode.system, AvailableCurrencies.gbp)],
         verify: (_) {

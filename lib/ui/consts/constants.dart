@@ -5,9 +5,9 @@ const double kLeadingButtonWidthMac = 108;
 const double kLeadingButtonWidth = 56;
 const double kTitleBarMacOSHeight = 38;
 
-const String kSYSTEM_MODE = 'SYSTEM';
-const String kLIGHT_MODE = 'LIGHT';
-const String kDARK_MODE = 'DARK';
+const String kSystemMode = 'SYSTEM';
+const String kLightMode = 'LIGHT';
+const String kDarkMode = 'DARK';
 
 const double kBottomNavBarIconSize = 20;
 const double kCornerRadiusCirlcular = 10;

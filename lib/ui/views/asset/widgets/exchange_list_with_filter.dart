@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -13,6 +12,7 @@ import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:crypto_app/core/models/filter.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
@@ -71,7 +71,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text('Select currency to filter',
           style: Theme.of(context).textTheme.bodyText1),
-      Divider(
+      const Divider(
         color: Colors.transparent,
         height: 8,
       ),
@@ -107,10 +107,10 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
           ),
         ),
       ),
-      Divider(color: Colors.transparent, height: 8),
+      const Divider(color: Colors.transparent, height: 8),
       Expanded(
         child: ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemCount: tickers.length,
           itemBuilder: (BuildContext context, int index) {
             return Padding(
@@ -122,7 +122,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                 child: Row(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
+                      borderRadius:
+                          BorderRadius.circular(kCornerRadiusCirlcular),
                       child: CachedNetworkImage(
                         width: _isPhoneOnly ? 32 : 44,
                         filterQuality: FilterQuality.high,
@@ -138,7 +139,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         ),
                       ),
                     ),
-                    Spacer(flex: 5),
+                    const Spacer(flex: 5),
                     Expanded(
                         flex: _isPhoneOnly ? 50 : 80,
                         child: Text(
@@ -146,13 +147,13 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         )),
-                    Spacer(flex: 5),
+                    const Spacer(flex: 5),
                     Expanded(
                       flex: 30,
                       child: Text(
                           tickers[index].base + '/' + tickers[index].target),
                     ),
-                    _isPhoneOnly ? Container() : Spacer(flex: 5),
+                    _isPhoneOnly ? Container() : const Spacer(flex: 5),
                     _isPhoneOnly
                         ? Container()
                         : Expanded(
@@ -174,7 +175,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                               unselectedolor: Theme.of(context).dividerColor,
                             ),
                           ),
-                    _isPhoneOnly ? Container() : Spacer(flex: 5),
+                    _isPhoneOnly ? Container() : const Spacer(flex: 5),
                     _isPhoneOnly
                         ? Container()
                         : Expanded(
@@ -184,7 +185,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                               textAlign: TextAlign.right,
                             ),
                           ),
-                    Spacer(flex: 5),
+                    const Spacer(flex: 5),
                     Expanded(
                       flex: 50,
                       child: Text(
@@ -193,7 +194,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         textAlign: TextAlign.right,
                       ),
                     ),
-                    Spacer(flex: 5),
+                    const Spacer(flex: 5),
                     tickers[index].tradeUrl != null
                         ? Icon(
                             CupertinoIcons.chevron_right,
@@ -202,7 +203,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                                 .color
                                 ?.withOpacity(0.6),
                           )
-                        : SizedBox(width: 24),
+                        : const SizedBox(width: 24),
                   ],
                 ),
               ),
@@ -222,7 +223,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
       case 'RED':
         return 1;
       default:
-        print(trustScore);
+        debugPrint(trustScore);
         return 0;
     }
   }
@@ -236,7 +237,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
       case 'RED':
         return kNegativeRed;
       default:
-        print(trustScore);
+        debugPrint(trustScore);
         return Theme.of(context).dividerColor;
     }
   }

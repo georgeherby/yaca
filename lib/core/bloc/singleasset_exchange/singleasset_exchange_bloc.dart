@@ -22,7 +22,7 @@ class SingleAssetExchangeBloc
     SingleAssetExchangeLoad event,
     Emitter<SingleAssetExchangeState> emit,
   ) async {
-    emit(SingleAssetExchangeLoading());
+    emit(const SingleAssetExchangeLoading());
 
     try {
       var exchExchangeTicker = await exchangeTickerRespository

@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -12,7 +11,7 @@ class SelectableIcon extends StatelessWidget {
   final double size;
   final Color selectedColor;
 
-  const SelectableIcon({
+  const SelectableIcon({   
     Key? key,
     required this.selectedIcon,
     required this.unSelectedIcon,

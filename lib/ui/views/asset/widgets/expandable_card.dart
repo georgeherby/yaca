@@ -25,10 +25,10 @@ class _ExpandableCardState extends State<ExpandableCard>
     return Column(
       children: [
         AnimatedSize(
-          duration: Duration(milliseconds: 300),
+          duration: const Duration(milliseconds: 300),
           child: Container(
               constraints: expanded
-                  ? BoxConstraints(maxHeight: double.infinity)
+                  ? const BoxConstraints(maxHeight: double.infinity)
                   : BoxConstraints(maxHeight: widget.collapsedHeight),
               child: widget.contents),
         ),
@@ -41,11 +41,11 @@ class _ExpandableCardState extends State<ExpandableCard>
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Spacer(),
+              const Spacer(),
               FaIcon(expanded
                   ? FontAwesomeIcons.chevronUp
                   : FontAwesomeIcons.chevronDown),
-              Spacer(),
+              const Spacer(),
             ],
           ),
         ),

@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -56,8 +55,10 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        title: AppbarTitle('Whale Transcations'),
-        hasBackRoute: false,
+        title: const AppbarTitle('Whale Transcations'),
+        leadingButtonType: Theme.of(context).platform.onlyMobile(context)
+            ? LeadingButtonType.settings
+            : null,
         actions: [
           (Theme.of(context).platform.isDesktop())
               ? IconButton(
@@ -85,15 +86,15 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         onEmpty: (context) => const Center(child: Text('No posts found')),
         onError: (BuildContext context, error) {
           if (error is MissingConfigException) {
-            return Center(child: Text('Enter your API token for Whale API'));
+            return const Center(child: Text('Enter your API token for Whale API'));
           }
           if (error is RateLimitException) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text('You are being rate limited. Please wait and try again'),
-                  SizedBox(height: 8),
+                  const Text('You are being rate limited. Please wait and try again'),
+                  const SizedBox(height: 8),
                   PrimaryButton(
                       buttonText: 'Reload', onTap: () => _refreshPosts())
                 ],

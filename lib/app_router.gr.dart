@@ -16,7 +16,7 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     HomeRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(routeData: routeData, child: HomePage());
+      return MaterialPageX<dynamic>(routeData: routeData, child: const HomePage());
     },
     AssetRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
@@ -28,7 +28,7 @@ class _$AppRouter extends RootStackRouter {
     AppSettingsHomeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: AppSettingsHomePage(),
+          child: const AppSettingsHomePage(),
           fullscreenDialog: true);
     },
     AssetDetailsRoute.name: (routeData) {
@@ -43,7 +43,7 @@ class _$AppRouter extends RootStackRouter {
     },
     AppSettingsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: AppSettingsPage());
+          routeData: routeData, child: const AppSettingsPage());
     },
     AppSettingsCurrencyRoute.name: (routeData) {
       return MaterialPageX<dynamic>(

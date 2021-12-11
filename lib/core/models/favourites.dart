@@ -13,7 +13,7 @@ class Favourites extends Equatable {
   @HiveField(2)
   final String symbol;
 
-  Favourites({
+  const Favourites({
     this.id,
     required this.name,
     required this.symbol,

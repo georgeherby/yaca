@@ -8,16 +8,16 @@ class SingleAssetData extends Equatable {
   final String id;
   final String symbol;
   final String name;
-  final int block_time_in_minutes;
-  final String? hashing_algorithm;
+  final int blockTimeInMinutes;
+  final String? hashingAlgorithm;
   final List<String> categories;
-  final List<String?> additional_notices;
+  final List<String?> additionalNotices;
   final Localization localization;
   final Description description;
   final Links links;
   final Image image;
-  final String country_origin;
-  final String? genesis_date;
+  final String countryOrigin;
+  final String? genesisDate;
   final double sentimentVotesUpPercentage;
   final double sentimentVotesDownPercentage;
   final int marketCapRank;
@@ -28,25 +28,25 @@ class SingleAssetData extends Equatable {
   final double liquidityScore;
   final double publicInterestScore;
   final MarketData marketData;
-  final CommunityData community_data;
-  final DeveloperData developer_data;
-  final PublicInterestStats public_interest_stats;
+  final CommunityData communityData;
+  final DeveloperData developerData;
+  final PublicInterestStats publicInterestStats;
   // final List<String?> status_updates;
-  final String last_updated;
-  SingleAssetData({
+  final String lastUpdated;
+  const SingleAssetData({
     required this.id,
     required this.symbol,
     required this.name,
-    required this.block_time_in_minutes,
-    required this.hashing_algorithm,
+    required this.blockTimeInMinutes,
+    required this.hashingAlgorithm,
     required this.categories,
-    required this.additional_notices,
+    required this.additionalNotices,
     required this.localization,
     required this.description,
     required this.links,
     required this.image,
-    required this.country_origin,
-    required this.genesis_date,
+    required this.countryOrigin,
+    required this.genesisDate,
     required this.sentimentVotesUpPercentage,
     required this.sentimentVotesDownPercentage,
     required this.marketCapRank,
@@ -57,27 +57,27 @@ class SingleAssetData extends Equatable {
     required this.liquidityScore,
     required this.publicInterestScore,
     required this.marketData,
-    required this.community_data,
-    required this.developer_data,
-    required this.public_interest_stats,
+    required this.communityData,
+    required this.developerData,
+    required this.publicInterestStats,
     // required this.status_updates,
-    required this.last_updated,
+    required this.lastUpdated,
   });
 
   SingleAssetData copyWith({
     String? id,
     String? symbol,
     String? name,
-    int? block_time_in_minutes,
-    String? hashing_algorithm,
+    int? blockTimeInMinutes,
+    String? hashingAlgorithm,
     List<String>? categories,
-    List<String?>? additional_notices,
+    List<String?>? additionalNotices,
     Localization? localization,
     Description? description,
     Links? links,
     Image? image,
-    String? country_origin,
-    String? genesis_date,
+    String? countryOrigin,
+    String? genesisDate,
     double? sentimentVotesUpPercentage,
     double? sentimentVotesDownPercentage,
     int? marketCapRank,
@@ -88,27 +88,27 @@ class SingleAssetData extends Equatable {
     double? liquidityScore,
     double? publicInterestScore,
     MarketData? marketData,
-    CommunityData? community_data,
-    DeveloperData? developer_data,
-    PublicInterestStats? public_interest_stats,
+    CommunityData? communityData,
+    DeveloperData? developerData,
+    PublicInterestStats? publicInterestStats,
     // List<String>? status_updates,
-    String? last_updated,
+    String? lastUpdated,
   }) {
     return SingleAssetData(
       id: id ?? this.id,
       symbol: symbol ?? this.symbol,
       name: name ?? this.name,
-      block_time_in_minutes:
-          block_time_in_minutes ?? this.block_time_in_minutes,
-      hashing_algorithm: hashing_algorithm ?? this.hashing_algorithm,
+      blockTimeInMinutes:
+          blockTimeInMinutes ?? this.blockTimeInMinutes,
+      hashingAlgorithm: hashingAlgorithm ?? this.hashingAlgorithm,
       categories: categories ?? this.categories,
-      additional_notices: additional_notices ?? this.additional_notices,
+      additionalNotices: additionalNotices ?? this.additionalNotices,
       localization: localization ?? this.localization,
       description: description ?? this.description,
       links: links ?? this.links,
       image: image ?? this.image,
-      country_origin: country_origin ?? this.country_origin,
-      genesis_date: genesis_date ?? this.genesis_date,
+      countryOrigin: countryOrigin ?? this.countryOrigin,
+      genesisDate: genesisDate ?? this.genesisDate,
       sentimentVotesUpPercentage:
           sentimentVotesUpPercentage ?? this.sentimentVotesUpPercentage,
       sentimentVotesDownPercentage:
@@ -121,12 +121,12 @@ class SingleAssetData extends Equatable {
       liquidityScore: liquidityScore ?? this.liquidityScore,
       publicInterestScore: publicInterestScore ?? this.publicInterestScore,
       marketData: marketData ?? this.marketData,
-      community_data: community_data ?? this.community_data,
-      developer_data: developer_data ?? this.developer_data,
-      public_interest_stats:
-          public_interest_stats ?? this.public_interest_stats,
+      communityData: communityData ?? this.communityData,
+      developerData: developerData ?? this.developerData,
+      publicInterestStats:
+          publicInterestStats ?? this.publicInterestStats,
       // status_updates: status_updates ?? this.status_updates,
-      last_updated: last_updated ?? this.last_updated,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
     );
   }
 
@@ -135,16 +135,16 @@ class SingleAssetData extends Equatable {
       'id': id,
       'symbol': symbol,
       'name': name,
-      'block_time_in_minutes': block_time_in_minutes,
-      'hashing_algorithm': hashing_algorithm,
+      'block_time_in_minutes': blockTimeInMinutes,
+      'hashing_algorithm': hashingAlgorithm,
       'categories': categories,
-      'additional_notices': additional_notices,
+      'additional_notices': additionalNotices,
       'localization': localization.toMap(),
       'description': description.toMap(),
       'links': links.toMap(),
       'image': image.toMap(),
-      'country_origin': country_origin,
-      'genesis_date': genesis_date,
+      'country_origin': countryOrigin,
+      'genesis_date': genesisDate,
       'sentiment_votes_up_percentage': sentimentVotesUpPercentage,
       'sentiment_votes_down_percentage': sentimentVotesDownPercentage,
       'market_cap_rank': marketCapRank,
@@ -155,11 +155,11 @@ class SingleAssetData extends Equatable {
       'liquidity_score': liquidityScore,
       'public_interest_score': publicInterestScore,
       'market_data': marketData.toMap(),
-      'community_data': community_data.toMap(),
-      'developer_data': developer_data.toMap(),
-      'public_interest_stats': public_interest_stats.toMap(),
+      'community_data': communityData.toMap(),
+      'developer_data': developerData.toMap(),
+      'public_interest_stats': publicInterestStats.toMap(),
       // 'status_updates': status_updates,
-      'last_updated': last_updated,
+      'last_updated': lastUpdated,
     };
   }
 
@@ -168,16 +168,16 @@ class SingleAssetData extends Equatable {
       id: map['id'],
       symbol: map['symbol'],
       name: map['name'],
-      block_time_in_minutes: map['block_time_in_minutes']?.toInt(),
-      hashing_algorithm: map['hashing_algorithm'],
+      blockTimeInMinutes: map['block_time_in_minutes']?.toInt(),
+      hashingAlgorithm: map['hashing_algorithm'],
       categories: List<String>.from(map['categories']),
-      additional_notices: List<String?>.from(map['additional_notices']),
+      additionalNotices: List<String?>.from(map['additional_notices']),
       localization: Localization.fromMap(map['localization']),
       description: Description.fromMap(map['description']),
       links: Links.fromMap(map['links']),
       image: Image.fromMap(map['image']),
-      country_origin: map['country_origin'],
-      genesis_date: map['genesis_date'],
+      countryOrigin: map['country_origin'],
+      genesisDate: map['genesis_date'],
       sentimentVotesUpPercentage:
           map['sentiment_votes_up_percentage']?.toDouble(),
       sentimentVotesDownPercentage:
@@ -190,12 +190,12 @@ class SingleAssetData extends Equatable {
       liquidityScore: map['liquidity_score']?.toDouble(),
       publicInterestScore: map['public_interest_score']?.toDouble(),
       marketData: MarketData.fromMap(map['market_data']),
-      community_data: CommunityData.fromMap(map['community_data']),
-      developer_data: DeveloperData.fromMap(map['developer_data']),
-      public_interest_stats:
+      communityData: CommunityData.fromMap(map['community_data']),
+      developerData: DeveloperData.fromMap(map['developer_data']),
+      publicInterestStats:
           PublicInterestStats.fromMap(map['public_interest_stats']),
       // status_updates: List<String?>.from(map['status_updates']),
-      last_updated: map['last_updated'],
+      lastUpdated: map['last_updated'],
     );
   }
 
@@ -213,16 +213,16 @@ class SingleAssetData extends Equatable {
       id,
       symbol,
       name,
-      block_time_in_minutes,
-      hashing_algorithm,
+      blockTimeInMinutes,
+      hashingAlgorithm,
       categories,
-      additional_notices,
+      additionalNotices,
       localization,
       description,
       links,
       image,
-      country_origin,
-      genesis_date,
+      countryOrigin,
+      genesisDate,
       sentimentVotesUpPercentage,
       sentimentVotesDownPercentage,
       marketCapRank,
@@ -233,11 +233,11 @@ class SingleAssetData extends Equatable {
       liquidityScore,
       publicInterestScore,
       marketData,
-      community_data,
-      developer_data,
-      public_interest_stats,
+      communityData,
+      developerData,
+      publicInterestStats,
       // status_updates,
-      last_updated,
+      lastUpdated,
     ];
   }
 }
@@ -264,7 +264,7 @@ class Localization extends Equatable {
   final String ar;
   final String th;
   final String id;
-  Localization({
+  const Localization({
     required this.en,
     required this.de,
     required this.es,
@@ -446,7 +446,7 @@ class Description extends Equatable {
   final String ar;
   final String th;
   final String id;
-  Description({
+  const Description({
     required this.en,
     required this.de,
     required this.es,
@@ -608,82 +608,82 @@ class Description extends Equatable {
 
 class Links extends Equatable {
   final List<String> homepage;
-  final List<String> blockchain_site;
-  final List<String> official_forum_url;
-  final List<String> chat_url;
-  final List<String> announcement_url;
-  final String? twitter_screen_name;
-  final String? facebook_username;
-  final String? telegram_channel_identifier;
-  final String? subreddit_url;
-  final ReposUrl repos_url;
-  Links({
+  final List<String> blockchainSite;
+  final List<String> officialForumUrl;
+  final List<String> chatUrl;
+  final List<String> announcementUrl;
+  final String? twitterScreenName;
+  final String? facebookUsername;
+  final String? telegramChannelIdentifier;
+  final String? subredditUrl;
+  final ReposUrl reposUrl;
+  const Links({
     required this.homepage,
-    required this.blockchain_site,
-    required this.official_forum_url,
-    required this.chat_url,
-    required this.announcement_url,
-    required this.twitter_screen_name,
-    required this.facebook_username,
-    required this.telegram_channel_identifier,
-    required this.subreddit_url,
-    required this.repos_url,
+    required this.blockchainSite,
+    required this.officialForumUrl,
+    required this.chatUrl,
+    required this.announcementUrl,
+    required this.twitterScreenName,
+    required this.facebookUsername,
+    required this.telegramChannelIdentifier,
+    required this.subredditUrl,
+    required this.reposUrl,
   });
 
   Links copyWith({
     List<String>? homepage,
-    List<String>? blockchain_site,
-    List<String>? official_forum_url,
-    List<String>? chat_url,
-    List<String>? announcement_url,
-    String? twitter_screen_name,
-    String? facebook_username,
-    String? telegram_channel_identifier,
-    String? subreddit_url,
-    ReposUrl? repos_url,
+    List<String>? blockchainSite,
+    List<String>? officialForumUrl,
+    List<String>? chatUrl,
+    List<String>? announcementUrl,
+    String? twitterScreenName,
+    String? facebookUsername,
+    String? telegramChannelIdentifier,
+    String? subredditUrl,
+    ReposUrl? reposUrl,
   }) {
     return Links(
       homepage: homepage ?? this.homepage,
-      blockchain_site: blockchain_site ?? this.blockchain_site,
-      official_forum_url: official_forum_url ?? this.official_forum_url,
-      chat_url: chat_url ?? this.chat_url,
-      announcement_url: announcement_url ?? this.announcement_url,
-      twitter_screen_name: twitter_screen_name ?? this.twitter_screen_name,
-      facebook_username: facebook_username ?? this.facebook_username,
-      telegram_channel_identifier:
-          telegram_channel_identifier ?? this.telegram_channel_identifier,
-      subreddit_url: subreddit_url ?? this.subreddit_url,
-      repos_url: repos_url ?? this.repos_url,
+      blockchainSite: blockchainSite ?? this.blockchainSite,
+      officialForumUrl: officialForumUrl ?? this.officialForumUrl,
+      chatUrl: chatUrl ?? this.chatUrl,
+      announcementUrl: announcementUrl ?? this.announcementUrl,
+      twitterScreenName: twitterScreenName ?? this.twitterScreenName,
+      facebookUsername: facebookUsername ?? this.facebookUsername,
+      telegramChannelIdentifier:
+          telegramChannelIdentifier ?? this.telegramChannelIdentifier,
+      subredditUrl: subredditUrl ?? this.subredditUrl,
+      reposUrl: reposUrl ?? this.reposUrl,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'homepage': homepage,
-      'blockchain_site': blockchain_site,
-      'official_forum_url': official_forum_url,
-      'chat_url': chat_url,
-      'announcement_url': announcement_url,
-      'twitter_screen_name': twitter_screen_name,
-      'facebook_username': facebook_username,
-      'telegram_channel_identifier': telegram_channel_identifier,
-      'subreddit_url': subreddit_url,
-      'repos_url': repos_url.toMap(),
+      'blockchain_site': blockchainSite,
+      'official_forum_url': officialForumUrl,
+      'chat_url': chatUrl,
+      'announcement_url': announcementUrl,
+      'twitter_screen_name': twitterScreenName,
+      'facebook_username': facebookUsername,
+      'telegram_channel_identifier': telegramChannelIdentifier,
+      'subreddit_url': subredditUrl,
+      'repos_url': reposUrl.toMap(),
     };
   }
 
   factory Links.fromMap(Map<String, dynamic> map) {
     return Links(
       homepage: List<String>.from(map['homepage']),
-      blockchain_site: List<String>.from(map['blockchain_site']),
-      official_forum_url: List<String>.from(map['official_forum_url']),
-      chat_url: List<String>.from(map['chat_url']),
-      announcement_url: List<String>.from(map['announcement_url']),
-      twitter_screen_name: map['twitter_screen_name'],
-      facebook_username: map['facebook_username'],
-      telegram_channel_identifier: map['telegram_channel_identifier'],
-      subreddit_url: map['subreddit_url'],
-      repos_url: ReposUrl.fromMap(map['repos_url']),
+      blockchainSite: List<String>.from(map['blockchain_site']),
+      officialForumUrl: List<String>.from(map['official_forum_url']),
+      chatUrl: List<String>.from(map['chat_url']),
+      announcementUrl: List<String>.from(map['announcement_url']),
+      twitterScreenName: map['twitter_screen_name'],
+      facebookUsername: map['facebook_username'],
+      telegramChannelIdentifier: map['telegram_channel_identifier'],
+      subredditUrl: map['subreddit_url'],
+      reposUrl: ReposUrl.fromMap(map['repos_url']),
     );
   }
 
@@ -698,15 +698,15 @@ class Links extends Equatable {
   List<Object?> get props {
     return [
       homepage,
-      blockchain_site,
-      official_forum_url,
-      chat_url,
-      announcement_url,
-      twitter_screen_name,
-      facebook_username,
-      telegram_channel_identifier,
-      subreddit_url,
-      repos_url,
+      blockchainSite,
+      officialForumUrl,
+      chatUrl,
+      announcementUrl,
+      twitterScreenName,
+      facebookUsername,
+      telegramChannelIdentifier,
+      subredditUrl,
+      reposUrl,
     ];
   }
 }
@@ -714,7 +714,7 @@ class Links extends Equatable {
 class ReposUrl extends Equatable {
   final List<String> github;
   final List<String> bitbucket;
-  ReposUrl({
+  const ReposUrl({
     required this.github,
     required this.bitbucket,
   });
@@ -759,7 +759,7 @@ class Image extends Equatable {
   final String thumb;
   final String small;
   final String large;
-  Image({
+  const Image({
     required this.thumb,
     required this.small,
     required this.large,
@@ -805,365 +805,365 @@ class Image extends Equatable {
 }
 
 class MarketData extends Equatable {
-  final ValuePerCurrency current_price;
-  final ValuePerCurrency? total_value_locked;
-  final double? mcap_to_tvl_ratio;
-  final double? fdv_to_tvl_ratio;
+  final ValuePerCurrency currentPrice;
+  final ValuePerCurrency? totalValueLocked;
+  final double? mcapToTvlRatio;
+  final double? fdvToTvlRatio;
   final Roi roi;
   final Ath ath;
-  final AthChangePercentage ath_change_percentage;
-  final AthDate ath_date;
+  final AthChangePercentage athChangePercentage;
+  final AthDate athDate;
   final Atl atl;
-  final AtlChangePercentage atl_change_percentage;
-  final AtlDate atl_date;
-  final MarketCap market_cap;
-  final int market_cap_rank;
-  final FullyDilutedValuation fully_diluted_valuation;
-  final TotalVolume total_volume;
-  final High24h high_24h;
-  final Low24h low_24h;
-  final double price_change_24h;
-  final double price_change_percentage_24h;
-  final double price_change_percentage_7d;
-  final double price_change_percentage_14d;
-  final double price_change_percentage_30d;
-  final double price_change_percentage_60d;
-  final double price_change_percentage_200d;
-  final double price_change_percentage_1y;
-  final double market_cap_change_24h;
-  final double market_cap_change_percentage_24h;
-  final ValuePerCurrency? price_change_24h_in_currency;
-  final ValuePerCurrency? price_change_percentage_1h_in_currency;
-  final ValuePerCurrency? price_change_percentage_24h_in_currency;
-  final ValuePerCurrency? price_change_percentage_7d_in_currency;
-  final ValuePerCurrency? price_change_percentage_14d_in_currency;
-  final ValuePerCurrency? price_change_percentage_30d_in_currency;
-  final ValuePerCurrency? price_change_percentage_60d_in_currency;
-  final ValuePerCurrency? price_change_percentage_200d_in_currency;
+  final AtlChangePercentage atlChangePercentage;
+  final AtlDate atlDate;
+  final MarketCap marketCap;
+  final int marketCapRank;
+  final FullyDilutedValuation fullyDilutedValuation;
+  final TotalVolume totalVolume;
+  final High24h high24h;
+  final Low24h low24h;
+  final double priceChange24h;
+  final double priceChangePercentage24h;
+  final double priceChangePercentage7d;
+  final double priceChangePercentage14d;
+  final double priceChangePercentage30d;
+  final double priceChangePercentage60d;
+  final double priceChangePercentage200d;
+  final double priceChangePercentage1y;
+  final double marketCapChange24h;
+  final double marketCapChangePercentage24h;
+  final ValuePerCurrency? priceChange24hInCurrency;
+  final ValuePerCurrency? priceChangePercentage1hInCurrency;
+  final ValuePerCurrency? priceChangePercentage24hInCurrency;
+  final ValuePerCurrency? priceChangePercentage7dInCurrency;
+  final ValuePerCurrency? priceChangePercentage14dInCurrency;
+  final ValuePerCurrency? priceChangePercentage30dInCurrency;
+  final ValuePerCurrency? priceChangePercentage60dInCurrency;
+  final ValuePerCurrency? priceChangePercentage200dInCurrency;
   final ValuePerCurrency? priceChangePercentage1yInCurrency;
-  final MarketCapChange24hInCurrency market_cap_change_24h_in_currency;
+  final MarketCapChange24hInCurrency marketCapChange24hInCurrency;
   final MarketCapChangePercentage24hInCurrency
-      market_cap_change_percentage_24h_in_currency;
-  final int? total_supply;
-  final int? max_supply;
-  final int? circulating_supply;
-  final String last_updated;
-  MarketData({
-    required this.current_price,
-    required this.total_value_locked,
-    required this.mcap_to_tvl_ratio,
-    required this.fdv_to_tvl_ratio,
+      marketCapChangePercentage24hInCurrency;
+  final int? totalSupply;
+  final int? maxSupply;
+  final int? circulatingSupply;
+  final String lastUpdated;
+  const MarketData({
+    required this.currentPrice,
+    required this.totalValueLocked,
+    required this.mcapToTvlRatio,
+    required this.fdvToTvlRatio,
     required this.roi,
     required this.ath,
-    required this.ath_change_percentage,
-    required this.ath_date,
+    required this.athChangePercentage,
+    required this.athDate,
     required this.atl,
-    required this.atl_change_percentage,
-    required this.atl_date,
-    required this.market_cap,
-    required this.market_cap_rank,
-    required this.fully_diluted_valuation,
-    required this.total_volume,
-    required this.high_24h,
-    required this.low_24h,
-    required this.price_change_24h,
-    required this.price_change_percentage_24h,
-    required this.price_change_percentage_7d,
-    required this.price_change_percentage_14d,
-    required this.price_change_percentage_30d,
-    required this.price_change_percentage_60d,
-    required this.price_change_percentage_200d,
-    required this.price_change_percentage_1y,
-    required this.market_cap_change_24h,
-    required this.market_cap_change_percentage_24h,
-    required this.price_change_24h_in_currency,
-    required this.price_change_percentage_1h_in_currency,
-    required this.price_change_percentage_24h_in_currency,
-    required this.price_change_percentage_7d_in_currency,
-    required this.price_change_percentage_14d_in_currency,
-    required this.price_change_percentage_30d_in_currency,
-    required this.price_change_percentage_60d_in_currency,
-    required this.price_change_percentage_200d_in_currency,
+    required this.atlChangePercentage,
+    required this.atlDate,
+    required this.marketCap,
+    required this.marketCapRank,
+    required this.fullyDilutedValuation,
+    required this.totalVolume,
+    required this.high24h,
+    required this.low24h,
+    required this.priceChange24h,
+    required this.priceChangePercentage24h,
+    required this.priceChangePercentage7d,
+    required this.priceChangePercentage14d,
+    required this.priceChangePercentage30d,
+    required this.priceChangePercentage60d,
+    required this.priceChangePercentage200d,
+    required this.priceChangePercentage1y,
+    required this.marketCapChange24h,
+    required this.marketCapChangePercentage24h,
+    required this.priceChange24hInCurrency,
+    required this.priceChangePercentage1hInCurrency,
+    required this.priceChangePercentage24hInCurrency,
+    required this.priceChangePercentage7dInCurrency,
+    required this.priceChangePercentage14dInCurrency,
+    required this.priceChangePercentage30dInCurrency,
+    required this.priceChangePercentage60dInCurrency,
+    required this.priceChangePercentage200dInCurrency,
     required this.priceChangePercentage1yInCurrency,
-    required this.market_cap_change_24h_in_currency,
-    required this.market_cap_change_percentage_24h_in_currency,
-    required this.total_supply,
-    required this.max_supply,
-    required this.circulating_supply,
-    required this.last_updated,
+    required this.marketCapChange24hInCurrency,
+    required this.marketCapChangePercentage24hInCurrency,
+    required this.totalSupply,
+    required this.maxSupply,
+    required this.circulatingSupply,
+    required this.lastUpdated,
   });
 
   MarketData copyWith({
-    ValuePerCurrency? current_price,
-    ValuePerCurrency? total_value_locked,
-    double? mcap_to_tvl_ratio,
-    double? fdv_to_tvl_ratio,
+    ValuePerCurrency? currentPrice,
+    ValuePerCurrency? totalValueLocked,
+    double? mcapToTvlRatio,
+    double? fdvToTvlRatio,
     Roi? roi,
     Ath? ath,
-    AthChangePercentage? ath_change_percentage,
-    AthDate? ath_date,
+    AthChangePercentage? athChangePercentage,
+    AthDate? athDate,
     Atl? atl,
-    AtlChangePercentage? atl_change_percentage,
-    AtlDate? atl_date,
-    MarketCap? market_cap,
-    int? market_cap_rank,
-    FullyDilutedValuation? fully_diluted_valuation,
-    TotalVolume? total_volume,
-    High24h? high_24h,
-    Low24h? low_24h,
-    double? price_change_24h,
-    double? price_change_percentage_24h,
-    double? price_change_percentage_7d,
-    double? price_change_percentage_14d,
-    double? price_change_percentage_30d,
-    double? price_change_percentage_60d,
-    double? price_change_percentage_200d,
-    double? price_change_percentage_1y,
-    double? market_cap_change_24h,
-    double? market_cap_change_percentage_24h,
-    ValuePerCurrency? price_change_24h_in_currency,
-    ValuePerCurrency? price_change_percentage_1h_in_currency,
-    ValuePerCurrency? price_change_percentage_24h_in_currency,
-    ValuePerCurrency? price_change_percentage_7d_in_currency,
-    ValuePerCurrency? price_change_percentage_14d_in_currency,
-    ValuePerCurrency? price_change_percentage_30d_in_currency,
-    ValuePerCurrency? price_change_percentage_60d_in_currency,
-    ValuePerCurrency? price_change_percentage_200d_in_currency,
+    AtlChangePercentage? atlChangePercentage,
+    AtlDate? atlDate,
+    MarketCap? marketCap,
+    int? marketCapRank,
+    FullyDilutedValuation? fullyDilutedValuation,
+    TotalVolume? totalVolume,
+    High24h? high24h,
+    Low24h? low24h,
+    double? priceChange24h,
+    double? priceChangePercentage24h,
+    double? priceChangePercentage7d,
+    double? priceChangePercentage14d,
+    double? priceChangePercentage30d,
+    double? priceChangePercentage60d,
+    double? priceChangePercentage200d,
+    double? priceChangePercentage1y,
+    double? marketCapChange24h,
+    double? marketCapChangePercentage24h,
+    ValuePerCurrency? priceChange24hInCurrency,
+    ValuePerCurrency? priceChangePercentage1hInCurrency,
+    ValuePerCurrency? priceChangePercentage24hInCurrency,
+    ValuePerCurrency? priceChangePercentage7dInCurrency,
+    ValuePerCurrency? priceChangePercentage14dInCurrency,
+    ValuePerCurrency? priceChangePercentage30dInCurrency,
+    ValuePerCurrency? priceChangePercentage60dInCurrency,
+    ValuePerCurrency? priceChangePercentage200dInCurrency,
     ValuePerCurrency? priceChangePercentage1yInCurrency,
-    MarketCapChange24hInCurrency? market_cap_change_24h_in_currency,
+    MarketCapChange24hInCurrency? marketCapChange24hInCurrency,
     MarketCapChangePercentage24hInCurrency?
-        market_cap_change_percentage_24h_in_currency,
-    int? total_supply,
-    int? max_supply,
-    int? circulating_supply,
-    String? last_updated,
+        marketCapChangePercentage24hInCurrency,
+    int? totalSupply,
+    int? maxSupply,
+    int? circulatingSupply,
+    String? lastUpdated,
   }) {
     return MarketData(
-      current_price: current_price ?? this.current_price,
-      total_value_locked: total_value_locked ?? this.total_value_locked,
-      mcap_to_tvl_ratio: mcap_to_tvl_ratio ?? this.mcap_to_tvl_ratio,
-      fdv_to_tvl_ratio: fdv_to_tvl_ratio ?? this.fdv_to_tvl_ratio,
+      currentPrice: currentPrice ?? this.currentPrice,
+      totalValueLocked: totalValueLocked ?? this.totalValueLocked,
+      mcapToTvlRatio: mcapToTvlRatio ?? this.mcapToTvlRatio,
+      fdvToTvlRatio: fdvToTvlRatio ?? this.fdvToTvlRatio,
       roi: roi ?? this.roi,
       ath: ath ?? this.ath,
-      ath_change_percentage:
-          ath_change_percentage ?? this.ath_change_percentage,
-      ath_date: ath_date ?? this.ath_date,
+      athChangePercentage:
+          athChangePercentage ?? this.athChangePercentage,
+      athDate: athDate ?? this.athDate,
       atl: atl ?? this.atl,
-      atl_change_percentage:
-          atl_change_percentage ?? this.atl_change_percentage,
-      atl_date: atl_date ?? this.atl_date,
-      market_cap: market_cap ?? this.market_cap,
-      market_cap_rank: market_cap_rank ?? this.market_cap_rank,
-      fully_diluted_valuation:
-          fully_diluted_valuation ?? this.fully_diluted_valuation,
-      total_volume: total_volume ?? this.total_volume,
-      high_24h: high_24h ?? this.high_24h,
-      low_24h: low_24h ?? this.low_24h,
-      price_change_24h: price_change_24h ?? this.price_change_24h,
-      price_change_percentage_24h:
-          price_change_percentage_24h ?? this.price_change_percentage_24h,
-      price_change_percentage_7d:
-          price_change_percentage_7d ?? this.price_change_percentage_7d,
-      price_change_percentage_14d:
-          price_change_percentage_14d ?? this.price_change_percentage_14d,
-      price_change_percentage_30d:
-          price_change_percentage_30d ?? this.price_change_percentage_30d,
-      price_change_percentage_60d:
-          price_change_percentage_60d ?? this.price_change_percentage_60d,
-      price_change_percentage_200d:
-          price_change_percentage_200d ?? this.price_change_percentage_200d,
-      price_change_percentage_1y:
-          price_change_percentage_1y ?? this.price_change_percentage_1y,
-      market_cap_change_24h:
-          market_cap_change_24h ?? this.market_cap_change_24h,
-      market_cap_change_percentage_24h: market_cap_change_percentage_24h ??
-          this.market_cap_change_percentage_24h,
-      price_change_24h_in_currency:
-          price_change_24h_in_currency ?? this.price_change_24h_in_currency,
-      price_change_percentage_1h_in_currency:
-          price_change_percentage_1h_in_currency ??
-              this.price_change_percentage_1h_in_currency,
-      price_change_percentage_24h_in_currency:
-          price_change_percentage_24h_in_currency ??
-              this.price_change_percentage_24h_in_currency,
-      price_change_percentage_7d_in_currency:
-          price_change_percentage_7d_in_currency ??
-              this.price_change_percentage_7d_in_currency,
-      price_change_percentage_14d_in_currency:
-          price_change_percentage_14d_in_currency ??
-              this.price_change_percentage_14d_in_currency,
-      price_change_percentage_30d_in_currency:
-          price_change_percentage_30d_in_currency ??
-              this.price_change_percentage_30d_in_currency,
-      price_change_percentage_60d_in_currency:
-          price_change_percentage_60d_in_currency ??
-              this.price_change_percentage_60d_in_currency,
-      price_change_percentage_200d_in_currency:
-          price_change_percentage_200d_in_currency ??
-              this.price_change_percentage_200d_in_currency,
+      atlChangePercentage:
+          atlChangePercentage ?? this.atlChangePercentage,
+      atlDate: atlDate ?? this.atlDate,
+      marketCap: marketCap ?? this.marketCap,
+      marketCapRank: marketCapRank ?? this.marketCapRank,
+      fullyDilutedValuation:
+          fullyDilutedValuation ?? this.fullyDilutedValuation,
+      totalVolume: totalVolume ?? this.totalVolume,
+      high24h: high24h ?? this.high24h,
+      low24h: low24h ?? this.low24h,
+      priceChange24h: priceChange24h ?? this.priceChange24h,
+      priceChangePercentage24h:
+          priceChangePercentage24h ?? this.priceChangePercentage24h,
+      priceChangePercentage7d:
+          priceChangePercentage7d ?? this.priceChangePercentage7d,
+      priceChangePercentage14d:
+          priceChangePercentage14d ?? this.priceChangePercentage14d,
+      priceChangePercentage30d:
+          priceChangePercentage30d ?? this.priceChangePercentage30d,
+      priceChangePercentage60d:
+          priceChangePercentage60d ?? this.priceChangePercentage60d,
+      priceChangePercentage200d:
+          priceChangePercentage200d ?? this.priceChangePercentage200d,
+      priceChangePercentage1y:
+          priceChangePercentage1y ?? this.priceChangePercentage1y,
+      marketCapChange24h:
+          marketCapChange24h ?? this.marketCapChange24h,
+      marketCapChangePercentage24h: marketCapChangePercentage24h ??
+          this.marketCapChangePercentage24h,
+      priceChange24hInCurrency:
+          priceChange24hInCurrency ?? this.priceChange24hInCurrency,
+      priceChangePercentage1hInCurrency:
+          priceChangePercentage1hInCurrency ??
+              this.priceChangePercentage1hInCurrency,
+      priceChangePercentage24hInCurrency:
+          priceChangePercentage24hInCurrency ??
+              this.priceChangePercentage24hInCurrency,
+      priceChangePercentage7dInCurrency:
+          priceChangePercentage7dInCurrency ??
+              this.priceChangePercentage7dInCurrency,
+      priceChangePercentage14dInCurrency:
+          priceChangePercentage14dInCurrency ??
+              this.priceChangePercentage14dInCurrency,
+      priceChangePercentage30dInCurrency:
+          priceChangePercentage30dInCurrency ??
+              this.priceChangePercentage30dInCurrency,
+      priceChangePercentage60dInCurrency:
+          priceChangePercentage60dInCurrency ??
+              this.priceChangePercentage60dInCurrency,
+      priceChangePercentage200dInCurrency:
+          priceChangePercentage200dInCurrency ??
+              this.priceChangePercentage200dInCurrency,
       priceChangePercentage1yInCurrency: priceChangePercentage1yInCurrency ??
           this.priceChangePercentage1yInCurrency,
-      market_cap_change_24h_in_currency: market_cap_change_24h_in_currency ??
-          this.market_cap_change_24h_in_currency,
-      market_cap_change_percentage_24h_in_currency:
-          market_cap_change_percentage_24h_in_currency ??
-              this.market_cap_change_percentage_24h_in_currency,
-      total_supply: total_supply ?? this.total_supply,
-      max_supply: max_supply ?? this.max_supply,
-      circulating_supply: circulating_supply ?? this.circulating_supply,
-      last_updated: last_updated ?? this.last_updated,
+      marketCapChange24hInCurrency: marketCapChange24hInCurrency ??
+          this.marketCapChange24hInCurrency,
+      marketCapChangePercentage24hInCurrency:
+          marketCapChangePercentage24hInCurrency ??
+              this.marketCapChangePercentage24hInCurrency,
+      totalSupply: totalSupply ?? this.totalSupply,
+      maxSupply: maxSupply ?? this.maxSupply,
+      circulatingSupply: circulatingSupply ?? this.circulatingSupply,
+      lastUpdated: lastUpdated ?? this.lastUpdated,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'current_price': current_price.toMap(),
-      'total_value_locked': total_value_locked,
-      'mcap_to_tvl_ratio': mcap_to_tvl_ratio,
-      'fdv_to_tvl_ratio': fdv_to_tvl_ratio,
+      'current_price': currentPrice.toMap(),
+      'total_value_locked': totalValueLocked,
+      'mcap_to_tvl_ratio': mcapToTvlRatio,
+      'fdv_to_tvl_ratio': fdvToTvlRatio,
       'roi': roi.toMap(),
       'ath': ath.toMap(),
-      'ath_change_percentage': ath_change_percentage.toMap(),
-      'ath_date': ath_date.toMap(),
+      'ath_change_percentage': athChangePercentage.toMap(),
+      'ath_date': athDate.toMap(),
       'atl': atl.toMap(),
-      'atl_change_percentage': atl_change_percentage.toMap(),
-      'atl_date': atl_date.toMap(),
-      'market_cap': market_cap.toMap(),
-      'market_cap_rank': market_cap_rank,
-      'fully_diluted_valuation': fully_diluted_valuation.toMap(),
-      'total_volume': total_volume.toMap(),
-      'high_24h': high_24h.toMap(),
-      'low_24h': low_24h.toMap(),
-      'price_change_24h': price_change_24h,
-      'price_change_percentage_24h': price_change_percentage_24h,
-      'price_change_percentage_7d': price_change_percentage_7d,
-      'price_change_percentage_14d': price_change_percentage_14d,
-      'price_change_percentage_30d': price_change_percentage_30d,
-      'price_change_percentage_60d': price_change_percentage_60d,
-      'price_change_percentage_200d': price_change_percentage_200d,
-      'price_change_percentage_1y': price_change_percentage_1y,
-      'market_cap_change_24h': market_cap_change_24h,
-      'market_cap_change_percentage_24h': market_cap_change_percentage_24h,
-      'price_change_24h_in_currency': price_change_24h_in_currency?.toMap(),
+      'atl_change_percentage': atlChangePercentage.toMap(),
+      'atl_date': atlDate.toMap(),
+      'market_cap': marketCap.toMap(),
+      'market_cap_rank': marketCapRank,
+      'fully_diluted_valuation': fullyDilutedValuation.toMap(),
+      'total_volume': totalVolume.toMap(),
+      'high_24h': high24h.toMap(),
+      'low_24h': low24h.toMap(),
+      'price_change_24h': priceChange24h,
+      'price_change_percentage_24h': priceChangePercentage24h,
+      'price_change_percentage_7d': priceChangePercentage7d,
+      'price_change_percentage_14d': priceChangePercentage14d,
+      'price_change_percentage_30d': priceChangePercentage30d,
+      'price_change_percentage_60d': priceChangePercentage60d,
+      'price_change_percentage_200d': priceChangePercentage200d,
+      'price_change_percentage_1y': priceChangePercentage1y,
+      'market_cap_change_24h': marketCapChange24h,
+      'market_cap_change_percentage_24h': marketCapChangePercentage24h,
+      'price_change_24h_in_currency': priceChange24hInCurrency?.toMap(),
       'price_change_percentage_1h_in_currency':
-          price_change_percentage_1h_in_currency?.toMap(),
+          priceChangePercentage1hInCurrency?.toMap(),
       'price_change_percentage_24h_in_currency':
-          price_change_percentage_24h_in_currency?.toMap(),
+          priceChangePercentage24hInCurrency?.toMap(),
       'price_change_percentage_7d_in_currency':
-          price_change_percentage_7d_in_currency?.toMap(),
+          priceChangePercentage7dInCurrency?.toMap(),
       'price_change_percentage_14d_in_currency':
-          price_change_percentage_14d_in_currency?.toMap(),
+          priceChangePercentage14dInCurrency?.toMap(),
       'price_change_percentage_30d_in_currency':
-          price_change_percentage_30d_in_currency?.toMap(),
+          priceChangePercentage30dInCurrency?.toMap(),
       'price_change_percentage_60d_in_currency':
-          price_change_percentage_60d_in_currency?.toMap(),
+          priceChangePercentage60dInCurrency?.toMap(),
       'price_change_percentage_200d_in_currency':
-          price_change_percentage_200d_in_currency?.toMap(),
+          priceChangePercentage200dInCurrency?.toMap(),
       'price_change_percentage_1y_in_currency':
           priceChangePercentage1yInCurrency?.toMap(),
       'market_cap_change_24h_in_currency':
-          market_cap_change_24h_in_currency.toMap(),
+          marketCapChange24hInCurrency.toMap(),
       'market_cap_change_percentage_24h_in_currency':
-          market_cap_change_percentage_24h_in_currency.toMap(),
-      'total_supply': total_supply,
-      'max_supply': max_supply,
-      'circulating_supply': circulating_supply,
-      'last_updated': last_updated,
+          marketCapChangePercentage24hInCurrency.toMap(),
+      'total_supply': totalSupply,
+      'max_supply': maxSupply,
+      'circulating_supply': circulatingSupply,
+      'last_updated': lastUpdated,
     };
   }
 
   factory MarketData.fromMap(Map<String, dynamic> map) {
     return MarketData(
-      current_price: ValuePerCurrency.fromMap(map['current_price']),
-      total_value_locked: map['total_value_locked'] != null
+      currentPrice: ValuePerCurrency.fromMap(map['current_price']),
+      totalValueLocked: map['total_value_locked'] != null
           ? ValuePerCurrency.fromMap(map['total_value_locked'])
           : null,
-      mcap_to_tvl_ratio: map['mcap_to_tvl_ratio'],
-      fdv_to_tvl_ratio:
+      mcapToTvlRatio: map['mcap_to_tvl_ratio'],
+      fdvToTvlRatio:
           map['fdv_to_tvl_ratio'] != null && map['fdv_to_tvl_ratio'] == '?'
               ? null
               : map['fdv_to_tvl_ratio'],
       roi: Roi.fromMap(map['roi']),
       ath: Ath.fromMap(map['ath']),
-      ath_change_percentage:
+      athChangePercentage:
           AthChangePercentage.fromMap(map['ath_change_percentage']),
-      ath_date: AthDate.fromMap(map['ath_date']),
+      athDate: AthDate.fromMap(map['ath_date']),
       atl: Atl.fromMap(map['atl']),
-      atl_change_percentage:
+      atlChangePercentage:
           AtlChangePercentage.fromMap(map['atl_change_percentage']),
-      atl_date: AtlDate.fromMap(map['atl_date']),
-      market_cap: MarketCap.fromMap(map['market_cap']),
-      market_cap_rank: map['market_cap_rank']?.toInt(),
-      fully_diluted_valuation:
+      atlDate: AtlDate.fromMap(map['atl_date']),
+      marketCap: MarketCap.fromMap(map['market_cap']),
+      marketCapRank: map['market_cap_rank']?.toInt(),
+      fullyDilutedValuation:
           FullyDilutedValuation.fromMap(map['fully_diluted_valuation']),
-      total_volume: TotalVolume.fromMap(map['total_volume']),
-      high_24h: High24h.fromMap(map['high_24h']),
-      low_24h: Low24h.fromMap(map['low_24h']),
-      price_change_24h: map['price_change_24h']?.toDouble(),
-      price_change_percentage_24h:
+      totalVolume: TotalVolume.fromMap(map['total_volume']),
+      high24h: High24h.fromMap(map['high_24h']),
+      low24h: Low24h.fromMap(map['low_24h']),
+      priceChange24h: map['price_change_24h']?.toDouble(),
+      priceChangePercentage24h:
           map['price_change_percentage_24h']?.toDouble(),
-      price_change_percentage_7d: map['price_change_percentage_7d']?.toDouble(),
-      price_change_percentage_14d:
+      priceChangePercentage7d: map['price_change_percentage_7d']?.toDouble(),
+      priceChangePercentage14d:
           map['price_change_percentage_14d']?.toDouble(),
-      price_change_percentage_30d:
+      priceChangePercentage30d:
           map['price_change_percentage_30d']?.toDouble(),
-      price_change_percentage_60d:
+      priceChangePercentage60d:
           map['price_change_percentage_60d']?.toDouble(),
-      price_change_percentage_200d:
+      priceChangePercentage200d:
           map['price_change_percentage_200d']?.toDouble(),
-      price_change_percentage_1y: map['price_change_percentage_1y']?.toDouble(),
-      market_cap_change_24h: map['market_cap_change_24h']?.toDouble(),
-      market_cap_change_percentage_24h:
+      priceChangePercentage1y: map['price_change_percentage_1y']?.toDouble(),
+      marketCapChange24h: map['market_cap_change_24h']?.toDouble(),
+      marketCapChangePercentage24h:
           map['market_cap_change_percentage_24h']?.toDouble(),
-      price_change_24h_in_currency: map['price_change_24h_in_currency'] != null
+      priceChange24hInCurrency: map['price_change_24h_in_currency'] != null
           ? ValuePerCurrency.fromMap(map['price_change_24h_in_currency'])
           : null,
-      price_change_percentage_1h_in_currency:
+      priceChangePercentage1hInCurrency:
           map['price_change_percentage_1h_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_1h_in_currency'])
               : null,
-      price_change_percentage_24h_in_currency:
+      priceChangePercentage24hInCurrency:
           map['price_change_percentage_24h_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_24h_in_currency'])
               : null,
-      price_change_percentage_7d_in_currency:
+      priceChangePercentage7dInCurrency:
           map['price_change_percentage_7d_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_7d_in_currency'])
               : null,
-      price_change_percentage_14d_in_currency:
+      priceChangePercentage14dInCurrency:
           map['price_change_percentage_14d_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_14d_in_currency'])
               : null,
-      price_change_percentage_30d_in_currency:
+      priceChangePercentage30dInCurrency:
           map['price_change_percentage_30d_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_30d_in_currency'])
               : null,
-      price_change_percentage_60d_in_currency:
+      priceChangePercentage60dInCurrency:
           map['price_change_percentage_60d_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_60d_in_currency'])
               : null,
-      price_change_percentage_200d_in_currency: ValuePerCurrency.fromMap(
+      priceChangePercentage200dInCurrency: ValuePerCurrency.fromMap(
           map['price_change_percentage_200d_in_currency']),
       priceChangePercentage1yInCurrency:
           map['price_change_percentage_1y_in_currency'] != null
               ? ValuePerCurrency.fromMap(
                   map['price_change_percentage_1y_in_currency'])
               : null,
-      market_cap_change_24h_in_currency: MarketCapChange24hInCurrency.fromMap(
+      marketCapChange24hInCurrency: MarketCapChange24hInCurrency.fromMap(
           map['market_cap_change_24h_in_currency']),
-      market_cap_change_percentage_24h_in_currency:
+      marketCapChangePercentage24hInCurrency:
           MarketCapChangePercentage24hInCurrency.fromMap(
               map['market_cap_change_percentage_24h_in_currency']),
-      total_supply: map['total_supply']?.toInt(),
-      max_supply: map['max_supply']?.toInt(),
-      circulating_supply: map['circulating_supply']?.toInt(),
-      last_updated: map['last_updated'],
+      totalSupply: map['total_supply']?.toInt(),
+      maxSupply: map['max_supply']?.toInt(),
+      circulatingSupply: map['circulating_supply']?.toInt(),
+      lastUpdated: map['last_updated'],
     );
   }
 
@@ -1178,48 +1178,48 @@ class MarketData extends Equatable {
   @override
   List<Object?> get props {
     return [
-      current_price,
-      total_value_locked,
-      mcap_to_tvl_ratio,
-      fdv_to_tvl_ratio,
+      currentPrice,
+      totalValueLocked,
+      mcapToTvlRatio,
+      fdvToTvlRatio,
       roi,
       ath,
-      ath_change_percentage,
-      ath_date,
+      athChangePercentage,
+      athDate,
       atl,
-      atl_change_percentage,
-      atl_date,
-      market_cap,
-      market_cap_rank,
-      fully_diluted_valuation,
-      total_volume,
-      high_24h,
-      low_24h,
-      price_change_24h,
-      price_change_percentage_24h,
-      price_change_percentage_7d,
-      price_change_percentage_14d,
-      price_change_percentage_30d,
-      price_change_percentage_60d,
-      price_change_percentage_200d,
-      price_change_percentage_1y,
-      market_cap_change_24h,
-      market_cap_change_percentage_24h,
-      price_change_24h_in_currency,
-      price_change_percentage_1h_in_currency,
-      price_change_percentage_24h_in_currency,
-      price_change_percentage_7d_in_currency,
-      price_change_percentage_14d_in_currency,
-      price_change_percentage_30d_in_currency,
-      price_change_percentage_60d_in_currency,
-      price_change_percentage_200d_in_currency,
+      atlChangePercentage,
+      atlDate,
+      marketCap,
+      marketCapRank,
+      fullyDilutedValuation,
+      totalVolume,
+      high24h,
+      low24h,
+      priceChange24h,
+      priceChangePercentage24h,
+      priceChangePercentage7d,
+      priceChangePercentage14d,
+      priceChangePercentage30d,
+      priceChangePercentage60d,
+      priceChangePercentage200d,
+      priceChangePercentage1y,
+      marketCapChange24h,
+      marketCapChangePercentage24h,
+      priceChange24hInCurrency,
+      priceChangePercentage1hInCurrency,
+      priceChangePercentage24hInCurrency,
+      priceChangePercentage7dInCurrency,
+      priceChangePercentage14dInCurrency,
+      priceChangePercentage30dInCurrency,
+      priceChangePercentage60dInCurrency,
+      priceChangePercentage200dInCurrency,
       priceChangePercentage1yInCurrency,
-      market_cap_change_24h_in_currency,
-      market_cap_change_percentage_24h_in_currency,
-      total_supply,
-      max_supply,
-      circulating_supply,
-      last_updated,
+      marketCapChange24hInCurrency,
+      marketCapChangePercentage24hInCurrency,
+      totalSupply,
+      maxSupply,
+      circulatingSupply,
+      lastUpdated,
     ];
   }
 }
@@ -1286,7 +1286,7 @@ class ValuePerCurrency extends Equatable {
   final double? bits;
   final double? link;
   final double? sats;
-  ValuePerCurrency({
+  const ValuePerCurrency({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -1691,7 +1691,7 @@ class Roi extends Equatable {
   final String? currency;
   final double? percentage;
 
-  Roi({this.times, this.currency, this.percentage});
+  const Roi({this.times, this.currency, this.percentage});
 
   factory Roi.fromMap(Map<String, dynamic>? json) {
     return Roi(
@@ -1777,7 +1777,7 @@ class Ath extends Equatable {
   final int bits;
   final int link;
   final int sats;
-  Ath({
+  const Ath({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -2238,7 +2238,7 @@ class AthChangePercentage extends Equatable {
   final double? bits;
   final double? link;
   final double? sats;
-  AthChangePercentage({
+  const AthChangePercentage({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -2700,7 +2700,7 @@ class AthDate extends Equatable {
   final String bits;
   final String link;
   final String sats;
-  AthDate({
+  const AthDate({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -3162,7 +3162,7 @@ class Atl extends Equatable {
   final double bits;
   final double link;
   final double sats;
-  Atl({
+  const Atl({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -3623,7 +3623,7 @@ class AtlChangePercentage extends Equatable {
   final double bits;
   final double link;
   final double sats;
-  AtlChangePercentage({
+  const AtlChangePercentage({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -4085,7 +4085,7 @@ class AtlDate extends Equatable {
   final String bits;
   final String link;
   final String sats;
-  AtlDate({
+  const AtlDate({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -4547,7 +4547,7 @@ class MarketCap extends Equatable {
   final int bits;
   final int link;
   final int sats;
-  MarketCap({
+  const MarketCap({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -5009,7 +5009,7 @@ class FullyDilutedValuation extends Equatable {
   final int? bits;
   final int? link;
   final int? sats;
-  FullyDilutedValuation({
+  const FullyDilutedValuation({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -5471,7 +5471,7 @@ class TotalVolume extends Equatable {
   final int bits;
   final int link;
   final int sats;
-  TotalVolume({
+  const TotalVolume({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -5933,7 +5933,7 @@ class High24h extends Equatable {
   final int bits;
   final int link;
   final int sats;
-  High24h({
+  const High24h({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -6395,7 +6395,7 @@ class Low24h extends Equatable {
   final int bits;
   final int link;
   final int sats;
-  Low24h({
+  const Low24h({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -6794,7 +6794,7 @@ class Low24h extends Equatable {
   }
 }
 
-class Price_change_24h_in_currency extends Equatable {
+class PriceChange24hInCurrency extends Equatable {
   final double aed;
   final double ars;
   final double aud;
@@ -6856,7 +6856,7 @@ class Price_change_24h_in_currency extends Equatable {
   final double bits;
   final double link;
   final double sats;
-  Price_change_24h_in_currency({
+  const PriceChange24hInCurrency({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -6920,7 +6920,7 @@ class Price_change_24h_in_currency extends Equatable {
     required this.sats,
   });
 
-  Price_change_24h_in_currency copyWith({
+  PriceChange24hInCurrency copyWith({
     double? aed,
     double? ars,
     double? aud,
@@ -6983,7 +6983,7 @@ class Price_change_24h_in_currency extends Equatable {
     double? link,
     double? sats,
   }) {
-    return Price_change_24h_in_currency(
+    return PriceChange24hInCurrency(
       aed: aed ?? this.aed,
       ars: ars ?? this.ars,
       aud: aud ?? this.aud,
@@ -7114,8 +7114,8 @@ class Price_change_24h_in_currency extends Equatable {
     };
   }
 
-  factory Price_change_24h_in_currency.fromMap(Map<String, dynamic> map) {
-    return Price_change_24h_in_currency(
+  factory PriceChange24hInCurrency.fromMap(Map<String, dynamic> map) {
+    return PriceChange24hInCurrency(
       aed: map['aed']?.toDouble(),
       ars: map['ars']?.toDouble(),
       aud: map['aud']?.toDouble(),
@@ -7182,8 +7182,8 @@ class Price_change_24h_in_currency extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory Price_change_24h_in_currency.fromJson(String source) =>
-      Price_change_24h_in_currency.fromMap(json.decode(source));
+  factory PriceChange24hInCurrency.fromJson(String source) =>
+      PriceChange24hInCurrency.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -7318,7 +7318,7 @@ class MarketCapChange24hInCurrency extends Equatable {
   final double bits;
   final int link;
   final int sats;
-  MarketCapChange24hInCurrency({
+  const MarketCapChange24hInCurrency({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -7780,7 +7780,7 @@ class MarketCapChangePercentage24hInCurrency extends Equatable {
   final double bits;
   final double link;
   final double sats;
-  MarketCapChangePercentage24hInCurrency({
+  const MarketCapChangePercentage24hInCurrency({
     required this.aed,
     required this.ars,
     required this.aud,
@@ -8182,69 +8182,69 @@ class MarketCapChangePercentage24hInCurrency extends Equatable {
 }
 
 class CommunityData extends Equatable {
-  final String? facebook_likes;
-  final int twitter_followers;
-  final double reddit_average_posts_48h;
-  final double reddit_average_comments_48h;
-  final int reddit_subscribers;
-  final int reddit_accounts_active_48h;
-  final double? telegram_channel_user_count;
-  CommunityData({
-    required this.facebook_likes,
-    required this.twitter_followers,
-    required this.reddit_average_posts_48h,
-    required this.reddit_average_comments_48h,
-    required this.reddit_subscribers,
-    required this.reddit_accounts_active_48h,
-    required this.telegram_channel_user_count,
+  final String? facebookLikes;
+  final int twitterFollowers;
+  final double redditAveragePosts48h;
+  final double redditAverageComments48h;
+  final int redditSubscribers;
+  final int redditAccountsActive48h;
+  final double? telegramChannelUserCount;
+  const CommunityData({
+    required this.facebookLikes,
+    required this.twitterFollowers,
+    required this.redditAveragePosts48h,
+    required this.redditAverageComments48h,
+    required this.redditSubscribers,
+    required this.redditAccountsActive48h,
+    required this.telegramChannelUserCount,
   });
 
   CommunityData copyWith({
-    String? facebook_likes,
-    int? twitter_followers,
-    double? reddit_average_posts_48h,
-    double? reddit_average_comments_48h,
-    int? reddit_subscribers,
-    int? reddit_accounts_active_48h,
-    double? telegram_channel_user_count,
+    String? facebookLikes,
+    int? twitterFollowers,
+    double? redditAveragePosts48h,
+    double? redditAverageComments48h,
+    int? redditSubscribers,
+    int? redditAccountsActive48h,
+    double? telegramChannelUserCount,
   }) {
     return CommunityData(
-      facebook_likes: facebook_likes ?? this.facebook_likes,
-      twitter_followers: twitter_followers ?? this.twitter_followers,
-      reddit_average_posts_48h:
-          reddit_average_posts_48h ?? this.reddit_average_posts_48h,
-      reddit_average_comments_48h:
-          reddit_average_comments_48h ?? this.reddit_average_comments_48h,
-      reddit_subscribers: reddit_subscribers ?? this.reddit_subscribers,
-      reddit_accounts_active_48h:
-          reddit_accounts_active_48h ?? this.reddit_accounts_active_48h,
-      telegram_channel_user_count:
-          telegram_channel_user_count ?? this.telegram_channel_user_count,
+      facebookLikes: facebookLikes ?? this.facebookLikes,
+      twitterFollowers: twitterFollowers ?? this.twitterFollowers,
+      redditAveragePosts48h:
+          redditAveragePosts48h ?? this.redditAveragePosts48h,
+      redditAverageComments48h:
+          redditAverageComments48h ?? this.redditAverageComments48h,
+      redditSubscribers: redditSubscribers ?? this.redditSubscribers,
+      redditAccountsActive48h:
+          redditAccountsActive48h ?? this.redditAccountsActive48h,
+      telegramChannelUserCount:
+          telegramChannelUserCount ?? this.telegramChannelUserCount,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'facebook_likes': facebook_likes,
-      'twitter_followers': twitter_followers,
-      'reddit_average_posts_48h': reddit_average_posts_48h,
-      'reddit_average_comments_48h': reddit_average_comments_48h,
-      'reddit_subscribers': reddit_subscribers,
-      'reddit_accounts_active_48h': reddit_accounts_active_48h,
-      'telegram_channel_user_count': telegram_channel_user_count,
+      'facebook_likes': facebookLikes,
+      'twitter_followers': twitterFollowers,
+      'reddit_average_posts_48h': redditAveragePosts48h,
+      'reddit_average_comments_48h': redditAverageComments48h,
+      'reddit_subscribers': redditSubscribers,
+      'reddit_accounts_active_48h': redditAccountsActive48h,
+      'telegram_channel_user_count': telegramChannelUserCount,
     };
   }
 
   factory CommunityData.fromMap(Map<String, dynamic> map) {
     return CommunityData(
-      facebook_likes: map['facebook_likes']?.toString(),
-      twitter_followers: map['twitter_followers']?.toInt(),
-      reddit_average_posts_48h: map['reddit_average_posts_48h']?.toDouble(),
-      reddit_average_comments_48h:
+      facebookLikes: map['facebook_likes']?.toString(),
+      twitterFollowers: map['twitter_followers']?.toInt(),
+      redditAveragePosts48h: map['reddit_average_posts_48h']?.toDouble(),
+      redditAverageComments48h:
           map['reddit_average_comments_48h']?.toDouble(),
-      reddit_subscribers: map['reddit_subscribers']?.toInt(),
-      reddit_accounts_active_48h: map['reddit_accounts_active_48h']?.toInt(),
-      telegram_channel_user_count:
+      redditSubscribers: map['reddit_subscribers']?.toInt(),
+      redditAccountsActive48h: map['reddit_accounts_active_48h']?.toInt(),
+      telegramChannelUserCount:
           map['telegram_channel_user_count']?.toDouble(),
     );
   }
@@ -8260,13 +8260,13 @@ class CommunityData extends Equatable {
   @override
   List<Object?> get props {
     return [
-      facebook_likes,
-      twitter_followers,
-      reddit_average_posts_48h,
-      reddit_average_comments_48h,
-      reddit_subscribers,
-      reddit_accounts_active_48h,
-      telegram_channel_user_count,
+      facebookLikes,
+      twitterFollowers,
+      redditAveragePosts48h,
+      redditAverageComments48h,
+      redditSubscribers,
+      redditAccountsActive48h,
+      telegramChannelUserCount,
     ];
   }
 }
@@ -8275,53 +8275,53 @@ class DeveloperData extends Equatable {
   final int forks;
   final int stars;
   final int subscribers;
-  final int total_issues;
-  final int closed_issues;
-  final int pull_requests_merged;
-  final int pull_request_contributors;
-  final CodeAdditionsDeletions4Weeks code_additions_deletions_4_weeks;
-  final int commit_count_4_weeks;
-  final List<int> last_4_weeks_commit_activity_series;
-  DeveloperData({
+  final int totalIssues;
+  final int closedIssues;
+  final int pullRequestsMerged;
+  final int pullRequestContributors;
+  final CodeAdditionsDeletions4Weeks codeAdditionsDeletions4Weeks;
+  final int commitCount4Weeks;
+  final List<int> last4WeeksCommitActivitySeries;
+  const DeveloperData({
     required this.forks,
     required this.stars,
     required this.subscribers,
-    required this.total_issues,
-    required this.closed_issues,
-    required this.pull_requests_merged,
-    required this.pull_request_contributors,
-    required this.code_additions_deletions_4_weeks,
-    required this.commit_count_4_weeks,
-    required this.last_4_weeks_commit_activity_series,
+    required this.totalIssues,
+    required this.closedIssues,
+    required this.pullRequestsMerged,
+    required this.pullRequestContributors,
+    required this.codeAdditionsDeletions4Weeks,
+    required this.commitCount4Weeks,
+    required this.last4WeeksCommitActivitySeries,
   });
 
   DeveloperData copyWith({
     int? forks,
     int? stars,
     int? subscribers,
-    int? total_issues,
-    int? closed_issues,
-    int? pull_requests_merged,
-    int? pull_request_contributors,
-    CodeAdditionsDeletions4Weeks? code_additions_deletions_4_weeks,
-    int? commit_count_4_weeks,
-    List<int>? last_4_weeks_commit_activity_series,
+    int? totalIssues,
+    int? closedIssues,
+    int? pullRequestsMerged,
+    int? pullRequestContributors,
+    CodeAdditionsDeletions4Weeks? codeAdditionsDeletions4Weeks,
+    int? commitCount4Weeks,
+    List<int>? last4WeeksCommitActivitySeries,
   }) {
     return DeveloperData(
       forks: forks ?? this.forks,
       stars: stars ?? this.stars,
       subscribers: subscribers ?? this.subscribers,
-      total_issues: total_issues ?? this.total_issues,
-      closed_issues: closed_issues ?? this.closed_issues,
-      pull_requests_merged: pull_requests_merged ?? this.pull_requests_merged,
-      pull_request_contributors:
-          pull_request_contributors ?? this.pull_request_contributors,
-      code_additions_deletions_4_weeks: code_additions_deletions_4_weeks ??
-          this.code_additions_deletions_4_weeks,
-      commit_count_4_weeks: commit_count_4_weeks ?? this.commit_count_4_weeks,
-      last_4_weeks_commit_activity_series:
-          last_4_weeks_commit_activity_series ??
-              this.last_4_weeks_commit_activity_series,
+      totalIssues: totalIssues ?? this.totalIssues,
+      closedIssues: closedIssues ?? this.closedIssues,
+      pullRequestsMerged: pullRequestsMerged ?? this.pullRequestsMerged,
+      pullRequestContributors:
+          pullRequestContributors ?? this.pullRequestContributors,
+      codeAdditionsDeletions4Weeks: codeAdditionsDeletions4Weeks ??
+          this.codeAdditionsDeletions4Weeks,
+      commitCount4Weeks: commitCount4Weeks ?? this.commitCount4Weeks,
+      last4WeeksCommitActivitySeries:
+          last4WeeksCommitActivitySeries ??
+              this.last4WeeksCommitActivitySeries,
     );
   }
 
@@ -8330,15 +8330,15 @@ class DeveloperData extends Equatable {
       'forks': forks,
       'stars': stars,
       'subscribers': subscribers,
-      'total_issues': total_issues,
-      'closed_issues': closed_issues,
-      'pull_requests_merged': pull_requests_merged,
-      'pull_request_contributors': pull_request_contributors,
+      'total_issues': totalIssues,
+      'closed_issues': closedIssues,
+      'pull_requests_merged': pullRequestsMerged,
+      'pull_request_contributors': pullRequestContributors,
       'code_additions_deletions_4_weeks':
-          code_additions_deletions_4_weeks.toMap(),
-      'commit_count_4_weeks': commit_count_4_weeks,
+          codeAdditionsDeletions4Weeks.toMap(),
+      'commit_count_4_weeks': commitCount4Weeks,
       'last_4_weeks_commit_activity_series':
-          last_4_weeks_commit_activity_series,
+          last4WeeksCommitActivitySeries,
     };
   }
 
@@ -8347,14 +8347,14 @@ class DeveloperData extends Equatable {
       forks: map['forks']?.toInt(),
       stars: map['stars']?.toInt(),
       subscribers: map['subscribers']?.toInt(),
-      total_issues: map['total_issues']?.toInt(),
-      closed_issues: map['closed_issues']?.toInt(),
-      pull_requests_merged: map['pull_requests_merged']?.toInt(),
-      pull_request_contributors: map['pull_request_contributors']?.toInt(),
-      code_additions_deletions_4_weeks: CodeAdditionsDeletions4Weeks.fromMap(
+      totalIssues: map['total_issues']?.toInt(),
+      closedIssues: map['closed_issues']?.toInt(),
+      pullRequestsMerged: map['pull_requests_merged']?.toInt(),
+      pullRequestContributors: map['pull_request_contributors']?.toInt(),
+      codeAdditionsDeletions4Weeks: CodeAdditionsDeletions4Weeks.fromMap(
           map['code_additions_deletions_4_weeks']),
-      commit_count_4_weeks: map['commit_count_4_weeks']?.toInt(),
-      last_4_weeks_commit_activity_series:
+      commitCount4Weeks: map['commit_count_4_weeks']?.toInt(),
+      last4WeeksCommitActivitySeries:
           List<int>.from(map['last_4_weeks_commit_activity_series']),
     );
   }
@@ -8373,13 +8373,13 @@ class DeveloperData extends Equatable {
       forks,
       stars,
       subscribers,
-      total_issues,
-      closed_issues,
-      pull_requests_merged,
-      pull_request_contributors,
-      code_additions_deletions_4_weeks,
-      commit_count_4_weeks,
-      last_4_weeks_commit_activity_series,
+      totalIssues,
+      closedIssues,
+      pullRequestsMerged,
+      pullRequestContributors,
+      codeAdditionsDeletions4Weeks,
+      commitCount4Weeks,
+      last4WeeksCommitActivitySeries,
     ];
   }
 }
@@ -8387,7 +8387,7 @@ class DeveloperData extends Equatable {
 class CodeAdditionsDeletions4Weeks extends Equatable {
   final int? additions;
   final int? deletions;
-  CodeAdditionsDeletions4Weeks({
+  const CodeAdditionsDeletions4Weeks({
     required this.additions,
     required this.deletions,
   });
@@ -8429,34 +8429,34 @@ class CodeAdditionsDeletions4Weeks extends Equatable {
 }
 
 class PublicInterestStats extends Equatable {
-  final int? alexa_rank;
-  final String? bing_matches;
-  PublicInterestStats({
-    required this.alexa_rank,
-    required this.bing_matches,
+  final int? alexaRank;
+  final String? bingMatches;
+  const PublicInterestStats({
+    required this.alexaRank,
+    required this.bingMatches,
   });
 
   PublicInterestStats copyWith({
-    int? alexa_rank,
-    String? bing_matches,
+    int? alexaRank,
+    String? bingMatches,
   }) {
     return PublicInterestStats(
-      alexa_rank: alexa_rank ?? this.alexa_rank,
-      bing_matches: bing_matches ?? this.bing_matches,
+      alexaRank: alexaRank ?? this.alexaRank,
+      bingMatches: bingMatches ?? this.bingMatches,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'alexa_rank': alexa_rank,
-      'bing_matches': bing_matches,
+      'alexa_rank': alexaRank,
+      'bing_matches': bingMatches,
     };
   }
 
   factory PublicInterestStats.fromMap(Map<String, dynamic> map) {
     return PublicInterestStats(
-      alexa_rank: map['alexa_rank']?.toInt(),
-      bing_matches: map['bing_matches']?.toString(),
+      alexaRank: map['alexa_rank']?.toInt(),
+      bingMatches: map['bing_matches']?.toString(),
     );
   }
 
@@ -8469,5 +8469,5 @@ class PublicInterestStats extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object?> get props => [alexa_rank, bing_matches];
+  List<Object?> get props => [alexaRank, bingMatches];
 }

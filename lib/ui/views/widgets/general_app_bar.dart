@@ -1,31 +1,32 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
+import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
+
+enum LeadingButtonType { back, settings }
 
 class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
   final Widget title;
   final PreferredSizeWidget? bottom;
   final List<Widget> actions;
   final TargetPlatform platform;
-  final bool hasBackRoute;
+  final LeadingButtonType? leadingButtonType;
 
   const GeneralAppBar(
       {Key? key,
       required this.title,
       required this.actions,
       required this.platform,
-      required this.hasBackRoute,
+      required this.leadingButtonType,
       this.bottom})
       : super(key: key);
 
@@ -43,7 +44,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       leadingWidth: platform == TargetPlatform.macOS && !kIsWeb
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,
-      leading: hasBackRoute
+      leading: leadingButtonType == LeadingButtonType.back
           ? platform == TargetPlatform.macOS && !kIsWeb
               ? Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,29 +55,31 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       width: 32,
                       alignment: AlignmentDirectional.center,
                       child: BackChevronButton(
-                        key: Key('back-chevron-macos'),
+                        key: const Key('back-chevron-macos'),
                         onTapped: () => context.router.pop(),
                       ),
                     ),
                   ],
                 )
               : IconButton(
-                  key: Key('back-chevron-other-os'),
+                  key: const Key('back-chevron-other-os'),
                   onPressed: () => context.router.pop(),
                   icon: FaIcon(
                     FontAwesomeIcons.chevronLeft,
                     size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
                   ),
                 )
-          : (!platform.onlyMobile(context))
-              ? Container()
-              : IconButton(
-                  key: Key('settings-cog-buton'),
-                  tooltip: 'Open settings',
-                  onPressed: () =>
-                      context.router.push(const AppSettingsHomeRoute()),
-                  icon: FaIcon(FontAwesomeIcons.cog),
-                ),
+          : leadingButtonType == LeadingButtonType.settings
+              ? (platform.onlyMobile(context))
+                  ? IconButton(
+                      key: const Key('settings-cog-buton'),
+                      tooltip: 'Open settings',
+                      onPressed: () =>
+                          context.router.push(const AppSettingsHomeRoute()),
+                      icon: const FaIcon(FontAwesomeIcons.cog),
+                    )
+                  : Container()
+              : Container(),
       systemOverlayStyle: Theme.of(context).appBarTheme.systemOverlayStyle,
       actions: actions,
       bottom: bottom,

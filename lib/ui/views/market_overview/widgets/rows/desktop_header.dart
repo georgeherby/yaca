@@ -1,3 +1,4 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 class DesktopHeader extends StatelessWidget {
@@ -81,8 +82,8 @@ class DesktopHeader extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
-          SizedBox(width: 44),
+          const Spacer(),
+          const SizedBox(width: 44),
         ],
       ),
     );

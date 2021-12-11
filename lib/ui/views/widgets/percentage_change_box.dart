@@ -12,7 +12,7 @@ class PercentageChangeBox extends StatelessWidget {
   final EdgeInsets? padding;
   final bool showBackground;
 
-  PercentageChangeBox(this.changePercent24Hr,
+  const PercentageChangeBox(this.changePercent24Hr,
       {Key? key, this.textSize, this.padding, this.showBackground = true})
       : super(key: key);
 
@@ -22,9 +22,9 @@ class PercentageChangeBox extends StatelessWidget {
       var darkColor = changePercent24Hr!.toPositiveNegativeColorDark();
       var bkgColor = changePercent24Hr!.toPositiveNegativeColorLight();
       return Container(
-        padding: padding ?? EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+        padding: padding ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
             color: showBackground ? bkgColor : Colors.transparent),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -38,7 +38,7 @@ class PercentageChangeBox extends StatelessWidget {
                   : changePercent24Hr!.toPositiveNegativeColor(),
               size: textSize ?? Theme.of(context).textTheme.bodyText1?.fontSize,
             ),
-            SizedBox(
+            const SizedBox(
               width: 1,
             ),
             Text(

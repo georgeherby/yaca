@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -11,7 +9,9 @@ import 'package:responsive_builder/responsive_builder.dart';
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 
 class WhaleTransactionList extends StatelessWidget {
@@ -33,13 +33,13 @@ class WhaleTransactionList extends StatelessWidget {
       padding: getValueForScreenType<EdgeInsets>(
         context: context,
         mobile: EdgeInsets.zero,
-        tablet: EdgeInsets.only(bottom: 8.0),
-        desktop: EdgeInsets.only(bottom: 8.0),
+        tablet: const EdgeInsets.only(bottom: 8.0),
+        desktop: const EdgeInsets.only(bottom: 8.0),
       ),
       child: Material(
         borderRadius: getValueForScreenType<BorderRadius>(
             context: context,
-            mobile: BorderRadius.only(
+            mobile: const BorderRadius.only(
                 topLeft: Radius.circular(kCornerRadiusCirlcular),
                 topRight: Radius.circular(kCornerRadiusCirlcular)),
             tablet: BorderRadius.circular(kCornerRadiusCirlcular),
@@ -48,9 +48,9 @@ class WhaleTransactionList extends StatelessWidget {
         child: RefreshableList(
           onRefresh: onRefresh,
           child: ListView.separated(
-            physics: ClampingScrollPhysics(),
+            physics: const ClampingScrollPhysics(),
             separatorBuilder: (BuildContext context, int index) {
-              return Divider(
+              return const Divider(
                 indent: sidePadding,
                 endIndent: sidePadding,
                 height: 1,
@@ -73,7 +73,7 @@ class WhaleTransactionList extends StatelessWidget {
                       iconSize: 32,
                       assetSymbol: transaction.symbol,
                     ),
-                    SizedBox(width: sidePadding),
+                    const SizedBox(width: sidePadding),
                     Expanded(
                       flex: 20,
                       child: Column(
@@ -103,10 +103,10 @@ class WhaleTransactionList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            '${transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, context, false)}',
+                            transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, context, false),
                             textAlign: TextAlign.end,
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Text(
                             '${transaction.amount} ${transaction.symbol.toUpperCase()}',
                             textAlign: TextAlign.end,

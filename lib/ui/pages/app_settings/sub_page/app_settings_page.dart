@@ -7,8 +7,10 @@ import 'package:crypto_app/ui/views/app_settings/app_settings_view.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
 class AppSettingsPage extends StatelessWidget {
+  const AppSettingsPage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return ScaffoldWithBack(title: 'Settings', body: AppSettingsView());
+    return const ScaffoldWithBack(title: 'Settings', body: AppSettingsView());
   }
 }

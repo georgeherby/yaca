@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -69,10 +68,12 @@ void main() async {
     },
     blocObserver: MyBlocObserver(),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   _MyAppState createState() => _MyAppState();
 }
@@ -115,7 +116,7 @@ class _MyAppState extends State<MyApp> {
               create: (BuildContext context) => AppSettingsBloc(
                     context.read<ThemePreferenceRepository>(),
                     context.read<CurrencyPreferenceRepository>(),
-                  )..add(LoadAppSettings())),
+                  )..add(const LoadAppSettings())),
         ],
         child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
           builder: (context, state) {
@@ -164,26 +165,26 @@ class _MyAppState extends State<MyApp> {
                               color: Theme.of(context).primaryColor,
                               width: 2.0),
                         ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
                             Radius.circular(10.0),
                           ),
                           borderSide:
                               BorderSide(color: Colors.black87, width: 1.0),
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
                             Radius.circular(10.0),
                           ),
                           borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
+                        focusedErrorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
                             Radius.circular(10.0),
                           ),
                           borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        errorStyle: TextStyle(color: Colors.red)),
+                        errorStyle: const TextStyle(color: Colors.red)),
                     textTheme: GoogleFonts.openSansTextTheme(
                       ThemeData.light().textTheme,
                     ),
@@ -193,9 +194,9 @@ class _MyAppState extends State<MyApp> {
                       backgroundColor: LightThemeColors().appBarColour,
                       unselectedItemColor: Colors.black54,
                       unselectedIconTheme:
-                          IconThemeData(size: kBottomNavBarIconSize),
+                          const IconThemeData(size: kBottomNavBarIconSize),
                       selectedIconTheme:
-                          IconThemeData(size: kBottomNavBarIconSize + 2),
+                          const IconThemeData(size: kBottomNavBarIconSize + 2),
                       selectedItemColor: LightThemeColors().primary,
                       selectedLabelStyle: TextStyle(
                         color: LightThemeColors().primary,
@@ -218,9 +219,9 @@ class _MyAppState extends State<MyApp> {
                     ),
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: LightThemeColors().scaffoldBackground,
-                      unselectedIconTheme: IconThemeData(color: Colors.black54),
+                      unselectedIconTheme: const IconThemeData(color: Colors.black54),
                       unselectedLabelTextStyle:
-                          TextStyle(color: Colors.black54),
+                          const TextStyle(color: Colors.black54),
                       selectedIconTheme:
                           IconThemeData(color: LightThemeColors().primary),
                       selectedLabelTextStyle:
@@ -233,13 +234,13 @@ class _MyAppState extends State<MyApp> {
                     iconTheme:
                         IconThemeData(color: Colors.black.withOpacity(0.70)),
                     chipTheme: ChipThemeData(
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       elevation: 0,
                       pressElevation: 0,
                       brightness: Brightness.light,
                       checkmarkColor: Colors.white,
-                      secondaryLabelStyle: TextStyle(),
-                      labelStyle: TextStyle(color: Colors.black),
+                      secondaryLabelStyle: const TextStyle(),
+                      labelStyle: const TextStyle(color: Colors.black),
                       disabledColor: Colors.transparent,
                       backgroundColor: LightThemeColors().chipUnselectedColor,
                       selectedColor: LightThemeColors().chipSelectedColor,
@@ -270,19 +271,19 @@ class _MyAppState extends State<MyApp> {
                               color: Colors.white.withOpacity(0.87),
                               width: 1.0),
                         ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
+                        focusedErrorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
                             Radius.circular(10.0),
                           ),
                           borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
+                        errorBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
                             Radius.circular(10.0),
                           ),
                           borderSide: BorderSide(color: Colors.red, width: 2.0),
                         ),
-                        errorStyle: TextStyle(color: Colors.red)),
+                        errorStyle: const TextStyle(color: Colors.red)),
                     textTheme: GoogleFonts.openSansTextTheme(
                       ThemeData.dark().textTheme,
                     ),
@@ -297,13 +298,13 @@ class _MyAppState extends State<MyApp> {
                         showUnselectedLabels: false,
                         backgroundColor: DarkThemeColors().appBarColour,
                         unselectedItemColor: Colors.white38,
-                        unselectedLabelStyle: TextStyle(color: Colors.white38),
+                        unselectedLabelStyle: const TextStyle(color: Colors.white38),
                         unselectedIconTheme:
-                            IconThemeData(size: kBottomNavBarIconSize),
+                            const IconThemeData(size: kBottomNavBarIconSize),
                         selectedIconTheme:
-                            IconThemeData(size: kBottomNavBarIconSize + 2),
+                            const IconThemeData(size: kBottomNavBarIconSize + 2),
                         selectedItemColor: Colors.white,
-                        selectedLabelStyle: TextStyle(color: Colors.white)),
+                        selectedLabelStyle: const TextStyle(color: Colors.white)),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
                       systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -315,11 +316,11 @@ class _MyAppState extends State<MyApp> {
                     ),
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: DarkThemeColors().scaffoldBackground,
-                      unselectedIconTheme: IconThemeData(color: Colors.white38),
+                      unselectedIconTheme: const IconThemeData(color: Colors.white38),
                       unselectedLabelTextStyle:
-                          TextStyle(color: Colors.white38),
-                      selectedIconTheme: IconThemeData(color: Colors.white),
-                      selectedLabelTextStyle: TextStyle(color: Colors.white),
+                          const TextStyle(color: Colors.white38),
+                      selectedIconTheme: const IconThemeData(color: Colors.white),
+                      selectedLabelTextStyle: const TextStyle(color: Colors.white),
                     ),
                     buttonTheme: ButtonThemeData(
                         buttonColor: LightThemeColors().primary),
@@ -328,13 +329,13 @@ class _MyAppState extends State<MyApp> {
                     iconTheme:
                         IconThemeData(color: Colors.white.withOpacity(0.87)),
                     chipTheme: ChipThemeData(
-                      padding: EdgeInsets.all(0),
+                      padding: const EdgeInsets.all(0),
                       elevation: 0,
                       pressElevation: 0,
                       checkmarkColor: Colors.white,
                       brightness: Brightness.dark,
-                      secondaryLabelStyle: TextStyle(),
-                      labelStyle: TextStyle(color: Colors.white),
+                      secondaryLabelStyle: const TextStyle(),
+                      labelStyle: const TextStyle(color: Colors.white),
                       disabledColor: Colors.transparent,
                       backgroundColor: DarkThemeColors().chipUnselectedColor,
                       selectedColor: DarkThemeColors().chipSelectedColor,

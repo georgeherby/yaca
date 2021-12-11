@@ -17,7 +17,7 @@ import 'package:crypto_app/ui/utils/percentage_formatters.dart';
 import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 
 class GlobalMarketMarque extends StatefulWidget {
-  GlobalMarketMarque({
+  const GlobalMarketMarque({
     Key? key,
     required this.currencySymbol,
     required this.marketCap,
@@ -38,7 +38,7 @@ class GlobalMarketMarque extends StatefulWidget {
 
 class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
   final ScrollController _scrollController = ScrollController();
-  final Duration _animationDuration = Duration(milliseconds: 1000);
+  final Duration _animationDuration = const Duration(milliseconds: 1000);
   late Timer _animateTicker;
 
   void scroll() {
@@ -68,7 +68,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               'Total Market Cap:',
               style: Theme.of(context)
@@ -76,17 +76,17 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                   .bodyText1
                   ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
-              '${widget.currencySymbol + compactNumberFormat(context).format(widget.marketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode))}',
+              widget.currencySymbol + compactNumberFormat(context).format(widget.marketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode)),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
                   ?.copyWith(color: Colors.white),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             PercentageChangeBox(widget.marketCap24hChange),
-            VerticalDivider(
+            const VerticalDivider(
               thickness: 2,
               color: Colors.white,
               indent: kMarqueTapHeight / 4,
@@ -99,17 +99,17 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                   .bodyText1
                   ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
-              '${widget.currencySymbol + compactNumberFormat(context).format(
+              widget.currencySymbol + compactNumberFormat(context).format(
                     widget.totalVolume.gbp,
-                  )}',
+                  ),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
                   ?.copyWith(color: Colors.white),
             ),
-            VerticalDivider(
+            const VerticalDivider(
               thickness: 2,
               color: Colors.white,
               indent: kMarqueTapHeight / 4,
@@ -122,7 +122,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                   .bodyText1
                   ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
             ),
-            SizedBox(width: 4),
+            const SizedBox(width: 4),
             Text(
               'BTC ${percentageFormat.format(widget.marketCapPercentage.btc / 100)}',
               style: Theme.of(context)
@@ -130,7 +130,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                   .bodyText1
                   ?.copyWith(color: Colors.white),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               'ETH ${percentageFormat.format(widget.marketCapPercentage.eth / 100)}',
               style: Theme.of(context)
@@ -138,7 +138,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                   .bodyText1
                   ?.copyWith(color: Colors.white),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               'BNB ${percentageFormat.format(widget.marketCapPercentage.bnb / 100)}',
               style: Theme.of(context)
@@ -146,7 +146,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                   .bodyText1
                   ?.copyWith(color: Colors.white),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
           ],
         );
       },

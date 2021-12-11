@@ -31,7 +31,7 @@ class DeltaWithArrow extends StatelessWidget {
             color: color,
             size: textSize ?? 12,
           ),
-          SizedBox(
+          const SizedBox(
             width: 1,
           ),
           Flexible(

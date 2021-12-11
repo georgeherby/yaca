@@ -1,9 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -14,7 +13,7 @@ import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
 import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage() : super();
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -99,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                         onDestinationSelected: onTabTapped,
                         labelType: NavigationRailLabelType.all,
                         destinations: [
-                          NavigationRailDestination(
+                          const NavigationRailDestination(
                             icon: FaIcon(FontAwesomeIcons.chartBar),
                             selectedIcon:
                                 FaIcon(FontAwesomeIcons.solidChartBar),
@@ -128,7 +127,7 @@ class _HomePageState extends State<HomePage> {
                                     .selectedIconTheme
                                     ?.color,
                               ),
-                              label: Text(
+                              label: const Text(
                                 'Whales',
                               ))
                         ],
@@ -138,9 +137,9 @@ class _HomePageState extends State<HomePage> {
                       tooltip: 'Open settings',
                       onPressed: () =>
                           context.router.push(const AppSettingsHomeRoute()),
-                      icon: FaIcon(FontAwesomeIcons.cog),
+                      icon: const FaIcon(FontAwesomeIcons.cog),
                     ),
-                    SizedBox(height: 8)
+                    const SizedBox(height: 8)
                   ],
                 ),
           Expanded(
@@ -162,11 +161,11 @@ class _HomePageState extends State<HomePage> {
   Widget showPage(int index) {
     switch (index) {
       case 0:
-        return MarketOverviewView();
+        return const MarketOverviewView();
       case 1:
-        return WhaleTransactionView();
+        return const WhaleTransactionView();
       default:
-        return Text('Uknown page');
+        return const Text('Uknown page');
     }
   }
 }

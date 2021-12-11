@@ -82,14 +82,14 @@ class DesktopRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Material(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                      borderRadius: const BorderRadius.all(Radius.circular(6)),
                       elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -98,7 +98,7 @@ class DesktopRow extends StatelessWidget {
                             style: Theme.of(context).textTheme.caption),
                       ),
                     ),
-                    SizedBox(width: 6),
+                    const SizedBox(width: 6),
                     Text(symbol.toUpperCase(),
                         style: Theme.of(context).textTheme.caption),
                   ],
@@ -110,7 +110,7 @@ class DesktopRow extends StatelessWidget {
             width: blockSize * 20,
             child: sparkline != null
                 ? Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.symmetric(vertical: 16),
                     child: SimpleSparkLine(
                         data: sparkline!.price, width: blockSize * 20),
                   )
@@ -167,7 +167,7 @@ class DesktopRow extends StatelessWidget {
               textAlign: TextAlign.end,
             ),
           ),
-          Spacer(flex: 1),
+          const Spacer(flex: 1),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
               if (state is AssetOverviewLoaded) {
@@ -178,7 +178,7 @@ class DesktopRow extends StatelessWidget {
                     ),
                     onPressed: onFavourite);
               }
-              return CupertinoActivityIndicator();
+              return const CupertinoActivityIndicator();
             },
           ),
         ],

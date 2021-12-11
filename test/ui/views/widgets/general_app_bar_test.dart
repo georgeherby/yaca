@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -10,9 +9,9 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 
 void main() {
-  final cogFinder = find.byKey(Key('settings-cog-buton'));
-  final macosChevronFinder = find.byKey(Key('back-chevron-macos'));
-  final otherOsChevronFinder = find.byKey(Key('back-chevron-other-os'));
+  final cogFinder = find.byKey(const Key('settings-cog-buton'));
+  final macosChevronFinder = find.byKey(const Key('back-chevron-macos'));
+  final otherOsChevronFinder = find.byKey(const Key('back-chevron-other-os'));
 
   group('Android', () {
     var platform = TargetPlatform.android;
@@ -25,10 +24,10 @@ void main() {
         await tester.pumpWidget(MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: Text('title'),
-              actions: [],
+              title: const Text('title'),
+              actions: const [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: LeadingButtonType.settings),
         )));
 
         expect(cogFinder, findsOneWidget);
@@ -43,10 +42,10 @@ void main() {
           MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: Text('title'),
-                  actions: [],
+                  title: const Text('title'),
+                  actions: const [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.back),
             ),
           ),
         );
@@ -69,10 +68,10 @@ void main() {
         await tester.pumpWidget(MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: Text('title'),
-              actions: [],
+              title: const Text('title'),
+              actions: const [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: null),
         )));
 
         expect(cogFinder, findsNothing);
@@ -87,10 +86,10 @@ void main() {
           MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: Text('title'),
-                  actions: [],
+                  title: const Text('title'),
+                  actions: const [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.back),
             ),
           ),
         );
@@ -115,10 +114,10 @@ void main() {
         await tester.pumpWidget(MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: Text('title'),
-              actions: [],
+              title: const Text('title'),
+              actions: const [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: LeadingButtonType.settings),
         )));
 
         expect(cogFinder, findsOneWidget);
@@ -133,10 +132,10 @@ void main() {
           MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: Text('title'),
-                  actions: [],
+                  title: const Text('title'),
+                  actions: const [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.back),
             ),
           ),
         );
@@ -159,10 +158,10 @@ void main() {
         await tester.pumpWidget(MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: Text('title'),
-              actions: [],
+              title: const Text('title'),
+              actions: const [],
               platform: platform,
-              hasBackRoute: false),
+              leadingButtonType: null),
         )));
 
         expect(cogFinder, findsNothing);
@@ -177,10 +176,10 @@ void main() {
           MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: Text('title'),
-                  actions: [],
+                  title: const Text('title'),
+                  actions: const [],
                   platform: platform,
-                  hasBackRoute: true),
+                  leadingButtonType: LeadingButtonType.back),
             ),
           ),
         );
@@ -200,10 +199,10 @@ void main() {
       await tester.pumpWidget(MaterialApp(
           home: Scaffold(
         appBar: GeneralAppBar(
-            title: Text('title'),
-            actions: [],
+            title: const Text('title'),
+            actions: const [],
             platform: platform,
-            hasBackRoute: false),
+            leadingButtonType: null),
       )));
 
       expect(cogFinder, findsNothing);
@@ -218,10 +217,10 @@ void main() {
         MaterialApp(
           home: Scaffold(
             appBar: GeneralAppBar(
-                title: Text('title'),
-                actions: [],
+                title: const Text('title'),
+                actions: const [],
                 platform: platform,
-                hasBackRoute: true),
+                leadingButtonType: LeadingButtonType.back),
           ),
         ),
       );

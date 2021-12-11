@@ -34,7 +34,7 @@ class AssetPage extends StatelessWidget {
                     marketCoinId: id)),
         ),
       ],
-      child: AutoRouter(),
+      child: const AutoRouter(),
     );
   }
 }
