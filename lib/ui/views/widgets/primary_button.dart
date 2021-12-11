@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:crypto_app/ui/consts/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({Key? key, required this.buttonText, required this.onTap})
@@ -20,7 +22,7 @@ class PrimaryButton extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         buttonText,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }

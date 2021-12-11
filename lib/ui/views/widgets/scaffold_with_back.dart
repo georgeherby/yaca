@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,7 @@ class ScaffoldWithBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: GeneralAppBar(
-          leadingButtonType: kIsWeb ? null : LeadingButtonType.BACK,
+          leadingButtonType: kIsWeb ? null : LeadingButtonType.back,
           platform: Theme.of(context).platform,
           title: AppbarTitle(title ?? ''),
           actions: actions ?? [],

@@ -87,7 +87,7 @@ class TabletRow extends StatelessWidget {
                   children: [
                     Material(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                      borderRadius: const BorderRadius.all(Radius.circular(6)),
                       elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -96,7 +96,7 @@ class TabletRow extends StatelessWidget {
                             style: Theme.of(context).textTheme.caption),
                       ),
                     ),
-                    SizedBox(width: 6),
+                    const SizedBox(width: 6),
                     Flexible(
                       child: Text(
                         symbol.toUpperCase(),
@@ -146,7 +146,7 @@ class TabletRow extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Text(
             price.currencyFormatWithPrefix(
                 BlocProvider.of<AppSettingsBloc>(context)
@@ -168,7 +168,7 @@ class TabletRow extends StatelessWidget {
                     ),
                     onPressed: onFavourite);
               }
-              return CupertinoActivityIndicator();
+              return const CupertinoActivityIndicator();
             },
           ),
         ],

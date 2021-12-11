@@ -39,7 +39,7 @@ class MarketCoin extends Equatable {
   final double? priceChangePercentage7dInCurrency;
   final int? favouriteCacheId;
 
-  MarketCoin(
+  const MarketCoin(
       {required this.id,
       required this.symbol,
       required this.name,
@@ -145,16 +145,12 @@ class MarketCoin extends Equatable {
         marketCap: json['market_cap'],
         marketCapRank: json['market_cap_rank'],
         fullyDilutedValuation: json['fully_diluted_valuation'],
-        totalVolume: json['total_volume'] != null
-            ? json['total_volume'].toDouble()
-            : null,
-        high24h: json['high_24h'] != null ? json['high_24h'].toDouble() : null,
-        low24h: json['low_24h'] != null ? json['low_24h'].toDouble() : null,
+        totalVolume: json['total_volume']?.toDouble(),
+        high24h: json['high_24h']?.toDouble(),
+        low24h: json['low_24h']?.toDouble(),
         priceChange24h: json['price_change_24h'],
         priceChangePercentage24h: json['price_change_percentage_24h'],
-        marketCapChange24h: json['market_cap_change_24h'] != null
-            ? json['market_cap_change_24h'].toDouble()
-            : null,
+        marketCapChange24h: json['market_cap_change_24h']?.toDouble(),
         marketCapChangePercentage24h: json['market_cap_change_percentage_24h'],
         circulatingSupply: json['circulating_supply'],
         totalSupply: json['total_supply'],

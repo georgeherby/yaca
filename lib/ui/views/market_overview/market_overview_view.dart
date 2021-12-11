@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +14,7 @@ import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
 import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
@@ -22,6 +22,8 @@ import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 
 class MarketOverviewView extends StatefulWidget {
+  const MarketOverviewView({Key? key}) : super(key: key);
+
   @override
   _MarketOverviewViewState createState() => _MarketOverviewViewState();
 }
@@ -57,7 +59,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                             style: OutlinedButton.styleFrom(
                               tapTargetSize: MaterialTapTargetSize.padded,
                               visualDensity:
-                                  VisualDensity(horizontal: 0, vertical: 0),
+                                  const VisualDensity(horizontal: 0, vertical: 0),
                               primary: Theme.of(context).primaryColor,
                               backgroundColor: _showAllAssets
                                   ? Theme.of(context).chipTheme.backgroundColor
@@ -145,7 +147,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(CupertinoIcons
+                                    const Icon(CupertinoIcons
                                         .exclamationmark_triangle),
                                     Text(state.error)
                                   ],
@@ -182,8 +184,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   PreferredSizeWidget _appBar() {
     return GeneralAppBar(
       platform: Theme.of(context).platform,
-      title: AppbarTitle('Crypto App'),
-      leadingButtonType: Theme.of(context).platform.onlyMobile(context) ? LeadingButtonType.SETTINGS : null,
+      title: const AppbarTitle('Crypto App'),
+      leadingButtonType: Theme.of(context).platform.onlyMobile(context) ? LeadingButtonType.settings : null,
       actions: [
         (Theme.of(context).platform.isDesktop())
             ? IconButton(

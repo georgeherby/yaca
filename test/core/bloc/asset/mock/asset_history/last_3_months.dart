@@ -8652,7 +8652,7 @@ var last3Months = AssetHistory.fromJson(jsonDecode('''
       24964.573457447037
     ]
   ],
-  "market_caps": [
+  "marketCaps": [
     [
       1619453874624,
       721582539818.7382
@@ -17298,7 +17298,7 @@ var last3Months = AssetHistory.fromJson(jsonDecode('''
       466183956385.43884
     ]
   ],
-  "total_volumes": [
+  "totalVolumes": [
     [
       1619453874624,
       45721653071.10239

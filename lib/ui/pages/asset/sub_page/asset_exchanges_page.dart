@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +9,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/asset/widgets/exchange_list_with_filter.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
@@ -35,7 +35,7 @@ class AssetExchangePage extends StatelessWidget {
                 child: Material(
                   borderRadius: getValueForScreenType<BorderRadius>(
                       context: context,
-                      mobile: BorderRadius.only(
+                      mobile: const BorderRadius.only(
                           topLeft: Radius.circular(kCornerRadiusCirlcular),
                           topRight: Radius.circular(kCornerRadiusCirlcular)),
                       tablet: BorderRadius.circular(kCornerRadiusCirlcular),
@@ -57,7 +57,7 @@ class AssetExchangePage extends StatelessWidget {
               return Center(
                 child: Column(
                   children: [
-                    Icon(CupertinoIcons.exclamationmark),
+                    const Icon(CupertinoIcons.exclamationmark),
                     Text(state.error)
                   ],
                 ),

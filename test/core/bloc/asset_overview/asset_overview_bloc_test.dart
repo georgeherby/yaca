@@ -42,7 +42,7 @@ void main() {
             mockMarketOverviewRepository);
       },
       verify: (AssetOverviewBloc bloc) {
-        expect(bloc.state, equals(AssetOverviewInitial()));
+        expect(bloc.state, equals(const AssetOverviewInitial()));
       },
     );
   });
@@ -126,7 +126,7 @@ void main() {
               mockMarketOverviewRepository);
         },
         expect: () => [
-              AssetOverviewLoading(),
+              const AssetOverviewLoading(),
               AssetOverviewError(Exception('ERROR').toString())
             ],
         verify: (_) {
@@ -148,7 +148,7 @@ void main() {
               mockMarketOverviewRepository);
         },
         expect: () => [
-              AssetOverviewLoading(),
+              const AssetOverviewLoading(),
               AssetOverviewError(Exception('FAV ERROR').toString())
             ]);
 

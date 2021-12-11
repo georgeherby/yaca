@@ -1,3 +1,6 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -19,10 +22,10 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
   }
 
   void _onAssetLoad(AssetLoad event, Emitter<AssetState> emit) async {
-    emit(AssetLoading());
+    emit(const AssetLoading());
 
     try {
-      print('done');
+      debugPrint('done');
       var assetHistorySplits = await singleAssetRespository
           .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);
 

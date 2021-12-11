@@ -46,7 +46,7 @@ void main() {
         act: (AssetBloc bloc) => bloc.add(AssetLoad(
             marketCoinId: coinId, currencyCode: chosenCurrency)),
         expect: () => [
-              AssetLoading(),
+              const AssetLoading(),
               AssetLoaded(singelAssetDataBtc, assetHistorySplitsBtc)
             ]);
     blocTest('verify state is SingleAssetError when getSingleAssetData fails',
@@ -63,7 +63,7 @@ void main() {
         act: (AssetBloc bloc) => bloc.add(AssetLoad(
             marketCoinId: coinId, currencyCode: chosenCurrency)),
         expect: () => [
-              AssetLoading(),
+              const AssetLoading(),
               AssetError(Exception('Error').toString())
             ]);
     blocTest(
@@ -82,7 +82,7 @@ void main() {
               () => mockSingleAssetRespository.getSingleAssetData(any()));
         },
         expect: () => [
-              AssetLoading(),
+              const AssetLoading(),
               AssetError(Exception('Error').toString())
             ]);
   });

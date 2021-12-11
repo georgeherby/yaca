@@ -33,7 +33,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
         child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(kCornerRadiusCirlcular)),
+              borderRadius: const BorderRadius.all(Radius.circular(kCornerRadiusCirlcular)),
             ),
             child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
               builder: (context, state) {
@@ -57,12 +57,12 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Icon(CupertinoIcons.exclamationmark),
+                      const Icon(CupertinoIcons.exclamationmark),
                       Text(state.error)
                     ],
                   );
                 }
-                return ShimmerAppBarDataBlock();
+                return const ShimmerAppBarDataBlock();
               },
             )),
       ),

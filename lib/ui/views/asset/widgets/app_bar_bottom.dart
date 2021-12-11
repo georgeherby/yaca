@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -7,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/views/asset/widgets/app_bar_bottom_data_block.dart';
 import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
@@ -61,7 +61,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Spacer(flex: 5),
+                      const Spacer(flex: 5),
                       AppBarBottomDataBlock(
                           title: 'Current Price',
                           widgetData: Text(
@@ -75,10 +75,10 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                                         context)
                                     .toString() ??
                                 '-',
-                            style: TextStyle(fontSize: 16),
+                            style: const TextStyle(fontSize: 16),
                             textAlign: TextAlign.center,
                           )),
-                      Spacer(flex: 1),
+                      const Spacer(flex: 1),
                       AppBarBottomDataBlock(
                           title: '% Change 24h',
                           widgetData: percentageChange24h != null
@@ -88,16 +88,16 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                                   showBackground: false,
                                 )
                               : null),
-                      Spacer(flex: 1),
+                      const Spacer(flex: 1),
                       AppBarBottomDataBlock(
                           title: 'Price Change 24h',
                           widgetData: priceChange24h != null
                               ? DeltaWithArrow(priceChange24h!, textSize: 16)
                               : null),
-                      Spacer(flex: 5),
+                      const Spacer(flex: 5),
                     ],
                   ),
-                  Divider(
+                  const Divider(
                     color: Colors.transparent,
                     thickness: 1,
                     height: 4,
@@ -145,5 +145,5 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight * 1.5);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight * 1.5);
 }

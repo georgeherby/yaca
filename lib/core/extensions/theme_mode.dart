@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -12,12 +11,12 @@ extension ThemeModeToString on ThemeMode {
   String toStr() {
     switch (this) {
       case ThemeMode.dark:
-        return kDARK_MODE;
+        return kDarkMode;
       case ThemeMode.light:
-        return kLIGHT_MODE;
+        return kLightMode;
       case ThemeMode.system:
       default:
-        return kSYSTEM_MODE;
+        return kSystemMode;
     }
   }
 
@@ -37,11 +36,11 @@ extension ThemeModeToString on ThemeMode {
 extension StringToThemeMode on String {
   ThemeMode toThemeMode() {
     switch (this) {
-      case kDARK_MODE:
+      case kDarkMode:
         return ThemeMode.dark;
-      case kLIGHT_MODE:
+      case kLightMode:
         return ThemeMode.light;
-      case kSYSTEM_MODE:
+      case kSystemMode:
       default:
         return ThemeMode.system;
     }

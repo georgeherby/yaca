@@ -28,13 +28,13 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
   AssetOverviewBloc(
       this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
-      : super(AssetOverviewInitial()) {
+      : super(const AssetOverviewInitial()) {
     on<AssetFavourited>(_onAssetFavourited);
     on<AssetOverviewLoad>(_onAssetOverviewLoad);
 
     subscription = settingsBloc.stream.listen((stateOfSettings) {
       if (stateOfSettings is AppSettingsLoaded) {
-        print('Initial load');
+        debugPrint('Initial load');
         add(AssetOverviewLoad(stateOfSettings.currency));
       }
     });
@@ -43,7 +43,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   @override
   void onEvent(AssetOverviewEvent event) {
     if (event is AssetFavourited) {
-      print(
+      debugPrint(
           'addToFavourite  = ${event.marketCoin.name} to ${event.addToFavourite}');
     }
     super.onEvent(event);
@@ -52,7 +52,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   @override
   void onTransition(
       Transition<AssetOverviewEvent, AssetOverviewState> transition) {
-    print(transition);
+    debugPrint(transition.toString());
     super.onTransition(transition);
   }
 
@@ -60,7 +60,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     AssetOverviewLoad event,
     Emitter<AssetOverviewState> emit,
   ) async {
-    emit(AssetOverviewLoading());
+    emit(const AssetOverviewLoading());
     try {
       var _marketCoins = <MarketCoin>[];
 
@@ -81,9 +81,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       }));
       emit(AssetOverviewLoaded(_marketCoins));
     } catch (e, stacktrace) {
-      print('Error $e');
-      print('Error $stacktrace');
-      print(stacktrace);
+      debugPrint('Error $e');
+      debugPrint('Error $stacktrace');
       emit(AssetOverviewError(e.toString()));
     }
   }
@@ -103,7 +102,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         var idForRecord = await _favouriteDao.insertFavourite(Favourites(
             name: event.marketCoin.name, symbol: event.marketCoin.symbol));
 
-        print('Inserted id $idForRecord');
+        debugPrint('Inserted id $idForRecord');
 
         final updatedAssets = listOfAssets.map((e) {
           if (e.id == event.marketCoin.id) {

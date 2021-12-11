@@ -27,33 +27,31 @@ class AssetGraph extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetGraphState createState() => _AssetGraphState(history: history);
+  _AssetGraphState createState() => _AssetGraphState();
 }
 
 class _AssetGraphState extends State<AssetGraph> {
-  final List<TimeValuePair> history;
-
   late double touchedPrice;
   late int touchedTime;
 
   final int verticals = 3;
   final int horizonals = 4;
 
-  _AssetGraphState({
-    required this.history,
-  }) {
-    touchedPrice = history.last.value;
-    touchedTime = history.last.timeEpochUtc;
-  }
-
   @override
   void didUpdateWidget(covariant AssetGraph oldWidget) {
     if (oldWidget.duration != widget.duration) {
       debugPrint('Duration changed reset touched values');
-      touchedPrice = history.last.value;
-      touchedTime = history.last.timeEpochUtc;
+      touchedPrice = widget.history.last.value;
+      touchedTime = widget.history.last.timeEpochUtc;
     }
     super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void initState() {
+    touchedPrice = widget.history.last.value;
+    touchedTime = widget.history.last.timeEpochUtc;
+    super.initState();
   }
 
   @override
@@ -101,17 +99,17 @@ class _AssetGraphState extends State<AssetGraph> {
                         style: Theme.of(context).textTheme.caption?.copyWith(
                             fontWeight: FontWeight.normal, fontSize: 13),
                       ),
-                      SizedBox(height: 4),
+                      const SizedBox(height: 4),
                       SizedBox(
                         height: 20,
-                        child: (price != history.last.value)
+                        child: (price != widget.history.last.value)
                             ? Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   PercentageChangeBox(
-                                      ((price - (history.last.value)) / price) *
+                                      ((price - (widget.history.last.value)) / price) *
                                           100),
-                                  SizedBox(width: 4),
+                                  const SizedBox(width: 4),
                                   Text(
                                     'on current price',
                                     style:
@@ -123,7 +121,7 @@ class _AssetGraphState extends State<AssetGraph> {
                       ),
                     ],
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     price.currencyFormatWithPrefix(currencySymbol, context),
                     style: getValueForScreenType<TextStyle?>(
@@ -209,7 +207,8 @@ class _AssetGraphState extends State<AssetGraph> {
                         formatter = DateFormat('HH:mm\nd MMM yyyy');
                       }
 
-                      return '${formatter.format(DateTime.fromMillisecondsSinceEpoch(value.toInt()))}';
+                      return formatter.format(
+                          DateTime.fromMillisecondsSinceEpoch(value.toInt()));
                     },
                   ),
                   leftTitles: SideTitles(showTitles: false),
@@ -219,7 +218,8 @@ class _AssetGraphState extends State<AssetGraph> {
                     getTextStyles: (context, value) =>
                         Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
-                      return '${value.currencyFormatWithPrefix(currencySymbol, context)}';
+                      return value.currencyFormatWithPrefix(
+                          currencySymbol, context);
                     },
                     reservedSize: 56,
                     margin: 8,
@@ -290,8 +290,8 @@ class _AssetGraphState extends State<AssetGraph> {
                         (positive ? kPositiveGreen : kNegativeRed)
                             .withOpacity(0.3)
                       ],
-                      gradientFrom: Offset(0, 1),
-                      gradientTo: Offset(0, 0),
+                      gradientFrom: const Offset(0, 1),
+                      gradientTo: const Offset(0, 0),
                       gradientColorStops: [0, 0.7],
                     ),
                     spots: List.generate(
@@ -303,7 +303,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   ),
                 ],
               ),
-              swapAnimationDuration: Duration(milliseconds: 500),
+              swapAnimationDuration: const Duration(milliseconds: 500),
             ),
           ),
         ),

@@ -25,7 +25,7 @@ void main() {
       'verify initsate is GlobalMarketInitial when bloc is created',
       build: () => GlobalMarketBloc(mockRepository),
       verify: (GlobalMarketBloc bloc) {
-        expect(bloc.state, equals(GlobalMarketInitial()));
+        expect(bloc.state, equals(const GlobalMarketInitial()));
       },
     );
 
@@ -38,7 +38,7 @@ void main() {
       },
       act: (GlobalMarketBloc bloc) => bloc.add(GlobalMarketLoad(currency)),
       expect: () =>
-          [GlobalMarketLoading(), GlobalMarketLoaded(globalMarketData)],
+          [const GlobalMarketLoading(), GlobalMarketLoaded(globalMarketData)],
     );
 
     blocTest(
@@ -50,7 +50,7 @@ void main() {
       },
       act: (GlobalMarketBloc bloc) => bloc.add(GlobalMarketLoad(currency)),
       expect: () => [
-        GlobalMarketLoading(),
+        const GlobalMarketLoading(),
         GlobalMarketError(Exception('AAAH').toString())
       ],
     );

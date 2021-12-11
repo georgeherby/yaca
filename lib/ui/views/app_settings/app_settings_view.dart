@@ -1,12 +1,11 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -15,6 +14,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class AppSettingsView extends StatelessWidget {
         children: [
           Row(
             children: [
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Text('GENERAL',
                   style: Theme.of(context)
                       .textTheme
@@ -36,7 +36,7 @@ class AppSettingsView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ],
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Material(
             clipBehavior: Clip.antiAlias,
             borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
@@ -55,23 +55,23 @@ class AppSettingsView extends StatelessWidget {
                       height: 48,
                       child: Row(
                         children: [
-                          FaIcon(FontAwesomeIcons.moneyBillAlt),
-                          VerticalDivider(color: Colors.transparent),
-                          Text('Default currency'),
-                          Spacer(),
+                          const FaIcon(FontAwesomeIcons.moneyBillAlt),
+                          const VerticalDivider(color: Colors.transparent),
+                          const Text('Default currency'),
+                          const Spacer(),
                           Text(BlocProvider.of<AppSettingsBloc>(context)
                               .state
                               .currency
                               .currencyCode
                               .toUpperCase()),
-                          VerticalDivider(color: Colors.transparent),
-                          Icon(CupertinoIcons.chevron_right),
+                          const VerticalDivider(color: Colors.transparent),
+                          const Icon(CupertinoIcons.chevron_right),
                         ],
                       ),
                     ),
                   ),
                 ),
-                Divider(
+                const Divider(
                   thickness: 1,
                   height: 1,
                 ),
@@ -86,16 +86,16 @@ class AppSettingsView extends StatelessWidget {
                       height: 48,
                       child: Row(
                         children: [
-                          FaIcon(FontAwesomeIcons.palette),
-                          VerticalDivider(color: Colors.transparent),
-                          Text('Theme'),
-                          Spacer(),
+                          const FaIcon(FontAwesomeIcons.palette),
+                          const VerticalDivider(color: Colors.transparent),
+                          const Text('Theme'),
+                          const Spacer(),
                           Icon(BlocProvider.of<AppSettingsBloc>(context)
                               .state
                               .theme
                               .toIcon()),
-                          VerticalDivider(color: Colors.transparent),
-                          Icon(CupertinoIcons.chevron_right),
+                          const VerticalDivider(color: Colors.transparent),
+                          const Icon(CupertinoIcons.chevron_right),
                         ],
                       ),
                     ),
@@ -104,11 +104,11 @@ class AppSettingsView extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 6),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
+          const SizedBox(height: 6),
           Row(
             children: [
-              SizedBox(width: 16),
+              const SizedBox(width: 16),
               Text('API TOKENS',
                   style: Theme.of(context)
                       .textTheme
@@ -116,7 +116,7 @@ class AppSettingsView extends StatelessWidget {
                       ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ],
           ),
-          SizedBox(height: 6),
+          const SizedBox(height: 6),
           Material(
             clipBehavior: Clip.antiAlias,
             borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
@@ -141,10 +141,10 @@ class AppSettingsView extends StatelessWidget {
                             width: Theme.of(context).iconTheme.size,
                             color: Theme.of(context).iconTheme.color,
                           ),
-                          VerticalDivider(color: Colors.transparent),
-                          Expanded(child: Text('Whale Transactions')),
-                          VerticalDivider(color: Colors.transparent),
-                          Icon(CupertinoIcons.chevron_right),
+                          const VerticalDivider(color: Colors.transparent),
+                          const Expanded(child: Text('Whale Transactions')),
+                          const VerticalDivider(color: Colors.transparent),
+                          const Icon(CupertinoIcons.chevron_right),
                         ],
                       ),
                     ),

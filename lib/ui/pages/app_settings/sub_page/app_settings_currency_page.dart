@@ -9,6 +9,6 @@ class AppSettingsCurrencyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CurrencyChoiceView();
+    return const CurrencyChoiceView();
   }
 }

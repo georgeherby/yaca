@@ -1,21 +1,19 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_header.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_header.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/app_router.dart';
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_header.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/mobile_row.dart';
+import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_header.dart';
 import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_row.dart';
 import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
 
@@ -40,8 +38,8 @@ class AssetsDataTable extends StatelessWidget {
       padding: getValueForScreenType<EdgeInsets>(
         context: context,
         mobile: EdgeInsets.zero,
-        tablet: EdgeInsets.only(bottom: 8.0),
-        desktop: EdgeInsets.only(bottom: 8.0),
+        tablet: const EdgeInsets.only(bottom: 8.0),
+        desktop: const EdgeInsets.only(bottom: 8.0),
       ),
       child: Column(
         children: [
@@ -53,7 +51,7 @@ class AssetsDataTable extends StatelessWidget {
             child: Material(
               borderRadius: getValueForScreenType<BorderRadius>(
                   context: context,
-                  mobile: BorderRadius.only(
+                  mobile: const BorderRadius.only(
                       topLeft: Radius.circular(kCornerRadiusCirlcular),
                       topRight: Radius.circular(kCornerRadiusCirlcular)),
                   tablet: BorderRadius.circular(kCornerRadiusCirlcular),
@@ -64,13 +62,13 @@ class AssetsDataTable extends StatelessWidget {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [Center(child: Text('No Favourites'))])
+                      children: const [Center(child: Text('No Favourites'))])
                   : RefreshableList(
                       onRefresh: onRefresh,
                       child: ListView.separated(
-                        physics: ClampingScrollPhysics(),
+                        physics: const ClampingScrollPhysics(),
                         separatorBuilder: (BuildContext context, int index) {
-                          return Divider(
+                          return const Divider(
                             indent: 8,
                             endIndent: 8,
                             height: 1,

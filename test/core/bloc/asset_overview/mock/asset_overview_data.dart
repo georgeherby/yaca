@@ -2,7 +2,7 @@
 import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
 import 'package:crypto_app/core/models/favourites.dart';
 
-var btcMarketCoin = MarketCoin(
+var btcMarketCoin = const MarketCoin(
     id: 'bitcion',
     symbol: 'btc',
     name: 'Bitcoin',
@@ -12,7 +12,7 @@ var btcMarketCoin = MarketCoin(
     marketCapRank: 1,
     lastUpdated: '123456789');
 
-var ethMarketCoin = MarketCoin(
+var ethMarketCoin = const MarketCoin(
     id: 'eth',
     symbol: 'eth',
     name: 'Ethereum',
@@ -23,5 +23,5 @@ var ethMarketCoin = MarketCoin(
     lastUpdated: '123456788');
 
 
-var btcFavouriteWithID = Favourites(id: 12, name: 'bitcoin', symbol: 'btc');
-var ethFavouriteNoId = Favourites(name: 'Ethereum', symbol: 'eth');
+var btcFavouriteWithID = const Favourites(id: 12, name: 'bitcoin', symbol: 'btc');
+var ethFavouriteNoId = const Favourites(name: 'Ethereum', symbol: 'eth');

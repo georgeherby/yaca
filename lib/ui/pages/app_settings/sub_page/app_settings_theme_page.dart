@@ -9,6 +9,6 @@ class AppSettingsThemePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeChoiceView();
+    return const ThemeChoiceView();
   }
 }

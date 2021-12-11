@@ -12044,7 +12044,7 @@ var maxMonths = AssetHistory.fromJson(jsonDecode('''
       24988.898324044017
     ]
   ],
-  "market_caps": [
+  "marketCaps": [
     [
       1367107200000,
       963625076.6999998
@@ -24082,7 +24082,7 @@ var maxMonths = AssetHistory.fromJson(jsonDecode('''
       468482594138.47485
     ]
   ],
-  "total_volumes": [
+  "totalVolumes": [
     [
       1367107200000,
       0

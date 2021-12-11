@@ -1,3 +1,4 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 class TabletHeader extends StatelessWidget {
@@ -58,7 +59,7 @@ class TabletHeader extends StatelessWidget {
               ],
             ),
           ),
-          Spacer(),
+          const Spacer(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -68,7 +69,7 @@ class TabletHeader extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(width: 36),
+          const SizedBox(width: 36),
         ],
       ),
     );

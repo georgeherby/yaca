@@ -66,7 +66,7 @@ class MobileRow extends StatelessWidget {
               assetSymbol: symbol,
             ),
           ),
-          SizedBox(width: 8),
+          const SizedBox(width: 8),
           Expanded(
             flex: 12,
             child: Column(
@@ -83,14 +83,14 @@ class MobileRow extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                SizedBox(height: 4),
+                const SizedBox(height: 4),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Material(
                       color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(6)),
+                      borderRadius: const BorderRadius.all(Radius.circular(6)),
                       elevation: 0,
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
@@ -99,7 +99,7 @@ class MobileRow extends StatelessWidget {
                             style: Theme.of(context).textTheme.caption),
                       ),
                     ),
-                    SizedBox(width: 4),
+                    const SizedBox(width: 4),
                     Text(symbol.toUpperCase(),
                         style: Theme.of(context).textTheme.caption),
                   ],
@@ -124,7 +124,7 @@ class MobileRow extends StatelessWidget {
                   width: blockSize * 20),
             ),
           ),
-          Spacer(flex: 2),
+          const Spacer(flex: 2),
           Expanded(
             flex: 6,
             child: Column(
@@ -165,7 +165,7 @@ class MobileRow extends StatelessWidget {
                   ),
                 );
               }
-              return CupertinoActivityIndicator();
+              return const CupertinoActivityIndicator();
             },
           ),
         ],

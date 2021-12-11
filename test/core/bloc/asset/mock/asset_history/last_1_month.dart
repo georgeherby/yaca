@@ -1164,7 +1164,7 @@ var last24hours = AssetHistory.fromJson(jsonDecode('''
       24881.27653675814
     ]
   ],
-  "market_caps": [
+  "marketCaps": [
     [
       1627144251155,
       465949980976.4559
@@ -2322,7 +2322,7 @@ var last24hours = AssetHistory.fromJson(jsonDecode('''
       466842150781.3445
     ]
   ],
-  "total_volumes": [
+  "totalVolumes": [
     [
       1627144251155,
       17303176584.26926

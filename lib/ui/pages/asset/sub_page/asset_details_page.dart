@@ -9,7 +9,7 @@ import 'package:crypto_app/ui/views/asset/asset_view.dart';
 
 class AssetDetailsPage extends StatelessWidget {
 
-  AssetDetailsPage({
+  const AssetDetailsPage({
     Key? key,
   }) : super(key: key);
 

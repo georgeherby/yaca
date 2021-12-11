@@ -13,7 +13,8 @@ class FavouriteIcon extends StatelessWidget {
   final bool isSelected;
   final double size;
 
-  const FavouriteIcon({Key? key, required this.isSelected, this.size = 32});
+  const FavouriteIcon({Key? key, required this.isSelected, this.size = 32})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {

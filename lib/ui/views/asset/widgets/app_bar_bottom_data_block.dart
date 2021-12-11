@@ -25,7 +25,7 @@ class AppBarBottomDataBlock extends StatelessWidget {
                       : 0.75),
               fontWeight: FontWeight.w300),
         ),
-        SizedBox(height: 4),
+        const SizedBox(height: 4),
         widgetData ??
             Text(
               '-',

@@ -1,19 +1,21 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
 import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:crypto_app/core/extensions/theme_mode.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
 
 class ThemeChoiceView extends StatelessWidget {
+  const ThemeChoiceView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
@@ -33,7 +35,7 @@ class ThemeChoiceView extends StatelessWidget {
                 FontAwesomeIcons.palette,
                 ThemeMode.system,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
                 height: 1,
               ),
@@ -43,7 +45,7 @@ class ThemeChoiceView extends StatelessWidget {
                 FontAwesomeIcons.sun,
                 ThemeMode.light,
               ),
-              Divider(
+              const Divider(
                 thickness: 1,
                 height: 1,
               ),
@@ -76,13 +78,13 @@ class ThemeChoiceView extends StatelessWidget {
           child: Row(
             children: [
               Icon(themeToUse.toIcon() ?? FontAwesomeIcons.palette),
-              VerticalDivider(color: Colors.transparent),
+              const VerticalDivider(color: Colors.transparent),
               Text(title),
-              Spacer(),
+              const Spacer(),
               bloc.state.theme == themeToUse
-                  ? Icon(CupertinoIcons.check_mark)
+                  ? const Icon(CupertinoIcons.check_mark)
                   : Container(),
-              VerticalDivider(color: Colors.transparent),
+              const VerticalDivider(color: Colors.transparent),
             ],
           ),
         ),

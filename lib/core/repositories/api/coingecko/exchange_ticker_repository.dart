@@ -50,7 +50,7 @@ class ExchangeTickerRespository {
 
     if (response.statusCode == 429) {
       debugPrint('Being Throttled wait 500ms');
-      await Future.delayed(Duration(milliseconds: 500));
+      await Future.delayed(const Duration(milliseconds: 500));
       response = await client.get(Uri.parse(url));
     }
 

@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -20,7 +18,9 @@ import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
 import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
 import 'package:crypto_app/ui/views/asset/widgets/expandable_card.dart';
 import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
@@ -56,7 +56,7 @@ class AssetView extends StatelessWidget {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        leadingButtonType: kIsWeb ? null : LeadingButtonType.BACK,
+        leadingButtonType: kIsWeb ? null : LeadingButtonType.back,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -68,7 +68,7 @@ class AssetView extends StatelessWidget {
                 iconSize: iconSize,
               ),
             ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Hero(
               tag: 'coin-title-${marketCoin.name}',
               child: AppbarTitle(marketCoin.name),
@@ -106,7 +106,7 @@ class AssetView extends StatelessWidget {
         builder: (context, state) {
           if (state is AssetLoaded) {
             return SingleChildScrollView(
-              physics: BouncingScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               child: Padding(
                 padding: const EdgeInsets.only(
                   left: 8.0,
@@ -124,7 +124,7 @@ class AssetView extends StatelessWidget {
                       AssetGraphWithSwitcher(
                           allHistory: state.assetHistorySplits),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     _buildCard(
                       context,
                       false,
@@ -134,7 +134,7 @@ class AssetView extends StatelessWidget {
                         children: [
                           Text('Price (24h)',
                               style: Theme.of(context).textTheme.headline6),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           IntrinsicHeight(
                             child: Row(
                               children: [
@@ -240,7 +240,7 @@ class AssetView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     _buildCard(
                       context,
                       false,
@@ -250,7 +250,7 @@ class AssetView extends StatelessWidget {
                         children: [
                           Text('Market Stats',
                               style: Theme.of(context).textTheme.headline6),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           IntrinsicHeight(
                             child: Row(
                               children: [
@@ -299,7 +299,7 @@ class AssetView extends StatelessWidget {
                                                       context)
                                                   .format(
                                                       marketCoin.totalSupply))
-                                              : Text('-')
+                                              : const Text('-')
                                         ],
                                       ),
                                       Row(
@@ -314,7 +314,7 @@ class AssetView extends StatelessWidget {
                                               ? Text(compactNumberFormat(
                                                       context)
                                                   .format(marketCoin.maxSupply))
-                                              : Text('-')
+                                              : const Text('-')
                                         ],
                                       ),
                                     ],
@@ -395,7 +395,7 @@ class AssetView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     _buildCard(
                       context,
                       false,
@@ -406,7 +406,7 @@ class AssetView extends StatelessWidget {
                             'Sentiment',
                             style: Theme.of(context).textTheme.headline6,
                           ),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           Row(children: [
                             Expanded(
                               flex: (state.singleAsset
@@ -418,7 +418,7 @@ class AssetView extends StatelessWidget {
                                     kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
                                   color: kNegativeRed,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topLeft:
                                         Radius.circular(kCornerRadiusCirlcular),
                                     bottomLeft:
@@ -438,7 +438,7 @@ class AssetView extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            Spacer(),
+                            const Spacer(),
                             Expanded(
                               flex: (state.singleAsset
                                           .sentimentVotesUpPercentage *
@@ -449,7 +449,7 @@ class AssetView extends StatelessWidget {
                                     kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
                                   color: kPositiveGreen,
-                                  borderRadius: BorderRadius.only(
+                                  borderRadius: const BorderRadius.only(
                                     topRight:
                                         Radius.circular(kCornerRadiusCirlcular),
                                     bottomRight:
@@ -472,7 +472,7 @@ class AssetView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
@@ -492,7 +492,7 @@ class AssetView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 8),
+                    const SizedBox(height: 8),
                     _buildCard(
                       context,
                       false,
@@ -502,7 +502,7 @@ class AssetView extends StatelessWidget {
                         children: [
                           Text('Description',
                               style: Theme.of(context).textTheme.headline6),
-                          SizedBox(height: 8),
+                          const SizedBox(height: 8),
                           ScreenBuilder(
                             mobile: ExpandableCard(
                               collapsedHeight: 100,
@@ -517,7 +517,7 @@ class AssetView extends StatelessWidget {
                             desktop:
                                 _buildHtml(state.singleAsset.description.en),
                           ),
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                         ],
                       ),
                     ),
@@ -530,7 +530,7 @@ class AssetView extends StatelessWidget {
             return Center(
               child: Column(
                 children: [
-                  Icon(CupertinoIcons.exclamationmark),
+                  const Icon(CupertinoIcons.exclamationmark),
                   Text(state.error)
                 ],
               ),
@@ -546,7 +546,7 @@ class AssetView extends StatelessWidget {
     );
   }
 
-  Widget _buildHtml(String html) {
+  SelectableHtml _buildHtml(String html) {
     return SelectableHtml(
       shrinkWrap: true,
       data: html,
@@ -557,10 +557,10 @@ class AssetView extends StatelessWidget {
             await launch(url);
           } else {
             debugPrint('Could not launch $url');
-            return null;
+            return;
           }
         } else {
-          return null;
+          return;
         }
       },
     );
@@ -572,7 +572,7 @@ class AssetView extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       elevation: Theme.of(context).cardTheme.elevation!,
       child: Padding(
-          padding: removePadding ? EdgeInsets.zero : EdgeInsets.all(8.0),
+          padding: removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
           child: content),
     );
   }
