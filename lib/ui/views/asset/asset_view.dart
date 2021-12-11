@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class AssetView extends StatelessWidget {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        leadingButtonType: kIsWeb ? null : LeadingButtonType.back,
+        leadingButtonType: kIsWeb && Theme.of(context).platform.isDesktop() ? null : LeadingButtonType.back,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

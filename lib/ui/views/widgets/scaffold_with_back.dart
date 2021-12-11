@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,9 @@ class ScaffoldWithBack extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: GeneralAppBar(
-          leadingButtonType: kIsWeb ? null : LeadingButtonType.back,
+          leadingButtonType: kIsWeb && Theme.of(context).platform.isDesktop()
+              ? null
+              : LeadingButtonType.back,
           platform: Theme.of(context).platform,
           title: AppbarTitle(title ?? ''),
           actions: actions ?? [],
