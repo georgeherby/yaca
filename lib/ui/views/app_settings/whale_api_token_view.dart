@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/ui/views/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -60,11 +61,8 @@ class WhaleApiTokenView extends StatelessWidget {
               Row(
                 children: [
                   Expanded(
-                    child: OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                          // backgroundColor: Theme.of(context).primaryColor,
-                          ),
-                      onPressed: () async {
+                    child: SecondaryButton(
+                      onTap: () async {
                         await RepositoryProvider.of<ApiTokensPreference>(
                                 context)
                             .removeWhalesApiToken();
@@ -74,10 +72,7 @@ class WhaleApiTokenView extends StatelessWidget {
                                 context)
                             .loadElements();
                       },
-                      child: Text(
-                        'Clear',
-                        style: Theme.of(context).textTheme.button,
-                      ),
+                      buttonText: 'Clear',
                     ),
                   ),
                   const SizedBox(width: 16),
