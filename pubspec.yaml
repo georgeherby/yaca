@@ -10,7 +10,7 @@ environment:
   flutter: ^2.8.0
 
 dependencies:
-  auto_route: ^3.0.4
+  auto_route: ^3.2.0
   cached_network_image: ^3.1.0+1
   cupertino_icons: ^1.0.4
   equatable: ^2.0.3
@@ -41,10 +41,6 @@ dependencies:
 
 dependency_overrides:
   flutter_svg: ^1.0.0
-  auto_route:
-    git:
-      url: https://github.com/Agondev/auto_route_library
-      path: auto_route
       
 dev_dependencies:
   auto_route_generator: ^3.0.1
