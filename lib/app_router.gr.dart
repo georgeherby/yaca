@@ -16,7 +16,8 @@ class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     HomeRoute.name: (routeData) {
-      return MaterialPageX<dynamic>(routeData: routeData, child: const HomePage());
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HomePage());
     },
     AssetRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
@@ -32,10 +33,8 @@ class _$AppRouter extends RootStackRouter {
           fullscreenDialog: true);
     },
     AssetDetailsRoute.name: (routeData) {
-      final args = routeData.argsAs<AssetDetailsRouteArgs>(
-          orElse: () => const AssetDetailsRouteArgs());
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: AssetDetailsPage(key: args.key));
+          routeData: routeData, child: const AssetDetailsPage());
     },
     AssetExchangeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
@@ -81,17 +80,19 @@ class _$AppRouter extends RootStackRouter {
       ];
 }
 
-/// generated route for [HomePage]
+/// generated route for
+/// [HomePage]
 class HomeRoute extends PageRouteInfo<void> {
-  const HomeRoute() : super(name, path: '/');
+  const HomeRoute() : super(HomeRoute.name, path: '/');
 
   static const String name = 'HomeRoute';
 }
 
-/// generated route for [AssetPage]
+/// generated route for
+/// [AssetPage]
 class AssetRoute extends PageRouteInfo<AssetRouteArgs> {
   AssetRoute({Key? key, required String id, List<PageRouteInfo>? children})
-      : super(name,
+      : super(AssetRoute.name,
             path: '/asset/:assetId',
             args: AssetRouteArgs(key: key, id: id),
             rawPathParams: {'assetId': id},
@@ -113,64 +114,64 @@ class AssetRouteArgs {
   }
 }
 
-/// generated route for [AppSettingsHomePage]
+/// generated route for
+/// [AppSettingsHomePage]
 class AppSettingsHomeRoute extends PageRouteInfo<void> {
   const AppSettingsHomeRoute({List<PageRouteInfo>? children})
-      : super(name, path: '/settings', initialChildren: children);
+      : super(AppSettingsHomeRoute.name,
+            path: '/settings', initialChildren: children);
 
   static const String name = 'AppSettingsHomeRoute';
 }
 
-/// generated route for [AssetDetailsPage]
-class AssetDetailsRoute extends PageRouteInfo<AssetDetailsRouteArgs> {
-  AssetDetailsRoute({Key? key})
-      : super(name, path: '', args: AssetDetailsRouteArgs(key: key));
+/// generated route for
+/// [AssetDetailsPage]
+class AssetDetailsRoute extends PageRouteInfo<void> {
+  const AssetDetailsRoute() : super(AssetDetailsRoute.name, path: '');
 
   static const String name = 'AssetDetailsRoute';
 }
 
-class AssetDetailsRouteArgs {
-  const AssetDetailsRouteArgs({this.key});
-
-  final Key? key;
-
-  @override
-  String toString() {
-    return 'AssetDetailsRouteArgs{key: $key}';
-  }
-}
-
-/// generated route for [AssetExchangePage]
+/// generated route for
+/// [AssetExchangePage]
 class AssetExchangeRoute extends PageRouteInfo<void> {
-  const AssetExchangeRoute() : super(name, path: 'exchanges');
+  const AssetExchangeRoute()
+      : super(AssetExchangeRoute.name, path: 'exchanges');
 
   static const String name = 'AssetExchangeRoute';
 }
 
-/// generated route for [AppSettingsPage]
+/// generated route for
+/// [AppSettingsPage]
 class AppSettingsRoute extends PageRouteInfo<void> {
-  const AppSettingsRoute() : super(name, path: '');
+  const AppSettingsRoute() : super(AppSettingsRoute.name, path: '');
 
   static const String name = 'AppSettingsRoute';
 }
 
-/// generated route for [AppSettingsCurrencyPage]
+/// generated route for
+/// [AppSettingsCurrencyPage]
 class AppSettingsCurrencyRoute extends PageRouteInfo<void> {
-  const AppSettingsCurrencyRoute() : super(name, path: 'currency');
+  const AppSettingsCurrencyRoute()
+      : super(AppSettingsCurrencyRoute.name, path: 'currency');
 
   static const String name = 'AppSettingsCurrencyRoute';
 }
 
-/// generated route for [AppSettingsThemePage]
+/// generated route for
+/// [AppSettingsThemePage]
 class AppSettingsThemeRoute extends PageRouteInfo<void> {
-  const AppSettingsThemeRoute() : super(name, path: 'theme');
+  const AppSettingsThemeRoute()
+      : super(AppSettingsThemeRoute.name, path: 'theme');
 
   static const String name = 'AppSettingsThemeRoute';
 }
 
-/// generated route for [AppSettingsWhalePage]
+/// generated route for
+/// [AppSettingsWhalePage]
 class AppSettingsWhaleRoute extends PageRouteInfo<void> {
-  const AppSettingsWhaleRoute() : super(name, path: 'whale');
+  const AppSettingsWhaleRoute()
+      : super(AppSettingsWhaleRoute.name, path: 'whale');
 
   static const String name = 'AppSettingsWhaleRoute';
 }
