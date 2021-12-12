@@ -43,9 +43,9 @@ dependency_overrides:
   flutter_svg: ^1.0.0
       
 dev_dependencies:
-  auto_route_generator: ^3.0.1
+  auto_route_generator: ^3.2.0
   bloc_test: ^9.0.1
-  build_runner: ^2.1.4
+  build_runner: ^2.1.5
   flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
