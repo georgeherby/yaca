@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
@@ -14,19 +16,14 @@ class AppbarTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenBuilder(
-      desktop: Text(
-        title,
-        style: Theme.of(context).textTheme.bodyText1,
-      ),
-      tablet: Text(
-        title,
-        style: Theme.of(context).appBarTheme.titleTextStyle,
-      ),
-      mobile: Text(
-        title,
-        style: Theme.of(context).appBarTheme.titleTextStyle,
-      ),
-    );
+    return Theme.of(context).platform.isDesktop() && !kIsWeb
+        ? Text(
+            title,
+            style: Theme.of(context).textTheme.bodyText1,
+          )
+        : Text(
+            title,
+            style: Theme.of(context).appBarTheme.titleTextStyle,
+          );
   }
 }

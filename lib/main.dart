@@ -219,7 +219,8 @@ class _MyAppState extends State<MyApp> {
                     ),
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: LightThemeColors().scaffoldBackground,
-                      unselectedIconTheme: const IconThemeData(color: Colors.black54),
+                      unselectedIconTheme:
+                          const IconThemeData(color: Colors.black54),
                       unselectedLabelTextStyle:
                           const TextStyle(color: Colors.black54),
                       selectedIconTheme:
@@ -257,7 +258,7 @@ class _MyAppState extends State<MyApp> {
                     inputDecorationTheme: InputDecorationTheme(
                         focusedBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
+                            Radius.circular(kCornerRadiusCirlcular),
                           ),
                           borderSide: BorderSide(
                               color: Theme.of(context).primaryColor,
@@ -298,13 +299,15 @@ class _MyAppState extends State<MyApp> {
                         showUnselectedLabels: false,
                         backgroundColor: DarkThemeColors().appBarColour,
                         unselectedItemColor: Colors.white38,
-                        unselectedLabelStyle: const TextStyle(color: Colors.white38),
+                        unselectedLabelStyle:
+                            const TextStyle(color: Colors.white38),
                         unselectedIconTheme:
                             const IconThemeData(size: kBottomNavBarIconSize),
-                        selectedIconTheme:
-                            const IconThemeData(size: kBottomNavBarIconSize + 2),
+                        selectedIconTheme: const IconThemeData(
+                            size: kBottomNavBarIconSize + 2),
                         selectedItemColor: Colors.white,
-                        selectedLabelStyle: const TextStyle(color: Colors.white)),
+                        selectedLabelStyle:
+                            const TextStyle(color: Colors.white)),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
                       systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -316,11 +319,14 @@ class _MyAppState extends State<MyApp> {
                     ),
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: DarkThemeColors().scaffoldBackground,
-                      unselectedIconTheme: const IconThemeData(color: Colors.white38),
+                      unselectedIconTheme:
+                          const IconThemeData(color: Colors.white38),
                       unselectedLabelTextStyle:
                           const TextStyle(color: Colors.white38),
-                      selectedIconTheme: const IconThemeData(color: Colors.white),
-                      selectedLabelTextStyle: const TextStyle(color: Colors.white),
+                      selectedIconTheme:
+                          const IconThemeData(color: Colors.white),
+                      selectedLabelTextStyle:
+                          const TextStyle(color: Colors.white),
                     ),
                     buttonTheme: ButtonThemeData(
                         buttonColor: LightThemeColors().primary),
