@@ -2,10 +2,6 @@
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-// 🌎 Project imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-
 class AppbarTitle extends StatelessWidget {
   final String title;
 
