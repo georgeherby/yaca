@@ -43,7 +43,7 @@ class DeltaWithArrow extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.caption?.copyWith(
-                  // color: color,
+                  color: Theme.of(context).textTheme.bodyText1!.color,
                   fontSize: textSize ??
                       Theme.of(context).textTheme.caption!.fontSize),
             ),

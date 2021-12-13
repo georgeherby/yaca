@@ -298,16 +298,16 @@ class _MyAppState extends State<MyApp> {
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
                         backgroundColor: DarkThemeColors().appBarColour,
-                        unselectedItemColor: Colors.white38,
+                        unselectedItemColor: Colors.white24,
                         unselectedLabelStyle:
-                            const TextStyle(color: Colors.white38),
+                            const TextStyle(color: Colors.white24),
                         unselectedIconTheme:
                             const IconThemeData(size: kBottomNavBarIconSize),
                         selectedIconTheme: const IconThemeData(
                             size: kBottomNavBarIconSize + 2),
-                        selectedItemColor: Colors.white,
+                        selectedItemColor: Colors.white.withOpacity(0.87),
                         selectedLabelStyle:
-                            const TextStyle(color: Colors.white)),
+                            TextStyle(color: Colors.white.withOpacity(0.87))),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
                       systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -320,13 +320,13 @@ class _MyAppState extends State<MyApp> {
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: DarkThemeColors().scaffoldBackground,
                       unselectedIconTheme:
-                          const IconThemeData(color: Colors.white38),
+                          const IconThemeData(color: Colors.white24),
                       unselectedLabelTextStyle:
-                          const TextStyle(color: Colors.white38),
+                          const TextStyle(color: Colors.white24),
                       selectedIconTheme:
-                          const IconThemeData(color: Colors.white),
+                          IconThemeData(color: Colors.white.withOpacity(0.87)),
                       selectedLabelTextStyle:
-                          const TextStyle(color: Colors.white),
+                          TextStyle(color: Colors.white.withOpacity(0.87)),
                     ),
                     buttonTheme: ButtonThemeData(
                         buttonColor: LightThemeColors().primary),
