@@ -66,7 +66,7 @@ class DarkThemeColors implements ThemeColours {
   Color cardBackground = const Color(0xFF1D1A27);
 
   @override
-  Color chipSelectedColor = const Color(0xFF0F9C7B);
+  Color chipSelectedColor = Colors.white.withOpacity(0.87);
 
   @override
   Color chipUnselectedColor = const Color(0xFF1D1A27);

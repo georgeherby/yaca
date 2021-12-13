@@ -93,10 +93,12 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                                           Theme.of(context).brightness ==
                                               Brightness.light
                                       ? Colors.white
-                                      : Theme.of(context)
-                                          .chipTheme
-                                          .labelStyle
-                                          .color),
+                                      : _selected
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .chipTheme
+                                              .labelStyle
+                                              .color),
                         ),
                         selected: listIndex == _index,
                         backgroundColor:
@@ -138,10 +140,12 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                                           Theme.of(context).brightness ==
                                               Brightness.light
                                       ? Colors.white
-                                      : Theme.of(context)
-                                          .chipTheme
-                                          .labelStyle
-                                          .color),
+                                      : _selected
+                                          ? Colors.black
+                                          : Theme.of(context)
+                                              .chipTheme
+                                              .labelStyle
+                                              .color),
                         ),
                         selected: listIndex == _index,
                         backgroundColor:

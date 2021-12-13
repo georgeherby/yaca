@@ -107,7 +107,8 @@ class _AssetGraphState extends State<AssetGraph> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   PercentageChangeBox(
-                                      ((price - (widget.history.last.value)) / price) *
+                                      ((price - (widget.history.last.value)) /
+                                              price) *
                                           100),
                                   const SizedBox(width: 4),
                                   Text(
@@ -166,23 +167,19 @@ class _AssetGraphState extends State<AssetGraph> {
                     horizontalInterval: (maxPrice - minPrice) / horizonals,
                     getDrawingHorizontalLine: (double value) {
                       return FlLine(
-                        color: Colors.grey.withOpacity(0.15),
+                        color: Colors.grey.withOpacity(0.1),
                         strokeWidth: 1,
                       );
                     },
                     getDrawingVerticalLine: (double value) {
                       return FlLine(
-                        color: Colors.grey.withOpacity(0.25),
+                        color: Colors.grey.withOpacity(0.1),
                         strokeWidth: 1,
                       );
                     }),
                 borderData: FlBorderData(
-                    show: false,
-                    border: Border(
-                        bottom: BorderSide(
-                      color: Colors.grey.withOpacity(0.3),
-                      width: 1,
-                    ))),
+                  show: false,
+                ),
                 axisTitleData: FlAxisTitleData(
                   show: true,
                 ),

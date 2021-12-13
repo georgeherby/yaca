@@ -23,24 +23,16 @@ import 'package:crypto_app/ui/consts/constants.dart';
 import 'package:crypto_app/ui/utils/currency_formatters.dart';
 import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
-import 'package:crypto_app/ui/views/asset/widgets/expandable_card.dart';
 import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
 import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
 import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
 import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
 import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
 import 'package:crypto_app/ui/views/widgets/primary_button.dart';
 
 class AssetView extends StatelessWidget {
-  // final MarketCoin marketCoin;
-  // final Function(String, bool) onFavourite;
   final String id;
-  const AssetView({Key? key, required this.id
-      // required this.marketCoin,
-      // required this.onFavourite,
-      })
-      : super(key: key);
+  const AssetView({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +49,9 @@ class AssetView extends StatelessWidget {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        leadingButtonType: kIsWeb && Theme.of(context).platform.isDesktop() ? null : LeadingButtonType.back,
+        leadingButtonType: kIsWeb && Theme.of(context).platform.isDesktop()
+            ? null
+            : LeadingButtonType.back,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -96,7 +90,6 @@ class AssetView extends StatelessWidget {
                     AssetFavourited(state.allAssets, marketCoin, !isFavourite),
                   ),
                 );
-                // onPressed: () => onFavourite(marketCoin.id, !isFavourite));
               }
               return PlatformCircularProgressIndicator();
             },
@@ -113,7 +106,6 @@ class AssetView extends StatelessWidget {
                   left: 8.0,
                   right: 8.0,
                   bottom: 8.0,
-                  // top: 8.0,
                 ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -221,10 +213,14 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          PercentageChangeBox(
-                                            marketCoin.priceChangePercentage24h,
-                                            padding: EdgeInsets.zero,
-                                            showBackground: false,
+                                          DeltaWithArrow(
+                                            marketCoin.priceChangePercentage24h !=
+                                                    null
+                                                ? marketCoin
+                                                        .priceChangePercentage24h! /
+                                                    100
+                                                : null,
+                                            isPercentage: true,
                                             textSize: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1
@@ -376,10 +372,14 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          PercentageChangeBox(
-                                            marketCoin.athChangePercentage,
-                                            padding: EdgeInsets.zero,
-                                            showBackground: false,
+                                          DeltaWithArrow(
+                                            marketCoin.athChangePercentage !=
+                                                    null
+                                                ? marketCoin
+                                                        .athChangePercentage! /
+                                                    100
+                                                : null,
+                                            isPercentage: true,
                                             textSize: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1
@@ -505,16 +505,10 @@ class AssetView extends StatelessWidget {
                               style: Theme.of(context).textTheme.headline6),
                           const SizedBox(height: 8),
                           ScreenBuilder(
-                            mobile: ExpandableCard(
-                              collapsedHeight: 100,
-                              contents:
-                                  _buildHtml(state.singleAsset.description.en),
-                            ),
-                            tablet: ExpandableCard(
-                              collapsedHeight: 120,
-                              contents:
-                                  _buildHtml(state.singleAsset.description.en),
-                            ),
+                            mobile:
+                                _buildHtml(state.singleAsset.description.en),
+                            tablet:
+                                _buildHtml(state.singleAsset.description.en),
                             desktop:
                                 _buildHtml(state.singleAsset.description.en),
                           ),

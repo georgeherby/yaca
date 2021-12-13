@@ -58,8 +58,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                             },
                             style: OutlinedButton.styleFrom(
                               tapTargetSize: MaterialTapTargetSize.padded,
-                              visualDensity:
-                                  const VisualDensity(horizontal: 0, vertical: 0),
+                              visualDensity: const VisualDensity(
+                                  horizontal: 0, vertical: 0),
                               primary: Theme.of(context).primaryColor,
                               backgroundColor: _showAllAssets
                                   ? Theme.of(context).chipTheme.backgroundColor
@@ -81,13 +81,26 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                         .color
                                         ?.withOpacity(0.5)
                                     : kGold),
-                            label: Text('Favourites',
-                                style: _showAllAssets
-                                    ? Theme.of(context).textTheme.bodyText2
-                                    : Theme.of(context)
-                                        .textTheme
-                                        .bodyText2
-                                        ?.copyWith(color: Colors.white)),
+                            label: Text(
+                              'Favourites',
+                              style: _showAllAssets
+                                  ? Theme.of(context).textTheme.bodyText2
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyText2
+                                      ?.copyWith(
+                                          color: !_showAllAssets &&
+                                                  Theme.of(context)
+                                                          .brightness ==
+                                                      Brightness.light
+                                              ? Colors.white
+                                              : !_showAllAssets
+                                                  ? Colors.black
+                                                  : Theme.of(context)
+                                                      .chipTheme
+                                                      .labelStyle
+                                                      .color),
+                            ),
                           ),
                         ),
                         Expanded(
@@ -185,7 +198,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
     return GeneralAppBar(
       platform: Theme.of(context).platform,
       title: const AppbarTitle('Crypto App'),
-      leadingButtonType: Theme.of(context).platform.onlyMobile(context) ? LeadingButtonType.settings : null,
+      leadingButtonType: Theme.of(context).platform.onlyMobile(context)
+          ? LeadingButtonType.settings
+          : null,
       actions: [
         (Theme.of(context).platform.isDesktop())
             ? IconButton(
