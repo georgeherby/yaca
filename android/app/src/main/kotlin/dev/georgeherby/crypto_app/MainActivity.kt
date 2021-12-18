@@ -1,4 +1,4 @@
-package com.georgeherby.crypto_app
+package dev.georgeherby.crypto_app
 
 import io.flutter.embedding.android.FlutterActivity
 

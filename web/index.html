@@ -26,6 +26,9 @@
   <meta name="apple-mobile-web-app-title" content="crypto_app">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
   <title>crypto_app</title>
   <link rel="manifest" href="manifest.json">
 </head>
@@ -72,7 +75,7 @@
               // When the app updates the serviceWorkerVersion changes, so we
               // need to ask the service worker to update.
               console.log('New service worker available.');
-              reg.update();flutt
+              reg.update();
               waitForActivation(reg.installing);
             } else {
               // Existing service worker is still good.
