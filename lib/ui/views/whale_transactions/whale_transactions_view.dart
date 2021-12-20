@@ -55,7 +55,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        title: const AppbarTitle('Whale Transcations'),
+        title: const AppBarTitle('Whale Transcations'),
         leadingButtonType: Theme.of(context).platform.onlyMobile(context)
             ? LeadingButtonType.settings
             : null,

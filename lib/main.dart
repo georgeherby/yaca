@@ -157,34 +157,38 @@ class _MyAppState extends State<MyApp> {
                   themeMode: state.theme,
                   theme: ThemeData.light().copyWith(
                     inputDecorationTheme: InputDecorationTheme(
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
+                        filled: true,
+                        fillColor: LightThemeColors().textInputBackground,
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular),
                           ),
-                          borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0),
+                          borderSide: BorderSide.none,
                         ),
                         enabledBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
+                            Radius.circular(kCornerRadiusCirlcular),
                           ),
-                          borderSide:
-                              BorderSide(color: Colors.black87, width: 1.0),
+                          borderSide: BorderSide.none,
                         ),
-                        errorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
+                        errorBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular),
                           ),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                          borderSide: BorderSide(
+                              color: LightThemeColors().errorColor,
+                              width: kInputBorderWeighting),
                         ),
-                        focusedErrorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
+                        focusedErrorBorder: OutlineInputBorder(
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular),
                           ),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
+                          borderSide: BorderSide(
+                              color: LightThemeColors().errorColor,
+                              width: kInputBorderWeighting),
                         ),
-                        errorStyle: const TextStyle(color: Colors.red)),
+                        errorStyle:
+                            TextStyle(color: LightThemeColors().errorColor)),
                     textTheme: GoogleFonts.openSansTextTheme(
                       ThemeData.light().textTheme,
                     ),
@@ -192,7 +196,7 @@ class _MyAppState extends State<MyApp> {
                       showSelectedLabels: false,
                       showUnselectedLabels: false,
                       backgroundColor: LightThemeColors().appBarColour,
-                      unselectedItemColor: Colors.black54,
+                      unselectedItemColor: LightThemeColors().unSelectedColor,
                       unselectedIconTheme:
                           const IconThemeData(size: kBottomNavBarIconSize),
                       selectedIconTheme:
@@ -212,34 +216,32 @@ class _MyAppState extends State<MyApp> {
                     appBarTheme: AppBarTheme(
                       systemOverlayStyle: SystemUiOverlayStyle.dark,
                       elevation: 0,
-                      foregroundColor: Colors.black,
+                      foregroundColor: LightThemeColors().textColor,
                       color: LightThemeColors().appBarColour,
                       iconTheme:
-                          IconThemeData(color: Colors.black.withOpacity(0.70)),
+                          IconThemeData(color: LightThemeColors().iconColor),
                     ),
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: LightThemeColors().scaffoldBackground,
-                      unselectedIconTheme:
-                          const IconThemeData(color: Colors.black54),
+                      unselectedIconTheme: IconThemeData(
+                          color: LightThemeColors().unSelectedColor),
                       unselectedLabelTextStyle:
-                          const TextStyle(color: Colors.black54),
+                          TextStyle(color: LightThemeColors().unSelectedColor),
                       selectedIconTheme:
                           IconThemeData(color: LightThemeColors().primary),
                       selectedLabelTextStyle:
                           TextStyle(color: LightThemeColors().primary),
                     ),
-                    buttonTheme: ButtonThemeData(
-                        buttonColor: LightThemeColors().primary),
                     scaffoldBackgroundColor:
                         LightThemeColors().scaffoldBackground,
                     iconTheme:
-                        IconThemeData(color: Colors.black.withOpacity(0.70)),
+                        IconThemeData(color: LightThemeColors().iconColor),
                     chipTheme: ChipThemeData(
                       padding: const EdgeInsets.all(0),
                       elevation: 0,
                       pressElevation: 0,
                       brightness: Brightness.light,
-                      checkmarkColor: Colors.white,
+                      checkmarkColor: DarkThemeColors().iconColor,
                       secondaryLabelStyle: const TextStyle(),
                       labelStyle: const TextStyle(color: Colors.black),
                       disabledColor: Colors.transparent,
@@ -256,35 +258,38 @@ class _MyAppState extends State<MyApp> {
                   ),
                   darkTheme: ThemeData.dark().copyWith(
                     inputDecorationTheme: InputDecorationTheme(
-                        focusedBorder: OutlineInputBorder(
+                        filled: true,
+                        fillColor: DarkThemeColors().textInputBackground,
+                        focusedBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular),
+                          ),
+                          borderSide: BorderSide.none,
+                        ),
+                        enabledBorder: const OutlineInputBorder(
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular),
+                          ),
+                          borderSide: BorderSide.none,
+                        ),
+                        errorBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
                             Radius.circular(kCornerRadiusCirlcular),
                           ),
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
-                              width: 2.0),
+                              color: DarkThemeColors().errorColor,
+                              width: kInputBorderWeighting),
                         ),
-                        enabledBorder: OutlineInputBorder(
+                        focusedErrorBorder: OutlineInputBorder(
                           borderRadius: const BorderRadius.all(
-                            Radius.circular(10.0),
+                            Radius.circular(kCornerRadiusCirlcular),
                           ),
                           borderSide: BorderSide(
-                              color: Colors.white.withOpacity(0.87),
-                              width: 1.0),
+                              color: DarkThemeColors().errorColor,
+                              width: kInputBorderWeighting),
                         ),
-                        focusedErrorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
-                        ),
-                        errorBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                          borderSide: BorderSide(color: Colors.red, width: 2.0),
-                        ),
-                        errorStyle: const TextStyle(color: Colors.red)),
+                        errorStyle:
+                            TextStyle(color: DarkThemeColors().errorColor)),
                     textTheme: GoogleFonts.openSansTextTheme(
                       ThemeData.dark().textTheme,
                     ),
@@ -298,54 +303,52 @@ class _MyAppState extends State<MyApp> {
                         showSelectedLabels: false,
                         showUnselectedLabels: false,
                         backgroundColor: DarkThemeColors().appBarColour,
-                        unselectedItemColor: Colors.white24,
+                        unselectedItemColor: DarkThemeColors().unSelectedColor,
                         unselectedLabelStyle:
-                            const TextStyle(color: Colors.white24),
+                            TextStyle(color: DarkThemeColors().unSelectedColor),
                         unselectedIconTheme:
                             const IconThemeData(size: kBottomNavBarIconSize),
                         selectedIconTheme: const IconThemeData(
                             size: kBottomNavBarIconSize + 2),
-                        selectedItemColor: Colors.white.withOpacity(0.87),
-                        selectedLabelStyle:
-                            TextStyle(color: Colors.white.withOpacity(0.87))),
+                        selectedItemColor: DarkThemeColors().chipSelectedColor,
+                        selectedLabelStyle: TextStyle(
+                            color: DarkThemeColors().chipSelectedColor)),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
                       systemOverlayStyle: SystemUiOverlayStyle.light,
                       elevation: 0,
-                      foregroundColor: Colors.white,
+                      foregroundColor: DarkThemeColors().textColor,
                       color: DarkThemeColors().appBarColour,
                       iconTheme:
-                          IconThemeData(color: Colors.white.withOpacity(0.87)),
+                          IconThemeData(color: DarkThemeColors().iconColor),
                     ),
                     navigationRailTheme: NavigationRailThemeData(
                       backgroundColor: DarkThemeColors().scaffoldBackground,
-                      unselectedIconTheme:
-                          const IconThemeData(color: Colors.white24),
+                      unselectedIconTheme: IconThemeData(
+                          color: DarkThemeColors().unSelectedColor),
                       unselectedLabelTextStyle:
-                          const TextStyle(color: Colors.white24),
-                      selectedIconTheme:
-                          IconThemeData(color: Colors.white.withOpacity(0.87)),
+                          TextStyle(color: DarkThemeColors().unSelectedColor),
+                      selectedIconTheme: IconThemeData(
+                          color: DarkThemeColors().chipSelectedColor),
                       selectedLabelTextStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.87)),
+                          TextStyle(color: DarkThemeColors().chipSelectedColor),
                     ),
-                    buttonTheme: ButtonThemeData(
-                        buttonColor: LightThemeColors().primary),
                     scaffoldBackgroundColor:
                         DarkThemeColors().scaffoldBackground,
                     iconTheme:
-                        IconThemeData(color: Colors.white.withOpacity(0.87)),
+                        IconThemeData(color: DarkThemeColors().iconColor),
                     chipTheme: ChipThemeData(
                       padding: const EdgeInsets.all(0),
                       elevation: 0,
                       pressElevation: 0,
-                      checkmarkColor: Colors.white,
+                      checkmarkColor: DarkThemeColors().iconColor,
                       brightness: Brightness.dark,
                       secondaryLabelStyle: const TextStyle(),
                       labelStyle: const TextStyle(color: Colors.white),
                       disabledColor: Colors.transparent,
                       backgroundColor: DarkThemeColors().chipUnselectedColor,
                       selectedColor: DarkThemeColors().chipSelectedColor,
-                      secondarySelectedColor: LightThemeColors().primary,
+                      secondarySelectedColor: DarkThemeColors().primary,
                       shadowColor: Colors.transparent,
                       selectedShadowColor: Colors.transparent,
                     ),

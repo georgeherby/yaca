@@ -2,10 +2,10 @@
 import 'package:crypto_app/core/extensions/platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-class AppbarTitle extends StatelessWidget {
+class AppBarTitle extends StatelessWidget {
   final String title;
 
-  const AppbarTitle(
+  const AppBarTitle(
     this.title, {
     Key? key,
   }) : super(key: key);

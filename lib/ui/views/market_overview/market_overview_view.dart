@@ -197,7 +197,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   PreferredSizeWidget _appBar() {
     return GeneralAppBar(
       platform: Theme.of(context).platform,
-      title: const AppbarTitle('Crypto App'),
+      title: const AppBarTitle('Crypto App'),
       leadingButtonType: Theme.of(context).platform.onlyMobile(context)
           ? LeadingButtonType.settings
           : null,

@@ -71,8 +71,8 @@ class AssetsDataTable extends StatelessWidget {
                           return const Divider(
                             indent: 8,
                             endIndent: 8,
-                            height: 1,
-                            thickness: 1,
+                            height: kDividerWeighting,
+                            thickness: kDividerWeighting,
                           );
                         },
                         shrinkWrap: false,

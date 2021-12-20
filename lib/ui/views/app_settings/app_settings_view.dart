@@ -72,8 +72,8 @@ class AppSettingsView extends StatelessWidget {
                   ),
                 ),
                 const Divider(
-                  thickness: 1,
-                  height: 1,
+                  thickness: kDividerWeighting,
+                  height: kDividerWeighting,
                 ),
                 InkWell(
                   onTap: () {

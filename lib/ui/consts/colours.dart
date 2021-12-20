@@ -15,6 +15,19 @@ Color kNegativeRedLight = const Color(0xFFFCE4E1);
 
 Color kGold = const Color(0xFFE4B256);
 
+Color kPrimary = const Color(0xFF0F9C7B);
+Color kDarkPrimary = const Color(0xFF0F9C7B);
+Color kSecondary = const Color(0xFF9152F9);
+Color kDarkSecondary = const Color(0xFF9152F9);
+
+Color kDarkSurface = const Color(0xFF1A1A27);
+Color kDarkBackground = const Color(0xFF12111A);
+Color kDarkError = const Color(0xFFC75469);
+
+Color kLightSurface = const Color(0xFFFEFEFF);
+Color kLightBackground = const Color(0xFFEEEEEE);
+Color kLightError = const Color(0xFFBA1A1A);
+
 abstract class ThemeColours {
   late Color primary;
   late Color secondary;
@@ -23,53 +36,94 @@ abstract class ThemeColours {
   late Color appBarColour;
   late Color chipUnselectedColor;
   late Color chipSelectedColor;
+  late Color unSelectedColor;
+  late Color errorColor;
+  late Color iconColor;
+  late Color enabledBorderColor;
+  late Color textColor;
+  late Color textInputBackground;
 }
 
 class LightThemeColors implements ThemeColours {
   @override
-  Color scaffoldBackground = const Color(0xFFEEEEEE);
+  Color scaffoldBackground = kLightBackground;
 
   @override
-  Color secondary = const Color(0xFF9152F9);
+  Color textInputBackground = kLightBackground;
 
   @override
-  Color primary = const Color(0xFF0F9C7B);
+  Color secondary = kSecondary;
 
   @override
-  Color appBarColour = const Color(0xFFEEEEEE);
+  Color primary = kPrimary;
 
   @override
-  Color cardBackground = const Color(0xFFFEFEFF);
+  Color appBarColour = kLightBackground;
 
   @override
-  Color chipSelectedColor = const Color(0xFF0F9C7B);
+  Color cardBackground = kLightSurface;
 
   @override
-  Color chipUnselectedColor = const Color(0xFFFEFEFF);
+  Color chipSelectedColor = kPrimary;
+
+  @override
+  Color chipUnselectedColor = kLightSurface;
+
+  @override
+  Color unSelectedColor = Colors.black54;
+
+  @override
+  Color errorColor = kLightError;
+
+  @override
+  Color iconColor = Colors.black.withOpacity(0.70);
+
+  @override
+  Color enabledBorderColor = Colors.black87;
+
+  @override
+  Color textColor = Colors.black;
 }
 
 class DarkThemeColors implements ThemeColours {
   @override
-  // Color scaffoldBackground = const Color(0xFF1F2022);
-  Color scaffoldBackground = const Color(0xFF12111A);
+  Color scaffoldBackground = kDarkBackground;
+  
+  @override
+  Color textInputBackground = kDarkBackground;
 
   @override
-  Color secondary = const Color(0xFF9152F9);
+  Color secondary = kDarkSecondary;
 
   @override
-  Color primary = const Color(0xFF0F9C7B);
+  Color primary = kDarkPrimary;
 
   @override
-  Color appBarColour = const Color(0xFF12111A);
+  Color appBarColour = kDarkBackground;
 
   @override
-  Color cardBackground = const Color(0xFF1D1A27);
+  Color cardBackground = kDarkSurface;
 
   @override
   Color chipSelectedColor = Colors.white.withOpacity(0.87);
 
   @override
-  Color chipUnselectedColor = const Color(0xFF1D1A27);
+  Color chipUnselectedColor = kDarkSurface;
+
+  @override
+  Color unSelectedColor = Colors.white24;
+
+  @override
+  Color errorColor = kDarkError;
+
+  @override
+  Color iconColor = Colors.white.withOpacity(0.87);
+
+  @override
+  Color enabledBorderColor = Colors.white.withOpacity(0.87);
+
+  @override
+  Color textColor = Colors.white.withOpacity(0.87);
 }
 
 extension PositiveNegativeColor on double {
