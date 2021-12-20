@@ -48,7 +48,7 @@ class WhaleApiTokenView extends StatelessWidget {
                   controller: tokenController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Enter API token';
+                      return 'API token required';
                     }
                     return null;
                   },

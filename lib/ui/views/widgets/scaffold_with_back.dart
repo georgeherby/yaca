@@ -24,7 +24,7 @@ class ScaffoldWithBack extends StatelessWidget {
               ? null
               : LeadingButtonType.back,
           platform: Theme.of(context).platform,
-          title: AppbarTitle(title ?? ''),
+          title: AppBarTitle(title ?? ''),
           actions: actions ?? [],
         ),
         body: body);

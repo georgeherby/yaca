@@ -71,7 +71,10 @@ class CurrencyChoiceView extends StatelessWidget {
               ),
             ),
           ),
-          isLastRow ? Container() : const Divider(thickness: 1, height: 1)
+          isLastRow
+              ? Container()
+              : const Divider(
+                  thickness: kDividerWeighting, height: kDividerWeighting)
         ],
       ),
     );

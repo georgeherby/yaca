@@ -22,7 +22,7 @@ class SecondaryButton extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         buttonText,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: Theme.of(context).textTheme.button?.color),
       ),
     );
   }

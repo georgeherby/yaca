@@ -71,10 +71,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text('Select currency to filter',
           style: Theme.of(context).textTheme.bodyText1),
-      const Divider(
-        color: Colors.transparent,
-        height: 8,
-      ),
+      const Divider(color: Colors.transparent, height: 8),
       Wrap(
         alignment: WrapAlignment.start,
         spacing: 4,

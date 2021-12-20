@@ -66,7 +66,7 @@ class AssetView extends StatelessWidget {
             const SizedBox(width: 8),
             Hero(
               tag: 'coin-title-${marketCoin.name}',
-              child: AppbarTitle(marketCoin.name),
+              child: AppBarTitle(marketCoin.name),
             ),
           ],
         ),

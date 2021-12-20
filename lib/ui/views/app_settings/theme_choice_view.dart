@@ -36,8 +36,8 @@ class ThemeChoiceView extends StatelessWidget {
                 ThemeMode.system,
               ),
               const Divider(
-                thickness: 1,
-                height: 1,
+                thickness: kDividerWeighting,
+                height: kDividerWeighting,
               ),
               _buildRow(
                 context,
@@ -46,8 +46,8 @@ class ThemeChoiceView extends StatelessWidget {
                 ThemeMode.light,
               ),
               const Divider(
-                thickness: 1,
-                height: 1,
+                thickness: kDividerWeighting,
+                height: kDividerWeighting,
               ),
               _buildRow(
                 context,

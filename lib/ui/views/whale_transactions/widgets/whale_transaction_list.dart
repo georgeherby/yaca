@@ -53,8 +53,8 @@ class WhaleTransactionList extends StatelessWidget {
               return const Divider(
                 indent: sidePadding,
                 endIndent: sidePadding,
-                height: 1,
-                thickness: 1,
+                height: kDividerWeighting,
+                thickness: kDividerWeighting
               );
             },
             itemCount: transactions.length,
