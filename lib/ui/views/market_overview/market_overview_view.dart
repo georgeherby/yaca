@@ -80,7 +80,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                         .iconTheme
                                         .color
                                         ?.withOpacity(0.5)
-                                    : kGolkYellowd),
+                                    : kYellow),
                             label: Text(
                               'Favourites',
                               style: _showAllAssets
