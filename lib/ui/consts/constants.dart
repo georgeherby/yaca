@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 const double kLeadingButtonWidthMac = 108.0;
 const double kLeadingButtonWidth = 56.0;
-const double kTitleBarMacOSHeight = 38.0;
+const double kTitleBarDesktopHeight = 38.0;
+const double kTitleBarHeight = 44.0;
 
 const String kSystemMode = 'SYSTEM';
 const String kLightMode = 'LIGHT';

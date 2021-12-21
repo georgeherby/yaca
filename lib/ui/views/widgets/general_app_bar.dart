@@ -32,7 +32,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-      (platform.isDesktop() ? kTitleBarMacOSHeight : kToolbarHeight) +
+      (platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarHeight) +
           (bottom == null ? 0 : kMarqueTapHeight));
 
   @override
