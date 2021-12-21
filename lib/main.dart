@@ -10,24 +10,24 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/core/models/favourites.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repository.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
-import 'package:crypto_app/core/repositories/api/whalealerts/whale_transactions_repository.dart';
-import 'package:crypto_app/core/repositories/favourites_repository.dart';
-import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.dart';
-import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
-import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/core/models/favourites.dart';
+import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
+import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
+import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
+import 'package:yaca/core/repositories/api/whalealerts/whale_transactions_repository.dart';
+import 'package:yaca/core/repositories/favourites_repository.dart';
+import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
+import 'package:yaca/core/repositories/preferences/currency_preference.dart';
+import 'package:yaca/core/repositories/preferences/theme_preference.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override

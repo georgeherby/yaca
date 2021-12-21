@@ -7,12 +7,12 @@ import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
-import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
+import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class WhaleTransactionList extends StatelessWidget {
   final List<WhaleTransaction> transactions;
@@ -51,11 +51,10 @@ class WhaleTransactionList extends StatelessWidget {
             physics: const ClampingScrollPhysics(),
             separatorBuilder: (BuildContext context, int index) {
               return const Divider(
-                indent: sidePadding,
-                endIndent: sidePadding,
-                height: kDividerWeighting,
-                thickness: kDividerWeighting
-              );
+                  indent: sidePadding,
+                  endIndent: sidePadding,
+                  height: kDividerWeighting,
+                  thickness: kDividerWeighting);
             },
             itemCount: transactions.length,
             itemBuilder: (context, index) {
@@ -103,7 +102,8 @@ class WhaleTransactionList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text(
-                            transaction.amountUsd.currencyFormatWithPrefix(currencySymbol, context, false),
+                            transaction.amountUsd.currencyFormatWithPrefix(
+                                currencySymbol, context, false),
                             textAlign: TextAlign.end,
                           ),
                           const SizedBox(height: 8),

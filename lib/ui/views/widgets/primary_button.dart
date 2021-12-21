@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:yaca/ui/consts/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   const PrimaryButton({Key? key, required this.buttonText, required this.onTap})

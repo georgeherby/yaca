@@ -5,7 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
+import 'package:yaca/ui/utils/view_builder/view_state.dart';
 
 /// Builder function for the the initial state.
 typedef InitialBuilder = Widget Function(BuildContext context);

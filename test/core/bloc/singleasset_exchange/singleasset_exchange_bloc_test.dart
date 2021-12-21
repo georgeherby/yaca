@@ -4,8 +4,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repository.dart';
+import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'mock/singleasset_exchange_data.dart';
 
 class MockExchangeTickerRespository extends Mock

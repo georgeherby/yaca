@@ -11,10 +11,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/extensions/theme_mode.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/extensions/theme_mode.dart';
+import 'package:yaca/ui/consts/constants.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);

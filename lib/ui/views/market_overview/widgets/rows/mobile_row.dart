@@ -6,15 +6,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/extensions/list.dart';
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
-import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
-import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
-import 'package:crypto_app/ui/views/widgets/simple_spark_line.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:yaca/core/extensions/list.dart';
+import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
+import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
+import 'package:yaca/ui/views/widgets/favourite_icon.dart';
+import 'package:yaca/ui/views/widgets/simple_spark_line.dart';
 
 class MobileRow extends StatelessWidget {
   final double blockSize;

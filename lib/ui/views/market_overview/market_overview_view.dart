@@ -8,18 +8,18 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
-import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
+import 'package:yaca/ui/views/market_overview/widgets/assets_data_table.dart';
+import 'package:yaca/ui/views/widgets/app_bar_title.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class MarketOverviewView extends StatefulWidget {
   const MarketOverviewView({Key? key}) : super(key: key);
@@ -197,7 +197,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   PreferredSizeWidget _appBar() {
     return GeneralAppBar(
       platform: Theme.of(context).platform,
-      title: const AppBarTitle('Crypto App'),
+      title: const AppBarTitle('Yaca'),
       leadingButtonType: Theme.of(context).platform.onlyMobile(context)
           ? LeadingButtonType.settings
           : null,

@@ -43,7 +43,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "dev.georgeherby.crypto_app"
+        applicationId "dev.georgeherby.yaca"
         minSdkVersion 19
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()

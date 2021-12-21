@@ -6,12 +6,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/extensions/chosen_currency.dart';
-import 'package:crypto_app/core/extensions/theme_mode.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
-import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
-import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
+import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/extensions/chosen_currency.dart';
+import 'package:yaca/core/extensions/theme_mode.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/repositories/preferences/currency_preference.dart';
+import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 
 part 'appsettings_event.dart';
 part 'appsettings_state.dart';

@@ -8,17 +8,17 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/exceptions/missing_config_exception.dart';
-import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/ui/utils/view_builder/filter_list_bloc.dart';
-import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
-import 'package:crypto_app/ui/utils/view_builder/view_state_builder.dart';
-import 'package:crypto_app/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
-import 'package:crypto_app/ui/views/widgets/primary_button.dart';
+import 'package:yaca/core/exceptions/missing_config_exception.dart';
+import 'package:yaca/core/exceptions/rate_limit_exception.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
+import 'package:yaca/ui/utils/view_builder/view_state.dart';
+import 'package:yaca/ui/utils/view_builder/view_state_builder.dart';
+import 'package:yaca/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
+import 'package:yaca/ui/views/widgets/app_bar_title.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/primary_button.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({
@@ -86,14 +86,16 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         onEmpty: (context) => const Center(child: Text('No posts found')),
         onError: (BuildContext context, error) {
           if (error is MissingConfigException) {
-            return const Center(child: Text('Enter your API token for Whale API'));
+            return const Center(
+                child: Text('Enter your API token for Whale API'));
           }
           if (error is RateLimitException) {
             return Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  const Text('You are being rate limited. Please wait and try again'),
+                  const Text(
+                      'You are being rate limited. Please wait and try again'),
                   const SizedBox(height: 8),
                   PrimaryButton(
                       buttonText: 'Reload', onTap: () => _refreshPosts())

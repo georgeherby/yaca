@@ -1,11 +1,11 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:yaca/core/extensions/platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/app_bar_title.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 class ScaffoldWithBack extends StatelessWidget {
   final String? title;

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/views/widgets/selectable_icon.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/views/widgets/selectable_icon.dart';
 
 class FavouriteIcon extends StatelessWidget {
   final bool isSelected;

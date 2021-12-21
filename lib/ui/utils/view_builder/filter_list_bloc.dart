@@ -8,10 +8,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
-import 'package:crypto_app/ui/utils/view_builder/filter_list_repository.dart';
-import 'package:crypto_app/ui/utils/view_builder/list_events.dart';
-import 'package:crypto_app/ui/utils/view_builder/view_state.dart';
+import 'package:yaca/core/exceptions/rate_limit_exception.dart';
+import 'package:yaca/ui/utils/view_builder/filter_list_repository.dart';
+import 'package:yaca/ui/utils/view_builder/list_events.dart';
+import 'package:yaca/ui/utils/view_builder/view_state.dart';
 
 /// A list BLoC with allowing filtering capabilities but without pagination.
 /// Thus it should be used with a reasonable small amount of data.

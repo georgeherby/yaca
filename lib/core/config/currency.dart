@@ -1,5 +1,5 @@
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 class AvailableCurrencies {
   static ChosenCurrency usd = const ChosenCurrency(

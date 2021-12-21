@@ -9,10 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
-import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/exceptions/rate_limit_exception.dart';
+import 'package:yaca/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/core/models/api/coingecko/single_asset_data.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 class AssetRespository {
   final http.Client _client;

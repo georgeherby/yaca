@@ -1,7 +1,7 @@
 // 🌎 Project imports:
-import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/models/api/coingecko/global_market.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 extension ChosenCurrencyExtension on String {
   ChosenCurrency toChosenCurrency() {

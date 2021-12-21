@@ -8,13 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/extensions/chosen_currency.dart';
-import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/utils/percentage_formatters.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/extensions/chosen_currency.dart';
+import 'package:yaca/core/models/api/coingecko/global_market.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/utils/percentage_formatters.dart';
+import 'package:yaca/ui/views/widgets/percentage_change_box.dart';
 
 class GlobalMarketMarque extends StatefulWidget {
   const GlobalMarketMarque({
@@ -78,7 +78,12 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
             ),
             const SizedBox(width: 4),
             Text(
-              widget.currencySymbol + compactNumberFormat(context).format(widget.marketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode)),
+              widget.currencySymbol +
+                  compactNumberFormat(context).format(widget.marketCap
+                      .getForCurrency(BlocProvider.of<AppSettingsBloc>(context)
+                          .state
+                          .currency
+                          .currencyCode)),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
@@ -101,7 +106,8 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
             ),
             const SizedBox(width: 4),
             Text(
-              widget.currencySymbol + compactNumberFormat(context).format(
+              widget.currencySymbol +
+                  compactNumberFormat(context).format(
                     widget.totalVolume.gbp,
                   ),
               style: Theme.of(context)

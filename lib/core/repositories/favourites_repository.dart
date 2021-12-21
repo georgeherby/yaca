@@ -2,7 +2,7 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/favourites.dart';
+import 'package:yaca/core/models/favourites.dart';
 
 class FavouritesDao {
   final Box<Favourites> box;

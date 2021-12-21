@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/utils/percentage_formatters.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/utils/percentage_formatters.dart';
 
 class PercentageChangeBox extends StatelessWidget {
   final double? changePercent24Hr;
@@ -22,7 +22,8 @@ class PercentageChangeBox extends StatelessWidget {
       var darkColor = changePercent24Hr!.toPositiveNegativeColorDark();
       var bkgColor = changePercent24Hr!.toPositiveNegativeColorLight();
       return Container(
-        padding: padding ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
+        padding:
+            padding ?? const EdgeInsets.symmetric(horizontal: 4, vertical: 3),
         decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(Radius.circular(4)),
             color: showBackground ? bkgColor : Colors.transparent),

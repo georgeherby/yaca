@@ -5,15 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/pages/app_settings/app_settings_home_page.dart';
-import 'package:crypto_app/ui/pages/app_settings/sub_page/app_settings_currency_page.dart';
-import 'package:crypto_app/ui/pages/app_settings/sub_page/app_settings_page.dart';
-import 'package:crypto_app/ui/pages/app_settings/sub_page/app_settings_theme_page.dart';
-import 'package:crypto_app/ui/pages/app_settings/sub_page/app_settings_whale_page.dart';
-import 'package:crypto_app/ui/pages/asset/asset_page.dart';
-import 'package:crypto_app/ui/pages/asset/sub_page/asset_details_page.dart';
-import 'package:crypto_app/ui/pages/asset/sub_page/asset_exchanges_page.dart';
-import 'package:crypto_app/ui/pages/home/home_page.dart';
+import 'package:yaca/ui/pages/app_settings/app_settings_home_page.dart';
+import 'package:yaca/ui/pages/app_settings/sub_page/app_settings_currency_page.dart';
+import 'package:yaca/ui/pages/app_settings/sub_page/app_settings_page.dart';
+import 'package:yaca/ui/pages/app_settings/sub_page/app_settings_theme_page.dart';
+import 'package:yaca/ui/pages/app_settings/sub_page/app_settings_whale_page.dart';
+import 'package:yaca/ui/pages/asset/asset_page.dart';
+import 'package:yaca/ui/pages/asset/sub_page/asset_details_page.dart';
+import 'package:yaca/ui/pages/asset/sub_page/asset_exchanges_page.dart';
+import 'package:yaca/ui/pages/home/home_page.dart';
 
 part 'app_router.gr.dart';
 

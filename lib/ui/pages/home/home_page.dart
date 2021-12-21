@@ -7,10 +7,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/ui/views/market_overview/market_overview_view.dart';
-import 'package:crypto_app/ui/views/whale_transactions/whale_transactions_view.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/ui/views/market_overview/market_overview_view.dart';
+import 'package:yaca/ui/views/whale_transactions/whale_transactions_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);

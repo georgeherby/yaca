@@ -11,11 +11,11 @@ import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/views/widgets/percentage_change_box.dart';
 
 class AssetGraph extends StatefulWidget {
   final List<TimeValuePair> history;

@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 void main() {
   final cogFinder = find.byKey(const Key('settings-cog-buton'));

@@ -3,9 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/utils/percentage_formatters.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/utils/percentage_formatters.dart';
 
 class DeltaWithArrow extends StatelessWidget {
   final double? priceChangeDelta;

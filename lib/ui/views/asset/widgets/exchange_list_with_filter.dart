@@ -8,12 +8,12 @@ import 'package:macos_ui/macos_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
-import 'package:crypto_app/core/models/filter.dart';
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/models/api/coingecko/exchange_ticker.dart';
+import 'package:yaca/core/models/filter.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;

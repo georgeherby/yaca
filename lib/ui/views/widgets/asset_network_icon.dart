@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/views/widgets/asset_text_icon.dart';
+import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 
 class AssetNetworkIcon extends StatelessWidget {
   const AssetNetworkIcon(this.iconUrl,

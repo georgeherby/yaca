@@ -1,13 +1,14 @@
-name: crypto_app
-description: View crpytocurrency data
-
+name: yaca
+description: "Yet another crypto app"
+repository: https://github.com/georgeherby/yaca
+issue_tracker: https://github.com/georgeherby/yaca/issues
 publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.15.0-0 <3.0.0" # Dart
-  flutter: ^2.8.0
+  flutter: ^2.8.1
 
 dependencies:
   auto_route: ^3.2.0
