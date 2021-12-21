@@ -531,12 +531,11 @@ class AssetView extends StatelessWidget {
                 ],
               ),
             );
-          } else {
-            debugPrint('Loading');
-            return Center(
-              child: PlatformCircularProgressIndicator(),
-            );
           }
+          debugPrint('Loading');
+          return Center(
+            child: PlatformCircularProgressIndicator(),
+          );
         },
       ),
     );
