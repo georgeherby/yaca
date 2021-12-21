@@ -69,7 +69,7 @@ class WhaleTransactionList extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     AssetTextIcon(
-                      iconSize: 32,
+                      iconSize: kIconSize,
                       assetSymbol: transaction.symbol,
                     ),
                     const SizedBox(width: sidePadding),

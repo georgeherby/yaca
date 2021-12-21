@@ -14,6 +14,7 @@ import 'package:yaca/core/models/filter.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
   final List<ExchangeTicker> exchanges;
@@ -88,9 +89,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                   fontWeight: currencyFilter[index].selected
                       ? FontWeight.bold
                       : FontWeight.normal,
-                  color: currencyFilter[index].selected &&
-                          Theme.of(context).brightness == Brightness.light
-                      ? Colors.white
+                  color: currencyFilter[index].selected
+                      ? Theme.of(context).chipTheme.checkmarkColor
                       : Theme.of(context).chipTheme.labelStyle.color),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -121,19 +121,10 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ClipRRect(
                       borderRadius:
                           BorderRadius.circular(kCornerRadiusCirlcular),
-                      child: CachedNetworkImage(
-                        width: _isPhoneOnly ? 32 : 44,
-                        filterQuality: FilterQuality.high,
-                        imageUrl: tickers[index].market.logoUrl,
-                        imageBuilder: (context, imageProvider) => Container(
-                          width: _isPhoneOnly ? 32 : 44,
-                          height: _isPhoneOnly ? 32 : 44,
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                image: imageProvider, fit: BoxFit.cover),
-                          ),
-                        ),
+                      child: AssetIconWeb(
+                        tickers[index].market.logoUrl,
+                        iconSize: kIconSize,
+                        assetSymbol: tickers[index].market.name.substring(0, 2),
                       ),
                     ),
                     const Spacer(flex: 5),
@@ -228,11 +219,11 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
   Color _trustScoreToColor(context, String trustScore) {
     switch (trustScore.toUpperCase()) {
       case 'GREEN':
-        return kPositiveGreen;
+        return true.toPositiveNegativeColorFromBool(context);
       case 'YELLOW':
         return kYellow;
       case 'RED':
-        return kNegativeRed;
+        return false.toPositiveNegativeColorFromBool(context);
       default:
         debugPrint(trustScore);
         return Theme.of(context).dividerColor;

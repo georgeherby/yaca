@@ -9,10 +9,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
+import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 import 'package:yaca/ui/views/widgets/favourite_icon.dart';
-import 'package:yaca/ui/views/widgets/percentage_change_box.dart';
 
 class TabletRow extends StatelessWidget {
   final double blockSize;
@@ -51,7 +52,6 @@ class TabletRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var iconSize = 32.0;
     return Padding(
       padding: const EdgeInsets.only(left: 12.0, right: 4),
       child: Row(
@@ -60,7 +60,7 @@ class TabletRow extends StatelessWidget {
             tag: 'coin-icon-$name',
             child: AssetIconWeb(
               iconUrl,
-              iconSize: iconSize,
+              iconSize: kIconSize,
               assetSymbol: symbol,
             ),
           ),
@@ -119,7 +119,10 @@ class TabletRow extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PercentageChangeBox(sevenDayPercentageChange),
+                      DeltaWithArrow(
+                        sevenDayPercentageChange,
+                        isPercentage: true,
+                      ),
                     ],
                   ),
                 ),
@@ -129,7 +132,10 @@ class TabletRow extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PercentageChangeBox(oneDayPercentageChange),
+                      DeltaWithArrow(
+                        oneDayPercentageChange,
+                        isPercentage: true,
+                      ),
                     ],
                   ),
                 ),
@@ -139,7 +145,10 @@ class TabletRow extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      PercentageChangeBox(oneHourPercentageChange),
+                      DeltaWithArrow(
+                        oneHourPercentageChange,
+                        isPercentage: true,
+                      ),
                     ],
                   ),
                 ),

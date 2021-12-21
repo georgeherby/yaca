@@ -23,7 +23,7 @@ class FavouriteIcon extends StatelessWidget {
       unSelectedIcon: FontAwesomeIcons.star,
       isSelected: isSelected,
       size: size,
-      selectedColor: kGold,
+      selectedColor: kYellow,
     );
   }
 }

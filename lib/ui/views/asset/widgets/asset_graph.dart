@@ -15,7 +15,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/models/api/coingecko/asset_history.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
-import 'package:yaca/ui/views/widgets/percentage_change_box.dart';
+import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 
 class AssetGraph extends StatefulWidget {
   final List<TimeValuePair> history;
@@ -106,7 +106,7 @@ class _AssetGraphState extends State<AssetGraph> {
                             ? Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  PercentageChangeBox(
+                                  DeltaWithArrow(
                                       ((price - (widget.history.last.value)) /
                                               price) *
                                           100),
@@ -274,7 +274,7 @@ class _AssetGraphState extends State<AssetGraph> {
                 lineBarsData: [
                   LineChartBarData(
                     isCurved: false,
-                    colors: [positive ? kPositiveGreen : kNegativeRed],
+                    colors: [positive.toPositiveNegativeColorFromBool(context)],
                     barWidth: 2.5,
                     isStrokeCapRound: true,
                     dotData: FlDotData(
@@ -284,7 +284,7 @@ class _AssetGraphState extends State<AssetGraph> {
                       show: true,
                       colors: [
                         Colors.transparent,
-                        (positive ? kPositiveGreen : kNegativeRed)
+                        (positive.toPositiveNegativeColorFromBool(context))
                             .withOpacity(0.3)
                       ],
                       gradientFrom: const Offset(0, 1),

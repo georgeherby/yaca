@@ -13,6 +13,8 @@ const double kBottomNavBarIconSize = 20.0;
 const double kCornerRadiusCirlcular = 10.0;
 const double kDividerWeighting = 0.0;
 const double kInputBorderWeighting = 2.0;
+const double kIconSize = 32.0;
+const double kIconSizeMacAppBar = 24.0;
 
 const double kToolBarWithTickerHeight = kToolbarHeight + kMarqueTapHeight;
 const double kMarqueTapHeight = kCornerRadiusCirlcular * 4;

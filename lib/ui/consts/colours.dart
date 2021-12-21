@@ -3,30 +3,27 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
-Color kPositiveGreenDark = const Color(0xFF085839);
-Color kNegativeRedDark = const Color(0xFF971A11);
+Color kPositiveGreenDark = const Color(0xFF4B7C57);
+Color kNegativeRedDark = const Color(0xFFCE6771);
 
-Color kPositiveGreen = const Color(0xFF18C683);
-Color kYellow = const Color(0xFFB9BB2C);
-Color kNegativeRed = const Color(0xFFF44336);
+Color kYellow = const Color(0xFFFEBA67);
 
-Color kPositiveGreenLight = const Color(0xFFD9F8ED);
-Color kNegativeRedLight = const Color(0xFFFCE4E1);
+Color kPositiveGreenLight = const Color(0xFF65A776);
+Color kNegativeRedLight = const Color(0xFFCE6771);
 
-Color kGold = const Color(0xFFE4B256);
 
-Color kPrimary = const Color(0xFF0F9C7B);
-Color kDarkPrimary = const Color(0xFF0F9C7B);
-Color kSecondary = const Color(0xFF9152F9);
-Color kDarkSecondary = const Color(0xFF9152F9);
+Color kPrimary = const Color(0xFF638175);
+Color kDarkPrimary = const Color(0xFF638175);
+Color kSecondary = const Color(0xFFF5828D);
+Color kDarkSecondary = const Color(0xFFF5828D);
 
-Color kDarkSurface = const Color(0xFF1A1A27);
-Color kDarkBackground = const Color(0xFF12111A);
-Color kDarkError = const Color(0xFFC75469);
+Color kDarkSurface = const Color(0xFF1E1F1F);
+Color kDarkBackground = const Color(0xFF121313);
+Color kDarkError = const Color(0xFFCE6771);
 
 Color kLightSurface = const Color(0xFFFEFEFF);
-Color kLightBackground = const Color(0xFFEEEEEE);
-Color kLightError = const Color(0xFFBA1A1A);
+Color kLightBackground = const Color(0xFFF1F3F6);
+Color kLightError = const Color(0xFFCE6771);
 
 abstract class ThemeColours {
   late Color primary;
@@ -88,7 +85,7 @@ class LightThemeColors implements ThemeColours {
 class DarkThemeColors implements ThemeColours {
   @override
   Color scaffoldBackground = kDarkBackground;
-  
+
   @override
   Color textInputBackground = kDarkBackground;
 
@@ -127,19 +124,30 @@ class DarkThemeColors implements ThemeColours {
 }
 
 extension PositiveNegativeColor on double {
-  Color toPositiveNegativeColor({double opacity = 1.0}) {
-    return this < 0 ? kNegativeRed : kPositiveGreen.withOpacity(opacity);
+  Color toPositiveNegativeColor(BuildContext context, {double opacity = 1.0}) {
+    if (Theme.of(context).brightness == Brightness.dark) {
+      return this > 0
+          ? kPositiveGreenDark.withOpacity(opacity)
+          : kNegativeRedDark.withOpacity(opacity);
+    } else {
+      return this > 0
+          ? kPositiveGreenLight.withOpacity(opacity)
+          : kNegativeRedLight.withOpacity(opacity);
+    }
   }
+}
 
-  Color toPositiveNegativeColorLight({double opacity = 1.0}) {
-    return this < 0
-        ? kNegativeRedLight
-        : kPositiveGreenLight.withOpacity(opacity);
-  }
-
-  Color toPositiveNegativeColorDark({double opacity = 1.0}) {
-    return this < 0
-        ? kNegativeRedDark
-        : kPositiveGreenDark.withOpacity(opacity);
+extension PositiveNegativeColorForBool on bool {
+  Color toPositiveNegativeColorFromBool(BuildContext context,
+      {double opacity = 1.0}) {
+    if (Theme.of(context).brightness == Brightness.dark) {
+      return this
+          ? kPositiveGreenDark.withOpacity(opacity)
+          : kNegativeRedDark.withOpacity(opacity);
+    } else {
+      return this
+          ? kPositiveGreenLight.withOpacity(opacity)
+          : kNegativeRedLight.withOpacity(opacity);
+    }
   }
 }

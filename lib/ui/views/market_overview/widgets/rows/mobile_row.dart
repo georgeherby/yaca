@@ -10,6 +10,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/extensions/list.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
@@ -53,7 +54,6 @@ class MobileRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var iconSize = 24.0;
     return Padding(
       padding: const EdgeInsets.only(left: 8.0, right: 0),
       child: Row(
@@ -62,7 +62,7 @@ class MobileRow extends StatelessWidget {
             tag: 'coin-icon-$name',
             child: AssetIconWeb(
               iconUrl,
-              iconSize: iconSize,
+              iconSize: kIconSize,
               assetSymbol: symbol,
             ),
           ),
@@ -145,7 +145,7 @@ class MobileRow extends StatelessWidget {
                 ),
                 DeltaWithArrow(
                     oneDayPercentageChange != null
-                        ? oneDayPercentageChange! / 100
+                        ? oneDayPercentageChange!
                         : null,
                     isPercentage: true,
                     textSize: Theme.of(context).textTheme.caption?.fontSize)

@@ -19,4 +19,9 @@ extension PlatformCheck on TargetPlatform {
     return [TargetPlatform.macOS, TargetPlatform.windows, TargetPlatform.linux]
         .contains(this);
   }
+
+  bool isMacOnly() {
+    return [TargetPlatform.macOS]
+        .contains(this);
+  }
 }

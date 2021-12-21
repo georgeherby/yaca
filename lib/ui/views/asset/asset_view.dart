@@ -38,9 +38,6 @@ class AssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
 
-    var iconSize =
-        Theme.of(context).platform == TargetPlatform.macOS ? 24.0 : 32.0;
-
     var marketCoin = (BlocProvider.of<AssetOverviewBloc>(context).state
             as AssetOverviewLoaded)
         .allAssets
@@ -60,7 +57,9 @@ class AssetView extends StatelessWidget {
               child: AssetIconWeb(
                 marketCoin.image,
                 assetSymbol: marketCoin.symbol,
-                iconSize: iconSize,
+                iconSize: Theme.of(context).platform.isMacOnly()
+                    ? kIconSizeMacAppBar
+                    : kIconSize,
               ),
             ),
             const SizedBox(width: 8),
@@ -125,8 +124,10 @@ class AssetView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Price (24h)',
-                              style: Theme.of(context).textTheme.headline6),
+                          Text(
+                            'Price (24h)',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                           const SizedBox(height: 4),
                           IntrinsicHeight(
                             child: Row(
@@ -217,8 +218,7 @@ class AssetView extends StatelessWidget {
                                             marketCoin.priceChangePercentage24h !=
                                                     null
                                                 ? marketCoin
-                                                        .priceChangePercentage24h! /
-                                                    100
+                                                    .priceChangePercentage24h!
                                                 : null,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
@@ -376,8 +376,7 @@ class AssetView extends StatelessWidget {
                                             marketCoin.athChangePercentage !=
                                                     null
                                                 ? marketCoin
-                                                        .athChangePercentage! /
-                                                    100
+                                                    .athChangePercentage!
                                                 : null,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
@@ -418,7 +417,8 @@ class AssetView extends StatelessWidget {
                                 height: (kCornerRadiusCirlcular * 2) +
                                     kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
-                                  color: kNegativeRed,
+                                  color: false
+                                      .toPositiveNegativeColorFromBool(context),
                                   borderRadius: const BorderRadius.only(
                                     topLeft:
                                         Radius.circular(kCornerRadiusCirlcular),
@@ -449,7 +449,8 @@ class AssetView extends StatelessWidget {
                                 height: (kCornerRadiusCirlcular * 2) +
                                     kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
-                                  color: kPositiveGreen,
+                                  color: true
+                                      .toPositiveNegativeColorFromBool(context),
                                   borderRadius: const BorderRadius.only(
                                     topRight:
                                         Radius.circular(kCornerRadiusCirlcular),
