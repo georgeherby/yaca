@@ -59,7 +59,6 @@ flutter:
   assets:
     - assets/whale_outline.svg
     - assets/whale_filled.svg
-    - assets/logo-1024-white.png
     - assets/logo.svg
 
 import_sorter:
