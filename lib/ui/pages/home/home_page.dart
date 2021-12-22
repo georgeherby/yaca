@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view.dart';
 import 'package:yaca/ui/views/whale_transactions/whale_transactions_view.dart';
 
@@ -28,11 +29,11 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       bottomNavigationBar: _isPhoneOnly
-          ? BottomNavigationBar(
-              onTap: onTabTapped, // new
-              currentIndex: _selectedIndex, // new
-              items: [
-                BottomNavigationBarItem(
+          ? NavigationBar(
+              onDestinationSelected: onTabTapped, 
+              selectedIndex: _selectedIndex, 
+              destinations: [
+                NavigationDestination(
                   icon: FaIcon(
                     FontAwesomeIcons.chartBar,
                     size: Theme.of(context)
@@ -40,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                         .unselectedIconTheme
                         ?.size,
                   ),
-                  activeIcon: FaIcon(
+                  selectedIcon: FaIcon(
                     FontAwesomeIcons.solidChartBar,
                     size: Theme.of(context)
                         .bottomNavigationBarTheme
@@ -49,35 +50,17 @@ class _HomePageState extends State<HomePage> {
                   ),
                   label: 'Market',
                 ),
-                BottomNavigationBarItem(
-                    icon: SvgPicture.asset(
-                      'assets/whale_outline.svg',
-                      semanticsLabel: 'Whale unselected icon',
-                      height: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedIconTheme
-                          ?.size,
-                      width: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedIconTheme
-                          ?.size,
-                      color: Theme.of(context)
-                          .bottomNavigationBarTheme
-                          .unselectedItemColor,
-                    ),
-                    activeIcon: SvgPicture.asset('assets/whale_filled.svg',
+                NavigationDestination(
+                    icon: SvgPicture.asset('assets/whale_outline.svg',
+                        semanticsLabel: 'Whale unselected icon',
+                        height: kBottomNavBarIconSize,
+                        width: kBottomNavBarIconSize,
+                        color: Theme.of(context).iconTheme.color),
+                    selectedIcon: SvgPicture.asset('assets/whale_filled.svg',
                         semanticsLabel: 'Whale selected icon',
-                        height: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .selectedIconTheme
-                            ?.size,
-                        width: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .selectedIconTheme
-                            ?.size,
-                        color: Theme.of(context)
-                            .bottomNavigationBarTheme
-                            .selectedItemColor),
+                        height: kBottomNavBarIconSize,
+                        width: kBottomNavBarIconSize,
+                        color: Theme.of(context).iconTheme.color),
                     label: 'Whales')
               ],
             )

@@ -192,19 +192,16 @@ class _MyAppState extends State<MyApp> {
                     textTheme: GoogleFonts.openSansTextTheme(
                       ThemeData.light().textTheme,
                     ),
-                    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                      showSelectedLabels: false,
-                      showUnselectedLabels: false,
-                      backgroundColor: LightThemeColors().appBarColour,
-                      unselectedItemColor: LightThemeColors().unSelectedColor,
-                      unselectedIconTheme:
-                          const IconThemeData(size: kBottomNavBarIconSize),
-                      selectedIconTheme:
-                          const IconThemeData(size: kBottomNavBarIconSize + 2),
-                      selectedItemColor: LightThemeColors().primary,
-                      selectedLabelStyle: TextStyle(
-                        color: LightThemeColors().primary,
-                      ),
+                    navigationBarTheme: NavigationBarThemeData(
+                      iconTheme: MaterialStateProperty.all(IconThemeData(
+                          size: kBottomNavBarIconSize,
+                          color: LightThemeColors().iconColor)),
+                      height: kBottomNavigationBarHeight,
+                      labelBehavior:
+                          NavigationDestinationLabelBehavior.alwaysHide,
+                      backgroundColor: LightThemeColors().cardBackground,
+                      indicatorColor:
+                          LightThemeColors().primary.withOpacity(0.5),
                     ),
                     brightness: Brightness.light,
                     primaryColor: LightThemeColors().primary,
@@ -299,20 +296,17 @@ class _MyAppState extends State<MyApp> {
                       elevation: 0,
                       color: DarkThemeColors().cardBackground,
                     ),
-                    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-                        showSelectedLabels: false,
-                        showUnselectedLabels: false,
-                        backgroundColor: DarkThemeColors().appBarColour,
-                        unselectedItemColor: DarkThemeColors().unSelectedColor,
-                        unselectedLabelStyle:
-                            TextStyle(color: DarkThemeColors().unSelectedColor),
-                        unselectedIconTheme:
-                            const IconThemeData(size: kBottomNavBarIconSize),
-                        selectedIconTheme: const IconThemeData(
-                            size: kBottomNavBarIconSize + 2),
-                        selectedItemColor: DarkThemeColors().chipSelectedColor,
-                        selectedLabelStyle: TextStyle(
-                            color: DarkThemeColors().chipSelectedColor)),
+                    navigationBarTheme: NavigationBarThemeData(
+                      iconTheme: MaterialStateProperty.all(IconThemeData(
+                          size: kBottomNavBarIconSize,
+                          color: DarkThemeColors().iconColor)),
+                      height: kBottomNavigationBarHeight,
+                      labelBehavior:
+                          NavigationDestinationLabelBehavior.alwaysHide,
+                      backgroundColor: DarkThemeColors().cardBackground,
+                      indicatorColor:
+                          DarkThemeColors().primary.withOpacity(0.5),
+                    ),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
                       systemOverlayStyle: SystemUiOverlayStyle.light,

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
@@ -197,7 +198,18 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   PreferredSizeWidget _appBar() {
     return GeneralAppBar(
       platform: Theme.of(context).platform,
-      title: const AppBarTitle('Yaca'),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/logo.svg',
+            height: kIconSizeMacAppBar,
+            color: Theme.of(context).iconTheme.color?.withOpacity(1),
+          ),
+          const SizedBox(width: 4),
+          const AppBarTitle('yaca.')
+        ],
+      ),
       leadingButtonType: Theme.of(context).platform.onlyMobile(context)
           ? LeadingButtonType.settings
           : null,
@@ -221,7 +233,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               .currency));
                   return;
                 })
-            : Container()
+            : SizedBox(
+                width: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22)
       ],
       bottom: AppBarBottom(),
     );
