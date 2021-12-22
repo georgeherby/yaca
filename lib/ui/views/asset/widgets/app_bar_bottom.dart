@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/views/asset/widgets/app_bar_bottom_data_block.dart';
-import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/views/asset/widgets/app_bar_bottom_data_block.dart';
+import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   final double height;
@@ -82,17 +81,18 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                       AppBarBottomDataBlock(
                           title: '% Change 24h',
                           widgetData: percentageChange24h != null
-                              ? PercentageChangeBox(
+                              ? DeltaWithArrow(
                                   percentageChange24h!,
                                   textSize: 16,
-                                  showBackground: false,
+                                  isPercentage: true,
                                 )
                               : null),
                       const Spacer(flex: 1),
                       AppBarBottomDataBlock(
                           title: 'Price Change 24h',
                           widgetData: priceChange24h != null
-                              ? DeltaWithArrow(priceChange24h!, textSize: 16)
+                              ? DeltaWithArrow(priceChange24h!,
+                                  textSize: 16, isPercentage: true)
                               : null),
                       const Spacer(flex: 5),
                     ],

@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/global_market_marque.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/market_overview/widgets/global_market_marque.dart';
+import 'package:yaca/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
   AppBarBottom({Key? key, this.isAppBar = false}) : super(key: key);
@@ -33,7 +33,8 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
         child: Container(
             decoration: BoxDecoration(
               color: Theme.of(context).primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(kCornerRadiusCirlcular)),
+              borderRadius: const BorderRadius.all(
+                  Radius.circular(kCornerRadiusCirlcular)),
             ),
             child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
               builder: (context, state) {
@@ -44,7 +45,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                         .currency
                         .currencySymbol,
                     marketCap: state.globalMarket.data.totalMarketCap,
-                    marketCap24hChange:
+                    marketCap24hPercentageChange:
                         state.globalMarket.data.marketCapChangePercentage24hUsd,
                     marketCapPercentage:
                         state.globalMarket.data.marketCapPercentage,

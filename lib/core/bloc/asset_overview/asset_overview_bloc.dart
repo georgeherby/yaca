@@ -9,12 +9,12 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/core/models/favourites.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
-import 'package:crypto_app/core/repositories/favourites_repository.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/favourites.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
+import 'package:yaca/core/repositories/favourites_repository.dart';
 
 part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';

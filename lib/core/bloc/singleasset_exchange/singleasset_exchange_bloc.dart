@@ -3,8 +3,8 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/exchange_ticker_repository.dart';
+import 'package:yaca/core/models/api/coingecko/exchange_ticker.dart';
+import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 
 part 'singleasset_exchange_event.dart';
 part 'singleasset_exchange_state.dart';

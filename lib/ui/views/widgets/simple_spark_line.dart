@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/consts/colours.dart';
+import 'package:yaca/ui/consts/colours.dart';
 
 class SimpleSparkLine extends StatelessWidget {
   final List<double> data;
@@ -23,7 +23,8 @@ class SimpleSparkLine extends StatelessWidget {
       var minPrice = data.reduce(min);
       var lastPrice = data.last;
       var firstPrice = data.first;
-      var graphColor = lastPrice > firstPrice ? kPositiveGreen : kNegativeRed;
+      var graphColor =
+          (lastPrice > firstPrice).toPositiveNegativeColorFromBool(context);
 
       return LineChart(
         LineChartData(

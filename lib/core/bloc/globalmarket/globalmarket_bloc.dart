@@ -3,9 +3,9 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/global_market_repository.dart';
+import 'package:yaca/core/models/api/coingecko/global_market.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
 
 part 'globalmarket_event.dart';
 part 'globalmarket_state.dart';

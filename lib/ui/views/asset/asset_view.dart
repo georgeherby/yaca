@@ -1,5 +1,5 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:yaca/core/extensions/platform.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,22 +13,22 @@ import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/asset/widgets/asset_graph_with_switcher.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
-import 'package:crypto_app/ui/views/widgets/asset_icon_web.dart';
-import 'package:crypto_app/ui/views/widgets/delta_with_arrow.dart';
-import 'package:crypto_app/ui/views/widgets/favourite_icon.dart';
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
-import 'package:crypto_app/ui/views/widgets/primary_button.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset/asset_bloc.dart';
+import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:yaca/ui/views/asset/widgets/asset_graph_with_switcher.dart';
+import 'package:yaca/ui/views/widgets/app_bar_title.dart';
+import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
+import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
+import 'package:yaca/ui/views/widgets/favourite_icon.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/primary_button.dart';
 
 class AssetView extends StatelessWidget {
   final String id;
@@ -37,9 +37,6 @@ class AssetView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
-
-    var iconSize =
-        Theme.of(context).platform == TargetPlatform.macOS ? 24.0 : 32.0;
 
     var marketCoin = (BlocProvider.of<AssetOverviewBloc>(context).state
             as AssetOverviewLoaded)
@@ -60,7 +57,9 @@ class AssetView extends StatelessWidget {
               child: AssetIconWeb(
                 marketCoin.image,
                 assetSymbol: marketCoin.symbol,
-                iconSize: iconSize,
+                iconSize: Theme.of(context).platform.isMacOnly()
+                    ? kIconSizeMacAppBar
+                    : kIconSize,
               ),
             ),
             const SizedBox(width: 8),
@@ -125,8 +124,10 @@ class AssetView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Price (24h)',
-                              style: Theme.of(context).textTheme.headline6),
+                          Text(
+                            'Price (24h)',
+                            style: Theme.of(context).textTheme.headline6,
+                          ),
                           const SizedBox(height: 4),
                           IntrinsicHeight(
                             child: Row(
@@ -217,8 +218,7 @@ class AssetView extends StatelessWidget {
                                             marketCoin.priceChangePercentage24h !=
                                                     null
                                                 ? marketCoin
-                                                        .priceChangePercentage24h! /
-                                                    100
+                                                    .priceChangePercentage24h!
                                                 : null,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
@@ -376,8 +376,7 @@ class AssetView extends StatelessWidget {
                                             marketCoin.athChangePercentage !=
                                                     null
                                                 ? marketCoin
-                                                        .athChangePercentage! /
-                                                    100
+                                                    .athChangePercentage!
                                                 : null,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
@@ -418,7 +417,8 @@ class AssetView extends StatelessWidget {
                                 height: (kCornerRadiusCirlcular * 2) +
                                     kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
-                                  color: kNegativeRed,
+                                  color: false
+                                      .toPositiveNegativeColorFromBool(context),
                                   borderRadius: const BorderRadius.only(
                                     topLeft:
                                         Radius.circular(kCornerRadiusCirlcular),
@@ -449,7 +449,8 @@ class AssetView extends StatelessWidget {
                                 height: (kCornerRadiusCirlcular * 2) +
                                     kCornerRadiusCirlcular,
                                 decoration: BoxDecoration(
-                                  color: kPositiveGreen,
+                                  color: true
+                                      .toPositiveNegativeColorFromBool(context),
                                   borderRadius: const BorderRadius.only(
                                     topRight:
                                         Radius.circular(kCornerRadiusCirlcular),
@@ -530,12 +531,11 @@ class AssetView extends StatelessWidget {
                 ],
               ),
             );
-          } else {
-            debugPrint('Loading');
-            return Center(
-              child: PlatformCircularProgressIndicator(),
-            );
           }
+          debugPrint('Loading');
+          return Center(
+            child: PlatformCircularProgressIndicator(),
+          );
         },
       ),
     );

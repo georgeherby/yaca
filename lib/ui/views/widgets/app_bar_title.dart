@@ -1,7 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:yaca/core/extensions/platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 class AppBarTitle extends StatelessWidget {
   final String title;
 

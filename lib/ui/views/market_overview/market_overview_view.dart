@@ -5,21 +5,22 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/ui/consts/colours.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/app_bar_bottom.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/assets_data_table.dart';
-import 'package:crypto_app/ui/views/widgets/app_bar_title.dart';
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
-import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
+import 'package:yaca/ui/views/market_overview/widgets/assets_data_table.dart';
+import 'package:yaca/ui/views/widgets/app_bar_title.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class MarketOverviewView extends StatefulWidget {
   const MarketOverviewView({Key? key}) : super(key: key);
@@ -80,7 +81,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                         .iconTheme
                                         .color
                                         ?.withOpacity(0.5)
-                                    : kGold),
+                                    : kYellow),
                             label: Text(
                               'Favourites',
                               style: _showAllAssets
@@ -197,7 +198,18 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   PreferredSizeWidget _appBar() {
     return GeneralAppBar(
       platform: Theme.of(context).platform,
-      title: const AppBarTitle('Crypto App'),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SvgPicture.asset(
+            'assets/logo.svg',
+            height: kIconSizeMacAppBar,
+            color: Theme.of(context).iconTheme.color?.withOpacity(1),
+          ),
+          const SizedBox(width: 4),
+          const AppBarTitle('yaca.')
+        ],
+      ),
       leadingButtonType: Theme.of(context).platform.onlyMobile(context)
           ? LeadingButtonType.settings
           : null,
@@ -221,7 +233,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               .currency));
                   return;
                 })
-            : Container()
+            : SizedBox(
+                width: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22)
       ],
       bottom: AppBarBottom(),
     );

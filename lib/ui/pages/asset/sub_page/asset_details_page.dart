@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/views/asset/asset_view.dart';
+import 'package:yaca/ui/views/asset/asset_view.dart';
 
 class AssetDetailsPage extends StatelessWidget {
-
   const AssetDetailsPage({
     Key? key,
   }) : super(key: key);

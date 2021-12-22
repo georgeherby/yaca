@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/exchange_ticker.dart';
+import 'package:yaca/core/models/api/coingecko/exchange_ticker.dart';
 
 class ExchangeTickerRespository {
   final http.Client _client;

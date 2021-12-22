@@ -8,27 +8,27 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/extensions/chosen_currency.dart';
-import 'package:crypto_app/core/models/api/coingecko/global_market.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/currency_formatters.dart';
-import 'package:crypto_app/ui/utils/percentage_formatters.dart';
-import 'package:crypto_app/ui/views/widgets/percentage_change_box.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/extensions/chosen_currency.dart';
+import 'package:yaca/core/models/api/coingecko/global_market.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/currency_formatters.dart';
+import 'package:yaca/ui/utils/percentage_formatters.dart';
+import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 
 class GlobalMarketMarque extends StatefulWidget {
   const GlobalMarketMarque({
     Key? key,
     required this.currencySymbol,
     required this.marketCap,
-    required this.marketCap24hChange,
+    required this.marketCap24hPercentageChange,
     required this.totalVolume,
     required this.marketCapPercentage,
   }) : super(key: key);
 
   final String currencySymbol;
   final TotalMarketCap marketCap;
-  final double marketCap24hChange;
+  final double marketCap24hPercentageChange;
   final TotalVolume totalVolume;
   final MarketCapPercentage marketCapPercentage;
 
@@ -40,6 +40,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
   final ScrollController _scrollController = ScrollController();
   final Duration _animationDuration = const Duration(milliseconds: 1000);
   late Timer _animateTicker;
+  static const Color _textColor = Colors.white;
 
   void scroll() {
     if (_scrollController.hasClients) {
@@ -74,21 +75,31 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                  ?.copyWith(fontWeight: FontWeight.bold, color: _textColor),
             ),
             const SizedBox(width: 4),
             Text(
-              widget.currencySymbol + compactNumberFormat(context).format(widget.marketCap.getForCurrency(BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyCode)),
+              widget.currencySymbol +
+                  compactNumberFormat(context).format(widget.marketCap
+                      .getForCurrency(BlocProvider.of<AppSettingsBloc>(context)
+                          .state
+                          .currency
+                          .currencyCode)),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.white),
+                  ?.copyWith(color: _textColor),
             ),
-            const SizedBox(width: 8),
-            PercentageChangeBox(widget.marketCap24hChange),
+            const SizedBox(width: 4),
+            DeltaWithArrow(
+              widget.marketCap24hPercentageChange,
+              isPercentage: true,
+              textColor: _textColor,
+              useTextColorForArrow: true,
+            ),
             const VerticalDivider(
               thickness: 2,
-              color: Colors.white,
+              color: _textColor,
               indent: kMarqueTapHeight / 4,
               endIndent: kMarqueTapHeight / 4,
             ),
@@ -97,21 +108,22 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                  ?.copyWith(fontWeight: FontWeight.bold, color: _textColor),
             ),
             const SizedBox(width: 4),
             Text(
-              widget.currencySymbol + compactNumberFormat(context).format(
+              widget.currencySymbol +
+                  compactNumberFormat(context).format(
                     widget.totalVolume.gbp,
                   ),
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.white),
+                  ?.copyWith(color: _textColor),
             ),
             const VerticalDivider(
               thickness: 2,
-              color: Colors.white,
+              color: _textColor,
               indent: kMarqueTapHeight / 4,
               endIndent: kMarqueTapHeight / 4,
             ),
@@ -120,7 +132,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(fontWeight: FontWeight.bold, color: Colors.white),
+                  ?.copyWith(fontWeight: FontWeight.bold, color: _textColor),
             ),
             const SizedBox(width: 4),
             Text(
@@ -128,7 +140,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.white),
+                  ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
             Text(
@@ -136,7 +148,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.white),
+                  ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
             Text(
@@ -144,7 +156,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               style: Theme.of(context)
                   .textTheme
                   .bodyText1
-                  ?.copyWith(color: Colors.white),
+                  ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
           ],

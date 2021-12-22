@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/extensions/theme_mode.dart';
+import 'package:yaca/core/extensions/theme_mode.dart';
 
 class ThemePreferenceRepository {
   static const thememode = 'THEME_MODE';

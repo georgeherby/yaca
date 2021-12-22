@@ -7,11 +7,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 
 class CurrencyChoiceView extends StatelessWidget {
   const CurrencyChoiceView({Key? key}) : super(key: key);

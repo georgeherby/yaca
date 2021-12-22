@@ -1,5 +1,5 @@
 // 🌎 Project imports:
-import 'package:crypto_app/ui/utils/view_builder/list_repository.dart';
+import 'package:yaca/ui/utils/view_builder/list_repository.dart';
 
 /// [FilterListRepository] extends a [ListRepository] with filtering capabilities.
 ///

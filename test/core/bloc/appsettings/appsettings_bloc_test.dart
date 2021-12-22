@@ -7,10 +7,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/repositories/preferences/currency_preference.dart';
-import 'package:crypto_app/core/repositories/preferences/theme_preference.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/repositories/preferences/currency_preference.dart';
+import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 
 class MockThemePreferenceRepository extends Mock
     implements ThemePreferenceRepository {}

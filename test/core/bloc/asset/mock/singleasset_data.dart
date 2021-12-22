@@ -2,13 +2,12 @@
 import 'dart:convert';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
+import 'package:yaca/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/core/models/api/coingecko/single_asset_data.dart';
 
 import 'asset_history/last_1_month.dart';
 import 'asset_history/last_3_months.dart';
 import 'asset_history/max_months.dart';
-
 
 var assetHistorySplitsBtc = AssetHistorySplits(
   allMonths: maxMonths,

@@ -7,10 +7,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/widgets/back_chevron_button.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/widgets/back_chevron_button.dart';
 
 enum LeadingButtonType { back, settings }
 
@@ -32,7 +32,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-      (platform.isDesktop() ? kTitleBarMacOSHeight : kToolbarHeight) +
+      (platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarHeight) +
           (bottom == null ? 0 : kMarqueTapHeight));
 
   @override

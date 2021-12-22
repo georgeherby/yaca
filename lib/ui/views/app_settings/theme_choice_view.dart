@@ -8,10 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/extensions/theme_mode.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/extensions/theme_mode.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 
 class ThemeChoiceView extends StatelessWidget {
   const ThemeChoiceView({Key? key}) : super(key: key);

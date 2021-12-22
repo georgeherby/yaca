@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/extensions/platform.dart';
+import 'package:yaca/core/extensions/platform.dart';
 
 class RefreshableList extends StatelessWidget {
   final Widget child;

@@ -6,10 +6,10 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/core/models/api/coingecko/single_asset_data.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
+import 'package:yaca/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/core/models/api/coingecko/single_asset_data.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/repositories/api/coingecko/single_asset_repository.dart';
 
 part 'asset_event.dart';
 part 'asset_state.dart';

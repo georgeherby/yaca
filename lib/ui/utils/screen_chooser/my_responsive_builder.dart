@@ -3,7 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/utils/screen_chooser/screen_chooser.dart';
+import 'package:yaca/ui/utils/screen_chooser/screen_chooser.dart';
 
 /// A widget with a builder that provides you with the sizingInformation
 ///
@@ -23,8 +23,9 @@ class MyResponsiveBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, boxConstraints) {
       var mediaQuery = MediaQuery.of(context);
-      
-      return builder(context, getScreenSize(mediaQuery.size, Theme.of(context).platform, kIsWeb));
+
+      return builder(context,
+          getScreenSize(mediaQuery.size, Theme.of(context).platform, kIsWeb));
     });
   }
 }

@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 class MarketOverviewRepository {
   final http.Client _client;

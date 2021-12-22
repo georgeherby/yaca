@@ -6,7 +6,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/ui/views/widgets/general_app_bar.dart';
+import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 void main() {
   final cogFinder = find.byKey(const Key('settings-cog-buton'));
@@ -35,7 +35,7 @@ void main() {
         expect(otherOsChevronFinder, findsNothing);
 
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
@@ -54,7 +54,7 @@ void main() {
         expect(macosChevronFinder, findsNothing);
         expect(otherOsChevronFinder, findsOneWidget);
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
     });
 
@@ -79,7 +79,7 @@ void main() {
         expect(otherOsChevronFinder, findsNothing);
 
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
@@ -98,7 +98,7 @@ void main() {
         expect(macosChevronFinder, findsNothing);
         expect(otherOsChevronFinder, findsOneWidget);
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
     });
   });
@@ -125,7 +125,7 @@ void main() {
         expect(otherOsChevronFinder, findsNothing);
 
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
@@ -144,7 +144,7 @@ void main() {
         expect(macosChevronFinder, findsNothing);
         expect(otherOsChevronFinder, findsOneWidget);
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
     });
 
@@ -169,7 +169,7 @@ void main() {
         expect(otherOsChevronFinder, findsNothing);
 
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
@@ -188,7 +188,7 @@ void main() {
         expect(macosChevronFinder, findsNothing);
         expect(otherOsChevronFinder, findsOneWidget);
         final baseSize = tester.getSize(find.byType(AppBar));
-        expect(baseSize.height, 56);
+        expect(baseSize.height, 44.0);
       });
     });
   });

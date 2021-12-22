@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/exceptions/missing_config_exception.dart';
-import 'package:crypto_app/core/exceptions/rate_limit_exception.dart';
-import 'package:crypto_app/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:crypto_app/core/repositories/preferences/api_tokens_preference.dart';
-import 'package:crypto_app/ui/utils/view_builder/filter_list_repository.dart';
+import 'package:yaca/core/exceptions/missing_config_exception.dart';
+import 'package:yaca/core/exceptions/rate_limit_exception.dart';
+import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
+import 'package:yaca/ui/utils/view_builder/filter_list_repository.dart';
 
 class WhaleTransactionReposiotry
     extends FilterListRepository<WhaleTransaction, String> {

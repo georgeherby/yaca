@@ -7,9 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset/asset_bloc.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/single_asset_repository.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset/asset_bloc.dart';
+import 'package:yaca/core/repositories/api/coingecko/single_asset_repository.dart';
 
 class AssetPage extends StatelessWidget {
   final http.Client _client = http.Client();

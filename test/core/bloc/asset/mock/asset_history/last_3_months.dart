@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/core/models/api/coingecko/asset_history.dart';
 
 var last3Months = AssetHistory.fromJson(jsonDecode('''
   {

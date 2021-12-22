@@ -3,9 +3,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/extensions/platform.dart';
-import 'package:crypto_app/core/models/api/coingecko/asset_history.dart';
-import 'package:crypto_app/ui/views/asset/widgets/asset_graph.dart';
+import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/ui/views/asset/widgets/asset_graph.dart';
 
 class _AssetGraphChipConfig {
   final String label;

@@ -7,14 +7,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:crypto_app/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:crypto_app/core/config/currency.dart';
-import 'package:crypto_app/core/repositories/api/coingecko/market_overview_repository.dart';
-import 'package:crypto_app/core/repositories/favourites_repository.dart';
+import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
+import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
+import 'package:yaca/core/repositories/favourites_repository.dart';
 import 'mock/asset_overview_data.dart';
 
 class MockFavouritesDao extends Mock implements FavouritesDao {}
+
 class MockMarketOverviewRepository extends Mock
     implements MarketOverviewRepository {}
 

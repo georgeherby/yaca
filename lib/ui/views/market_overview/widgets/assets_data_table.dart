@@ -6,16 +6,16 @@ import 'package:auto_route/auto_route.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
-import 'package:crypto_app/app_router.dart';
-import 'package:crypto_app/core/models/api/coingecko/market_coins.dart';
-import 'package:crypto_app/ui/consts/constants.dart';
-import 'package:crypto_app/ui/utils/screen_chooser/screen_builder.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_header.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/desktop_row.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/mobile_row.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_header.dart';
-import 'package:crypto_app/ui/views/market_overview/widgets/rows/tablet_row.dart';
-import 'package:crypto_app/ui/views/widgets/refresh_list.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
+import 'package:yaca/ui/views/market_overview/widgets/rows/desktop_header.dart';
+import 'package:yaca/ui/views/market_overview/widgets/rows/desktop_row.dart';
+import 'package:yaca/ui/views/market_overview/widgets/rows/mobile_row.dart';
+import 'package:yaca/ui/views/market_overview/widgets/rows/tablet_header.dart';
+import 'package:yaca/ui/views/market_overview/widgets/rows/tablet_row.dart';
+import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final bool favouriteOnly;

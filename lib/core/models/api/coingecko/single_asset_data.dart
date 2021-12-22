@@ -10,7 +10,7 @@ class SingleAssetData extends Equatable {
   final String name;
   final int blockTimeInMinutes;
   final String? hashingAlgorithm;
-  final List<String> categories;
+  final List<String?> categories;
   final List<String?> additionalNotices;
   final Localization localization;
   final Description description;
@@ -170,7 +170,7 @@ class SingleAssetData extends Equatable {
       name: map['name'],
       blockTimeInMinutes: map['block_time_in_minutes']?.toInt(),
       hashingAlgorithm: map['hashing_algorithm'],
-      categories: List<String>.from(map['categories']),
+      categories: List<String?>.from(map['categories']),
       additionalNotices: List<String?>.from(map['additional_notices']),
       localization: Localization.fromMap(map['localization']),
       description: Description.fromMap(map['description']),
