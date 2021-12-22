@@ -1,4 +1,4 @@
-# [!Yaca logo][(images/yaca-header.png)
+# ![Yaca logo][(images/yaca-header.png)
 
 [![Codemagic build status](https://api.codemagic.io/apps/60a7bc9faaa50c0014b74011/60a7bc9faaa50c0014b74010/status_badge.svg)](https://codemagic.io/apps/60a7bc9faaa50c0014b74011/60a7bc9faaa50c0014b74010/latest_build)
 
