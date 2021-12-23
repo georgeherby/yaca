@@ -65,7 +65,7 @@ class CurrencyChoiceView extends StatelessWidget {
                   Text(currencyToUse.currencyName),
                   const Spacer(),
                   bloc.state.currency == currencyToUse
-                      ? const Icon(Ionicons.checkbox_outline)
+                      ? const Icon(Ionicons.checkmark_outline)
                       : Container(),
                 ],
               ),
