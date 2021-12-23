@@ -1,10 +1,10 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -65,7 +65,7 @@ class CurrencyChoiceView extends StatelessWidget {
                   Text(currencyToUse.currencyName),
                   const Spacer(),
                   bloc.state.currency == currencyToUse
-                      ? const Icon(CupertinoIcons.check_mark)
+                      ? const Icon(Ionicons.checkbox_outline)
                       : Container(),
                 ],
               ),

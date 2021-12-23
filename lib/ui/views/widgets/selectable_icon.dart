@@ -1,9 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
-// 📦 Package imports:
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 class SelectableIcon extends StatelessWidget {
   final IconData selectedIcon;
   final IconData unSelectedIcon;
@@ -11,7 +8,7 @@ class SelectableIcon extends StatelessWidget {
   final double size;
   final Color selectedColor;
 
-  const SelectableIcon({   
+  const SelectableIcon({
     Key? key,
     required this.selectedIcon,
     required this.unSelectedIcon,
@@ -22,8 +19,8 @@ class SelectableIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FaIcon(
-      isSelected ? FontAwesomeIcons.solidStar : FontAwesomeIcons.star,
+    return Icon(
+      isSelected ? selectedIcon : unSelectedIcon,
       size: size,
       color: isSelected
           ? selectedColor

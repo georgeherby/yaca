@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/constants.dart';
@@ -23,9 +23,9 @@ extension ThemeModeToString on ThemeMode {
   IconData? toIcon() {
     switch (this) {
       case ThemeMode.dark:
-        return FontAwesomeIcons.moon;
+        return Ionicons.moon_outline;
       case ThemeMode.light:
-        return FontAwesomeIcons.sun;
+        return Ionicons.sunny_outline;
       case ThemeMode.system:
       default:
         return null;

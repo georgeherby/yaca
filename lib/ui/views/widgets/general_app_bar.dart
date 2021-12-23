@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
@@ -64,8 +64,8 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
               : IconButton(
                   key: const Key('back-chevron-other-os'),
                   onPressed: () => context.router.pop(),
-                  icon: FaIcon(
-                    FontAwesomeIcons.chevronLeft,
+                  icon: Icon(
+                    Ionicons.chevron_back_outline,
                     size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
                   ),
                 )
@@ -76,7 +76,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       tooltip: 'Open settings',
                       onPressed: () =>
                           context.router.push(const AppSettingsHomeRoute()),
-                      icon: const FaIcon(FontAwesomeIcons.cog),
+                      icon: const Icon(Ionicons.cog_outline),
                     )
                   : Container()
               : Container(),

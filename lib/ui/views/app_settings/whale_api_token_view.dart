@@ -1,5 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:yaca/ui/views/widgets/secondary_button.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -13,6 +12,7 @@ import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:yaca/ui/views/widgets/primary_button.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/ui/views/widgets/secondary_button.dart';
 
 class WhaleApiTokenView extends StatelessWidget {
   WhaleApiTokenView({Key? key}) : super(key: key);

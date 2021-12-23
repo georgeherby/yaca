@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/colours.dart';
@@ -32,8 +34,8 @@ class DeltaWithArrow extends StatelessWidget {
         children: [
           Icon(
             priceChangeDelta! < 0
-                ? CupertinoIcons.arrowtriangle_down_fill
-                : CupertinoIcons.arrowtriangle_up_fill,
+                ? Ionicons.arrow_down_outline
+                : Ionicons.arrow_up_outline,
             color: useTextColorForArrow ? textColor ?? color : color,
             size: textSize ?? 12,
           ),

@@ -1,12 +1,11 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -50,58 +49,30 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-                          child: OutlinedButton.icon(
-                            onPressed: () {
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          child: ChoiceChip(
+                            tooltip: _showAllAssets
+                                ? "Show favourites only"
+                                : "Show all assets",
+                            materialTapTargetSize:
+                                MaterialTapTargetSize.shrinkWrap,
+                            onSelected: (selected) {
                               setState(() {
-                                _showAllAssets = !_showAllAssets;
+                                _showAllAssets = !selected;
                               });
                             },
-                            style: OutlinedButton.styleFrom(
-                              tapTargetSize: MaterialTapTargetSize.padded,
-                              visualDensity: const VisualDensity(
-                                  horizontal: 0, vertical: 0),
-                              primary: Theme.of(context).primaryColor,
-                              backgroundColor: _showAllAssets
-                                  ? Theme.of(context).chipTheme.backgroundColor
-                                  : Theme.of(context).chipTheme.selectedColor,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(kCornerRadiusCirlcular),
-                                ),
-                              ),
-                            ),
-                            icon: FaIcon(
+                            selected: !_showAllAssets,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(
+                                    kCornerRadiusCirlcular)),
+                            label: Icon(
                                 _showAllAssets
-                                    ? FontAwesomeIcons.star
-                                    : FontAwesomeIcons.solidStar,
+                                    ? Ionicons.star_outline
+                                    : Ionicons.star,
                                 size: 16,
                                 color: _showAllAssets
-                                    ? Theme.of(context)
-                                        .iconTheme
-                                        .color
-                                        ?.withOpacity(0.5)
+                                    ? Theme.of(context).iconTheme.color
                                     : kYellow),
-                            label: Text(
-                              'Favourites',
-                              style: _showAllAssets
-                                  ? Theme.of(context).textTheme.bodyText2
-                                  : Theme.of(context)
-                                      .textTheme
-                                      .bodyText2
-                                      ?.copyWith(
-                                          color: !_showAllAssets &&
-                                                  Theme.of(context)
-                                                          .brightness ==
-                                                      Brightness.light
-                                              ? Colors.white
-                                              : !_showAllAssets
-                                                  ? Colors.black
-                                                  : Theme.of(context)
-                                                      .chipTheme
-                                                      .labelStyle
-                                                      .color),
-                            ),
                           ),
                         ),
                         Expanded(
@@ -161,8 +132,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    const Icon(CupertinoIcons
-                                        .exclamationmark_triangle),
+                                    const Icon(Ionicons.alert_circle_outline),
                                     Text(state.error)
                                   ],
                                 ),
@@ -216,8 +186,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
       actions: [
         (Theme.of(context).platform.isDesktop())
             ? IconButton(
-                icon: FaIcon(
-                  FontAwesomeIcons.syncAlt,
+                icon: Icon(
+                  Ionicons.sync_outline,
                   size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
                 ),
                 tooltip: 'Refresh',
