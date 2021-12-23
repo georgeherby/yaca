@@ -1,14 +1,13 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
@@ -55,7 +54,7 @@ class AppSettingsView extends StatelessWidget {
                       height: 48,
                       child: Row(
                         children: [
-                          const FaIcon(FontAwesomeIcons.moneyBillAlt),
+                          const Icon(Ionicons.cash_outline),
                           const VerticalDivider(color: Colors.transparent),
                           const Text('Default currency'),
                           const Spacer(),
@@ -65,7 +64,7 @@ class AppSettingsView extends StatelessWidget {
                               .currencyCode
                               .toUpperCase()),
                           const VerticalDivider(color: Colors.transparent),
-                          const Icon(CupertinoIcons.chevron_right),
+                          const Icon(Ionicons.chevron_forward_outline),
                         ],
                       ),
                     ),
@@ -86,7 +85,7 @@ class AppSettingsView extends StatelessWidget {
                       height: 48,
                       child: Row(
                         children: [
-                          const FaIcon(FontAwesomeIcons.palette),
+                          const Icon(Ionicons.color_palette_outline),
                           const VerticalDivider(color: Colors.transparent),
                           const Text('Theme'),
                           const Spacer(),
@@ -95,7 +94,7 @@ class AppSettingsView extends StatelessWidget {
                               .theme
                               .toIcon()),
                           const VerticalDivider(color: Colors.transparent),
-                          const Icon(CupertinoIcons.chevron_right),
+                          const Icon(Ionicons.chevron_forward_outline),
                         ],
                       ),
                     ),
@@ -144,7 +143,7 @@ class AppSettingsView extends StatelessWidget {
                           const VerticalDivider(color: Colors.transparent),
                           const Expanded(child: Text('Whale Transactions')),
                           const VerticalDivider(color: Colors.transparent),
-                          const Icon(CupertinoIcons.chevron_right),
+                          const Icon(Ionicons.chevron_forward_outline),
                         ],
                       ),
                     ),

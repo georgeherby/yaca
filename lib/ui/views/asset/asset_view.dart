@@ -1,6 +1,4 @@
 // 🐦 Flutter imports:
-import 'package:yaca/core/extensions/platform.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -10,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:html/dom.dart' as dom;
+import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
@@ -18,6 +17,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset/asset_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
@@ -526,7 +526,7 @@ class AssetView extends StatelessWidget {
             return Center(
               child: Column(
                 children: [
-                  const Icon(CupertinoIcons.exclamationmark),
+                  const Icon(Ionicons.alert_circle_outline),
                   Text(state.error)
                 ],
               ),

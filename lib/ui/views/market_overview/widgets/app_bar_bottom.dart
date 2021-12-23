@@ -1,9 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -58,7 +58,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      const Icon(CupertinoIcons.exclamationmark),
+                      const Icon(Ionicons.alert_circle_outline),
                       Text(state.error)
                     ],
                   );

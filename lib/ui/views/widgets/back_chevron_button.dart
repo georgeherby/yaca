@@ -1,6 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:ionicons/ionicons.dart';
 
 class BackChevronButton extends StatelessWidget {
   final VoidCallback onTapped;
@@ -12,7 +14,7 @@ class BackChevronButton extends StatelessWidget {
     return TextButton(
       onPressed: onTapped,
       child: Icon(
-        CupertinoIcons.left_chevron,
+        Ionicons.chevron_back_outline,
         size: 20,
         color: Theme.of(context).iconTheme.color,
       ),

@@ -1,7 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:yaca/core/extensions/platform.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:yaca/core/extensions/platform.dart';
 
 class AppBarTitle extends StatelessWidget {
   final String title;

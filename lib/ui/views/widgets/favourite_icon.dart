@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/colours.dart';
@@ -19,8 +19,8 @@ class FavouriteIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SelectableIcon(
-      selectedIcon: FontAwesomeIcons.solidStar,
-      unSelectedIcon: FontAwesomeIcons.star,
+      selectedIcon: Ionicons.star,
+      unSelectedIcon: Ionicons.star_outline,
       isSelected: isSelected,
       size: size,
       selectedColor: kYellow,

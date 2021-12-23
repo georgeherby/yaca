@@ -1,8 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:ionicons/ionicons.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -184,7 +184,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     const Spacer(flex: 5),
                     tickers[index].tradeUrl != null
                         ? Icon(
-                            CupertinoIcons.chevron_right,
+                            Ionicons.chevron_forward_outline,
                             color: Theme.of(context)
                                 .iconTheme
                                 .color

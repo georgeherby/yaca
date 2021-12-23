@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
@@ -30,19 +30,19 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       bottomNavigationBar: _isPhoneOnly
           ? NavigationBar(
-              onDestinationSelected: onTabTapped, 
-              selectedIndex: _selectedIndex, 
+              onDestinationSelected: onTabTapped,
+              selectedIndex: _selectedIndex,
               destinations: [
                 NavigationDestination(
-                  icon: FaIcon(
-                    FontAwesomeIcons.chartBar,
+                  icon: Icon(
+                    Ionicons.bar_chart_outline,
                     size: Theme.of(context)
                         .bottomNavigationBarTheme
                         .unselectedIconTheme
                         ?.size,
                   ),
-                  selectedIcon: FaIcon(
-                    FontAwesomeIcons.solidChartBar,
+                  selectedIcon: Icon(
+                    Ionicons.bar_chart,
                     size: Theme.of(context)
                         .bottomNavigationBarTheme
                         .selectedIconTheme
@@ -82,9 +82,8 @@ class _HomePageState extends State<HomePage> {
                         labelType: NavigationRailLabelType.all,
                         destinations: [
                           const NavigationRailDestination(
-                            icon: FaIcon(FontAwesomeIcons.chartBar),
-                            selectedIcon:
-                                FaIcon(FontAwesomeIcons.solidChartBar),
+                            icon: Icon(Ionicons.bar_chart_outline),
+                            selectedIcon: Icon(Ionicons.bar_chart),
                             label: Text(
                               'Market',
                             ),
@@ -120,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                       tooltip: 'Open settings',
                       onPressed: () =>
                           context.router.push(const AppSettingsHomeRoute()),
-                      icon: const FaIcon(FontAwesomeIcons.cog),
+                      icon: const Icon(Ionicons.cog),
                     ),
                     const SizedBox(height: 8)
                   ],
