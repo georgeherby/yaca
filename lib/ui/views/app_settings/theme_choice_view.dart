@@ -81,7 +81,7 @@ class ThemeChoiceView extends StatelessWidget {
               Text(title),
               const Spacer(),
               bloc.state.theme == themeToUse
-                  ? const Icon(Ionicons.checkbox_outline)
+                  ? const Icon(Ionicons.checkmark_outline)
                   : Container(),
               const VerticalDivider(color: Colors.transparent),
             ],
