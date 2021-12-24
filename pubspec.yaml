@@ -43,7 +43,18 @@ dependencies:
 dependency_overrides:
   flutter_svg: ^1.0.0
 
+flutter_icons:
+  android: false
+  ios: true
+  windows: false
+  web: true
+  image_path: "assets/icon-1024.png"
+
 dev_dependencies:
+  flutter_launcher_icons:
+    git:
+      url: https://github.com/dirkbo/flutter_launcher_icons.git
+      ref: desktop_linux_
   auto_route_generator: ^3.2.0
   bloc_test: ^9.0.1
   build_runner: ^2.1.7
