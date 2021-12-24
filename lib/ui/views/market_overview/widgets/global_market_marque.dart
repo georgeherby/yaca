@@ -59,7 +59,6 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
   Widget build(BuildContext context) {
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
-
       controller: _scrollController,
       scrollDirection: Axis.horizontal,
       itemCount:
