@@ -48,32 +48,89 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: ChoiceChip(
-                            tooltip: _showAllAssets
-                                ? "Show favourites only"
-                                : "Show all assets",
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            onSelected: (selected) {
-                              setState(() {
-                                _showAllAssets = !selected;
-                              });
-                            },
-                            selected: !_showAllAssets,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    kCornerRadiusCirlcular)),
-                            label: Icon(
-                                _showAllAssets
-                                    ? Ionicons.star_outline
-                                    : Ionicons.star,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ChoiceChip(
+                              tooltip: _showAllAssets
+                                  ? "Show favourites only"
+                                  : "Show all assets",
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              onSelected: (selected) {
+                                setState(() {
+                                  _showAllAssets = !selected;
+                                });
+                              },
+                              selected: !_showAllAssets,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      kCornerRadiusCirlcular)),
+                              label: Icon(
+                                  _showAllAssets
+                                      ? Ionicons.star_outline
+                                      : Ionicons.star,
+                                  size: 16,
+                                  color: _showAllAssets
+                                      ? Theme.of(context).iconTheme.color
+                                      : kYellow),
+                            ),
+                            ActionChip(
+                              onPressed: () async {
+                                debugPrint("Sort");
+                                await showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return SafeArea(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: <Widget>[
+                                            const ListTile(
+                                              title: Text('Sort By'),
+                                            ),
+                                            ListTile(
+                                              trailing: const Icon(
+                                                  Ionicons.arrow_up_outline),
+                                              title: const Text('Rank'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                            ListTile(
+                                              trailing: SizedBox(
+                                                width: Theme.of(context)
+                                                    .iconTheme
+                                                    .size,
+                                                height: Theme.of(context)
+                                                    .iconTheme
+                                                    .size,
+                                              ),
+                                              title: const Text('% Change'),
+                                              onTap: () {
+                                                Navigator.pop(context);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    });
+                              },
+                              avatar: Icon(
+                                Ionicons.arrow_up_outline,
                                 size: 16,
-                                color: _showAllAssets
-                                    ? Theme.of(context).iconTheme.color
-                                    : kYellow),
-                          ),
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              labelPadding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                              padding: const EdgeInsets.all(8.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      kCornerRadiusCirlcular)),
+                              label: const Text('By Rank'),
+                            )
+                          ],
                         ),
                         Expanded(
                           child: AssetsDataTable(
@@ -170,6 +227,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
       platform: Theme.of(context).platform,
       title: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SvgPicture.asset(
             'assets/logo.svg',

@@ -335,6 +335,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.2.1"
+  flutter_launcher_icons:
+    dependency: "direct dev"
+    description:
+      path: "."
+      ref: desktop_linux_
+      resolved-ref: "053ca0589e5640f5dfe5ac8a68d6901e30b8d0ba"
+      url: "https://github.com/dirkbo/flutter_launcher_icons.git"
+    source: git
+    version: "0.9.1"
   flutter_layout_grid:
     dependency: transitive
     description:
