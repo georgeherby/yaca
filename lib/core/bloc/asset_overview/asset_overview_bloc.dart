@@ -13,6 +13,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
+import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
 
@@ -31,11 +32,13 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       : super(const AssetOverviewInitial()) {
     on<AssetFavourited>(_onAssetFavourited);
     on<AssetOverviewLoad>(_onAssetOverviewLoad);
+    on<AssetSorted>(_onAssetSort);
 
     subscription = settingsBloc.stream.listen((stateOfSettings) {
       if (stateOfSettings is AppSettingsLoaded) {
         debugPrint('Initial load');
-        add(AssetOverviewLoad(stateOfSettings.currency));
+        add(AssetOverviewLoad(stateOfSettings.currency, SortType.sortByRank,
+            SortOrder.ascending)); //Todo Make this pull from SharedPrefs
       }
     });
   }
@@ -79,7 +82,10 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         }
         return coinData;
       }));
-      emit(AssetOverviewLoaded(_marketCoins));
+
+      final sorted = _sortBy(_marketCoins, event.sortType, event.sortOrder);
+
+      emit(AssetOverviewLoaded(sorted));
     } catch (e, stacktrace) {
       debugPrint('Error $e');
       debugPrint('Error $stacktrace');
@@ -130,5 +136,58 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         emit(AssetOverviewLoaded(updatedAssets.toList()));
       }
     }
+  }
+
+  void _onAssetSort(
+    AssetSorted event,
+    Emitter<AssetOverviewState> emit,
+  ) {
+    debugPrint("Sort type ${event.sortType}, Sort order ${event.sortOrder}");
+    emit(const AssetOverviewLoading());
+    final sortedList =
+        _sortBy(event.allMarketCoins, event.sortType, event.sortOrder);
+    emit(AssetOverviewLoaded(sortedList));
+  }
+
+  List<MarketCoin> _sortBy(
+      List<MarketCoin> allMarketCoins, SortType sortType, SortOrder sortOrder) {
+    switch (sortType) {
+      case SortType.sortByRank:
+        return _sortByRank(allMarketCoins, sortOrder);
+      case SortType.sortBy24hPercentageChange:
+        return _sortByPercentageChange(allMarketCoins, sortOrder);
+    }
+  }
+
+  List<MarketCoin> _sortByRank(
+      List<MarketCoin> allMarketCoins, SortOrder sortOrder) {
+    return allMarketCoins
+      ..sort((a, b) {
+        final first = a.marketCapRank;
+        final second = b.marketCapRank;
+
+        switch (sortOrder) {
+          case SortOrder.ascending:
+            return first.compareTo(second);
+          case SortOrder.descending:
+            return second.compareTo(first);
+        }
+      });
+  }
+
+  List<MarketCoin> _sortByPercentageChange(
+      List<MarketCoin> allMarketCoins, SortOrder sortOrder) {
+    return allMarketCoins
+      ..sort((a, b) {
+        final first = a.priceChangePercentage24h ?? 0.0;
+        final second = b.priceChangePercentage24h ?? 0.0;
+
+        switch (sortOrder) {
+          case SortOrder.ascending:
+            return first.compareTo(second);
+          case SortOrder.descending:
+            return second.compareTo(first);
+        }
+      });
   }
 }

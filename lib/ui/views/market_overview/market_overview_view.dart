@@ -13,6 +13,7 @@ import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
@@ -30,6 +31,8 @@ class MarketOverviewView extends StatefulWidget {
 
 class _MarketOverviewViewState extends State<MarketOverviewView> {
   bool _showAllAssets = true;
+  SortType _currentSortType = SortType.sortByRank;
+  SortOrder _currentSortOrder = SortOrder.ascending;
 
   @override
   Widget build(BuildContext context) {
@@ -95,28 +98,67 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                                 CrossAxisAlignment.start,
                                             mainAxisSize: MainAxisSize.min,
                                             children: <Widget>[
-                                              const ListTile(
-                                                title: Text('Sort By'),
+                                              ListTile(
+                                                dense: true,
+                                                tileColor: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                                title: Text(
+                                                  'Sort By',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1
+                                                      ?.copyWith(
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                ),
                                               ),
                                               ListTile(
-                                                trailing: const Icon(
-                                                    Ionicons.arrow_up_outline),
+                                                trailing: _trailingWidget(
+                                                    SortType.sortByRank,
+                                                    _currentSortType,
+                                                    _currentSortOrder),
                                                 title: const Text('Rank'),
                                                 onTap: () {
+                                                  final newSortOrder =
+                                                      _currentSortOrder
+                                                          .inverse();
+                                                  BlocProvider.of<
+                                                              AssetOverviewBloc>(
+                                                          context)
+                                                      .add(AssetSorted(
+                                                          state.allAssets,
+                                                          SortType.sortByRank,
+                                                          newSortOrder));
+                                                  _currentSortOrder =
+                                                      newSortOrder;
+                                                  _currentSortType =
+                                                      SortType.sortByRank;
                                                   Navigator.pop(context);
                                                 },
                                               ),
                                               ListTile(
-                                                trailing: SizedBox(
-                                                  width: Theme.of(context)
-                                                      .iconTheme
-                                                      .size,
-                                                  height: Theme.of(context)
-                                                      .iconTheme
-                                                      .size,
-                                                ),
+                                                trailing: _trailingWidget(
+                                                    SortType
+                                                        .sortBy24hPercentageChange,
+                                                    _currentSortType,
+                                                    _currentSortOrder),
                                                 title: const Text('% Change'),
                                                 onTap: () {
+                                                  final newSortOrder =
+                                                      _currentSortOrder
+                                                          .inverse();
+                                                  BlocProvider.of<
+                                                              AssetOverviewBloc>(
+                                                          context)
+                                                      .add(AssetSorted(
+                                                          state.allAssets,
+                                                          SortType
+                                                              .sortBy24hPercentageChange,
+                                                          newSortOrder));
+                                                  _currentSortOrder =
+                                                      newSortOrder;
+                                                  _currentSortType = SortType
+                                                      .sortBy24hPercentageChange;
                                                   Navigator.pop(context);
                                                 },
                                               ),
@@ -126,7 +168,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                       });
                                 },
                                 avatar: Icon(
-                                  Ionicons.arrow_up_outline,
+                                  _currentSortOrder.isAscending()
+                                      ? Ionicons.arrow_up_outline
+                                      : Ionicons.arrow_down_outline,
                                   size: 16,
                                   color: Theme.of(context).iconTheme.color,
                                 ),
@@ -135,7 +179,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(
                                         kCornerRadiusCirlcular)),
-                                label: const Text('By Rank'),
+                                label: Text(_getLabelForCurrentSortType(
+                                    _currentSortType)),
                               )
                             ],
                           ),
@@ -156,7 +201,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   AssetOverviewLoad(
                                       BlocProvider.of<AppSettingsBloc>(context)
                                           .state
-                                          .currency));
+                                          .currency,
+                                      _currentSortType,
+                                      _currentSortOrder));
                               return;
                             },
                             onFavourite: (MarketCoin marketCoin,
@@ -185,7 +232,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                 AssetOverviewLoad(
                                     BlocProvider.of<AppSettingsBloc>(context)
                                         .state
-                                        .currency));
+                                        .currency,
+                                    _currentSortType,
+                                    _currentSortOrder));
                             return;
                           },
                           child: ListView(
@@ -266,7 +315,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       AssetOverviewLoad(
                           BlocProvider.of<AppSettingsBloc>(context)
                               .state
-                              .currency));
+                              .currency,
+                          _currentSortType,
+                          _currentSortOrder));
                   return;
                 })
             : SizedBox(
@@ -274,5 +325,23 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
       ],
       bottom: AppBarBottom(),
     );
+  }
+
+  String _getLabelForCurrentSortType(SortType currentSortType) {
+    switch (currentSortType) {
+      case SortType.sortByRank:
+        return "Rank";
+      case SortType.sortBy24hPercentageChange:
+        return "24h % change";
+    }
+  }
+
+  Widget? _trailingWidget(SortType sortToMatch, SortType currentSortType,
+      SortOrder currentSortOrder) {
+    return currentSortType == sortToMatch
+        ? Icon(currentSortOrder.isAscending()
+            ? Ionicons.arrow_up_outline
+            : Ionicons.arrow_down_outline)
+        : null;
   }
 }

@@ -18,6 +18,7 @@ import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/core/models/favourites.dart';
+import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
@@ -146,7 +147,11 @@ class _MyAppState extends State<MyApp> {
                         BlocProvider.of<AppSettingsBloc>(context),
                         FavouritesDao(box: box),
                         context.read<MarketOverviewRepository>())
-                      ..add(AssetOverviewLoad(currencyCode)),
+                      ..add(AssetOverviewLoad(
+                          currencyCode,
+                          SortType.sortByRank,
+                          SortOrder
+                              .ascending)), //TODO Get from SharedPreferences
                   ),
                   BlocProvider<SingleAssetExchangeBloc>(
                     create: (_) => SingleAssetExchangeBloc(
