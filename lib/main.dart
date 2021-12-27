@@ -18,13 +18,13 @@ import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/core/models/favourites.dart';
-import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:yaca/core/repositories/api/whalealerts/whale_transactions_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
+import 'package:yaca/core/repositories/preferences/asset_overview_preference.dart';
 import 'package:yaca/core/repositories/preferences/currency_preference.dart';
 import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 import 'package:yaca/ui/consts/colours.dart';
@@ -106,6 +106,8 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
             create: (BuildContext context) => CurrencyPreferenceRepository()),
         RepositoryProvider(
+            create: (BuildContext context) => AssetOverviewPreference()),
+        RepositoryProvider(
             create: (BuildContext context) => ApiTokensPreference()),
         RepositoryProvider(
             create: (BuildContext context) =>
@@ -144,14 +146,13 @@ class _MyAppState extends State<MyApp> {
                   ),
                   BlocProvider<AssetOverviewBloc>(
                     create: (BuildContext context) => AssetOverviewBloc(
-                        BlocProvider.of<AppSettingsBloc>(context),
-                        FavouritesDao(box: box),
-                        context.read<MarketOverviewRepository>())
-                      ..add(AssetOverviewLoad(
-                          currencyCode,
-                          SortType.sortByRank,
-                          SortOrder
-                              .ascending)), //TODO Get from SharedPreferences
+                      BlocProvider.of<AppSettingsBloc>(context),
+                      FavouritesDao(box: box),
+                      context.read<MarketOverviewRepository>(),
+                      context.read<AssetOverviewPreference>(),
+                    )..add(AssetOverviewLoad(
+                        currencyCode,
+                      )),
                   ),
                   BlocProvider<SingleAssetExchangeBloc>(
                     create: (_) => SingleAssetExchangeBloc(

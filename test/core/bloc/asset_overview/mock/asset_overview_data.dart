@@ -29,8 +29,8 @@ var bnbMarketCoin = const MarketCoin(
     symbol: 'bnb',
     name: 'Binance Coin',
     image: 'url',
-    currentPrice: 9999.99,
-    marketCap: 9878675,
+    currentPrice: 123999.99,
+    marketCap: 1234512341,
     marketCapRank: 3,
     lastUpdated: '123456788',
     priceChangePercentage24h: -1.0);

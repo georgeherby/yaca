@@ -16,6 +16,7 @@ import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
+import 'package:yaca/core/repositories/preferences/asset_overview_preference.dart';
 
 part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';
@@ -26,9 +27,10 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   final AppSettingsBloc settingsBloc;
   final FavouritesDao _favouriteDao;
   final MarketOverviewRepository _marketOverviewRepository;
+  final AssetOverviewPreference _assetOverviewPreference;
 
-  AssetOverviewBloc(
-      this.settingsBloc, this._favouriteDao, this._marketOverviewRepository)
+  AssetOverviewBloc(this.settingsBloc, this._favouriteDao,
+      this._marketOverviewRepository, this._assetOverviewPreference)
       : super(const AssetOverviewInitial()) {
     on<AssetFavourited>(_onAssetFavourited);
     on<AssetOverviewLoad>(_onAssetOverviewLoad);
@@ -37,8 +39,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     subscription = settingsBloc.stream.listen((stateOfSettings) {
       if (stateOfSettings is AppSettingsLoaded) {
         debugPrint('Initial load');
-        add(AssetOverviewLoad(stateOfSettings.currency, SortType.sortByRank,
-            SortOrder.ascending)); //Todo Make this pull from SharedPrefs
+        add(AssetOverviewLoad(stateOfSettings.currency));
       }
     });
   }
@@ -59,7 +60,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     super.onTransition(transition);
   }
 
-  void _onAssetOverviewLoad(
+  Future _onAssetOverviewLoad(
     AssetOverviewLoad event,
     Emitter<AssetOverviewState> emit,
   ) async {
@@ -70,7 +71,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       var marketCoinsResponse =
           (await _marketOverviewRepository.fetchCoinMarkets(event.currency));
 
-      var usersFavourites = await _favouriteDao.getAll();
+      final usersFavourites = await _favouriteDao.getAll();
 
       _marketCoins.addAll(marketCoinsResponse.map((coinData) {
         var favs = (usersFavourites.where((Favourites fav) =>
@@ -83,9 +84,11 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         return coinData;
       }));
 
-      final sorted = _sortBy(_marketCoins, event.sortType, event.sortOrder);
+      final sortType = await _assetOverviewPreference.getSortType();
+      final sortOrder = await _assetOverviewPreference.getSortOrder();
+      final sorted = _sortBy(_marketCoins, sortType, sortOrder);
 
-      emit(AssetOverviewLoaded(sorted));
+      emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
     } catch (e, stacktrace) {
       debugPrint('Error $e');
       debugPrint('Error $stacktrace');
@@ -93,7 +96,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     }
   }
 
-  void _onAssetFavourited(
+  Future _onAssetFavourited(
     AssetFavourited event,
     Emitter<AssetOverviewState> emit,
   ) async {
@@ -117,8 +120,11 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
             return e;
           }
         });
+        final sortType = await _assetOverviewPreference.getSortType();
+        final sortOrder = await _assetOverviewPreference.getSortOrder();
+        final sorted = _sortBy(updatedAssets.toList(), sortType, sortOrder);
 
-        emit(AssetOverviewLoaded(updatedAssets.toList()));
+        emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
       } else {
         debugPrint('isNotChecked');
         if (listOfAssets[index].favouriteCacheId != null) {
@@ -133,20 +139,26 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
             return e;
           }
         });
-        emit(AssetOverviewLoaded(updatedAssets.toList()));
+        final sortType = await _assetOverviewPreference.getSortType();
+        final sortOrder = await _assetOverviewPreference.getSortOrder();
+        final sorted = _sortBy(updatedAssets.toList(), sortType, sortOrder);
+
+        emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
       }
     }
   }
 
-  void _onAssetSort(
+  Future _onAssetSort(
     AssetSorted event,
     Emitter<AssetOverviewState> emit,
-  ) {
+  ) async {
     debugPrint("Sort type ${event.sortType}, Sort order ${event.sortOrder}");
     emit(const AssetOverviewLoading());
     final sortedList =
         _sortBy(event.allMarketCoins, event.sortType, event.sortOrder);
-    emit(AssetOverviewLoaded(sortedList));
+    await _assetOverviewPreference.setSortOrder(event.sortOrder);
+    await _assetOverviewPreference.setSortType(event.sortType);
+    emit(AssetOverviewLoaded(sortedList, event.sortType, event.sortOrder));
   }
 
   List<MarketCoin> _sortBy(

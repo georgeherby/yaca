@@ -25,7 +25,6 @@ class AssetBloc extends Bloc<AssetEvent, AssetState> {
     emit(const AssetLoading());
 
     try {
-      debugPrint('done');
       var assetHistorySplits = await singleAssetRespository
           .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);
 

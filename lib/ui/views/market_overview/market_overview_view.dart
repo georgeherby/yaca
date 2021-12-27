@@ -12,6 +12,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/extensions/sort_order.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/ui/consts/colours.dart';
@@ -31,8 +32,6 @@ class MarketOverviewView extends StatefulWidget {
 
 class _MarketOverviewViewState extends State<MarketOverviewView> {
   bool _showAllAssets = true;
-  SortType _currentSortType = SortType.sortByRank;
-  SortOrder _currentSortOrder = SortOrder.ascending;
 
   @override
   Widget build(BuildContext context) {
@@ -115,24 +114,19 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                               ListTile(
                                                 trailing: _trailingWidget(
                                                     SortType.sortByRank,
-                                                    _currentSortType,
-                                                    _currentSortOrder),
+                                                    state.sortType,
+                                                    state.sortOrder),
                                                 title: const Text('Rank'),
                                                 onTap: () {
-                                                  final newSortOrder =
-                                                      _currentSortOrder
-                                                          .inverse();
                                                   BlocProvider.of<
                                                               AssetOverviewBloc>(
                                                           context)
                                                       .add(AssetSorted(
-                                                          state.allAssets,
-                                                          SortType.sortByRank,
-                                                          newSortOrder));
-                                                  _currentSortOrder =
-                                                      newSortOrder;
-                                                  _currentSortType =
-                                                      SortType.sortByRank;
+                                                    state.allAssets,
+                                                    SortType.sortByRank,
+                                                    state.sortOrder.inverse(),
+                                                  ));
+
                                                   Navigator.pop(context);
                                                 },
                                               ),
@@ -140,25 +134,20 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                                 trailing: _trailingWidget(
                                                     SortType
                                                         .sortBy24hPercentageChange,
-                                                    _currentSortType,
-                                                    _currentSortOrder),
+                                                    state.sortType,
+                                                    state.sortOrder),
                                                 title: const Text('% Change'),
                                                 onTap: () {
-                                                  final newSortOrder =
-                                                      _currentSortOrder
-                                                          .inverse();
                                                   BlocProvider.of<
                                                               AssetOverviewBloc>(
                                                           context)
                                                       .add(AssetSorted(
-                                                          state.allAssets,
-                                                          SortType
-                                                              .sortBy24hPercentageChange,
-                                                          newSortOrder));
-                                                  _currentSortOrder =
-                                                      newSortOrder;
-                                                  _currentSortType = SortType
-                                                      .sortBy24hPercentageChange;
+                                                    state.allAssets,
+                                                    SortType
+                                                        .sortBy24hPercentageChange,
+                                                    state.sortOrder.inverse(),
+                                                  ));
+
                                                   Navigator.pop(context);
                                                 },
                                               ),
@@ -168,7 +157,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                       });
                                 },
                                 avatar: Icon(
-                                  _currentSortOrder.isAscending()
+                                  state.sortOrder.isAscending()
                                       ? Ionicons.arrow_up_outline
                                       : Ionicons.arrow_down_outline,
                                   size: 16,
@@ -180,7 +169,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                     borderRadius: BorderRadius.circular(
                                         kCornerRadiusCirlcular)),
                                 label: Text(_getLabelForCurrentSortType(
-                                    _currentSortType)),
+                                    state.sortType)),
                               )
                             ],
                           ),
@@ -201,9 +190,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   AssetOverviewLoad(
                                       BlocProvider.of<AppSettingsBloc>(context)
                                           .state
-                                          .currency,
-                                      _currentSortType,
-                                      _currentSortOrder));
+                                          .currency));
                               return;
                             },
                             onFavourite: (MarketCoin marketCoin,
@@ -232,9 +219,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                 AssetOverviewLoad(
                                     BlocProvider.of<AppSettingsBloc>(context)
                                         .state
-                                        .currency,
-                                    _currentSortType,
-                                    _currentSortOrder));
+                                        .currency));
                             return;
                           },
                           child: ListView(
@@ -315,9 +300,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       AssetOverviewLoad(
                           BlocProvider.of<AppSettingsBloc>(context)
                               .state
-                              .currency,
-                          _currentSortType,
-                          _currentSortOrder));
+                              .currency));
                   return;
                 })
             : SizedBox(

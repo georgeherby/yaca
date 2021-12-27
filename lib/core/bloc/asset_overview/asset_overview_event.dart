@@ -6,12 +6,10 @@ abstract class AssetOverviewEvent extends Equatable {
 
 class AssetOverviewLoad extends AssetOverviewEvent {
   final ChosenCurrency currency;
-  final SortType sortType;
-  final SortOrder sortOrder;
-  const AssetOverviewLoad(this.currency, this.sortType, this.sortOrder);
+  const AssetOverviewLoad(this.currency);
 
   @override
-  List<Object> get props => [currency, sortType, sortOrder];
+  List<Object> get props => [currency];
 }
 
 class AssetFavourited extends AssetOverviewEvent {
