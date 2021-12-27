@@ -1,4 +1,7 @@
+// 📦 Package imports:
 import 'package:shared_preferences/shared_preferences.dart';
+
+// 🌎 Project imports:
 import 'package:yaca/core/models/sort_type.dart';
 
 class AssetOverviewPreference {
