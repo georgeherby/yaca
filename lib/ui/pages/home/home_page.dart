@@ -119,7 +119,8 @@ class _HomePageState extends State<HomePage> {
                       tooltip: 'Open settings',
                       onPressed: () =>
                           context.router.push(const AppSettingsHomeRoute()),
-                      icon: const Icon(Ionicons.cog),
+                      icon: Icon(Ionicons.cog,
+                          size: Theme.of(context).iconTheme.size),
                     ),
                     const SizedBox(height: 8)
                   ],
