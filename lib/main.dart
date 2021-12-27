@@ -1,4 +1,5 @@
 // 🐦 Flutter imports:
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -56,6 +57,11 @@ class MyBlocObserver extends BlocObserver {
 }
 
 void main() async {
+  //Disable debugPrint in release mode
+  if (kReleaseMode) {
+    debugPrint = (String? message, {int? wrapWidth}) {};
+  }
+
   // Initialize hive
   await Hive.initFlutter();
   // Registering the adapter
@@ -152,7 +158,7 @@ class _MyAppState extends State<MyApp> {
                 child: MaterialApp.router(
                   routerDelegate: _appRouter.delegate(),
                   routeInformationParser: _appRouter.defaultRouteParser(),
-                  title: 'Crypo App',
+                  title: 'yaca.',
                   debugShowCheckedModeBanner: false,
                   themeMode: state.theme,
                   theme: ThemeData.light().copyWith(

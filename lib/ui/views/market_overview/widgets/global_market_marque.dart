@@ -68,7 +68,12 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(width: 8),
+            const VerticalDivider(
+              thickness: 2,
+              color: _textColor,
+              indent: kMarqueTapHeight / 4,
+              endIndent: kMarqueTapHeight / 4,
+            ),
             Text(
               'Total Market Cap:',
               style: Theme.of(context)
