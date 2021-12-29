@@ -164,7 +164,7 @@ class _MyAppState extends State<MyApp> {
                 child: MaterialApp.router(
                   routerDelegate: _appRouter.delegate(),
                   routeInformationParser: _appRouter.defaultRouteParser(),
-                  title: 'yaca.',
+                  title: kAppName,
                   debugShowCheckedModeBanner: false,
                   themeMode: state.theme,
                   theme: ThemeData.light().copyWith(

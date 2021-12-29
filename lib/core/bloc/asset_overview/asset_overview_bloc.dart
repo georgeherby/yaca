@@ -153,7 +153,6 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     Emitter<AssetOverviewState> emit,
   ) async {
     debugPrint("Sort type ${event.sortType}, Sort order ${event.sortOrder}");
-    emit(const AssetOverviewLoading());
     final sortedList =
         _sortBy(event.allMarketCoins, event.sortType, event.sortOrder);
     await _assetOverviewPreference.setSortOrder(event.sortOrder);

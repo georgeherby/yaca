@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -17,11 +16,13 @@ import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/market_overview/market_overview_view_error.dart';
+import 'package:yaca/ui/views/market_overview/market_overview_view_loading.dart';
 import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:yaca/ui/views/market_overview/widgets/assets_data_table.dart';
+import 'package:yaca/ui/views/market_overview/widgets/sort_bottom_sheet.dart';
 import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
-import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class MarketOverviewView extends StatefulWidget {
   const MarketOverviewView({Key? key}) : super(key: key);
@@ -36,7 +37,50 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: _appBar(),
+      appBar: GeneralAppBar(
+        platform: Theme.of(context).platform,
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              'assets/logo.svg',
+              height: kIconSizeMacAppBar,
+              color: Theme.of(context).iconTheme.color?.withOpacity(1),
+            ),
+            const SizedBox(width: 4),
+            const AppBarTitle(kAppName)
+          ],
+        ),
+        leadingButtonType: Theme.of(context).platform.onlyMobile(context)
+            ? LeadingButtonType.settings
+            : null,
+        actions: [
+          (Theme.of(context).platform.isDesktop())
+              ? IconButton(
+                  icon: Icon(
+                    Ionicons.sync_outline,
+                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                  ),
+                  tooltip: 'Refresh',
+                  onPressed: () {
+                    BlocProvider.of<GlobalMarketBloc>(context).add(
+                        GlobalMarketLoad(
+                            BlocProvider.of<AppSettingsBloc>(context)
+                                .state
+                                .currency));
+                    BlocProvider.of<AssetOverviewBloc>(context).add(
+                        AssetOverviewLoad(
+                            BlocProvider.of<AppSettingsBloc>(context)
+                                .state
+                                .currency));
+                    return;
+                  })
+              : SizedBox(
+                  width: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22)
+        ],
+        bottom: AppBarBottom(),
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: LayoutBuilder(
@@ -87,73 +131,15 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                 materialTapTargetSize:
                                     MaterialTapTargetSize.shrinkWrap,
                                 onPressed: () async {
-                                  debugPrint("Sort");
                                   await showModalBottomSheet(
                                       context: context,
                                       builder: (context) {
                                         return SafeArea(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisSize: MainAxisSize.min,
-                                            children: <Widget>[
-                                              ListTile(
-                                                dense: true,
-                                                tileColor: Theme.of(context)
-                                                    .scaffoldBackgroundColor,
-                                                title: Text(
-                                                  'Sort By',
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .subtitle1
-                                                      ?.copyWith(
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                ),
-                                              ),
-                                              ListTile(
-                                                trailing: _trailingWidget(
-                                                    SortType.sortByRank,
-                                                    state.sortType,
-                                                    state.sortOrder),
-                                                title: const Text('Rank'),
-                                                onTap: () {
-                                                  BlocProvider.of<
-                                                              AssetOverviewBloc>(
-                                                          context)
-                                                      .add(AssetSorted(
-                                                    state.allAssets,
-                                                    SortType.sortByRank,
-                                                    state.sortOrder.inverse(),
-                                                  ));
-
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                              ListTile(
-                                                trailing: _trailingWidget(
-                                                    SortType
-                                                        .sortBy24hPercentageChange,
-                                                    state.sortType,
-                                                    state.sortOrder),
-                                                title: const Text('% Change'),
-                                                onTap: () {
-                                                  BlocProvider.of<
-                                                              AssetOverviewBloc>(
-                                                          context)
-                                                      .add(AssetSorted(
-                                                    state.allAssets,
-                                                    SortType
-                                                        .sortBy24hPercentageChange,
-                                                    state.sortOrder.inverse(),
-                                                  ));
-
-                                                  Navigator.pop(context);
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        );
+                                            child: SortBottomSheet(
+                                          assets: state.allAssets,
+                                          sortType: state.sortType,
+                                          sortOrder: state.sortOrder,
+                                        ));
                                       });
                                 },
                                 avatar: Icon(
@@ -204,109 +190,15 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       ],
                     );
                   } else if (state is AssetOverviewError) {
-                    return LayoutBuilder(builder: (context, constraint) {
-                      return ConstrainedBox(
-                        constraints:
-                            BoxConstraints(minHeight: constraint.maxHeight),
-                        child: RefreshableList(
-                          onRefresh: () async {
-                            BlocProvider.of<GlobalMarketBloc>(context).add(
-                                GlobalMarketLoad(
-                                    BlocProvider.of<AppSettingsBloc>(context)
-                                        .state
-                                        .currency));
-                            BlocProvider.of<AssetOverviewBloc>(context).add(
-                                AssetOverviewLoad(
-                                    BlocProvider.of<AppSettingsBloc>(context)
-                                        .state
-                                        .currency));
-                            return;
-                          },
-                          child: ListView(
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    const Icon(Ionicons.alert_circle_outline),
-                                    Text(state.error)
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    });
+                    return MarketOverviewViewError(state.error);
                   }
-                  return LayoutBuilder(builder: (context, constraint) {
-                    return ConstrainedBox(
-                      constraints:
-                          BoxConstraints(minHeight: constraint.maxHeight),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          PlatformCircularProgressIndicator(),
-                        ],
-                      ),
-                    );
-                  });
+                  return const MarketOverviewViewLoading();
                 },
               ),
             );
           },
         ),
       ),
-    );
-  }
-
-  PreferredSizeWidget _appBar() {
-    return GeneralAppBar(
-      platform: Theme.of(context).platform,
-      title: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SvgPicture.asset(
-            'assets/logo.svg',
-            height: kIconSizeMacAppBar,
-            color: Theme.of(context).iconTheme.color?.withOpacity(1),
-          ),
-          const SizedBox(width: 4),
-          const AppBarTitle('yaca.')
-        ],
-      ),
-      leadingButtonType: Theme.of(context).platform.onlyMobile(context)
-          ? LeadingButtonType.settings
-          : null,
-      actions: [
-        (Theme.of(context).platform.isDesktop())
-            ? IconButton(
-                icon: Icon(
-                  Ionicons.sync_outline,
-                  size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
-                ),
-                tooltip: 'Refresh',
-                onPressed: () {
-                  BlocProvider.of<GlobalMarketBloc>(context).add(
-                      GlobalMarketLoad(BlocProvider.of<AppSettingsBloc>(context)
-                          .state
-                          .currency));
-                  BlocProvider.of<AssetOverviewBloc>(context).add(
-                      AssetOverviewLoad(
-                          BlocProvider.of<AppSettingsBloc>(context)
-                              .state
-                              .currency));
-                  return;
-                })
-            : SizedBox(
-                width: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22)
-      ],
-      bottom: AppBarBottom(),
     );
   }
 
@@ -317,14 +209,5 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
       case SortType.sortBy24hPercentageChange:
         return "24h % change";
     }
-  }
-
-  Widget? _trailingWidget(SortType sortToMatch, SortType currentSortType,
-      SortOrder currentSortOrder) {
-    return currentSortType == sortToMatch
-        ? Icon(currentSortOrder.isAscending()
-            ? Ionicons.arrow_up_outline
-            : Ionicons.arrow_down_outline)
-        : null;
   }
 }

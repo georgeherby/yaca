@@ -1,6 +1,7 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
+const String kAppName = 'yaca.';
 const double kLeadingButtonWidthMac = 108.0;
 const double kLeadingButtonWidth = 56.0;
 const double kTitleBarDesktopHeight = 38.0;

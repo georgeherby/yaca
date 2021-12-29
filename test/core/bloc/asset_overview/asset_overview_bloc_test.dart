@@ -171,14 +171,14 @@ void main() {
               .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
           when(() => mockFavouritesDao.getAll())
-              .thenThrow(Exception('FAV ERROR'));
+              .thenThrow(Exception('Error getting favourites'));
 
           return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
               mockMarketOverviewRepository, mockAssetOverviewPreferneces);
         },
         expect: () => [
               const AssetOverviewLoading(),
-              AssetOverviewError(Exception('FAV ERROR').toString())
+              AssetOverviewError(Exception('Error getting favourites').toString())
             ]);
   });
   group('AssetOverviewBloc - favouriting', () {
@@ -387,7 +387,6 @@ void main() {
             ethMarketCoin,
             bnbMarketCoin
           ], SortType.sortByRank, SortOrder.ascending),
-          const AssetOverviewLoading(),
           AssetOverviewLoaded([
             ethMarketCoin,
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
@@ -454,7 +453,6 @@ void main() {
             ethMarketCoin,
             bnbMarketCoin
           ], SortType.sortByRank, SortOrder.ascending),
-          const AssetOverviewLoading(),
           AssetOverviewLoaded([
             bnbMarketCoin,
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
@@ -521,7 +519,6 @@ void main() {
             ethMarketCoin,
             bnbMarketCoin
           ], SortType.sortByRank, SortOrder.ascending),
-          const AssetOverviewLoading(),
           AssetOverviewLoaded([
             bnbMarketCoin,
             ethMarketCoin,

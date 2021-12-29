@@ -32,8 +32,8 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-      (platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarHeight) +
-          (bottom == null ? 0 : kMarqueTapHeight));
+      ((platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarHeight) +
+          (bottom == null ? 0 : kMarqueTapHeight)));
 
   @override
   Widget build(BuildContext context) {
