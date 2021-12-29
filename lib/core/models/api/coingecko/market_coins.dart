@@ -218,7 +218,8 @@ class MarketCoin extends Equatable {
       : null;
 
   @override
-  List<Object?> get props => [currentPrice, favouriteCacheId];
+  List<Object?> get props =>
+      [currentPrice, favouriteCacheId, priceChangePercentage24h];
 }
 
 class SparklineIn7d {

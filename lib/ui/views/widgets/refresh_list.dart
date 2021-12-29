@@ -1,9 +1,8 @@
 // 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 
 class RefreshableList extends StatelessWidget {
   final Widget child;
@@ -15,12 +14,22 @@ class RefreshableList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (Theme.of(context).platform.isDesktop() || kIsWeb)
-        ? child
-        : RefreshIndicator(
-            onRefresh: onRefresh,
-            backgroundColor: Theme.of(context).colorScheme.secondary,
-            color: Colors.white,
-            child: child);
+    return ScreenBuilder(
+      mobile: _buildRefreshIndicator(context),
+      mobileDesktop: child,
+      tablet: _buildRefreshIndicator(context),
+      tabletWeb: _buildRefreshIndicator(context),
+      tabletDesktop: child,
+      desktop: child,
+      desktopWeb: child,
+    );
+  }
+
+  Widget _buildRefreshIndicator(BuildContext context) {
+    return RefreshIndicator(
+        onRefresh: onRefresh,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        color: Colors.white,
+        child: child);
   }
 }
