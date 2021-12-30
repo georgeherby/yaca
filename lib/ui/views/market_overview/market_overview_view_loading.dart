@@ -1,4 +1,7 @@
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class MarketOverviewViewLoading extends StatelessWidget {
