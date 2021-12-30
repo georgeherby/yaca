@@ -61,6 +61,13 @@ class MyBlocObserver extends BlocObserver {
 }
 
 void main() async {
+  print("HELLO");
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  print("HELLO2");
+
   //Disable debugPrint in release mode
   if (kReleaseMode) {
     debugPrint = (String? message, {int? wrapWidth}) {};
@@ -78,11 +85,8 @@ void main() async {
     },
     blocObserver: MyBlocObserver(),
   );
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
-  await FirebaseAnalytics.instance.logAppOpen();
+
+  // await FirebaseAnalytics.instance.logAppOpen();
   runApp(const MyApp());
 }
 

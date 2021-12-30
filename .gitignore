@@ -54,3 +54,5 @@ app.*.map.json
 /coverage
 ios/build/Pods.build/
 .firebase/
+
+android/app/google-services.json
