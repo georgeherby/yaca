@@ -55,21 +55,23 @@ class TabletHeader extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(width: blockSize * 1),
               ],
             ),
           ),
-          const Spacer(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                'Price',
-                style: Theme.of(context).textTheme.subtitle2,
-              ),
-            ],
+          Expanded(
+            flex: 25,
+            child: Text(
+              'Price',
+              style: Theme.of(context).textTheme.subtitle2,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+            ),
           ),
-          const SizedBox(width: 36),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: SizedBox(width: 36),
+          ),
         ],
       ),
     );
