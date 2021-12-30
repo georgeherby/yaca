@@ -176,7 +176,7 @@ class DesktopRow extends StatelessWidget {
               textAlign: TextAlign.end,
             ),
           ),
-          const Spacer(flex: 1),
+          const Spacer(),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
               if (state is AssetOverviewLoaded) {

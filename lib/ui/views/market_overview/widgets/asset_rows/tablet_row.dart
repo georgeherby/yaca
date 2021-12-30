@@ -53,7 +53,7 @@ class TabletRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 12.0, right: 4),
+      padding: const EdgeInsets.only(left: 12.0, right: 8),
       child: Row(
         children: [
           Hero(
@@ -155,17 +155,19 @@ class TabletRow extends StatelessWidget {
               ],
             ),
           ),
-          const Spacer(),
-          Text(
-            price.currencyFormatWithPrefix(
-                BlocProvider.of<AppSettingsBloc>(context)
-                    .state
-                    .currency
-                    .currencySymbol,
-                context),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.end,
+          Expanded(
+            flex: 25,
+            child: Text(
+              price.currencyFormatWithPrefix(
+                  BlocProvider.of<AppSettingsBloc>(context)
+                      .state
+                      .currency
+                      .currencySymbol,
+                  context),
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+            ),
           ),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
