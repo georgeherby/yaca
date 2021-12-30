@@ -43,8 +43,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "dev.georgeherby.yaca"
-        minSdkVersion 19
+        applicationId "app.yaca.android"
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

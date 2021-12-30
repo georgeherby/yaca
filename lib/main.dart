@@ -9,8 +9,11 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 // 🌎 Project imports:
+import 'firebase_options.dart';
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -75,6 +78,11 @@ void main() async {
     },
     blocObserver: MyBlocObserver(),
   );
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseAnalytics.instance.logAppOpen();
   runApp(const MyApp());
 }
 
