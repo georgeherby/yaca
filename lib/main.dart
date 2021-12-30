@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,6 +17,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/bloc/utils/all_bloc_observer.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
@@ -30,34 +32,16 @@ import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
+import 'firebase_options.dart';
 
-class MyBlocObserver extends BlocObserver {
-  @override
-  void onCreate(BlocBase bloc) {
-    super.onCreate(bloc);
-    debugPrint('onCreate -- ${bloc.runtimeType}');
-  }
 
-  @override
-  void onChange(BlocBase bloc, Change change) {
-    super.onChange(bloc, change);
-    debugPrint('onChange -- ${bloc.runtimeType}, $change');
-  }
-
-  @override
-  void onError(BlocBase bloc, Object error, StackTrace stackTrace) {
-    debugPrint('onError -- ${bloc.runtimeType}, $error');
-    super.onError(bloc, error, stackTrace);
-  }
-
-  @override
-  void onClose(BlocBase bloc) {
-    super.onClose(bloc);
-    debugPrint('onClose -- ${bloc.runtimeType}');
-  }
-}
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   //Disable debugPrint in release mode
   if (kReleaseMode) {
     debugPrint = (String? message, {int? wrapWidth}) {};
@@ -70,10 +54,8 @@ void main() async {
   // Opening the box
   await Hive.openBox<Favourites>('favBox');
   BlocOverrides.runZoned(
-    () {
-      // ...
-    },
-    blocObserver: MyBlocObserver(),
+    () {},
+    blocObserver: AllBlocObserver(),
   );
   runApp(const MyApp());
 }

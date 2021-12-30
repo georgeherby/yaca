@@ -133,11 +133,24 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void onTabTapped(int index) {
+  void onTabTapped(int index) async {
     if (_selectedIndex != index) {
+      // await FirebaseAnalytics.instance
+      //     .setCurrentScreen(screenName: getScreenName(index));
       setState(() {
         _selectedIndex = index;
       });
+    }
+  }
+
+  String getScreenName(int index) {
+    switch (index) {
+      case 0:
+        return "market_overview";
+      case 1:
+        return "whale_transactions";
+      default:
+        throw Exception('Unknown page index: $index');
     }
   }
 
@@ -148,7 +161,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return const WhaleTransactionView();
       default:
-        return const Text('Uknown page');
+        throw Exception('Unknown page index: $index');
     }
   }
 }

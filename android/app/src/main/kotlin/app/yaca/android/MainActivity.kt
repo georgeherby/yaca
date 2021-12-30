@@ -1,4 +1,4 @@
-package dev.georgeherby.yaca
+package app.yaca.android
 
 import io.flutter.embedding.android.FlutterActivity
 

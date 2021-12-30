@@ -37,7 +37,7 @@ class DeltaWithArrow extends StatelessWidget {
                 ? Ionicons.arrow_down_outline
                 : Ionicons.arrow_up_outline,
             color: useTextColorForArrow ? textColor ?? color : color,
-            size: textSize ?? 12,
+            size: textSize ?? 18,
           ),
           const SizedBox(
             width: 2,
@@ -50,11 +50,11 @@ class DeltaWithArrow extends StatelessWidget {
                   : priceChangeDelta!.deltaFormat(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.caption?.copyWith(
+              style: Theme.of(context).textTheme.bodyText1?.copyWith(
                   color:
                       textColor ?? Theme.of(context).textTheme.bodyText1!.color,
                   fontSize: textSize ??
-                      Theme.of(context).textTheme.caption!.fontSize),
+                      Theme.of(context).textTheme.bodyText1!.fontSize),
             ),
           ),
         ],

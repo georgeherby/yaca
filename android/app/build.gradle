@@ -22,6 +22,7 @@ if (flutterVersionName == null) {
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services' // Needed becuase FlutterFire does not support Dart initialisation of Firebase Performance
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
@@ -43,8 +44,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "dev.georgeherby.yaca"
-        minSdkVersion 19
+        applicationId "app.yaca.android"
+        minSdkVersion 21
         targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
