@@ -10,7 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 
 // 🌎 Project imports:
 import 'firebase_options.dart';
@@ -61,12 +60,10 @@ class MyBlocObserver extends BlocObserver {
 }
 
 void main() async {
-  print("HELLO");
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  print("HELLO2");
 
   //Disable debugPrint in release mode
   if (kReleaseMode) {
