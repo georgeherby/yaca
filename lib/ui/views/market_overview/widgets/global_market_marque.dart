@@ -19,14 +19,14 @@ import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 class GlobalMarketMarque extends StatefulWidget {
   const GlobalMarketMarque({
     Key? key,
-    required this.currencySymbol,
+    required this.currencyString,
     required this.marketCap,
     required this.marketCap24hPercentageChange,
     required this.totalVolume,
     required this.marketCapPercentage,
   }) : super(key: key);
 
-  final String currencySymbol;
+  final String currencyString;
   final TotalMarketCap marketCap;
   final double marketCap24hPercentageChange;
   final TotalVolume totalVolume;
@@ -83,7 +83,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
             ),
             const SizedBox(width: 4),
             Text(
-              widget.currencySymbol +
+              widget.currencyString +
                   compactNumberFormat(context).format(widget.marketCap
                       .getForCurrency(BlocProvider.of<AppSettingsBloc>(context)
                           .state
@@ -116,7 +116,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
             ),
             const SizedBox(width: 4),
             Text(
-              widget.currencySymbol +
+              widget.currencyString +
                   compactNumberFormat(context).format(
                     widget.totalVolume.gbp,
                   ),

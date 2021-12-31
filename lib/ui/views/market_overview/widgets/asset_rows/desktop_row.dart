@@ -169,7 +169,7 @@ class DesktopRow extends StatelessWidget {
                   BlocProvider.of<AppSettingsBloc>(context)
                       .state
                       .currency
-                      .currencySymbol,
+                      .currencyString,
                   context),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,

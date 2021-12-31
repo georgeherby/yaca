@@ -1,5 +1,5 @@
 abstract class Currency {
-  final String currencySymbol;
+  final String currencyString;
 
-  Currency(this.currencySymbol);
+  Currency(this.currencyString);
 }

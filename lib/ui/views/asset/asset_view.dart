@@ -153,7 +153,7 @@ class AssetView extends StatelessWidget {
                                                               context)
                                                           .state
                                                           .currency
-                                                          .currencySymbol,
+                                                          .currencyString,
                                                       context) ??
                                               '-'),
                                         ],
@@ -173,7 +173,7 @@ class AssetView extends StatelessWidget {
                                                               context)
                                                           .state
                                                           .currency
-                                                          .currencySymbol,
+                                                          .currencyString,
                                                       context) ??
                                               '-')
                                         ],

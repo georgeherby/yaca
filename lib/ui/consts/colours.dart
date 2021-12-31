@@ -11,7 +11,6 @@ Color kYellow = const Color(0xFFFEBA67);
 Color kPositiveGreenLight = const Color(0xFF65A776);
 Color kNegativeRedLight = const Color(0xFFCE6771);
 
-
 Color kPrimary = const Color(0xFF638175);
 Color kDarkPrimary = const Color(0xFF638175);
 Color kSecondary = const Color(0xFFF5828D);
@@ -25,8 +24,23 @@ Color kLightSurface = const Color(0xFFFEFEFF);
 Color kLightBackground = const Color(0xFFF1F3F6);
 Color kLightError = const Color(0xFFCE6771);
 
+Map<int, Color> colorCodes = {
+  50: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .1),
+  100: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .2),
+  200: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .3),
+  300: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .4),
+  400: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .5),
+  500: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .6),
+  600: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .7),
+  700: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .8),
+  800: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, .9),
+  900: Color.fromRGBO(kPrimary.red, kPrimary.green, kPrimary.blue, 1),
+};
+MaterialColor kPrimarySwatch = MaterialColor(kPrimary.value, colorCodes);
+
 abstract class ThemeColours {
   late Color primary;
+  late MaterialColor primarySwatch;
   late Color secondary;
   late Color scaffoldBackground;
   late Color cardBackground;
@@ -42,6 +56,9 @@ abstract class ThemeColours {
 }
 
 class LightThemeColors implements ThemeColours {
+  @override
+  MaterialColor primarySwatch = kPrimarySwatch;
+
   @override
   Color scaffoldBackground = kLightBackground;
 
@@ -83,6 +100,9 @@ class LightThemeColors implements ThemeColours {
 }
 
 class DarkThemeColors implements ThemeColours {
+  @override
+  MaterialColor primarySwatch = kPrimarySwatch;
+
   @override
   Color scaffoldBackground = kDarkBackground;
 

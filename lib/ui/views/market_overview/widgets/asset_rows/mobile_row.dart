@@ -136,7 +136,7 @@ class MobileRow extends StatelessWidget {
                       BlocProvider.of<AppSettingsBloc>(context)
                           .state
                           .currency
-                          .currencySymbol,
+                          .currencyString,
                       context),
                   textAlign: TextAlign.end,
                   maxLines: 1,

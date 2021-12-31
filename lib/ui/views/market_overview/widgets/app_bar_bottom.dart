@@ -40,10 +40,10 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
               builder: (context, state) {
                 if (state is GlobalMarketLoaded) {
                   return GlobalMarketMarque(
-                    currencySymbol: BlocProvider.of<AppSettingsBloc>(context)
+                    currencyString: BlocProvider.of<AppSettingsBloc>(context)
                         .state
                         .currency
-                        .currencySymbol,
+                        .currencyString,
                     marketCap: state.globalMarket.data.totalMarketCap,
                     marketCap24hPercentageChange:
                         state.globalMarket.data.marketCapChangePercentage24hUsd,
