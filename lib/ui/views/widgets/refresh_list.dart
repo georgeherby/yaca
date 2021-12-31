@@ -28,8 +28,6 @@ class RefreshableList extends StatelessWidget {
   Widget _buildRefreshIndicator(BuildContext context) {
     return RefreshIndicator(
         onRefresh: onRefresh,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        color: Colors.white,
         child: child);
   }
 }

@@ -63,7 +63,7 @@ class SortBottomSheet extends StatelessWidget {
           trailing: _trailingWidget(
               SortType.sortBy24hPercentageChange, sortType, sortOrder),
           title: Text(
-            '% Change',
+            '24h % change',
             style: Theme.of(context).textTheme.bodyText1?.copyWith(
                 fontWeight: sortType == SortType.sortBy24hPercentageChange
                     ? FontWeight.bold

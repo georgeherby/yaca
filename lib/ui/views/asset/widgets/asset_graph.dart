@@ -72,8 +72,8 @@ class _AssetGraphState extends State<AssetGraph> {
     var _dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
     var price = touchedPrice;
-    var currencySymbol =
-        BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
+    var currencyString =
+        BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyString;
 
     var formatDate = DateFormat('EEE, MMM dd, yyyy, HH:mm');
     return Column(
@@ -124,7 +124,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   ),
                   const Spacer(),
                   Text(
-                    price.currencyFormatWithPrefix(currencySymbol, context),
+                    price.currencyFormatWithPrefix(currencyString, context),
                     style: getValueForScreenType<TextStyle?>(
                       context: context,
                       mobile: Theme.of(context)
@@ -216,7 +216,7 @@ class _AssetGraphState extends State<AssetGraph> {
                         Theme.of(context).textTheme.caption!,
                     getTitles: (value) {
                       return value.currencyFormatWithPrefix(
-                          currencySymbol, context);
+                          currencyString, context);
                     },
                     reservedSize: 56,
                     margin: 8,

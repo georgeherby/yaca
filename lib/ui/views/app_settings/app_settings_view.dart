@@ -43,61 +43,62 @@ class AppSettingsView extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                InkWell(
+                ListTile(
                   onTap: () {
                     context.router.push(const AppSettingsCurrencyRoute());
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 20),
-                    child: SizedBox(
-                      height: 48,
-                      child: Row(
-                        children: [
-                          const Icon(Ionicons.cash_outline),
-                          const VerticalDivider(color: Colors.transparent),
-                          const Text('Default currency'),
-                          const Spacer(),
-                          Text(BlocProvider.of<AppSettingsBloc>(context)
-                              .state
-                              .currency
-                              .currencyCode
-                              .toUpperCase()),
-                          const VerticalDivider(color: Colors.transparent),
-                          const Icon(Ionicons.chevron_forward_outline),
-                        ],
+                  title: const Text('Default currency'),
+                  leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Ionicons.cash_outline),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencyString
+                            .toUpperCase(),
+                        style: Theme.of(context).textTheme.headline6,
                       ),
-                    ),
+                      const VerticalDivider(color: Colors.transparent),
+                      const Icon(Ionicons.chevron_forward_outline),
+                    ],
                   ),
                 ),
                 const Divider(
                   thickness: kDividerWeighting,
                   height: kDividerWeighting,
                 ),
-                InkWell(
+                ListTile(
                   onTap: () {
                     context.router.push(const AppSettingsThemeRoute());
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 20),
-                    child: SizedBox(
-                      height: 48,
-                      child: Row(
-                        children: [
-                          const Icon(Ionicons.color_palette_outline),
-                          const VerticalDivider(color: Colors.transparent),
-                          const Text('Theme'),
-                          const Spacer(),
-                          Icon(BlocProvider.of<AppSettingsBloc>(context)
-                              .state
-                              .theme
-                              .toIcon()),
-                          const VerticalDivider(color: Colors.transparent),
-                          const Icon(Ionicons.chevron_forward_outline),
-                        ],
+                  title: const Text('Theme'),
+                  leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: const [
+                      Icon(Ionicons.color_palette_outline),
+                    ],
+                  ),
+                  trailing: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .theme
+                            .toIcon(),
                       ),
-                    ),
+                      const VerticalDivider(color: Colors.transparent),
+                      const Icon(Ionicons.chevron_forward_outline),
+                    ],
                   ),
                 ),
               ],
@@ -123,31 +124,23 @@ class AppSettingsView extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                InkWell(
+                ListTile(
                   onTap: () {
                     context.router.push(const AppSettingsWhaleRoute());
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 12.0, horizontal: 20),
-                    child: SizedBox(
-                      height: 48,
-                      child: Row(
-                        children: [
-                          SvgPicture.asset(
-                            'assets/whale_outline.svg',
-                            height: Theme.of(context).iconTheme.size,
-                            width: Theme.of(context).iconTheme.size,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          const VerticalDivider(color: Colors.transparent),
-                          const Expanded(child: Text('Whale Transactions')),
-                          const VerticalDivider(color: Colors.transparent),
-                          const Icon(Ionicons.chevron_forward_outline),
-                        ],
+                  title: const Text('Whale Transactions'),
+                  leading: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/whale_outline.svg',
+                        height: Theme.of(context).iconTheme.size,
+                        width: Theme.of(context).iconTheme.size,
+                        color: Theme.of(context).iconTheme.color,
                       ),
-                    ),
+                    ],
                   ),
+                  trailing: const Icon(Ionicons.chevron_forward_outline),
                 ),
               ],
             ),

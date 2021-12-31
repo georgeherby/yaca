@@ -21,22 +21,25 @@ class CurrencyChoiceView extends StatelessWidget {
     return ScaffoldWithBack(
       title: 'Choose currency',
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
         child: Material(
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
           elevation: Theme.of(context).cardTheme.elevation!,
-          child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(
-                  AvailableCurrencies.listOfAvailableCurrencies.length,
-                  (index) {
-                return _buildRow(
-                    context,
-                    AvailableCurrencies.listOfAvailableCurrencies[index],
-                    AvailableCurrencies.listOfAvailableCurrencies.length - 1 ==
-                        index);
-              })),
+          child: ListView.separated(
+            separatorBuilder: (context, index) => const Divider(
+                thickness: kDividerWeighting, height: kDividerWeighting),
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: AvailableCurrencies.listOfAvailableCurrencies.length,
+            itemBuilder: (context, index) {
+              return _buildRow(
+                  context,
+                  AvailableCurrencies.listOfAvailableCurrencies[index],
+                  AvailableCurrencies.listOfAvailableCurrencies.length - 1 ==
+                      index);
+            },
+          ),
         ),
       ),
     );
@@ -46,35 +49,35 @@ class CurrencyChoiceView extends StatelessWidget {
       BuildContext context, ChosenCurrency currencyToUse, bool isLastRow) {
     var bloc = BlocProvider.of<AppSettingsBloc>(context);
 
-    return InkWell(
+    return ListTile(
       onTap: () {
         bloc.add(UpdateCurrencyOptionEvent(currencyToUse, bloc.state.theme));
         context.router.pop();
       },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
+      leading: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-            child: SizedBox(
-              height: 48,
-              child: Row(
-                children: [
-                  Text(currencyToUse.currencySymbol),
-                  const VerticalDivider(color: Colors.transparent),
-                  Text(currencyToUse.currencyName),
-                  const Spacer(),
-                  bloc.state.currency == currencyToUse
-                      ? const Icon(Ionicons.checkmark_outline)
-                      : Container(),
-                ],
-              ),
-            ),
-          ),
-          isLastRow
-              ? Container()
-              : const Divider(
-                  thickness: kDividerWeighting, height: kDividerWeighting)
+          Theme(
+              data: ThemeData(
+                  iconTheme: IconThemeData(
+                      color: bloc.state.currency == currencyToUse
+                          ? Theme.of(context).listTileTheme.selectedColor
+                          : Theme.of(context).listTileTheme.iconColor)),
+              child: currencyToUse.currencyIcon),
+        ],
+      ),
+      title: Text(currencyToUse.currencyName),
+      subtitle: Text(
+        currencyToUse.currencyCode + " " + currencyToUse.currencyString,
+        style: Theme.of(context).textTheme.caption,
+      ),
+      selected: bloc.state.currency == currencyToUse,
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          bloc.state.currency == currencyToUse
+              ? const Icon(Ionicons.checkmark_outline)
+              : const SizedBox(height: 0),
         ],
       ),
     );

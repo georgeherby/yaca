@@ -25,12 +25,14 @@ class ThemeChoiceView extends StatelessWidget {
           clipBehavior: Clip.antiAlias,
           borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
           elevation: Theme.of(context).cardTheme.elevation!,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+          child: ListView(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
             children: [
               _buildRow(
                 context,
                 'System theme',
+                "Apply theme being used device wide",
                 Ionicons.color_palette_outline,
                 ThemeMode.system,
               ),
@@ -41,6 +43,7 @@ class ThemeChoiceView extends StatelessWidget {
               _buildRow(
                 context,
                 'Light theme',
+                "Apply theme with light colors",
                 Ionicons.sunny_outline,
                 ThemeMode.light,
               ),
@@ -51,6 +54,7 @@ class ThemeChoiceView extends StatelessWidget {
               _buildRow(
                 context,
                 'Dark theme',
+                "Apply theme with dark colors",
                 Ionicons.moon_outline,
                 ThemeMode.dark,
               )
@@ -62,31 +66,29 @@ class ThemeChoiceView extends StatelessWidget {
   }
 
   Widget _buildRow(
-      BuildContext context, String title, IconData icon, ThemeMode themeToUse) {
+    BuildContext context,
+    String title,
+    String subTitle,
+    IconData icon,
+    ThemeMode themeToUse,
+  ) {
     var bloc = BlocProvider.of<AppSettingsBloc>(context);
 
-    return InkWell(
+    return ListTile(
       onTap: () {
         bloc.add(UpdateThemeOptionEvent(bloc.state.currency, themeToUse));
         context.router.pop();
       },
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 20),
-        child: SizedBox(
-          height: 48,
-          child: Row(
-            children: [
-              Icon(themeToUse.toIcon() ?? Ionicons.color_palette_outline),
-              const VerticalDivider(color: Colors.transparent),
-              Text(title),
-              const Spacer(),
-              bloc.state.theme == themeToUse
-                  ? const Icon(Ionicons.checkmark_outline)
-                  : Container(),
-              const VerticalDivider(color: Colors.transparent),
-            ],
-          ),
-        ),
+      leading: Icon(themeToUse.toIcon() ?? Ionicons.color_palette_outline),
+      title: Text(title),
+      selected: bloc.state.theme == themeToUse,
+      trailing: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          bloc.state.theme == themeToUse
+              ? const Icon(Ionicons.checkmark_outline)
+              : const SizedBox(height: 0),
+        ],
       ),
     );
   }

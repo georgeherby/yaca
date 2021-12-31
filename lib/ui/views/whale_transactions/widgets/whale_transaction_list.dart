@@ -2,12 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:yaca/core/config/currency.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
@@ -26,8 +25,7 @@ class WhaleTransactionList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var currencySymbol =
-        BlocProvider.of<AppSettingsBloc>(context).state.currency.currencySymbol;
+    var currencyString = AvailableCurrencies.usd.currencyString;
 
     return Padding(
       padding: getValueForScreenType<EdgeInsets>(
@@ -86,7 +84,7 @@ class WhaleTransactionList extends StatelessWidget {
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           Text(
-                            'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencySymbol, context)}',
+                            'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencyString, context)}',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                           Text(
@@ -103,7 +101,7 @@ class WhaleTransactionList extends StatelessWidget {
                         children: [
                           Text(
                             transaction.amountUsd.currencyFormatWithPrefix(
-                                currencySymbol, context, false),
+                                currencyString, context, false),
                             textAlign: TextAlign.end,
                           ),
                           const SizedBox(height: 8),
