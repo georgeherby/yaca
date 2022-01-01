@@ -36,7 +36,7 @@ extension CurrencyFormatters on num {
 
   String volumeFormat(BuildContext context) {
     var formatString = toInt() >= 2 || toInt() <= -2
-        ? '##,###,###,###.00'
+        ? '##,###,###,###.##'
         : '##,###,###,##0.00###';
 
     return NumberFormat(

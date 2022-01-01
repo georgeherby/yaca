@@ -61,7 +61,8 @@ class AssetRespository {
   }
 
   Future<AssetHistory> _core(String url) async {
-    final response = await _client.get(Uri.parse(url));
+    final response =
+        await _client.get(Uri.parse(url)).timeout(const Duration(seconds: 20));
     if (response.statusCode == 429) {
       debugPrint(response.headers.toString());
       debugPrint('Rate Limted!');

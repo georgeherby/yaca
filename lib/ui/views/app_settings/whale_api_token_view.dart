@@ -58,43 +58,46 @@ class WhaleApiTokenView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: SecondaryButton(
-                      onTap: () async {
-                        await RepositoryProvider.of<ApiTokensPreference>(
-                                context)
-                            .removeWhalesApiToken();
-                        tokenController.clear();
-                        BlocProvider.of<
-                                    FilterListBloc<WhaleTransaction, String>>(
-                                context)
-                            .loadElements();
-                      },
-                      buttonText: 'Clear',
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: PrimaryButton(
-                      buttonText: 'Save',
-                      onTap: () async {
-                        if (_formKey.currentState!.validate()) {
-                          debugPrint('Saving ${tokenController.text}');
+              SizedBox(
+                height: kMobileButtonButtonSize,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: SecondaryButton(
+                        onTap: () async {
                           await RepositoryProvider.of<ApiTokensPreference>(
                                   context)
-                              .saveWhalesApiToken(tokenController.text);
+                              .removeWhalesApiToken();
+                          tokenController.clear();
                           BlocProvider.of<
                                       FilterListBloc<WhaleTransaction, String>>(
                                   context)
                               .loadElements();
-                          await context.router.pop();
-                        }
-                      },
+                        },
+                        buttonText: 'Clear',
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: PrimaryButton(
+                        buttonText: 'Save',
+                        onTap: () async {
+                          if (_formKey.currentState!.validate()) {
+                            debugPrint('Saving ${tokenController.text}');
+                            await RepositoryProvider.of<ApiTokensPreference>(
+                                    context)
+                                .saveWhalesApiToken(tokenController.text);
+                            BlocProvider.of<
+                                    FilterListBloc<WhaleTransaction,
+                                        String>>(context)
+                                .loadElements();
+                            await context.router.pop();
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ]),
           ),

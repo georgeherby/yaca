@@ -30,7 +30,7 @@ class WhaleTransactionList extends StatelessWidget {
     return Padding(
       padding: getValueForScreenType<EdgeInsets>(
         context: context,
-        mobile: EdgeInsets.zero,
+        mobile: const EdgeInsets.symmetric(horizontal: 8.0),
         tablet: const EdgeInsets.only(bottom: 8.0),
         desktop: const EdgeInsets.only(bottom: 8.0),
       ),
@@ -46,7 +46,6 @@ class WhaleTransactionList extends StatelessWidget {
         child: RefreshableList(
           onRefresh: onRefresh,
           child: ListView.separated(
-            physics: const ClampingScrollPhysics(),
             separatorBuilder: (BuildContext context, int index) {
               return const Divider(
                   indent: sidePadding,
@@ -60,58 +59,51 @@ class WhaleTransactionList extends StatelessWidget {
               var date = DateTime.fromMillisecondsSinceEpoch(
                   transaction.timestamp * 1000);
               var formatDate = DateFormat('HH:mm EEE dd MMM');
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 12.0, horizontal: sidePadding),
-                child: Row(
+
+              return ListTile(
+                isThreeLine: true,
+                leading: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      AssetTextIcon(
+                        iconSize: kIconSize,
+                        assetSymbol: transaction.symbol,
+                      ),
+                    ]),
+                title: Text(
+                  "${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"}",
+                ),
+                subtitle: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    AssetTextIcon(
-                      iconSize: kIconSize,
-                      assetSymbol: transaction.symbol,
+                    const SizedBox(height: 2),
+                    Text(
+                      'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencyString, context)}',
+                      maxLines: 1,
                     ),
-                    const SizedBox(width: sidePadding),
-                    Expanded(
-                      flex: 20,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "${transaction.from.owner ?? "Unknown"} to ${transaction.to.owner ?? "Unknown"}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyText1
-                                ?.copyWith(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'Avg ${(transaction.amountUsd / transaction.amount).currencyFormatWithPrefix(currencyString, context)}',
-                            style: Theme.of(context).textTheme.bodyText2,
-                          ),
-                          Text(
-                            formatDate.format(date),
-                            style: Theme.of(context).textTheme.caption,
-                          ),
-                        ],
-                      ),
+                    const SizedBox(height: 8),
+                    Text(
+                      formatDate.format(date),
+                      style: Theme.of(context).textTheme.caption,
+                      maxLines: 1,
                     ),
-                    Expanded(
-                      flex: 10,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            transaction.amountUsd.currencyFormatWithPrefix(
-                                currencyString, context, false),
-                            textAlign: TextAlign.end,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            '${transaction.amount} ${transaction.symbol.toUpperCase()}',
-                            textAlign: TextAlign.end,
-                          ),
-                        ],
-                      ),
-                    )
+                  ],
+                ),
+                trailing: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      transaction.amountUsd.currencyFormatWithPrefix(
+                          currencyString, context, false),
+                      textAlign: TextAlign.end,
+                    ),
+                    Text(
+                      '${transaction.amount.volumeFormat(context)} ${transaction.symbol.toUpperCase()}',
+                      textAlign: TextAlign.end,
+                    ),
                   ],
                 ),
               );

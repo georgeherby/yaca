@@ -61,7 +61,7 @@ class _HomePageState extends State<HomePage> {
                         height: kBottomNavBarIconSize,
                         width: kBottomNavBarIconSize,
                         color: Theme.of(context).iconTheme.color),
-                    label: 'Whales')
+                    label: 'Whale transactions'),
               ],
             )
           : null,
@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                                     ?.color,
                               ),
                               label: const Text(
-                                'Whales',
+                                'Whale trasactions',
                               ))
                         ],
                       ),

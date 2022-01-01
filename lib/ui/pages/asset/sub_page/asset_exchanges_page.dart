@@ -11,6 +11,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/asset/widgets/exchange_list_with_filter.dart';
+import 'package:yaca/ui/views/errors/error_view.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 
 class AssetExchangePage extends StatelessWidget {
@@ -54,14 +55,9 @@ class AssetExchangePage extends StatelessWidget {
               );
             } else if (state is SingleAssetExchangeError) {
               debugPrint(state.error.toString());
-              return Center(
-                child: Column(
-                  children: [
-                    const Icon(Ionicons.alert_circle_outline),
-                    Text(state.error)
-                  ],
-                ),
-              );
+              return ErrorView(error: state.error);
+                  
+              
             } else {
               debugPrint('Loading');
               return Center(

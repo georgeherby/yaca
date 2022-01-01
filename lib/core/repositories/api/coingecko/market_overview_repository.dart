@@ -19,8 +19,10 @@ class MarketOverviewRepository {
 
     const assetsPerPage = 200;
 
-    final response = await _client.get(Uri.parse(
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=$currencyCode&order=marketCap_desc&per_page=$assetsPerPage&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'));
+    final response = await _client
+        .get(Uri.parse(
+            'https://api.coingecko.com/api/v3/coins/markets?vs_currency=$currencyCode&order=marketCap_desc&per_page=$assetsPerPage&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d'))
+        .timeout(const Duration(seconds: 20));
 
     return marketCoinFromJson(response.body);
   }

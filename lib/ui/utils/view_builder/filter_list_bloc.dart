@@ -52,34 +52,36 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
   /// loading indicator.
   void refreshElements({F? filter}) => add(RefreshList(filter));
 
-  void _onLoadList(LoadList<F> event, Emitter<ViewState> emit) {
+  void _onLoadList(LoadList<F> event, Emitter<ViewState> emit) async {
     emit(const Loading());
-    _getListState(filter, emit);
+    await _getListState(filter, emit);
   }
 
-  void _onRefreshList(RefreshList<F> event, Emitter<ViewState> emit) {
+  void _onRefreshList(RefreshList<F> event, Emitter<ViewState> emit) async {
     if (_isRefreshPossible(event)) {
       final elements = _getCurrentStateElements();
       emit(Refreshing(elements));
-      _getListState(filter, emit);
+      await _getListState(filter, emit);
     }
   }
 
-  //TODO Review if they should refresh on failure
   bool _isRefreshPossible(ListEvent event) =>
-      state is Success || state is Failure || state is Empty;
+      state is Success ||
+      state is Failure ||
+      state is RateLimited ||
+      state is Empty;
 
   List<T> _getCurrentStateElements() =>
       (state is Success<List<T>>) ? (state as Success<List<T>>).data : [];
 
-  void _getListState(F? filter, Emitter emit) async {
+  Future _getListState(F? filter, Emitter emit) async {
     try {
       final elements = await _getElementsFromRepository(filter);
       emit(elements.isNotEmpty
-          ? Success<List<T>>(UnmodifiableListView(elements.reversed))
+          ? Success<List<T>>(UnmodifiableListView<T>(elements.reversed))
           : const Empty());
-    } on RateLimitException catch (e) {
-      emit(Failure(e));
+    } on RateLimitException catch (_) {
+      emit(const RateLimited());
     } on Exception catch (e, stacktrace) {
       debugPrint(stacktrace.toString());
       debugPrint(e.toString());
