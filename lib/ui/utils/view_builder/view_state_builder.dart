@@ -63,6 +63,7 @@ class ViewStateBuilder<T extends Object, B extends Bloc<dynamic, ViewState>>
     SuccessBuilder<T>? onSuccess,
     EmptyBuilder? onEmpty,
     ErrorBuilder? onError,
+    ErrorBuilder? onRateLimited,
     ViewStateBuilderCondition? buildWhen,
   }) : super(
           key: key,
@@ -82,6 +83,8 @@ class ViewStateBuilder<T extends Object, B extends Bloc<dynamic, ViewState>>
               return onEmpty?.call(context) ?? const SizedBox();
             } else if (state is Failure) {
               return onError?.call(context, state.error) ?? const SizedBox();
+            }else if (state is RateLimited) {
+              return onRateLimited?.call(context, state) ?? const SizedBox();
             } else {
               return const SizedBox();
             }

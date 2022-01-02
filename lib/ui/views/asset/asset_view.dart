@@ -8,7 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:html/dom.dart' as dom;
-import 'package:ionicons/ionicons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
@@ -23,16 +22,27 @@ import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:yaca/ui/views/asset/widgets/asset_graph_with_switcher.dart';
+import 'package:yaca/ui/views/errors/error_view.dart';
 import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 import 'package:yaca/ui/views/widgets/favourite_icon.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 import 'package:yaca/ui/views/widgets/primary_button.dart';
+import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class AssetView extends StatelessWidget {
   final String id;
   const AssetView({Key? key, required this.id}) : super(key: key);
+
+  void _onRefresh(BuildContext context) {
+    return BlocProvider.of<AssetBloc>(context).add(
+      AssetLoad(
+          currencyCode:
+              BlocProvider.of<AppSettingsBloc>(context).state.currency,
+          marketCoinId: id),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,441 +108,447 @@ class AssetView extends StatelessWidget {
       body: BlocBuilder<AssetBloc, AssetState>(
         builder: (context, state) {
           if (state is AssetLoaded) {
-            return SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  left: 8.0,
-                  right: 8.0,
-                  bottom: 8.0,
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildCard(
-                      context,
-                      true,
-                      AssetGraphWithSwitcher(
-                          allHistory: state.assetHistorySplits),
-                    ),
-                    const SizedBox(height: 8),
-                    _buildCard(
-                      context,
-                      false,
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Price (24h)',
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          const SizedBox(height: 4),
-                          IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('High',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text(marketCoin.high24h
-                                                  ?.currencyFormatWithPrefix(
-                                                      BlocProvider.of<
-                                                                  AppSettingsBloc>(
-                                                              context)
-                                                          .state
-                                                          .currency
-                                                          .currencyString,
-                                                      context) ??
-                                              '-'),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Low',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text(marketCoin.low24h
-                                                  ?.currencyFormatWithPrefix(
-                                                      BlocProvider.of<
-                                                                  AppSettingsBloc>(
-                                                              context)
-                                                          .state
-                                                          .currency
-                                                          .currencyString,
-                                                      context) ??
-                                              '-')
-                                        ],
-                                      ),
-                                    ],
+            return RefreshableList(
+              onRefresh: () async => _onRefresh(context),
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 8.0,
+                    right: 8.0,
+                    bottom: 8.0,
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildCard(
+                        context,
+                        true,
+                        AssetGraphWithSwitcher(
+                            allHistory: state.assetHistorySplits),
+                      ),
+                      const SizedBox(height: 8),
+                      _buildCard(
+                        context,
+                        false,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Price (24h)',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            const SizedBox(height: 4),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('High',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text(marketCoin.high24h
+                                                    ?.currencyFormatWithPrefix(
+                                                        BlocProvider.of<
+                                                                    AppSettingsBloc>(
+                                                                context)
+                                                            .state
+                                                            .currency
+                                                            .currencyString,
+                                                        context) ??
+                                                '-'),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Low',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text(marketCoin.low24h
+                                                    ?.currencyFormatWithPrefix(
+                                                        BlocProvider.of<
+                                                                    AppSettingsBloc>(
+                                                                context)
+                                                            .state
+                                                            .currency
+                                                            .currencyString,
+                                                        context) ??
+                                                '-')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                VerticalDivider(
-                                    color:
-                                        Theme.of(context).dividerTheme.color),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Price',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          DeltaWithArrow(
-                                              marketCoin.priceChange24h,
+                                  VerticalDivider(
+                                      color:
+                                          Theme.of(context).dividerTheme.color),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Price',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            DeltaWithArrow(
+                                                marketCoin.priceChange24h,
+                                                textSize: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    ?.fontSize),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Percentage',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            DeltaWithArrow(
+                                              marketCoin.priceChangePercentage24h !=
+                                                      null
+                                                  ? marketCoin
+                                                      .priceChangePercentage24h!
+                                                  : null,
+                                              isPercentage: true,
                                               textSize: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
-                                                  ?.fontSize),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Percentage',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          DeltaWithArrow(
-                                            marketCoin.priceChangePercentage24h !=
-                                                    null
-                                                ? marketCoin
-                                                    .priceChangePercentage24h!
-                                                : null,
-                                            isPercentage: true,
-                                            textSize: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                ?.fontSize,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
+                                                  ?.fontSize,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _buildCard(
-                      context,
-                      false,
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Market Stats',
-                              style: Theme.of(context).textTheme.headline6),
-                          const SizedBox(height: 4),
-                          IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Mkt Cap',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text('\$' +
-                                              compactNumberFormat(context)
-                                                  .format(marketCoin.marketCap))
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Circ Supply',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text(compactNumberFormat(context)
-                                              .format(
-                                                  marketCoin.circulatingSupply))
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Tot Supply',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          marketCoin.totalSupply != null
-                                              ? Text(compactNumberFormat(
-                                                      context)
-                                                  .format(
-                                                      marketCoin.totalSupply))
-                                              : const Text('-')
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Max Supply',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          marketCoin.maxSupply != null
-                                              ? Text(compactNumberFormat(
-                                                      context)
-                                                  .format(marketCoin.maxSupply))
-                                              : const Text('-')
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                VerticalDivider(
-                                    color:
-                                        Theme.of(context).dividerTheme.color),
-                                Expanded(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Rank',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text(marketCoin.marketCapRank
-                                              .toString())
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Tot Vol',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text(compactNumberFormat(context)
-                                              .format(marketCoin.totalVolume))
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Ath',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          Text(marketCoin.ath
-                                                  ?.currencyFormatWithPrefix(
-                                                      '\$', context) ??
-                                              '-'),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Ath Change',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .caption),
-                                          DeltaWithArrow(
-                                            marketCoin.athChangePercentage !=
-                                                    null
-                                                ? marketCoin
-                                                    .athChangePercentage!
-                                                : null,
-                                            isPercentage: true,
-                                            textSize: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                ?.fontSize,
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    _buildCard(
-                      context,
-                      false,
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Sentiment',
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          const SizedBox(height: 8),
-                          Row(children: [
-                            Expanded(
-                              flex: (state.singleAsset
-                                          .sentimentVotesDownPercentage *
-                                      100)
-                                  .toInt(),
-                              child: Container(
-                                height: (kCornerRadiusCirlcular * 2) +
-                                    kCornerRadiusCirlcular,
-                                decoration: BoxDecoration(
-                                  color: false
-                                      .toPositiveNegativeColorFromBool(context),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft:
-                                        Radius.circular(kCornerRadiusCirlcular),
-                                    bottomLeft:
-                                        Radius.circular(kCornerRadiusCirlcular),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    state.singleAsset
-                                        .sentimentVotesDownPercentage
-                                        .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        ?.copyWith(color: Colors.white),
-                                  ),
-                                ),
+                                ],
                               ),
                             ),
-                            const Spacer(),
-                            Expanded(
-                              flex: (state.singleAsset
-                                          .sentimentVotesUpPercentage *
-                                      100)
-                                  .toInt(),
-                              child: Container(
-                                height: (kCornerRadiusCirlcular * 2) +
-                                    kCornerRadiusCirlcular,
-                                decoration: BoxDecoration(
-                                  color: true
-                                      .toPositiveNegativeColorFromBool(context),
-                                  borderRadius: const BorderRadius.only(
-                                    topRight:
-                                        Radius.circular(kCornerRadiusCirlcular),
-                                    bottomRight:
-                                        Radius.circular(kCornerRadiusCirlcular),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    state.singleAsset.sentimentVotesUpPercentage
-                                        .toString(),
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyText1
-                                        ?.copyWith(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ]),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        SizedBox(
-                          height: 40,
-                          child: PrimaryButton(
-                            onTap: () async {
-                              BlocProvider.of<SingleAssetExchangeBloc>(context)
-                                  .add(SingleAssetExchangeLoad(
-                                      marketCoinId: marketCoin.id));
-                              await context.router
-                                  .push(const AssetExchangeRoute());
-                            },
-                            buttonText: 'View markets',
-                          ),
+                          ],
                         ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    _buildCard(
-                      context,
-                      false,
+                      ),
+                      const SizedBox(height: 8),
+                      _buildCard(
+                        context,
+                        false,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Market Stats',
+                                style: Theme.of(context).textTheme.headline6),
+                            const SizedBox(height: 4),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Mkt Cap',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text('\$' +
+                                                compactNumberFormat(context)
+                                                    .format(
+                                                        marketCoin.marketCap))
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Circ Supply',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text(compactNumberFormat(context)
+                                                .format(marketCoin
+                                                    .circulatingSupply))
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Tot Supply',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            marketCoin.totalSupply != null
+                                                ? Text(compactNumberFormat(
+                                                        context)
+                                                    .format(
+                                                        marketCoin.totalSupply))
+                                                : const Text('-')
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Max Supply',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            marketCoin.maxSupply != null
+                                                ? Text(compactNumberFormat(
+                                                        context)
+                                                    .format(
+                                                        marketCoin.maxSupply))
+                                                : const Text('-')
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  VerticalDivider(
+                                      color:
+                                          Theme.of(context).dividerTheme.color),
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Rank',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text(marketCoin.marketCapRank
+                                                .toString())
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Tot Vol',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text(compactNumberFormat(context)
+                                                .format(marketCoin.totalVolume))
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Ath',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            Text(marketCoin.ath
+                                                    ?.currencyFormatWithPrefix(
+                                                        '\$', context) ??
+                                                '-'),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text('Ath Change',
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .caption),
+                                            DeltaWithArrow(
+                                              marketCoin.athChangePercentage !=
+                                                      null
+                                                  ? marketCoin
+                                                      .athChangePercentage!
+                                                  : null,
+                                              isPercentage: true,
+                                              textSize: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  ?.fontSize,
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      _buildCard(
+                        context,
+                        false,
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Sentiment',
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            const SizedBox(height: 8),
+                            Row(children: [
+                              Expanded(
+                                flex: (state.singleAsset
+                                            .sentimentVotesDownPercentage *
+                                        100)
+                                    .toInt(),
+                                child: Container(
+                                  height: (kCornerRadiusCirlcular * 2) +
+                                      kCornerRadiusCirlcular,
+                                  decoration: BoxDecoration(
+                                    color: false
+                                        .toPositiveNegativeColorFromBool(
+                                            context),
+                                    borderRadius: const BorderRadius.only(
+                                      topLeft: Radius.circular(
+                                          kCornerRadiusCirlcular),
+                                      bottomLeft: Radius.circular(
+                                          kCornerRadiusCirlcular),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      state.singleAsset
+                                          .sentimentVotesDownPercentage
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              const Spacer(),
+                              Expanded(
+                                flex: (state.singleAsset
+                                            .sentimentVotesUpPercentage *
+                                        100)
+                                    .toInt(),
+                                child: Container(
+                                  height: (kCornerRadiusCirlcular * 2) +
+                                      kCornerRadiusCirlcular,
+                                  decoration: BoxDecoration(
+                                    color: true.toPositiveNegativeColorFromBool(
+                                        context),
+                                    borderRadius: const BorderRadius.only(
+                                      topRight: Radius.circular(
+                                          kCornerRadiusCirlcular),
+                                      bottomRight: Radius.circular(
+                                          kCornerRadiusCirlcular),
+                                    ),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      state.singleAsset
+                                          .sentimentVotesUpPercentage
+                                          .toString(),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          ?.copyWith(color: Colors.white),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ]),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
                       Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Description',
-                              style: Theme.of(context).textTheme.headline6),
-                          const SizedBox(height: 8),
-                          ScreenBuilder(
-                            mobile:
-                                _buildHtml(state.singleAsset.description.en),
-                            tablet:
-                                _buildHtml(state.singleAsset.description.en),
-                            desktop:
-                                _buildHtml(state.singleAsset.description.en),
+                          SizedBox(
+                            height: kMobileButtonButtonSize,
+                            child: PrimaryButton(
+                              onTap: () async {
+                                BlocProvider.of<SingleAssetExchangeBloc>(
+                                        context)
+                                    .add(SingleAssetExchangeLoad(
+                                        marketCoinId: marketCoin.id));
+                                await context.router
+                                    .push(const AssetExchangeRoute());
+                              },
+                              buttonText: 'View markets',
+                            ),
                           ),
-                          const SizedBox(height: 4),
                         ],
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      _buildCard(
+                        context,
+                        false,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Description',
+                                style: Theme.of(context).textTheme.headline6),
+                            const SizedBox(height: 8),
+                            ScreenBuilder(
+                              mobile:
+                                  _buildHtml(state.singleAsset.description.en),
+                              tablet:
+                                  _buildHtml(state.singleAsset.description.en),
+                              desktop:
+                                  _buildHtml(state.singleAsset.description.en),
+                            ),
+                            const SizedBox(height: 4),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
           } else if (state is AssetError) {
             debugPrint(state.error.toString());
-            return Center(
-              child: Column(
-                children: [
-                  const Icon(Ionicons.alert_circle_outline),
-                  Text(state.error)
-                ],
-              ),
-            );
+            return ErrorView(
+                onRefresh: () async => _onRefresh(context),
+                error: state.error.toString());
           }
-          debugPrint('Loading');
+          debugPrint('Loading ${marketCoin.name}');
           return Center(
             child: PlatformCircularProgressIndicator(),
           );

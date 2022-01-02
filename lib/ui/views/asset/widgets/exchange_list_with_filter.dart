@@ -73,13 +73,14 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
           style: Theme.of(context).textTheme.bodyText1),
       const Divider(color: Colors.transparent, height: 8),
       Wrap(
+        runAlignment: WrapAlignment.start,
         alignment: WrapAlignment.start,
-        spacing: 4,
-        runSpacing: 4,
+        spacing: 0,
+        runSpacing: 0,
         children: List.generate(
           currencyFilter.length,
           (index) => FilterChip(
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+            materialTapTargetSize: MaterialTapTargetSize.padded,
             selected: currencyFilter[index].selected,
             checkmarkColor: Theme.of(context).chipTheme.checkmarkColor,
             label: Text(

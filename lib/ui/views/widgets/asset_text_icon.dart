@@ -14,13 +14,16 @@ class AssetTextIcon extends StatelessWidget {
     return CircleAvatar(
       minRadius: iconSize / 2,
       maxRadius: iconSize / 2,
-      backgroundColor: Theme.of(context).colorScheme.secondary,
+      backgroundColor: Theme.of(context).primaryColor,
       child: Text(
         assetSymbol.toUpperCase(),
         overflow: TextOverflow.clip,
         maxLines: 1,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.caption,
+        style: Theme.of(context)
+            .textTheme
+            .caption
+            ?.copyWith(color: Colors.white.withOpacity(0.87)),
       ),
     );
   }

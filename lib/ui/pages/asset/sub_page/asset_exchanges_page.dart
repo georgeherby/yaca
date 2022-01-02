@@ -4,13 +4,13 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/asset/widgets/exchange_list_with_filter.dart';
+import 'package:yaca/ui/views/errors/error_view.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 
 class AssetExchangePage extends StatelessWidget {
@@ -54,14 +54,9 @@ class AssetExchangePage extends StatelessWidget {
               );
             } else if (state is SingleAssetExchangeError) {
               debugPrint(state.error.toString());
-              return Center(
-                child: Column(
-                  children: [
-                    const Icon(Ionicons.alert_circle_outline),
-                    Text(state.error)
-                  ],
-                ),
-              );
+              return ErrorView(error: state.error);
+                  
+              
             } else {
               debugPrint('Loading');
               return Center(

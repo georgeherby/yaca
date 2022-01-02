@@ -80,3 +80,15 @@ class Failure extends ViewState {
   @override
   String toString() => 'Failure: $error';
 }
+
+/// State indicating that loading or refreshing has failed. It contains an
+/// exact [error] that has occurred.
+class RateLimited extends ViewState {
+  const RateLimited();
+
+  @override
+  List<Object?> get props => [];
+
+  @override
+  String toString() => 'RateLimited';
+}

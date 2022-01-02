@@ -89,6 +89,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       final sorted = _sortBy(_marketCoins, sortType, sortOrder);
 
       emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
+    } on TimeoutException catch (_) {
+      emit(const AssetOverviewTimeout());
     } catch (e, stacktrace) {
       debugPrint('Error $e');
       debugPrint('Error $stacktrace');

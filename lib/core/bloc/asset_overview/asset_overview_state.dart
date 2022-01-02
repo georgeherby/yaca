@@ -40,3 +40,10 @@ class AssetOverviewError extends AssetOverviewState {
   @override
   List<Object> get props => [error];
 }
+
+class AssetOverviewTimeout extends AssetOverviewState {
+  const AssetOverviewTimeout();
+
+  @override
+  List<Object> get props => [];
+}

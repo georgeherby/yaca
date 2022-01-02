@@ -9,16 +9,16 @@ import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/exceptions/missing_config_exception.dart';
-import 'package:yaca/core/exceptions/rate_limit_exception.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:yaca/ui/utils/view_builder/view_state.dart';
 import 'package:yaca/ui/utils/view_builder/view_state_builder.dart';
+import 'package:yaca/ui/views/errors/error_view.dart';
+import 'package:yaca/ui/views/errors/rate_limit_view.dart';
 import 'package:yaca/ui/views/whale_transactions/widgets/whale_transaction_list.dart';
 import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
-import 'package:yaca/ui/views/widgets/primary_button.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({
@@ -80,7 +80,8 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         onLoading: (context) =>
             Center(child: PlatformCircularProgressIndicator()),
         onSuccess: (context, transactions) => WhaleTransactionList(
-            transactions: transactions, onRefresh: () => _refreshPosts()),
+            transactions: transactions,
+            onRefresh: () async => await _refreshPosts()),
         onRefreshing: (context, posts) =>
             Center(child: PlatformCircularProgressIndicator()),
         onEmpty: (context) => const Center(child: Text('No posts found')),
@@ -89,22 +90,11 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
             return const Center(
                 child: Text('Enter your API token for Whale API'));
           }
-          if (error is RateLimitException) {
-            return Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text(
-                      'You are being rate limited. Please wait and try again'),
-                  const SizedBox(height: 8),
-                  PrimaryButton(
-                      buttonText: 'Reload', onTap: () => _refreshPosts())
-                ],
-              ),
-            );
-          }
-
-          return Center(child: Text(error.toString()));
+          return ErrorView(
+              onRefresh: () async => _refreshPosts(), error: error.toString());
+        },
+        onRateLimited: (BuildContext context, error) {
+          return RatelimtedView(onRefresh: () async => await _refreshPosts());
         },
       ),
     );

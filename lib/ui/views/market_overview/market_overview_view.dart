@@ -13,10 +13,12 @@ import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/extensions/sort_order.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
-import 'package:yaca/ui/views/market_overview/market_overview_view_error.dart';
+import 'package:yaca/ui/views/errors/error_view.dart';
+import 'package:yaca/ui/views/errors/timeout_view.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view_loading.dart';
 import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:yaca/ui/views/market_overview/widgets/assets_data_table.dart';
@@ -36,6 +38,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
 
   @override
   Widget build(BuildContext context) {
+    final chosenCurrency =
+        BlocProvider.of<AppSettingsBloc>(context).state.currency;
+
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
@@ -63,19 +68,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                     size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
                   ),
                   tooltip: 'Refresh',
-                  onPressed: () {
-                    BlocProvider.of<GlobalMarketBloc>(context).add(
-                        GlobalMarketLoad(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency));
-                    BlocProvider.of<AssetOverviewBloc>(context).add(
-                        AssetOverviewLoad(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency));
-                    return;
-                  })
+                  onPressed: () => _onRefresh(context, chosenCurrency))
               : SizedBox(
                   width: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22)
         ],
@@ -95,69 +88,72 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ChoiceChip(
-                                tooltip: _showAllAssets
-                                    ? "Show favourites only"
-                                    : "Show all assets",
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                onSelected: (selected) {
-                                  setState(() {
-                                    _showAllAssets = !selected;
-                                  });
-                                },
-                                selected: !_showAllAssets,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        kCornerRadiusCirlcular)),
-                                label: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12.0, horizontal: 8),
-                                  child: Icon(
-                                      _showAllAssets
-                                          ? Ionicons.star_outline
-                                          : Ionicons.star,
-                                      size: 16,
-                                      color: _showAllAssets
-                                          ? Theme.of(context).iconTheme.color
-                                          : kYellow),
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          child: SizedBox(
+                            height: kMobileIconButtonSize,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                ChoiceChip(
+                                  tooltip: _showAllAssets
+                                      ? "Show favourites only"
+                                      : "Show all assets",
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      _showAllAssets = !selected;
+                                    });
+                                  },
+                                  selected: !_showAllAssets,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          kCornerRadiusCirlcular)),
+                                  label: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0, horizontal: 8),
+                                    child: Icon(
+                                        _showAllAssets
+                                            ? Ionicons.star_outline
+                                            : Ionicons.star,
+                                        size: 16,
+                                        color: _showAllAssets
+                                            ? Theme.of(context).iconTheme.color
+                                            : kYellow),
+                                  ),
                                 ),
-                              ),
-                              ActionChip(
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.shrinkWrap,
-                                onPressed: () async {
-                                  await showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return SafeArea(
-                                            child: SortBottomSheet(
-                                          assets: state.allAssets,
-                                          sortType: state.sortType,
-                                          sortOrder: state.sortOrder,
-                                        ));
-                                      });
-                                },
-                                avatar: Icon(
-                                  state.sortOrder.isAscending()
-                                      ? Ionicons.arrow_up_outline
-                                      : Ionicons.arrow_down_outline,
-                                  size: 16,
-                                  color: Theme.of(context).iconTheme.color,
-                                ),
-                                labelPadding: const EdgeInsets.all(4.0),
-                                padding: const EdgeInsets.all(8.0),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        kCornerRadiusCirlcular)),
-                                label: Text(_getLabelForCurrentSortType(
-                                    state.sortType)),
-                              )
-                            ],
+                                ActionChip(
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  onPressed: () async {
+                                    await showModalBottomSheet(
+                                        context: context,
+                                        builder: (context) {
+                                          return SafeArea(
+                                              child: SortBottomSheet(
+                                            assets: state.allAssets,
+                                            sortType: state.sortType,
+                                            sortOrder: state.sortOrder,
+                                          ));
+                                        });
+                                  },
+                                  avatar: Icon(
+                                    state.sortOrder.isAscending()
+                                        ? Ionicons.arrow_up_outline
+                                        : Ionicons.arrow_down_outline,
+                                    size: 16,
+                                    color: Theme.of(context).iconTheme.color,
+                                  ),
+                                  labelPadding: const EdgeInsets.all(4.0),
+                                  padding: const EdgeInsets.all(8.0),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(
+                                          kCornerRadiusCirlcular)),
+                                  label: Text(_getLabelForCurrentSortType(
+                                      state.sortType)),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                         Expanded(
@@ -166,19 +162,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                             marketCoins: _showAllAssets
                                 ? state.allAssets
                                 : state.favouriteAssets,
-                            onRefresh: () async {
-                              BlocProvider.of<GlobalMarketBloc>(context).add(
-                                  GlobalMarketLoad(
-                                      BlocProvider.of<AppSettingsBloc>(context)
-                                          .state
-                                          .currency));
-                              BlocProvider.of<AssetOverviewBloc>(context).add(
-                                  AssetOverviewLoad(
-                                      BlocProvider.of<AppSettingsBloc>(context)
-                                          .state
-                                          .currency));
-                              return;
-                            },
+                            onRefresh: () async =>
+                                _onRefresh(context, chosenCurrency),
                             onFavourite: (MarketCoin marketCoin,
                                     bool isChecked) =>
                                 BlocProvider.of<AssetOverviewBloc>(context).add(
@@ -190,7 +175,13 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       ],
                     );
                   } else if (state is AssetOverviewError) {
-                    return MarketOverviewViewError(state.error);
+                    return ErrorView(
+                        onRefresh: () => _onRefresh(context, chosenCurrency),
+                        error: state.error);
+                  } else if (state is AssetOverviewTimeout) {
+                    return TimeoutView(
+                      onRefresh: () => _onRefresh(context, chosenCurrency),
+                    );
                   }
                   return const MarketOverviewViewLoading();
                 },
@@ -200,6 +191,13 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
         ),
       ),
     );
+  }
+
+  void _onRefresh(BuildContext context, ChosenCurrency chosenCurrency) {
+    BlocProvider.of<GlobalMarketBloc>(context)
+        .add(GlobalMarketLoad(chosenCurrency));
+    BlocProvider.of<AssetOverviewBloc>(context)
+        .add(AssetOverviewLoad(chosenCurrency));
   }
 
   String _getLabelForCurrentSortType(SortType currentSortType) {
