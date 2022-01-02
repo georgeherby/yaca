@@ -14,13 +14,19 @@ class AssetOverviewLoad extends AssetOverviewEvent {
 
 class AssetFavourited extends AssetOverviewEvent {
   final List<MarketCoin> allMarketCoins;
-  final MarketCoin marketCoin;
+  final String symbol;
+  final String name;
+  final String id;
   final bool addToFavourite;
   const AssetFavourited(
-      this.allMarketCoins, this.marketCoin, this.addToFavourite);
+      {required this.allMarketCoins,
+      required this.symbol,
+      required this.name,
+      required this.id,
+      required this.addToFavourite});
 
   @override
-  List<Object> get props => [allMarketCoins, marketCoin, addToFavourite];
+  List<Object> get props => [allMarketCoins, symbol, name, id, addToFavourite];
 }
 
 class AssetSorted extends AssetOverviewEvent {

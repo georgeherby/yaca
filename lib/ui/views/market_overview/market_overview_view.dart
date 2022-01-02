@@ -2,9 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:yaca/app_router.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -69,8 +71,10 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                   ),
                   tooltip: 'Refresh',
                   onPressed: () => _onRefresh(context, chosenCurrency))
-              : SizedBox(
-                  width: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22)
+              : IconButton(
+                  icon: const Icon(Ionicons.search_outline),
+                  onPressed: () => context.router.push(const SearchRoute()),
+                )
         ],
         bottom: AppBarBottom(),
       ),
@@ -88,7 +92,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: SizedBox(
                             height: kMobileIconButtonSize,
                             child: Row(
@@ -167,8 +171,12 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                             onFavourite: (MarketCoin marketCoin,
                                     bool isChecked) =>
                                 BlocProvider.of<AssetOverviewBloc>(context).add(
-                              AssetFavourited(
-                                  state.allAssets, marketCoin, isChecked),
+                               AssetFavourited(
+                                  allMarketCoins: state.allAssets,
+                                  symbol: marketCoin.symbol,
+                                  name: marketCoin.name,
+                                  id: marketCoin.id,
+                                  addToFavourite: isChecked),
                             ),
                           ),
                         ),

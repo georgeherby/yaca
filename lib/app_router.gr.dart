@@ -19,6 +19,10 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const HomePage());
     },
+    SearchRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SearchPage());
+    },
     AssetRoute.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<AssetRouteArgs>(
@@ -61,6 +65,7 @@ class _$AppRouter extends RootStackRouter {
   @override
   List<RouteConfig> get routes => [
         RouteConfig(HomeRoute.name, path: '/'),
+        RouteConfig(SearchRoute.name, path: '/search'),
         RouteConfig(AssetRoute.name, path: '/asset/:assetId', children: [
           RouteConfig(AssetDetailsRoute.name,
               path: '', parent: AssetRoute.name),
@@ -86,6 +91,14 @@ class HomeRoute extends PageRouteInfo<void> {
   const HomeRoute() : super(HomeRoute.name, path: '/');
 
   static const String name = 'HomeRoute';
+}
+
+/// generated route for
+/// [SearchPage]
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute() : super(SearchRoute.name, path: '/search');
+
+  static const String name = 'SearchRoute';
 }
 
 /// generated route for

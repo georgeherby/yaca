@@ -32,8 +32,8 @@ void main() {
     blocTest(
         'verify state is SingleAssetExchangeLoaded when bloc is event is SingleAssetExchangeLoad',
         build: () {
-          when(() => mockExchangeTickerRespository.getAllExchangeTickers(any()))
-              .thenAnswer((invocation) => Future.value([binanceBtcTicker]));
+          when(() => mockExchangeTickerRespository.getExchangeTickerForCoin(any()))
+              .thenAnswer((invocation) => Future.value(binanceBtcTicker));
 
           return SingleAssetExchangeBloc(
               exchangeTickerRespository: mockExchangeTickerRespository);
@@ -42,12 +42,12 @@ void main() {
             bloc.add(SingleAssetExchangeLoad(marketCoinId: coinId)),
         expect: () => [
               const SingleAssetExchangeLoading(),
-              SingleAssetExchangeLoaded([binanceBtcTicker])
+              SingleAssetExchangeLoaded(binanceBtcTicker.tickers)
             ]);
     blocTest(
         'verify state is SingleAssetExchangeError when bloc is event is SingleAssetExchangeLoad but API fails',
         build: () {
-          when(() => mockExchangeTickerRespository.getAllExchangeTickers(any()))
+          when(() => mockExchangeTickerRespository.getExchangeTickerForCoin(any()))
               .thenThrow(Exception('Error'));
 
           return SingleAssetExchangeBloc(

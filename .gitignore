@@ -56,3 +56,4 @@ ios/build/Pods.build/
 .firebase/
 
 android/app/google-services.json
+cctx/

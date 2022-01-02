@@ -178,7 +178,8 @@ void main() {
         },
         expect: () => [
               const AssetOverviewLoading(),
-              AssetOverviewError(Exception('Error getting favourites').toString())
+              AssetOverviewError(
+                  Exception('Error getting favourites').toString())
             ]);
   });
   group('AssetOverviewBloc - favouriting', () {
@@ -216,12 +217,14 @@ void main() {
 
       // Tap favourite
       bloc.add(AssetFavourited(
-        [
+        allMarketCoins: [
           btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ethMarketCoin
         ],
-        ethMarketCoin,
-        true,
+        symbol: ethMarketCoin.symbol,
+        id: ethMarketCoin.id,
+        name: ethMarketCoin.name,
+        addToFavourite: true,
       ));
 
       await expectLater(
@@ -272,12 +275,14 @@ void main() {
 
       // Tap favourite
       bloc.add(AssetFavourited(
-        [
+        allMarketCoins: [
           btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ethMarketCoin
         ],
-        btcMarketCoin,
-        false,
+        symbol: btcMarketCoin.symbol,
+        id: btcMarketCoin.id,
+        name: btcMarketCoin.name,
+        addToFavourite: false,
       ));
 
       await expectLater(

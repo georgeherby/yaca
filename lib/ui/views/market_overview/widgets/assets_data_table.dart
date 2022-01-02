@@ -100,7 +100,8 @@ class AssetsDataTable extends StatelessWidget {
                                   symbol: mc.symbol,
                                   name: mc.name,
                                   sparkline: mc.sparklineIn7d,
-                                  iconUrl: mc.image,
+                                  iconUrl: mc.image
+                                      .replaceFirst("/large/", "/small/"),
                                   sevenDayChange: mc.priceChange7d,
                                   sevenDayPercentageChange:
                                       mc.priceChangePercentage7dInCurrency,

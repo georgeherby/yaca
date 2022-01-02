@@ -16,10 +16,12 @@ import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/core/bloc/search/bloc/search_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/core/bloc/utils/all_bloc_observer.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/core/models/favourites.dart';
+import 'package:yaca/core/repositories/api/coingecko/coin_list_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
@@ -114,6 +116,10 @@ class _MyAppState extends State<MyApp> {
                   BlocProvider.of<AppSettingsBloc>(context).state.currency;
               return MultiBlocProvider(
                 providers: [
+                  BlocProvider(
+                      create: (_) => SearchBloc(
+                          coinListReposiotry: CoinListReposiotry(_client))
+                        ..add(const LoadAssetListEvent())),
                   BlocProvider(
                       create: (_) => FilterListBloc<WhaleTransaction, String>(
                           WhaleTransactionReposiotry(

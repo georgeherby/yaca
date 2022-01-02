@@ -92,8 +92,14 @@ class _HomePageState extends State<HomePage> {
                               icon: SvgPicture.asset(
                                 'assets/whale_outline.svg',
                                 semanticsLabel: 'Whale unselected icon',
-                                height: Theme.of(context).iconTheme.size,
-                                width: Theme.of(context).iconTheme.size,
+                                height: Theme.of(context)
+                                    .navigationRailTheme
+                                    .selectedIconTheme
+                                    ?.size,
+                                width: Theme.of(context)
+                                    .navigationRailTheme
+                                    .selectedIconTheme
+                                    ?.size,
                                 color: Theme.of(context)
                                     .navigationRailTheme
                                     .unselectedIconTheme
@@ -102,25 +108,33 @@ class _HomePageState extends State<HomePage> {
                               selectedIcon: SvgPicture.asset(
                                 'assets/whale_filled.svg',
                                 semanticsLabel: 'Whale selected icon',
-                                height: Theme.of(context).iconTheme.size,
-                                width: Theme.of(context).iconTheme.size,
+                                height: Theme.of(context)
+                                    .navigationRailTheme
+                                    .selectedIconTheme
+                                    ?.size,
+                                width: Theme.of(context)
+                                    .navigationRailTheme
+                                    .selectedIconTheme
+                                    ?.size,
                                 color: Theme.of(context)
                                     .navigationRailTheme
                                     .selectedIconTheme
                                     ?.color,
                               ),
                               label: const Text(
-                                'Whale trasactions',
+                                'Whales',
                               ))
                         ],
                       ),
                     ),
-                    IconButton(
-                      tooltip: 'Open settings',
-                      onPressed: () =>
-                          context.router.push(const AppSettingsHomeRoute()),
-                      icon: Icon(Ionicons.cog,
-                          size: Theme.of(context).iconTheme.size),
+                    SizedBox(
+                      child: IconButton(
+                        tooltip: 'Open settings',
+                        onPressed: () =>
+                            context.router.push(const AppSettingsHomeRoute()),
+                        icon: Icon(Ionicons.cog_outline,
+                            size: Theme.of(context).iconTheme.size),
+                      ),
                     ),
                     const SizedBox(height: 8)
                   ],

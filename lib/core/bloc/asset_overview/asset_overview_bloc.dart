@@ -48,7 +48,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   void onEvent(AssetOverviewEvent event) {
     if (event is AssetFavourited) {
       debugPrint(
-          'addToFavourite  = ${event.marketCoin.name} to ${event.addToFavourite}');
+          'addToFavourite  = ${event.name} to ${event.addToFavourite}');
     }
     super.onEvent(event);
   }
@@ -105,18 +105,18 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     var listOfAssets = [...event.allMarketCoins];
 
     var index =
-        listOfAssets.indexWhere((item) => item.id == event.marketCoin.id);
+        listOfAssets.indexWhere((item) => item.id == event.id);
 
     if (index > -1) {
       if (event.addToFavourite) {
         debugPrint('isChecked');
         var idForRecord = await _favouriteDao.insertFavourite(Favourites(
-            name: event.marketCoin.name, symbol: event.marketCoin.symbol));
+            name: event.name, symbol: event.symbol));
 
         debugPrint('Inserted id $idForRecord');
 
         final updatedAssets = listOfAssets.map((e) {
-          if (e.id == event.marketCoin.id) {
+          if (e.id == event.id) {
             return e.copyWith(favouriteCacheId: idForRecord);
           } else {
             return e;
@@ -135,7 +135,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         }
 
         final updatedAssets = listOfAssets.map((e) {
-          if (e.id == event.marketCoin.id) {
+          if (e.id == event.id) {
             return e.copyWith(favouriteCacheId: null);
           } else {
             return e;

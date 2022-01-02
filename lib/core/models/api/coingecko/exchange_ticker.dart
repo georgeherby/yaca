@@ -1,21 +1,23 @@
-class ExchangeTicker {
-  late String name;
-  late List<Tickers> tickers;
+class ExchangeTickers {
+  String name;
+  List<Tickers> tickers;
 
-  ExchangeTicker({required this.name, required this.tickers});
+  ExchangeTickers({required this.name, required this.tickers});
 
-  ExchangeTicker.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
+  factory ExchangeTickers.fromJson(Map<String, dynamic> json) {
+    var tickers = <Tickers>[];
+
     if (json['tickers'] != null) {
-      tickers = <Tickers>[];
       json['tickers'].forEach((v) {
         tickers.add(Tickers.fromJson(v));
       });
     }
+
+    return ExchangeTickers(name: json['name'], tickers: tickers);
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['tickers'] = tickers.map((v) => v.toJson()).toList();
 
@@ -24,84 +26,87 @@ class ExchangeTicker {
 }
 
 class Tickers {
-  late String base;
-  late String target;
-  late Market market;
-  late double last;
-  late double volume;
-  late double costToMoveUpUsd;
-  late double costToMoveDownUsd;
-  late ConvertedLast convertedLast;
-  late ConvertedVolume convertedVolume;
-  late String? trustScore;
-  late double? bidAskSpreadPercentage;
-  late String timestamp;
-  late String lastTradedAt;
-  late String lastFetchAt;
-  late bool isAnomaly;
-  late bool isStale;
-  late String? tradeUrl;
-  late String? tokenInfoUrl;
-  late String coinId;
-  late String? targetCoinId;
+  String base;
+  String target;
+  Market? market;
+  double last;
+  double volume;
+  ConvertedLast? convertedLast;
+  ConvertedLast? convertedVolume;
+  String? trustScore;
+  double? bidAskSpreadPercentage;
+  String timestamp;
+  String lastTradedAt;
+  String lastFetchAt;
+  bool isAnomaly;
+  bool isStale;
+  String? tradeUrl;
+  String? tokenInfoUrl;
+  String coinId;
+  String? targetCoinId;
 
-  Tickers({
-    required this.base,
-    required this.target,
-    required this.market,
-    required this.last,
-    required this.volume,
-    required this.costToMoveUpUsd,
-    required this.costToMoveDownUsd,
-    required this.convertedLast,
-    required this.convertedVolume,
-    required this.trustScore,
-    required this.bidAskSpreadPercentage,
-    required this.timestamp,
-    required this.lastTradedAt,
-    required this.lastFetchAt,
-    required this.isAnomaly,
-    required this.isStale,
-    required this.tradeUrl,
-    required this.tokenInfoUrl,
-    required this.coinId,
-    required this.targetCoinId,
-  });
+  Tickers(
+      {required this.base,
+      required this.target,
+      required this.market,
+      required this.last,
+      required this.volume,
+      required this.convertedLast,
+      required this.convertedVolume,
+      required this.trustScore,
+      required this.bidAskSpreadPercentage,
+      required this.timestamp,
+      required this.lastTradedAt,
+      required this.lastFetchAt,
+      required this.isAnomaly,
+      required this.isStale,
+      required this.tradeUrl,
+      required this.tokenInfoUrl,
+      required this.coinId,
+      required this.targetCoinId});
 
-  Tickers.fromJson(Map<String, dynamic> json) {
-    base = json['base'];
-    target = json['target'];
-    market = Market.fromJson(json['market']);
-    last = json['last'].toDouble();
-    volume = json['volume'];
-    costToMoveUpUsd = json['cost_to_move_up_usd'];
-    costToMoveDownUsd = json['cost_to_move_down_usd'];
-    convertedLast = ConvertedLast.fromJson(json['converted_last']);
-    convertedVolume = ConvertedVolume.fromJson(json['converted_volume']);
-    trustScore = json['trust_score'];
-    bidAskSpreadPercentage = json['bid_ask_spread_percentage'];
-    timestamp = json['timestamp'];
-    lastTradedAt = json['last_traded_at'];
-    lastFetchAt = json['last_fetch_at'];
-    isAnomaly = json['is_anomaly'];
-    isStale = json['is_stale'];
-    tradeUrl = json['trade_url'];
-    tokenInfoUrl = json['token_info_url'];
-    coinId = json['coin_id'];
-    targetCoinId = json['target_coin_id'];
+  factory Tickers.fromJson(Map<String, dynamic> json) {
+    return Tickers(
+      base: json['base'],
+      target: json['target'],
+      market: json['market'] != null ? Market.fromJson(json['market']) : null,
+      last: json['last'],
+      volume: json['volume'],
+      convertedLast: json['converted_last'] != null
+          ? ConvertedLast.fromJson(json['converted_last'])
+          : null,
+      convertedVolume: json['converted_volume'] != null
+          ? ConvertedLast.fromJson(json['converted_volume'])
+          : null,
+      trustScore: json['trust_score'],
+      bidAskSpreadPercentage: json['bid_ask_spread_percentage'],
+      timestamp: json['timestamp'],
+      lastTradedAt: json['last_traded_at'],
+      lastFetchAt: json['last_fetch_at'],
+      isAnomaly: json['is_anomaly'],
+      isStale: json['is_stale'],
+      tradeUrl: json['trade_url'],
+      tokenInfoUrl: json['token_info_url'],
+      coinId: json['coin_id'],
+      targetCoinId: json['target_coin_id'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['base'] = base;
     data['target'] = target;
-    data['market'] = market.toJson();
+    if (market != null) {
+      data['market'] = market!.toJson();
+    }
     data['last'] = last;
     data['volume'] = volume;
-    data['cost_to_move_up_usd'] = costToMoveUpUsd;
-    data['cost_to_move_down_usd'] = costToMoveDownUsd;
-    data['converted_last'] = convertedLast.toJson();
-    data['converted_volume'] = convertedVolume.toJson();
+    if (convertedLast != null) {
+      data['converted_last'] = convertedLast!.toJson();
+    }
+    if (convertedVolume != null) {
+      data['converted_volume'] = convertedVolume!.toJson();
+    }
     data['trust_score'] = trustScore;
     data['bid_ask_spread_percentage'] = bidAskSpreadPercentage;
     data['timestamp'] = timestamp;
@@ -118,80 +123,52 @@ class Tickers {
 }
 
 class Market {
-  late String name;
-  late String identifier;
-  late bool hasTradingIncentive;
-  late String logoUrl;
+  String name;
+  String identifier;
+  bool hasTradingIncentive;
+  String logo;
 
-  Market({
-    required this.name,
-    required this.identifier,
-    required this.hasTradingIncentive,
-    required this.logoUrl,
-  });
+  Market(
+      {required this.name,
+      required this.identifier,
+      required this.hasTradingIncentive,
+      required this.logo});
 
-  Market.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    identifier = json['identifier'];
-    hasTradingIncentive = json['has_trading_incentive'];
-    logoUrl = json['logo'];
+  factory Market.fromJson(Map<String, dynamic> json) {
+    return Market(
+      name: json['name'],
+      identifier: json['identifier'],
+      hasTradingIncentive: json['has_trading_incentive'],
+      logo: json['logo'],
+    );
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['identifier'] = identifier;
     data['has_trading_incentive'] = hasTradingIncentive;
-    data['logo'] = logoUrl;
+    data['logo'] = logo;
     return data;
   }
 }
 
 class ConvertedLast {
-  late double btc;
-  late double eth;
-  late double usd;
+  double? btc;
+  double? eth;
+  double? usd;
 
-  ConvertedLast({
-    required this.btc,
-    required this.eth,
-    required this.usd,
-  });
+  ConvertedLast({required this.btc, required this.eth, required this.usd});
 
-  ConvertedLast.fromJson(Map<String, dynamic> json) {
-    btc = json['btc'].toDouble();
-    eth = json['eth'].toDouble();
-    usd = json['usd'].toDouble();
+  factory ConvertedLast.fromJson(Map<String, dynamic> json) {
+    return ConvertedLast(
+        btc: json['btc']?.toDouble(),
+        eth: json['eth']?.toDouble(),
+        usd: json['usd']?.toDouble());
   }
 
   Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
-    data['btc'] = btc;
-    data['eth'] = eth;
-    data['usd'] = usd;
-    return data;
-  }
-}
-
-class ConvertedVolume {
-  late double btc;
-  late double eth;
-  late double usd;
-
-  ConvertedVolume({
-    required this.btc,
-    required this.eth,
-    required this.usd,
-  });
-
-  ConvertedVolume.fromJson(Map<String, dynamic> json) {
-    btc = json['btc'].toDouble();
-    eth = json['eth'].toDouble();
-    usd = json['usd'].toDouble();
-  }
-
-  Map<String, dynamic> toJson() {
-    final data = <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['btc'] = btc;
     data['eth'] = eth;
     data['usd'] = usd;

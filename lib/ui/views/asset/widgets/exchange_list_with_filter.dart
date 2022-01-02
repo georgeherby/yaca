@@ -14,9 +14,10 @@ import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
+import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
-  final List<ExchangeTicker> exchanges;
+  final List<Tickers> exchanges;
 
   const ExchangeListWithFilter({Key? key, required this.exchanges})
       : super(key: key);
@@ -33,14 +34,11 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
   void initState() {
     super.initState();
 
-    tickers.addAll(widget.exchanges
-        .map((e) => e.tickers)
-        .expand((element) => element)
-        .toList());
+    tickers.addAll(widget.exchanges);
+
     currencyFilter.addAll(
         (tickers.map((e) => e.target)).toSet().map((e) => Filter(e, false)));
 
-    tickers.sort((b, a) => a.volume.compareTo(b.volume));
     currencyFilter.sort((a, b) => a.value.compareTo(b.value));
   }
 
@@ -50,18 +48,13 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
         .where((element) => element.selected)
         .map((e) => e.value)
         .toList();
-    var _flattenedMarkets = widget.exchanges
-        .map((e) => e.tickers)
-        .expand((element) => element)
-        .toList();
 
     if (_selectedCurrencies.isNotEmpty) {
-      tickers.addAll(_flattenedMarkets
+      tickers.addAll(widget.exchanges
           .where((element) => _selectedCurrencies.contains(element.target)));
     } else {
-      tickers.addAll(_flattenedMarkets);
+      tickers.addAll(widget.exchanges);
     }
-    tickers.sort((b, a) => a.volume.compareTo(b.volume));
   }
 
   @override
@@ -75,7 +68,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
       Wrap(
         runAlignment: WrapAlignment.start,
         alignment: WrapAlignment.start,
-        spacing: 0,
+        spacing: 4,
         runSpacing: 0,
         children: List.generate(
           currencyFilter.length,
@@ -105,6 +98,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
         ),
       ),
       const Divider(color: Colors.transparent, height: 8),
+      const Text('Top 100 (max). 24h volumne asc'),
+      const Divider(color: Colors.transparent, height: 8),
       Expanded(
         child: ListView.builder(
           physics: const BouncingScrollPhysics(),
@@ -119,19 +114,22 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                 child: Row(
                   children: [
                     ClipRRect(
-                      borderRadius:
-                          BorderRadius.circular(kCornerRadiusCirlcular),
-                      child: AssetIconWeb(
-                        tickers[index].market.logoUrl,
-                        iconSize: kIconSize,
-                        assetSymbol: tickers[index].market.name.substring(0, 2),
-                      ),
-                    ),
+                        borderRadius:
+                            BorderRadius.circular(kCornerRadiusCirlcular),
+                        child: tickers[index].market != null
+                            ? AssetIconWeb(
+                                tickers[index].market!.logo,
+                                iconSize: kIconSize,
+                                assetSymbol:
+                                    tickers[index].market!.name.substring(0, 2),
+                              )
+                            : const AssetTextIcon(
+                                assetSymbol: "?", iconSize: kIconSize)),
                     const Spacer(flex: 5),
                     Expanded(
                         flex: _isPhoneOnly ? 50 : 80,
                         child: Text(
-                          tickers[index].market.name,
+                          tickers[index].market!.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         )),

@@ -14,6 +14,7 @@ import 'package:yaca/ui/pages/asset/asset_page.dart';
 import 'package:yaca/ui/pages/asset/sub_page/asset_details_page.dart';
 import 'package:yaca/ui/pages/asset/sub_page/asset_exchanges_page.dart';
 import 'package:yaca/ui/pages/home/home_page.dart';
+import 'package:yaca/ui/pages/search/search_page.dart';
 
 part 'app_router.gr.dart';
 
@@ -21,6 +22,10 @@ part 'app_router.gr.dart';
   replaceInRouteName: 'Page,Route',
   routes: <AutoRoute>[
     AutoRoute(page: HomePage, initial: true),
+    AutoRoute(
+      page: SearchPage,
+      path: '/search',
+    ),
     AutoRoute(
       page: AssetPage,
       path: '/asset/:assetId',

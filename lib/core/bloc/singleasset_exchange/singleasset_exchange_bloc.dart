@@ -25,10 +25,10 @@ class SingleAssetExchangeBloc
     emit(const SingleAssetExchangeLoading());
 
     try {
-      var exchExchangeTicker = await exchangeTickerRespository
-          .getAllExchangeTickers(event.marketCoinId);
+      var exchangeTickers = await exchangeTickerRespository
+          .getExchangeTickerForCoin(event.marketCoinId);
 
-      emit(SingleAssetExchangeLoaded(exchExchangeTicker));
+      emit(SingleAssetExchangeLoaded(exchangeTickers.tickers));
     } on Exception catch (e) {
       emit(SingleAssetExchangeError(e.toString()));
     }

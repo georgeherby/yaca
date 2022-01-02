@@ -55,8 +55,6 @@ class AssetExchangePage extends StatelessWidget {
             } else if (state is SingleAssetExchangeError) {
               debugPrint(state.error.toString());
               return ErrorView(error: state.error);
-                  
-              
             } else {
               debugPrint('Loading');
               return Center(
