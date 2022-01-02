@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
