@@ -18,6 +18,7 @@ import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/core/extensions/double_per_currency.dart';
 import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/core/extensions/string.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
@@ -126,8 +127,7 @@ class AssetView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _currency.currencyCode.toLowerCase() ==
-                            singleAsset.symbol.toLowerCase()
+                    _currency.currencyCode.equalsIgnoreCase(singleAsset.symbol)
                         ? _buildCard(
                             context,
                             false,

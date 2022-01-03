@@ -10,6 +10,7 @@ import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/extensions/string.dart';
 import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
@@ -75,11 +76,12 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
       _marketCoins.addAll(marketCoinsResponse.map((coinData) {
         var favs = (favouriteAssets.where((MarketCoin fav) =>
-            fav.name.toLowerCase() == coinData.name.toLowerCase() &&
-            fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
+            fav.name.equalsIgnoreCase(coinData.name) &&
+            fav.symbol.equalsIgnoreCase(coinData.symbol)));
 
         if (favs.isNotEmpty) {
-          return coinData.copyWith(favouriteCacheId: favs.first.favouriteCacheId);
+          return coinData.copyWith(
+              favouriteCacheId: favs.first.favouriteCacheId);
         }
         return coinData;
       }));
@@ -88,7 +90,6 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       final sortOrder = await _assetOverviewPreference.getSortOrder();
       final sorted = _sortBy(_marketCoins, sortType, sortOrder);
 
- 
       final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
 
       emit(AssetOverviewLoaded(sorted, sortedFavourites, sortType, sortOrder));
@@ -202,13 +203,15 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     List<Favourites> favourites = await _favouriteDao.getAll();
     List<String> favouriteIds = favourites.map((e) => e.coinId).toList();
     String? ids = favouriteIds.isEmpty ? null : favouriteIds.join(',');
-    List<MarketCoin> listOfFavourites = ids == null ? [] : await _marketOverviewRepository
-        .fetchCoinMarkets(currency, specficCoinIds: ids);
+    List<MarketCoin> listOfFavourites = ids == null
+        ? []
+        : await _marketOverviewRepository.fetchCoinMarkets(currency,
+            specficCoinIds: ids);
 
     return listOfFavourites.map((coinData) {
       var favs = (favourites.where((Favourites fav) =>
-          fav.name.toLowerCase() == coinData.name.toLowerCase() &&
-          fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
+          fav.name.equalsIgnoreCase(coinData.name) &&
+          fav.symbol.equalsIgnoreCase(coinData.symbol)));
 
       if (favs.isNotEmpty) {
         return coinData.copyWith(favouriteCacheId: favs.first.id);
