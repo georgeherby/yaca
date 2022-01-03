@@ -165,7 +165,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                             favouriteOnly: !_showAllAssets,
                             marketCoins: _showAllAssets
                                 ? state.allAssets
-                                : state.favouriteAssets,
+                                : state.favourites,
                             onRefresh: () async =>
                                 _onRefresh(context, chosenCurrency),
                             onFavourite: (MarketCoin marketCoin,
@@ -173,9 +173,10 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                 BlocProvider.of<AssetOverviewBloc>(context).add(
                                AssetFavourited(
                                   allMarketCoins: state.allAssets,
+                                  favourites: state.favourites,
                                   symbol: marketCoin.symbol,
                                   name: marketCoin.name,
-                                  id: marketCoin.id,
+                                  coinId: marketCoin.id,
                                   addToFavourite: isChecked),
                             ),
                           ),
@@ -205,7 +206,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
     BlocProvider.of<GlobalMarketBloc>(context)
         .add(GlobalMarketLoad(chosenCurrency));
     BlocProvider.of<AssetOverviewBloc>(context)
-        .add(AssetOverviewLoad(chosenCurrency));
+        .add(const AssetOverviewLoad());
   }
 
   String _getLabelForCurrentSortType(SortType currentSortType) {

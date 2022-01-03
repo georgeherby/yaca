@@ -11,10 +11,16 @@ import 'package:yaca/ui/consts/constants.dart';
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
+  void _resetSearch(BuildContext context, TextEditingController controller) {
+    context.read<SearchBloc>().add(const SearchEvent(query: null));
+    controller.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
-
     final _textController = TextEditingController();
+    _resetSearch(context, _textController);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -26,18 +32,14 @@ class SearchPage extends StatelessWidget {
           autofocus: true,
           controller: _textController,
           onChanged: (value) {
-            context
-                .read<SearchBloc>()
-                .add(SearchEvent(query: value));
+            context.read<SearchBloc>().add(SearchEvent(query: value));
           },
           decoration: InputDecoration(
             hintText: 'Search',
             iconColor: Theme.of(context).appBarTheme.actionsIconTheme?.color,
             suffixIcon: IconButton(
               onPressed: () {
-                context.read<SearchBloc>().add(
-                    const SearchEvent(query: null));
-                _textController.clear();
+                _resetSearch(context, _textController);
               },
               icon: Icon(Ionicons.close_outline,
                   color: Theme.of(context).appBarTheme.iconTheme?.color,

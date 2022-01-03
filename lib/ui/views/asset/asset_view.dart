@@ -85,7 +85,7 @@ class AssetView extends StatelessWidget {
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {
-                    var isFavourite = state.favouriteAssets
+                    var isFavourite = state.favourites
                         .where((element) => element.id == singleAsset.id)
                         .isNotEmpty;
 
@@ -100,9 +100,10 @@ class AssetView extends StatelessWidget {
                           BlocProvider.of<AssetOverviewBloc>(context).add(
                         AssetFavourited(
                             allMarketCoins: state.allAssets,
+                            favourites: state.favourites,
                             symbol: singleAsset.symbol,
                             name: singleAsset.name,
-                            id: singleAsset.id,
+                            coinId: singleAsset.id,
                             addToFavourite: !isFavourite),
                       ),
                     );

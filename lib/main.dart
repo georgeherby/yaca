@@ -52,7 +52,7 @@ void main() async {
   // Registering the adapter
   Hive.registerAdapter(FavouritesAdapter());
   // Opening the box
-  await Hive.openBox<Favourites>('favBox');
+  await Hive.openBox<Favourites>('favouritesBox');
   BlocOverrides.runZoned(
     () {},
     blocObserver: AllBlocObserver(),
@@ -73,7 +73,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    box = Hive.box<Favourites>('favBox');
+    box = Hive.box<Favourites>('favouritesBox');
   }
 
   final http.Client _client = http.Client();
@@ -137,7 +137,6 @@ class _MyAppState extends State<MyApp> {
                       context.read<MarketOverviewRepository>(),
                       context.read<AssetOverviewPreference>(),
                     )..add(AssetOverviewLoad(
-                        currencyCode,
                       )),
                   ),
                   BlocProvider<SingleAssetExchangeBloc>(

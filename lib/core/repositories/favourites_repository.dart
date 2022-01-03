@@ -10,8 +10,10 @@ class FavouritesDao {
   const FavouritesDao({required this.box});
 
   Future<int> insertFavourite(Favourites _favourite) async {
-    return await box
-        .add(Favourites(name: _favourite.name, symbol: _favourite.symbol));
+    return await box.add(Favourites(
+        name: _favourite.name,
+        coinId: _favourite.coinId,
+        symbol: _favourite.symbol));
   }
 
   Future<void> delete(int idToDelete) async {
@@ -22,7 +24,11 @@ class FavouritesDao {
     var list = <Favourites>[];
 
     box.toMap().forEach((key, value) {
-      list.add(Favourites(id: key, name: value.name, symbol: value.symbol));
+      list.add(Favourites(
+          id: key,
+          name: value.name,
+          coinId: value.coinId,
+          symbol: value.symbol));
     });
 
     return Future.value(list);

@@ -222,7 +222,7 @@ void main() {
           ethMarketCoin
         ],
         symbol: ethMarketCoin.symbol,
-        id: ethMarketCoin.id,
+        coinId: ethMarketCoin.id,
         name: ethMarketCoin.name,
         addToFavourite: true,
       ));
@@ -280,7 +280,7 @@ void main() {
           ethMarketCoin
         ],
         symbol: btcMarketCoin.symbol,
-        id: btcMarketCoin.id,
+        coinId: btcMarketCoin.id,
         name: btcMarketCoin.name,
         addToFavourite: false,
       ));

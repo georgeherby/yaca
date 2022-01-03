@@ -12,13 +12,16 @@ class Favourites extends Equatable {
   final String name;
   @HiveField(2)
   final String symbol;
+  @HiveField(3)
+  final String coinId;
 
   const Favourites({
     this.id,
     required this.name,
     required this.symbol,
+    required this.coinId,
   });
 
   @override
-  List<Object?> get props => [id, name, symbol];
+  List<Object?> get props => [id, name, symbol, coinId];
 }

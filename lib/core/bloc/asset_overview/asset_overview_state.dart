@@ -20,16 +20,14 @@ class AssetOverviewLoading extends AssetOverviewState {
 
 class AssetOverviewLoaded extends AssetOverviewState {
   final List<MarketCoin> allAssets;
+  final List<MarketCoin> favourites;
   final SortType sortType;
   final SortOrder sortOrder;
-  const AssetOverviewLoaded(this.allAssets, this.sortType, this.sortOrder);
-
-  List<MarketCoin> get favouriteAssets =>
-      allAssets.where((element) => element.isFavourited).toList();
+  const AssetOverviewLoaded(this.allAssets, this.favourites, this.sortType, this.sortOrder);
 
   @override
   List<Object> get props =>
-      [allAssets, favouriteAssets, sortType.toString(), sortOrder.toString()];
+      [allAssets, favourites, sortType.toString(), sortOrder.toString()];
 }
 
 class AssetOverviewError extends AssetOverviewState {

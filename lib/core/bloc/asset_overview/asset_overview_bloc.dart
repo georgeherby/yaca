@@ -39,7 +39,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     subscription = settingsBloc.stream.listen((stateOfSettings) {
       if (stateOfSettings is AppSettingsLoaded) {
         debugPrint('Initial load');
-        add(AssetOverviewLoad(stateOfSettings.currency));
+        add(const AssetOverviewLoad());
       }
     });
   }
@@ -47,8 +47,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   @override
   void onEvent(AssetOverviewEvent event) {
     if (event is AssetFavourited) {
-      debugPrint(
-          'addToFavourite  = ${event.name} to ${event.addToFavourite}');
+      debugPrint('addToFavourite  = ${event.name} to ${event.addToFavourite}');
     }
     super.onEvent(event);
   }
@@ -68,8 +67,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     try {
       var _marketCoins = <MarketCoin>[];
 
-      var marketCoinsResponse =
-          (await _marketOverviewRepository.fetchCoinMarkets(event.currency));
+      var marketCoinsResponse = (await _marketOverviewRepository
+          .fetchCoinMarkets(settingsBloc.state.currency));
 
       final usersFavourites = await _favouriteDao.getAll();
 
@@ -88,7 +87,11 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       final sortOrder = await _assetOverviewPreference.getSortOrder();
       final sorted = _sortBy(_marketCoins, sortType, sortOrder);
 
-      emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
+      List<MarketCoin> favouriteAssets =
+          await _favourites(settingsBloc.state.currency);
+      final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
+
+      emit(AssetOverviewLoaded(sorted, sortedFavourites, sortType, sortOrder));
     } on TimeoutException catch (_) {
       emit(const AssetOverviewTimeout());
     } catch (e, stacktrace) {
@@ -104,49 +107,74 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   ) async {
     var listOfAssets = [...event.allMarketCoins];
 
-    var index =
-        listOfAssets.indexWhere((item) => item.id == event.id);
+    if (event.addToFavourite) {
+      debugPrint('isChecked');
+      var idForRecord = await _favouriteDao.insertFavourite(Favourites(
+          name: event.name, coinId: event.coinId, symbol: event.symbol));
 
-    if (index > -1) {
-      if (event.addToFavourite) {
-        debugPrint('isChecked');
-        var idForRecord = await _favouriteDao.insertFavourite(Favourites(
-            name: event.name, symbol: event.symbol));
+      debugPrint('Inserted id $idForRecord');
 
-        debugPrint('Inserted id $idForRecord');
-
-        final updatedAssets = listOfAssets.map((e) {
-          if (e.id == event.id) {
-            return e.copyWith(favouriteCacheId: idForRecord);
-          } else {
-            return e;
-          }
-        });
-        final sortType = await _assetOverviewPreference.getSortType();
-        final sortOrder = await _assetOverviewPreference.getSortOrder();
-        final sorted = _sortBy(updatedAssets.toList(), sortType, sortOrder);
-
-        emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
-      } else {
-        debugPrint('isNotChecked');
-        if (listOfAssets[index].favouriteCacheId != null) {
-          debugPrint('Remove from sql ${listOfAssets[index].favouriteCacheId}');
-          await _favouriteDao.delete(listOfAssets[index].favouriteCacheId!);
+      final updatedAssets = listOfAssets.map((e) {
+        if (e.id == event.coinId) {
+          return e.copyWith(favouriteCacheId: idForRecord);
+        } else {
+          return e;
         }
+      });
+      final sortType = await _assetOverviewPreference.getSortType();
+      final sortOrder = await _assetOverviewPreference.getSortOrder();
+      final sortedAll = _sortBy(updatedAssets.toList(), sortType, sortOrder);
 
-        final updatedAssets = listOfAssets.map((e) {
-          if (e.id == event.id) {
-            return e.copyWith(favouriteCacheId: null);
-          } else {
-            return e;
+      List<MarketCoin> favouriteAssets =
+          await _favourites(settingsBloc.state.currency);
+
+      final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
+
+      emit(AssetOverviewLoaded(
+          sortedAll, sortedFavourites, sortType, sortOrder));
+    } else {
+      debugPrint('isNotChecked');
+
+      var allAssetsindex =
+          listOfAssets.indexWhere((item) => item.id == event.coinId);
+
+      if (allAssetsindex != -1) {
+        if (listOfAssets[allAssetsindex].favouriteCacheId != null) {
+          debugPrint(
+              'Remove from sql ${listOfAssets[allAssetsindex].favouriteCacheId}');
+          await _favouriteDao
+              .delete(listOfAssets[allAssetsindex].favouriteCacheId!);
+        }
+      } else {
+        var favourites = event.favourites;
+        var favouritesIndex =
+            event.favourites.indexWhere((item) => item.id == event.coinId);
+        if (favouritesIndex != -1) {
+          if (favourites[favouritesIndex].favouriteCacheId != null) {
+            debugPrint(
+                'Remove from sql ${favourites[favouritesIndex].favouriteCacheId}');
+            await _favouriteDao
+                .delete(favourites[favouritesIndex].favouriteCacheId!);
           }
-        });
-        final sortType = await _assetOverviewPreference.getSortType();
-        final sortOrder = await _assetOverviewPreference.getSortOrder();
-        final sorted = _sortBy(updatedAssets.toList(), sortType, sortOrder);
-
-        emit(AssetOverviewLoaded(sorted, sortType, sortOrder));
+        }
       }
+
+      final updatedAssets = listOfAssets.map((e) {
+        if (e.id == event.coinId) {
+          return e.copyWith(favouriteCacheId: null);
+        } else {
+          return e;
+        }
+      });
+      final sortType = await _assetOverviewPreference.getSortType();
+      final sortOrder = await _assetOverviewPreference.getSortOrder();
+      final sorted = _sortBy(updatedAssets.toList(), sortType, sortOrder);
+      List<MarketCoin> favouriteAssets =
+          await _favourites(settingsBloc.state.currency);
+
+      final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
+
+      emit(AssetOverviewLoaded(sorted, sortedFavourites, sortType, sortOrder));
     }
   }
 
@@ -159,7 +187,33 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         _sortBy(event.allMarketCoins, event.sortType, event.sortOrder);
     await _assetOverviewPreference.setSortOrder(event.sortOrder);
     await _assetOverviewPreference.setSortType(event.sortType);
-    emit(AssetOverviewLoaded(sortedList, event.sortType, event.sortOrder));
+
+    List<MarketCoin> favouriteAssets =
+        await _favourites(settingsBloc.state.currency);
+
+    final sortedFavourites =
+        _sortBy(favouriteAssets, event.sortType, event.sortOrder);
+
+    emit(AssetOverviewLoaded(
+        sortedList, sortedFavourites, event.sortType, event.sortOrder));
+  }
+
+  Future<List<MarketCoin>> _favourites(ChosenCurrency currency) async {
+    List<Favourites> favourites = await _favouriteDao.getAll();
+    List<String> favouriteIds = favourites.map((e) => e.coinId).toList();
+    List<MarketCoin> listOfFavourites = await _marketOverviewRepository
+        .fetchCoinMarkets(currency, specficCoinIds: favouriteIds.join(','));
+
+    return listOfFavourites.map((coinData) {
+      var favs = (favourites.where((Favourites fav) =>
+          fav.name.toLowerCase() == coinData.name.toLowerCase() &&
+          fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
+
+      if (favs.isNotEmpty) {
+        return coinData.copyWith(favouriteCacheId: favs.first.id);
+      }
+      return coinData;
+    }).toList();
   }
 
   List<MarketCoin> _sortBy(
@@ -175,17 +229,19 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   List<MarketCoin> _sortByRank(
       List<MarketCoin> allMarketCoins, SortOrder sortOrder) {
     return allMarketCoins
-      ..sort((a, b) {
-        final first = a.marketCapRank;
-        final second = b.marketCapRank;
+      ..sort(
+        (a, b) {
+          final first = a.marketCapRank;
+          final second = b.marketCapRank;
 
-        switch (sortOrder) {
-          case SortOrder.ascending:
-            return first.compareTo(second);
-          case SortOrder.descending:
-            return second.compareTo(first);
-        }
-      });
+          switch (sortOrder) {
+            case SortOrder.ascending:
+              return first.compareTo(second);
+            case SortOrder.descending:
+              return second.compareTo(first);
+          }
+        },
+      );
   }
 
   List<MarketCoin> _sortByPercentageChange(
