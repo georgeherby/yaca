@@ -3,7 +3,7 @@ import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/core/models/favourites.dart';
 
 var btcMarketCoin = const MarketCoin(
-    id: 'bitcion',
+    id: 'bitcoin',
     symbol: 'btc',
     name: 'Bitcoin',
     image: 'url',
@@ -14,7 +14,7 @@ var btcMarketCoin = const MarketCoin(
     priceChangePercentage24h: 1.0);
 
 var ethMarketCoin = const MarketCoin(
-    id: 'eth',
+    id: 'ethereum',
     symbol: 'eth',
     name: 'Ethereum',
     image: 'url',
@@ -25,7 +25,7 @@ var ethMarketCoin = const MarketCoin(
     priceChangePercentage24h: 2.0);
 
 var bnbMarketCoin = const MarketCoin(
-    id: 'bnb',
+    id: 'binancecoin',
     symbol: 'bnb',
     name: 'Binance Coin',
     image: 'url',
@@ -36,5 +36,9 @@ var bnbMarketCoin = const MarketCoin(
     priceChangePercentage24h: -1.0);
 
 var btcFavouriteWithID =
-    const Favourites(id: 12, name: 'bitcoin', symbol: 'btc');
-var ethFavouriteNoId = const Favourites(name: 'Ethereum', symbol: 'eth');
+    const Favourites(id: 12, name: 'bitcoin', coinId: 'bitcoin', symbol: 'btc');
+var ethFavouriteNoId =
+    const Favourites(name: 'Ethereum', coinId: 'ethereum', symbol: 'eth');
+var ethFavouriteWithId =
+    const Favourites(
+    id: 13, name: 'Ethereum', coinId: 'ethereum', symbol: 'eth');

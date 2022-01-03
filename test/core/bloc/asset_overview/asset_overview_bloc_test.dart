@@ -10,6 +10,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
@@ -49,6 +50,10 @@ void main() {
       build: () {
         when(() => mockAppSettingsBloc.stream)
             .thenAnswer((_) => Stream.value(AppSettingsInitial()));
+
+        when(() => mockAppSettingsBloc.state).thenAnswer(
+            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+
         return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
             mockMarketOverviewRepository, mockAssetOverviewPreferneces);
       },
@@ -65,11 +70,16 @@ void main() {
         when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
             Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
+        when(() => mockAppSettingsBloc.state).thenAnswer(
+            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) => Future.value(List.empty()));
+
         when(() => mockFavouritesDao.getAll())
             .thenAnswer((_) => Future.value(List.empty()));
+
         when(() => mockAssetOverviewPreferneces.getSortOrder())
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
@@ -82,8 +92,8 @@ void main() {
       verify: (AssetOverviewBloc bloc) {
         expect(
             bloc.state,
-            equals(AssetOverviewLoaded(
-                List.empty(), SortType.sortByRank, SortOrder.ascending)));
+            equals(AssetOverviewLoaded(List.empty(), List.empty(),
+                SortType.sortByRank, SortOrder.ascending)));
       },
     );
     blocTest(
@@ -92,11 +102,21 @@ void main() {
         when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
             Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() =>
-                mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
+        when(() => mockAppSettingsBloc.state).thenAnswer(
+            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+
+        when(() => mockMarketOverviewRepository
+                .fetchCoinMarkets(defaultCurrency, specficCoinIds: null))
             .thenAnswer((_) => Future.value(List.empty()));
+
+        when(() => mockMarketOverviewRepository.fetchCoinMarkets(
+                defaultCurrency,
+                specficCoinIds: btcFavouriteWithID.coinId))
+            .thenAnswer((_) => Future.value([btcMarketCoin]));
+
         when(() => mockFavouritesDao.getAll())
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
+
         when(() => mockAssetOverviewPreferneces.getSortOrder())
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
@@ -109,7 +129,13 @@ void main() {
         expect(
             bloc.state,
             equals(AssetOverviewLoaded(
-                List.empty(), SortType.sortByRank, SortOrder.ascending)));
+                List.empty(),
+                [
+                  btcMarketCoin.copyWith(
+                      favouriteCacheId: btcFavouriteWithID.id),
+                ],
+                SortType.sortByRank,
+                SortOrder.ascending)));
       },
     );
     blocTest(
@@ -118,9 +144,17 @@ void main() {
         when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
             Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() =>
-                mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
+        when(() => mockAppSettingsBloc.state).thenAnswer(
+            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+
+        when(() => mockMarketOverviewRepository
+                .fetchCoinMarkets(defaultCurrency, specficCoinIds: null))
             .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
+
+        when(() => mockMarketOverviewRepository.fetchCoinMarkets(
+                defaultCurrency,
+                specficCoinIds: btcFavouriteWithID.coinId))
+            .thenAnswer((_) => Future.value([btcMarketCoin]));
 
         when(() => mockFavouritesDao.getAll())
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
@@ -137,16 +171,26 @@ void main() {
       verify: (AssetOverviewBloc bloc) {
         expect(
             bloc.state,
-            equals(AssetOverviewLoaded([
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-              ethMarketCoin
-            ], SortType.sortByRank, SortOrder.ascending)));
+            equals(AssetOverviewLoaded(
+              [
+                btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+                ethMarketCoin
+              ],
+              [
+                btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              ],
+              SortType.sortByRank,
+              SortOrder.ascending,
+            )));
       },
     );
     blocTest('throw error if the asset api fails',
         build: () {
           when(() => mockAppSettingsBloc.stream).thenAnswer((_) => Stream.value(
               AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+
+          when(() => mockAppSettingsBloc.state).thenAnswer(
+              (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
 
           when(() => mockMarketOverviewRepository
               .fetchCoinMarkets(defaultCurrency)).thenThrow(Exception('ERROR'));
@@ -165,6 +209,9 @@ void main() {
         build: () {
           when(() => mockAppSettingsBloc.stream).thenAnswer((_) => Stream.value(
               AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+
+          when(() => mockAppSettingsBloc.state).thenAnswer(
+              (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
 
           when(() => mockMarketOverviewRepository
                   .fetchCoinMarkets(defaultCurrency))
@@ -185,14 +232,30 @@ void main() {
   group('AssetOverviewBloc - favouriting', () {
     test('favourite an unfavourited item', () async {
       // Mocks
-      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: null))
           .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: btcMarketCoin.id))
+          .thenAnswer((_) => Future.value([btcMarketCoin]));
+
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: btcMarketCoin.id + "," + ethMarketCoin.id))
+          .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
+
+      var mockFavouritesDaoCallCount = 0;
+
+      var responses = [
+        Future.value(<Favourites>[]),
+        Future.value([btcFavouriteWithID]),
+        Future.value([btcFavouriteWithID, ethFavouriteWithId]),
+      ];
       when(() => mockFavouritesDao.getAll())
-          .thenAnswer((_) => Future.value([btcFavouriteWithID]));
+          .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
       when(() => mockFavouritesDao.insertFavourite(ethFavouriteNoId))
-          .thenAnswer((_) => Future.value(13));
+          .thenAnswer((_) => Future.value(ethFavouriteWithId.id));
 
       when(() => mockAssetOverviewPreferneces.getSortOrder())
           .thenAnswer((_) => Future.value(SortOrder.ascending));
@@ -221,6 +284,9 @@ void main() {
           btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ethMarketCoin
         ],
+        favourites: [
+          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+        ],
         symbol: ethMarketCoin.symbol,
         coinId: ethMarketCoin.id,
         name: ethMarketCoin.name,
@@ -230,24 +296,49 @@ void main() {
       await expectLater(
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin,
-          ], SortType.sortByRank, SortOrder.ascending),
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin.copyWith(favouriteCacheId: 13),
-          ], SortType.sortByRank, SortOrder.ascending),
+          AssetOverviewLoaded(
+            [
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              ethMarketCoin,
+            ],
+            [
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            SortType.sortByRank,
+            SortOrder.ascending,
+          ),
+          AssetOverviewLoaded(
+            [
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              ethMarketCoin.copyWith(favouriteCacheId: ethFavouriteWithId.id),
+            ],
+            [
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              ethMarketCoin.copyWith(favouriteCacheId: ethFavouriteWithId.id),
+            ],
+            SortType.sortByRank,
+            SortOrder.ascending,
+          ),
         ]),
       );
     });
     test('unfavourite an favourited item', () async {
       // Mocks
-      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: null))
           .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: btcFavouriteWithID.coinId))
+          .thenAnswer((_) => Future.value([btcMarketCoin]));
+
+      var mockFavouritesDaoCallCount = 0;
+      var responses = [
+        Future.value(<Favourites>[btcFavouriteWithID]),
+        Future.value(<Favourites>[]),
+      ];
       when(() => mockFavouritesDao.getAll())
-          .thenAnswer((_) => Future.value([btcFavouriteWithID]));
+          .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
       when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
           .thenAnswer((_) => Future.value());
@@ -279,6 +370,9 @@ void main() {
           btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ethMarketCoin
         ],
+        favourites: [
+          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id)
+        ],
         symbol: btcMarketCoin.symbol,
         coinId: btcMarketCoin.id,
         name: btcMarketCoin.name,
@@ -288,12 +382,26 @@ void main() {
       await expectLater(
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin
-          ], SortType.sortByRank, SortOrder.ascending),
-          AssetOverviewLoaded([btcMarketCoin, ethMarketCoin],
-              SortType.sortByRank, SortOrder.ascending)
+          AssetOverviewLoaded(
+            [
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              ethMarketCoin
+            ],
+            [
+              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            SortType.sortByRank,
+            SortOrder.ascending,
+          ),
+          AssetOverviewLoaded(
+            [
+              btcMarketCoin,
+              ethMarketCoin,
+            ],
+            const [],
+            SortType.sortByRank,
+            SortOrder.ascending,
+          )
         ]),
       );
     });
@@ -306,10 +414,18 @@ void main() {
         when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
             Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
+        when(() => mockAppSettingsBloc.state).thenAnswer(
+            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) =>
                 Future.value([bnbMarketCoin, btcMarketCoin, ethMarketCoin]));
+
+        when(() => mockMarketOverviewRepository.fetchCoinMarkets(
+                defaultCurrency,
+                specficCoinIds: btcMarketCoin.id))
+            .thenAnswer((_) => Future.value([btcMarketCoin]));
 
         when(() => mockFavouritesDao.getAll())
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
@@ -326,11 +442,16 @@ void main() {
       verify: (AssetOverviewBloc bloc) {
         expect(
             bloc.state,
-            equals(AssetOverviewLoaded([
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-              ethMarketCoin,
-              bnbMarketCoin
-            ], SortType.sortByRank, SortOrder.ascending)));
+            equals(AssetOverviewLoaded(
+              [
+                btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+                ethMarketCoin,
+                bnbMarketCoin
+              ],
+              [btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id)],
+              SortType.sortByRank,
+              SortOrder.ascending,
+            )));
       },
     );
 
@@ -339,6 +460,10 @@ void main() {
       when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
+
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: btcFavouriteWithID.coinId))
+          .thenAnswer((_) => Future.value([btcMarketCoin]));
 
       when(() => mockFavouritesDao.getAll())
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
@@ -391,11 +516,15 @@ void main() {
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin,
             bnbMarketCoin
+          ], [
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortByRank, SortOrder.ascending),
           AssetOverviewLoaded([
             ethMarketCoin,
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             bnbMarketCoin,
+          ], [
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortBy24hPercentageChange, SortOrder.descending),
         ]),
       );
@@ -405,6 +534,10 @@ void main() {
       when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
+
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: btcFavouriteWithID.coinId))
+          .thenAnswer((_) => Future.value([btcMarketCoin]));
 
       when(() => mockFavouritesDao.getAll())
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
@@ -457,11 +590,15 @@ void main() {
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin,
             bnbMarketCoin
+          ], [
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortByRank, SortOrder.ascending),
           AssetOverviewLoaded([
             bnbMarketCoin,
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin,
+          ], [
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortBy24hPercentageChange, SortOrder.ascending),
         ]),
       );
@@ -471,6 +608,10 @@ void main() {
       when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
+
+      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
+              specficCoinIds: btcFavouriteWithID.coinId))
+          .thenAnswer((_) => Future.value([btcMarketCoin]));
 
       when(() => mockFavouritesDao.getAll())
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
@@ -523,10 +664,14 @@ void main() {
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
             ethMarketCoin,
             bnbMarketCoin
+          ], [
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortByRank, SortOrder.ascending),
           AssetOverviewLoaded([
             bnbMarketCoin,
             ethMarketCoin,
+            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+          ], [
             btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortByRank, SortOrder.descending),
         ]),

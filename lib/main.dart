@@ -136,7 +136,7 @@ class _MyAppState extends State<MyApp> {
                       FavouritesDao(box: box),
                       context.read<MarketOverviewRepository>(),
                       context.read<AssetOverviewPreference>(),
-                    )..add(AssetOverviewLoad(
+                    )..add(const AssetOverviewLoad(
                       )),
                   ),
                   BlocProvider<SingleAssetExchangeBloc>(

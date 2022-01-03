@@ -109,7 +109,8 @@ class _AssetGraphState extends State<AssetGraph> {
                                   DeltaWithArrow(
                                       ((price - (widget.history.last.value)) /
                                               price) *
-                                          100),
+                                          100,
+                                      isPercentage: true),
                                   const SizedBox(width: 4),
                                   Text(
                                     'on current price',

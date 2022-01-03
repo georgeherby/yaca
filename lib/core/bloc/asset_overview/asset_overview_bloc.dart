@@ -70,15 +70,16 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       var marketCoinsResponse = (await _marketOverviewRepository
           .fetchCoinMarkets(settingsBloc.state.currency));
 
-      final usersFavourites = await _favouriteDao.getAll();
-
+      List<MarketCoin> favouriteAssets =
+          await _favourites(settingsBloc.state.currency);
+          
       _marketCoins.addAll(marketCoinsResponse.map((coinData) {
-        var favs = (usersFavourites.where((Favourites fav) =>
+        var favs = (favouriteAssets.where((MarketCoin fav) =>
             fav.name.toLowerCase() == coinData.name.toLowerCase() &&
             fav.symbol.toLowerCase() == coinData.symbol.toLowerCase()));
 
         if (favs.isNotEmpty) {
-          return coinData.copyWith(favouriteCacheId: favs.first.id);
+          return coinData.copyWith(favouriteCacheId: favs.first.favouriteCacheId);
         }
         return coinData;
       }));
@@ -87,8 +88,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       final sortOrder = await _assetOverviewPreference.getSortOrder();
       final sorted = _sortBy(_marketCoins, sortType, sortOrder);
 
-      List<MarketCoin> favouriteAssets =
-          await _favourites(settingsBloc.state.currency);
+ 
       final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
 
       emit(AssetOverviewLoaded(sorted, sortedFavourites, sortType, sortOrder));
@@ -108,7 +108,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     var listOfAssets = [...event.allMarketCoins];
 
     if (event.addToFavourite) {
-      debugPrint('isChecked');
+      debugPrint('addToFavourite');
       var idForRecord = await _favouriteDao.insertFavourite(Favourites(
           name: event.name, coinId: event.coinId, symbol: event.symbol));
 
@@ -133,7 +133,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       emit(AssetOverviewLoaded(
           sortedAll, sortedFavourites, sortType, sortOrder));
     } else {
-      debugPrint('isNotChecked');
+      debugPrint('!addToFavourite');
 
       var allAssetsindex =
           listOfAssets.indexWhere((item) => item.id == event.coinId);
@@ -201,8 +201,9 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   Future<List<MarketCoin>> _favourites(ChosenCurrency currency) async {
     List<Favourites> favourites = await _favouriteDao.getAll();
     List<String> favouriteIds = favourites.map((e) => e.coinId).toList();
+    String? ids = favouriteIds.isEmpty ? null : favouriteIds.join(',');
     List<MarketCoin> listOfFavourites = await _marketOverviewRepository
-        .fetchCoinMarkets(currency, specficCoinIds: favouriteIds.join(','));
+        .fetchCoinMarkets(currency, specficCoinIds: ids);
 
     return listOfFavourites.map((coinData) {
       var favs = (favourites.where((Favourites fav) =>
