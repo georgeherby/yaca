@@ -247,7 +247,6 @@ void main() {
       var mockFavouritesDaoCallCount = 0;
 
       var responses = [
-        Future.value(<Favourites>[]),
         Future.value([btcFavouriteWithID]),
         Future.value([btcFavouriteWithID, ethFavouriteWithId]),
       ];
@@ -337,6 +336,7 @@ void main() {
         Future.value(<Favourites>[btcFavouriteWithID]),
         Future.value(<Favourites>[]),
       ];
+      
       when(() => mockFavouritesDao.getAll())
           .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 

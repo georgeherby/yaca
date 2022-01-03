@@ -72,7 +72,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
       List<MarketCoin> favouriteAssets =
           await _favourites(settingsBloc.state.currency);
-          
+
       _marketCoins.addAll(marketCoinsResponse.map((coinData) {
         var favs = (favouriteAssets.where((MarketCoin fav) =>
             fav.name.toLowerCase() == coinData.name.toLowerCase() &&
@@ -202,7 +202,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     List<Favourites> favourites = await _favouriteDao.getAll();
     List<String> favouriteIds = favourites.map((e) => e.coinId).toList();
     String? ids = favouriteIds.isEmpty ? null : favouriteIds.join(',');
-    List<MarketCoin> listOfFavourites = await _marketOverviewRepository
+    List<MarketCoin> listOfFavourites = ids == null ? [] : await _marketOverviewRepository
         .fetchCoinMarkets(currency, specficCoinIds: ids);
 
     return listOfFavourites.map((coinData) {
