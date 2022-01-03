@@ -16,6 +16,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset/asset_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/extensions/double_per_currency.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
@@ -49,10 +50,7 @@ class AssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
 
-    // var marketCoin = (BlocProvider.of<AssetOverviewBloc>(context).state
-    //         as AssetOverviewLoaded)
-    //     .allAssets
-    //     .firstWhere((element) => element.id == id);
+    var _currency = BlocProvider.of<AppSettingsBloc>(context).state.currency;
 
     return BlocBuilder<AssetBloc, AssetState>(builder: (context, state) {
       if (state is AssetLoaded) {
@@ -127,12 +125,19 @@ class AssetView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _buildCard(
-                      context,
-                      true,
-                      AssetGraphWithSwitcher(
-                          allHistory: state.assetHistorySplits),
-                    ),
+                    _currency.currencyCode.toLowerCase() ==
+                            singleAsset.symbol.toLowerCase()
+                        ? _buildCard(
+                            context,
+                            false,
+                            Text(
+                                'No graph is possible. Your chosen currency ${_currency.currencyCode.toUpperCase()} is the same as the coin your are viewing (${singleAsset.symbol.toUpperCase()}).'))
+                        : _buildCard(
+                            context,
+                            true,
+                            AssetGraphWithSwitcher(
+                                allHistory: state.assetHistorySplits),
+                          ),
                     const SizedBox(height: 8),
                     _buildCard(
                       context,
@@ -163,15 +168,11 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(singleAsset
-                                                  .marketData.high24h.gbp
+                                          Text(singleAsset.marketData.high24h
+                                                  .getValueForCurrency(
+                                                      _currency)
                                                   ?.currencyFormatWithPrefix(
-                                                      BlocProvider.of<
-                                                                  AppSettingsBloc>(
-                                                              context)
-                                                          .state
-                                                          .currency
-                                                          .currencyString,
+                                                      _currency.currencyString,
                                                       context) ??
                                               '-'),
                                         ],
@@ -184,14 +185,11 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(singleAsset.marketData.low24h.gbp
+                                          Text(singleAsset.marketData.low24h
+                                                  .getValueForCurrency(
+                                                      _currency)
                                                   ?.currencyFormatWithPrefix(
-                                                      BlocProvider.of<
-                                                                  AppSettingsBloc>(
-                                                              context)
-                                                          .state
-                                                          .currency
-                                                          .currencyString,
+                                                      _currency.currencyString,
                                                       context) ??
                                               '-')
                                         ],
@@ -285,10 +283,12 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text('\$' +
+                                          Text(_currency.currencyString +
                                               compactNumberFormat(context)
-                                                  .format(singleAsset.marketData
-                                                      .marketCap.gbp))
+                                                  .format(singleAsset
+                                                      .marketData.marketCap
+                                                      .getValueForCurrency(
+                                                          _currency)))
                                         ],
                                       ),
                                       Row(
@@ -374,7 +374,9 @@ class AssetView extends StatelessWidget {
                                                   .caption),
                                           Text(compactNumberFormat(context)
                                               .format(singleAsset
-                                                  .marketData.totalVolume.gbp))
+                                                  .marketData.totalVolume
+                                                  .getValueForCurrency(
+                                                      _currency)))
                                         ],
                                       ),
                                       Row(
@@ -385,9 +387,12 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(singleAsset.marketData.ath.gbp
+                                          Text(singleAsset.marketData.ath
+                                                  .getValueForCurrency(
+                                                      _currency)
                                                   ?.currencyFormatWithPrefix(
-                                                      '\$', context) ??
+                                                      _currency.currencyString,
+                                                      context) ??
                                               '-'),
                                         ],
                                       ),
@@ -400,13 +405,15 @@ class AssetView extends StatelessWidget {
                                                   .textTheme
                                                   .caption),
                                           DeltaWithArrow(
-                                            singleAsset
-                                                        .marketData
+                                            singleAsset.marketData
                                                         .athChangePercentage
-                                                        .gbp !=
+                                                        .getValueForCurrency(
+                                                            _currency) !=
                                                     null
                                                 ? singleAsset.marketData
-                                                    .athChangePercentage.gbp!
+                                                    .athChangePercentage
+                                                    .getValueForCurrency(
+                                                        _currency)!
                                                 : null,
                                             isPercentage: true,
                                             textSize: Theme.of(context)

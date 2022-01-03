@@ -20,11 +20,11 @@ class SearchLoading extends SearchState {
 }
 
 class SearchLoaded extends SearchState {
-  final List<SimpleAsset> searchResults;
+  final List<SimpleAsset> filteredList;
 
-  const SearchLoaded(this.searchResults);
+  const SearchLoaded(this.filteredList);
   @override
-  List<Object> get props => [searchResults];
+  List<Object> get props => [filteredList];
 }
 
 class SearchError extends SearchState {

@@ -5,14 +5,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:yaca/app_router.dart';
-import 'package:yaca/core/bloc/search/bloc/search_bloc.dart';
-import 'package:yaca/core/models/api/coingecko/simple_asset.dart';
+import 'package:yaca/core/bloc/search/search_bloc.dart';
+import 'package:yaca/ui/consts/constants.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
     final _textController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
@@ -22,24 +23,20 @@ class SearchPage extends StatelessWidget {
               size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
         ),
         title: TextFormField(
+          autofocus: true,
           controller: _textController,
           onChanged: (value) {
-            var results = <SimpleAsset>[];
-            if (context.read<SearchBloc>().state is SearchLoaded) {
-              results = (context.read<SearchBloc>().state as SearchLoaded)
-                  .searchResults;
-            }
-
             context
                 .read<SearchBloc>()
-                .add(SearchEvent(query: value, assetList: results));
+                .add(SearchEvent(query: value));
           },
           decoration: InputDecoration(
             hintText: 'Search',
             iconColor: Theme.of(context).appBarTheme.actionsIconTheme?.color,
             suffixIcon: IconButton(
               onPressed: () {
-                //TODO Reset to show whole list or if you change after search
+                context.read<SearchBloc>().add(
+                    const SearchEvent(query: null));
                 _textController.clear();
               },
               icon: Icon(Ionicons.close_outline,
@@ -53,14 +50,17 @@ class SearchPage extends StatelessWidget {
         builder: (context, state) {
           if (state is SearchLoaded) {
             return ListView.builder(
-                itemCount: state.searchResults.length,
+                itemCount: state.filteredList.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: Text(state.searchResults[index].name),
-                    trailing: Text(state.searchResults[index].symbol),
+                    title: Text(state.filteredList[index].name),
+                    trailing: ConstrainedBox(
+                        constraints: BoxConstraints.loose(
+                            const Size.fromWidth(kIconSize * 2)),
+                        child: Text(state.filteredList[index].symbol)),
                     onTap: () => context.router.push(
                       AssetRoute(
-                        id: state.searchResults[index].id,
+                        id: state.filteredList[index].id,
                       ),
                     ),
                   );

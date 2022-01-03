@@ -16,7 +16,7 @@ import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
-import 'package:yaca/core/bloc/search/bloc/search_bloc.dart';
+import 'package:yaca/core/bloc/search/search_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
 import 'package:yaca/core/bloc/utils/all_bloc_observer.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
@@ -119,7 +119,7 @@ class _MyAppState extends State<MyApp> {
                   BlocProvider(
                       create: (_) => SearchBloc(
                           coinListReposiotry: CoinListReposiotry(_client))
-                        ..add(const LoadAssetListEvent())),
+                        ..add(const GetAssetListEvent())),
                   BlocProvider(
                       create: (_) => FilterListBloc<WhaleTransaction, String>(
                           WhaleTransactionReposiotry(
