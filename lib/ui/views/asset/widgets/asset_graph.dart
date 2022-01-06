@@ -161,23 +161,24 @@ class _AssetGraphState extends State<AssetGraph> {
               LineChartData(
                 backgroundColor: Colors.transparent,
                 gridData: FlGridData(
-                    show: true,
-                    drawVerticalLine: true,
-                    drawHorizontalLine: true,
-                    verticalInterval: (maxTime - minTime) / verticals,
-                    horizontalInterval: (maxPrice - minPrice) / horizonals,
-                    getDrawingHorizontalLine: (double value) {
-                      return FlLine(
-                        color: Colors.grey.withOpacity(0.1),
-                        strokeWidth: 1,
-                      );
-                    },
-                    getDrawingVerticalLine: (double value) {
-                      return FlLine(
-                        color: Colors.grey.withOpacity(0.1),
-                        strokeWidth: 1,
-                      );
-                    }),
+                  show: false,
+                  // drawVerticalLine: true,
+                  // drawHorizontalLine: true,
+                  // verticalInterval: (maxTime - minTime) / verticals,
+                  // horizontalInterval: (maxPrice - minPrice) / horizonals,
+                  // getDrawingHorizontalLine: (double value) {
+                  //   return FlLine(
+                  //     color: Colors.grey.withOpacity(0.1),
+                  //     strokeWidth: 1,
+                  //   );
+                  // },
+                  // getDrawingVerticalLine: (double value) {
+                  //   return FlLine(
+                  //     color: Colors.grey.withOpacity(0.1),
+                  //     strokeWidth: 1,
+                  //   );
+                  // },
+                ),
                 borderData: FlBorderData(
                   show: false,
                 ),
