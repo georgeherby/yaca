@@ -1,6 +1,11 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/simple_asset.dart';
 import 'package:yaca/core/repositories/api/coingecko/coin_list_repository.dart';
 

@@ -1,10 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
+// 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/search/search_bloc.dart';
 import 'package:yaca/ui/consts/constants.dart';
@@ -86,8 +90,17 @@ class SearchView extends StatelessWidget {
                             trailing: ConstrainedBox(
                                 constraints: BoxConstraints.loose(
                                     const Size.fromWidth(kIconSize * 2.5)),
-                                child: Text(state.filteredList[index].symbol
-                                    .toUpperCase())),
+                                child: Text(
+                                    state.filteredList[index].symbol
+                                        .toUpperCase(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .caption
+                                        ?.copyWith(
+                                            fontSize: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1
+                                                ?.fontSize))),
                             onTap: () => context.router.push(
                               AssetRoute(
                                 id: state.filteredList[index].id,

@@ -14,6 +14,7 @@ import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 import 'package:yaca/ui/views/widgets/favourite_icon.dart';
+import 'package:yaca/ui/views/widgets/ranking_card.dart';
 import 'package:yaca/ui/views/widgets/simple_spark_line.dart';
 
 class DesktopRow extends StatelessWidget {
@@ -87,19 +88,7 @@ class DesktopRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        borderRadius: const BorderRadius.all(
-                            Radius.circular(kCornerRadiusCirlcular)),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 2.0, horizontal: 6),
-                        child: Text(rank.toString(),
-                            style: Theme.of(context).textTheme.caption),
-                      ),
-                    ),
+                    RankingCard(ranking: rank),
                     const SizedBox(width: 6),
                     Text(symbol.toUpperCase(),
                         style: Theme.of(context).textTheme.caption),

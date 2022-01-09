@@ -1,5 +1,7 @@
 // 📦 Package imports:
 import 'package:equatable/equatable.dart';
+
+// 🌎 Project imports:
 import 'package:yaca/ui/views/widgets/icons/svg_icon.dart';
 
 class ChosenCurrency extends Equatable {

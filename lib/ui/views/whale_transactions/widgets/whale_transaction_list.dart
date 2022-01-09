@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:yaca/core/config/currency.dart';
 
 // 🌎 Project imports:
+import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';

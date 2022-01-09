@@ -1,5 +1,8 @@
+// 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+
+// 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/tranding_asset.dart';
 import 'package:yaca/core/repositories/api/coingecko/trending_asset_repository.dart';
 

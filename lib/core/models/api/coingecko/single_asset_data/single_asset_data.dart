@@ -3,6 +3,8 @@ import 'dart:convert';
 
 // 📦 Package imports:
 import 'package:equatable/equatable.dart';
+
+// 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/market_data.dart';
 
 class SingleAssetData extends Equatable {

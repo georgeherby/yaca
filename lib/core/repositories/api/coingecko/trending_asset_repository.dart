@@ -1,4 +1,7 @@
+// 📦 Package imports:
 import 'package:http/http.dart' as http;
+
+// 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/tranding_asset.dart';
 
 class TrendingAssetRepository {

@@ -1,10 +1,14 @@
+// 🎯 Dart imports:
 import 'dart:convert';
 
+// 📦 Package imports:
 import 'package:equatable/equatable.dart';
+
+// 🌎 Project imports:
+import 'package:yaca/core/models/api/coingecko/single_asset_data/common/double_per_currency.dart';
 import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/ath_date.dart';
 import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/atl_date.dart';
 import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/roi.dart';
-import 'package:yaca/core/models/api/coingecko/single_asset_data/common/double_per_currency.dart';
 
 class MarketData extends Equatable {
   final DoublePerCurrency currentPrice;

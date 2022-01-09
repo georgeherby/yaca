@@ -1,3 +1,4 @@
+// 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/single_asset_data/common/double_per_currency.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 

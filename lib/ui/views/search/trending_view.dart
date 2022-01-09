@@ -1,13 +1,19 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:yaca/app_router.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+
+// 🌎 Project imports:
+import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/trending/trending_bloc.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
+import 'package:yaca/ui/views/widgets/ranking_card.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class TrendingView extends StatelessWidget {
@@ -25,13 +31,16 @@ class TrendingView extends StatelessWidget {
             children: [
               SvgPicture.asset(
                 "assets/flame.svg",
-                width: Theme.of(context).textTheme.bodyText1?.fontSize,
-                height: Theme.of(context).textTheme.bodyText1?.fontSize,
+                width: 12,
+                height: 12,
                 color: kNegativeRedDark,
               ),
               const SizedBox(width: 4),
-              Text("Trending searches",
-                  style: Theme.of(context).textTheme.bodyText1),
+              Text("TRENDING SEARCHES",
+                  style: Theme.of(context)
+                      .textTheme
+                      .caption
+                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
             ],
           ),
         ),
@@ -87,30 +96,13 @@ class TrendingView extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
+                                        RankingCard(
+                                            ranking: asset.marketCapRank),
+                                        const SizedBox(width: 4),
                                         Text(asset.symbol,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .caption),
-                                        const SizedBox(width: 4),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Theme.of(context)
-                                                .scaffoldBackgroundColor,
-                                            borderRadius: const BorderRadius
-                                                    .all(
-                                                Radius.circular(
-                                                    kCornerRadiusCirlcular)),
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 2.0, horizontal: 6),
-                                            child: Text(
-                                                asset.marketCapRank.toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .caption),
-                                          ),
-                                        ),
                                       ],
                                     ),
                                   ],
