@@ -19,8 +19,8 @@ import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
-import 'package:yaca/ui/views/errors/error_view.dart';
-import 'package:yaca/ui/views/errors/timeout_view.dart';
+import 'package:yaca/ui/views/common/errors/error_view.dart';
+import 'package:yaca/ui/views/common/errors/timeout_view.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view_loading.dart';
 import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:yaca/ui/views/market_overview/widgets/assets_data_table.dart';
@@ -73,7 +73,12 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                   onPressed: () => _onRefresh(context, chosenCurrency))
               : IconButton(
                   icon: const Icon(Ionicons.search_outline),
-                  onPressed: () => context.router.push(const SearchRoute()),
+                  onPressed: () {
+                    debugPrint("pressed");
+
+                    context.router.push(const SearchRoute());
+                    debugPrint("router");
+                  },
                 )
         ],
         bottom: AppBarBottom(),
@@ -171,7 +176,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                             onFavourite: (MarketCoin marketCoin,
                                     bool isChecked) =>
                                 BlocProvider.of<AssetOverviewBloc>(context).add(
-                               AssetFavourited(
+                              AssetFavourited(
                                   allMarketCoins: state.allAssets,
                                   favourites: state.favourites,
                                   symbol: marketCoin.symbol,
@@ -205,8 +210,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   void _onRefresh(BuildContext context, ChosenCurrency chosenCurrency) {
     BlocProvider.of<GlobalMarketBloc>(context)
         .add(GlobalMarketLoad(chosenCurrency));
-    BlocProvider.of<AssetOverviewBloc>(context)
-        .add(const AssetOverviewLoad());
+    BlocProvider.of<AssetOverviewBloc>(context).add(const AssetOverviewLoad());
   }
 
   String _getLabelForCurrentSortType(SortType currentSortType) {

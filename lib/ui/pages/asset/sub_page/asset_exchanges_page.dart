@@ -8,10 +8,10 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/asset/widgets/exchange_list_with_filter.dart';
-import 'package:yaca/ui/views/errors/error_view.dart';
+import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AssetExchangePage extends StatelessWidget {
   const AssetExchangePage({Key? key}) : super(key: key);
@@ -23,8 +23,8 @@ class AssetExchangePage extends StatelessWidget {
         body: BlocBuilder<SingleAssetExchangeBloc, SingleAssetExchangeState>(
           builder: (context, state) {
             if (state is SingleAssetExchangeLoaded) {
-              return Padding(
-                padding: getValueForScreenType<EdgeInsets>(
+              return MaterialSurface(
+                externalPadding: getValueForScreenType<EdgeInsets>(
                   context: context,
                   mobile: const EdgeInsets.symmetric(horizontal: 8.0),
                   tablet:
@@ -32,25 +32,12 @@ class AssetExchangePage extends StatelessWidget {
                   desktop:
                       const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                 ),
-                child: Material(
-                  borderRadius: getValueForScreenType<BorderRadius>(
-                      context: context,
-                      mobile: const BorderRadius.only(
-                          topLeft: Radius.circular(kCornerRadiusCirlcular),
-                          topRight: Radius.circular(kCornerRadiusCirlcular)),
-                      tablet: BorderRadius.circular(kCornerRadiusCirlcular),
-                      desktop: BorderRadius.circular(kCornerRadiusCirlcular)),
-                  clipBehavior: Clip.antiAliasWithSaveLayer,
-                  elevation: Theme.of(context).cardTheme.elevation!,
-                  child: Padding(
-                      padding: const EdgeInsets.only(
-                        left: 8.0,
-                        right: 8.0,
-                        top: 8.0,
-                      ),
-                      child: ExchangeListWithFilter(
-                          exchanges: state.exchangeTickers)),
+                contentPadding: const EdgeInsets.only(
+                  left: 8.0,
+                  right: 8.0,
+                  top: 8.0,
                 ),
+                child: ExchangeListWithFilter(exchanges: state.exchangeTickers),
               );
             } else if (state is SingleAssetExchangeError) {
               debugPrint(state.error.toString());

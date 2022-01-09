@@ -11,6 +11,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
 
 class ThemeChoiceView extends StatelessWidget {
   const ThemeChoiceView({Key? key}) : super(key: key);
@@ -19,47 +20,42 @@ class ThemeChoiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose theme',
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Material(
-          clipBehavior: Clip.antiAlias,
-          borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
-          elevation: Theme.of(context).cardTheme.elevation!,
-          child: ListView(
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            children: [
-              _buildRow(
-                context,
-                'System theme',
-                "Apply theme being used device wide",
-                Ionicons.color_palette_outline,
-                ThemeMode.system,
-              ),
-              const Divider(
-                thickness: kDividerWeighting,
-                height: kDividerWeighting,
-              ),
-              _buildRow(
-                context,
-                'Light theme',
-                "Apply theme with light colors",
-                Ionicons.sunny_outline,
-                ThemeMode.light,
-              ),
-              const Divider(
-                thickness: kDividerWeighting,
-                height: kDividerWeighting,
-              ),
-              _buildRow(
-                context,
-                'Dark theme',
-                "Apply theme with dark colors",
-                Ionicons.moon_outline,
-                ThemeMode.dark,
-              )
-            ],
-          ),
+      body: MaterialSurface(
+        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          children: [
+            _buildRow(
+              context,
+              'System theme',
+              "Apply theme being used device wide",
+              Ionicons.color_palette_outline,
+              ThemeMode.system,
+            ),
+            const Divider(
+              thickness: kDividerWeighting,
+              height: kDividerWeighting,
+            ),
+            _buildRow(
+              context,
+              'Light theme',
+              "Apply theme with light colors",
+              Ionicons.sunny_outline,
+              ThemeMode.light,
+            ),
+            const Divider(
+              thickness: kDividerWeighting,
+              height: kDividerWeighting,
+            ),
+            _buildRow(
+              context,
+              'Dark theme',
+              "Apply theme with dark colors",
+              Ionicons.moon_outline,
+              ThemeMode.dark,
+            )
+          ],
         ),
       ),
     );

@@ -16,6 +16,7 @@ import 'package:yaca/ui/views/market_overview/widgets/asset_rows/mobile_row.dart
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/tablet_header.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/tablet_row.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AssetsDataTable extends StatelessWidget {
   final bool favouriteOnly;
@@ -48,15 +49,8 @@ class AssetsDataTable extends StatelessWidget {
               tablet: TabletHeader(blockSize: blockSize),
               mobile: Container()),
           Expanded(
-            child: Material(
-              borderRadius: getValueForScreenType<BorderRadius>(
-                  context: context,
-                  mobile: const BorderRadius.only(
-                      topLeft: Radius.circular(kCornerRadiusCirlcular),
-                      topRight: Radius.circular(kCornerRadiusCirlcular)),
-                  tablet: BorderRadius.circular(kCornerRadiusCirlcular),
-                  desktop: BorderRadius.circular(kCornerRadiusCirlcular)),
-              elevation: Theme.of(context).cardTheme.elevation!,
+            child: MaterialSurface(
+              fullScreen: true,
               child: favouriteOnly && marketCoins.isEmpty
                   ? Column(
                       mainAxisSize: MainAxisSize.max,

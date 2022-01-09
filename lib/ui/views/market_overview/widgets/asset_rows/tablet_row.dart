@@ -85,10 +85,12 @@ class TabletRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Material(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(6)),
-                      elevation: 0,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular)),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 2.0, horizontal: 6),

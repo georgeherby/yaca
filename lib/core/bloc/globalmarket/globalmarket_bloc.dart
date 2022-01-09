@@ -1,6 +1,7 @@
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/global_market.dart';
@@ -14,6 +15,13 @@ class GlobalMarketBloc extends Bloc<GlobalMarketEvent, GlobalMarketState> {
   final GlobalMarketRespository repository;
   GlobalMarketBloc(this.repository) : super(const GlobalMarketInitial()) {
     on<GlobalMarketLoad>(_onGlobalMarketLoad);
+  }
+
+  @override
+  void onTransition(
+      Transition<GlobalMarketEvent, GlobalMarketState> transition) {
+    debugPrint(transition.toString());
+    super.onTransition(transition);
   }
 
   void _onGlobalMarketLoad(

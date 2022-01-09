@@ -62,7 +62,7 @@ class MobileRow extends StatelessWidget {
             tag: 'coin-icon-$name',
             child: AssetIconWeb(
               iconUrl,
-              iconSize: kIconSize,
+              iconSize: 24,
               assetSymbol: symbol,
             ),
           ),
@@ -88,10 +88,12 @@ class MobileRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Material(
-                      color: Theme.of(context).scaffoldBackgroundColor,
-                      borderRadius: const BorderRadius.all(Radius.circular(6)),
-                      elevation: 0,
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.all(
+                            Radius.circular(kCornerRadiusCirlcular)),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             vertical: 2.0, horizontal: 6),
@@ -110,8 +112,7 @@ class MobileRow extends StatelessWidget {
           Expanded(
             flex: 10,
             child: Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
+              padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: SimpleSparkLine(
                   data: sparklineIn7d!.price
                       .mapIndexed((element, index) {
@@ -124,9 +125,9 @@ class MobileRow extends StatelessWidget {
                   width: blockSize * 20),
             ),
           ),
-          const Spacer(flex: 2),
+          const SizedBox(width: 4),
           Expanded(
-            flex: 6,
+            flex: 9,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,

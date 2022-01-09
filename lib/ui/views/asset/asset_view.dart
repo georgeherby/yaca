@@ -24,7 +24,8 @@ import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:yaca/ui/views/asset/widgets/asset_graph_with_switcher.dart';
-import 'package:yaca/ui/views/errors/error_view.dart';
+import 'package:yaca/ui/views/common/errors/error_view.dart';
+import 'package:yaca/ui/views/common/full_page_loading_view.dart';
 import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
@@ -32,7 +33,7 @@ import 'package:yaca/ui/views/widgets/favourite_icon.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 import 'package:yaca/ui/views/widgets/primary_button.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
-import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AssetView extends StatelessWidget {
   final String id;
@@ -578,10 +579,7 @@ class AssetView extends StatelessWidget {
             onRefresh: () async => _onRefresh(context),
             error: state.error.toString());
       }
-      return ScaffoldWithBack(
-          body: Center(
-        child: PlatformCircularProgressIndicator(),
-      ));
+      return const FullPageLoadingView();
     });
   }
 
@@ -606,13 +604,9 @@ class AssetView extends StatelessWidget {
   }
 
   Widget _buildCard(BuildContext context, bool removePadding, Widget content) {
-    return Material(
-      borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
-      clipBehavior: Clip.antiAliasWithSaveLayer,
-      elevation: Theme.of(context).cardTheme.elevation!,
-      child: Padding(
-          padding: removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
-          child: content),
-    );
+    return MaterialSurface(
+        contentPadding:
+            removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
+        child: content);
   }
 }

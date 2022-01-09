@@ -27,7 +27,7 @@ class AssetGraphWithSwitcher extends StatefulWidget {
 }
 
 class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
-  int _index = 1;
+  int _index = 2;
 
   final List<_AssetGraphChipConfig> _chips = [
     _AssetGraphChipConfig('3h', const Duration(hours: 3)),

@@ -1,0 +1,112 @@
+// 🐦 Flutter imports:
+import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:ionicons/ionicons.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/bloc/search/search_bloc.dart';
+import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/common/errors/error_view.dart';
+import 'package:yaca/ui/views/search/trending_view.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
+
+class SearchView extends StatelessWidget {
+  const SearchView({Key? key}) : super(key: key);
+
+  void _resetSearch(BuildContext context, TextEditingController controller) {
+    // if (controller.value.text.isNotEmpty) {
+    context.read<SearchBloc>().add(const SearchEvent(query: null));
+    controller.clear();
+    // }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final _textController = TextEditingController();
+    _resetSearch(context, _textController);
+
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          onPressed: () => context.router.pop(),
+          icon: Icon(Ionicons.chevron_back_outline,
+              size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
+        ),
+        title: TextFormField(
+          autofocus: true,
+          controller: _textController,
+          onChanged: (value) {
+            if (value.isNotEmpty) {
+              context.read<SearchBloc>().add(SearchEvent(query: value));
+            }
+          },
+          decoration: InputDecoration(
+            hintText: 'Search',
+            iconColor: Theme.of(context).appBarTheme.actionsIconTheme?.color,
+            suffixIcon: IconButton(
+              onPressed: () {
+                _resetSearch(context, _textController);
+              },
+              icon: Icon(Ionicons.close_outline,
+                  color: Theme.of(context).appBarTheme.iconTheme?.color,
+                  size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
+            ),
+          ),
+        ),
+      ),
+      body: BlocBuilder<SearchBloc, SearchState>(
+        builder: (context, state) {
+          if (state is SearchLoaded) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const TrendingView(),
+                const SizedBox(
+                  height: 8.0,
+                ),
+                Expanded(
+                  flex: 3,
+                  child: MaterialSurface(
+                    externalPadding: getValueForScreenType<EdgeInsets>(
+                      context: context,
+                      mobile: const EdgeInsets.symmetric(horizontal: 8.0),
+                      tablet: const EdgeInsets.only(
+                          left: 8.0, right: 8.0, bottom: 8.0),
+                      desktop: const EdgeInsets.only(
+                          left: 8.0, right: 8.0, bottom: 8.0),
+                    ),
+                    child: ListView.builder(
+                        itemCount: state.filteredList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(state.filteredList[index].name),
+                            trailing: ConstrainedBox(
+                                constraints: BoxConstraints.loose(
+                                    const Size.fromWidth(kIconSize * 2.5)),
+                                child: Text(state.filteredList[index].symbol
+                                    .toUpperCase())),
+                            onTap: () => context.router.push(
+                              AssetRoute(
+                                id: state.filteredList[index].id,
+                              ),
+                            ),
+                          );
+                        }),
+                  ),
+                ),
+              ],
+            );
+          } else if (state is SearchError) {
+            debugPrint(state.error);
+            return ErrorView(error: state.error);
+          }
+
+          return Center(child: PlatformCircularProgressIndicator());
+        },
+      ),
+    );
+  }
+}

@@ -98,7 +98,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
         ),
       ),
       const Divider(color: Colors.transparent, height: 8),
-      const Text('Top 100 (max). 24h volumne asc'),
+      const Text('Top 100 (max). 24h volume asc'),
       const Divider(color: Colors.transparent, height: 8),
       Expanded(
         child: ListView.builder(

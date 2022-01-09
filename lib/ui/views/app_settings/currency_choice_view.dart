@@ -12,6 +12,7 @@ import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
 
 class CurrencyChoiceView extends StatelessWidget {
   const CurrencyChoiceView({Key? key}) : super(key: key);
@@ -20,26 +21,21 @@ class CurrencyChoiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose currency',
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-        child: Material(
-          clipBehavior: Clip.antiAlias,
-          borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
-          elevation: Theme.of(context).cardTheme.elevation!,
-          child: ListView.separated(
-            separatorBuilder: (context, index) => const Divider(
-                thickness: kDividerWeighting, height: kDividerWeighting),
-            padding: EdgeInsets.zero,
-            shrinkWrap: true,
-            itemCount: AvailableCurrencies.listOfAvailableCurrencies.length,
-            itemBuilder: (context, index) {
-              return _buildRow(
-                  context,
-                  AvailableCurrencies.listOfAvailableCurrencies[index],
-                  AvailableCurrencies.listOfAvailableCurrencies.length - 1 ==
-                      index);
-            },
-          ),
+      body: MaterialSurface(
+        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: ListView.separated(
+          separatorBuilder: (context, index) => const Divider(
+              thickness: kDividerWeighting, height: kDividerWeighting),
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          itemCount: AvailableCurrencies.listOfAvailableCurrencies.length,
+          itemBuilder: (context, index) {
+            return _buildRow(
+                context,
+                AvailableCurrencies.listOfAvailableCurrencies[index],
+                AvailableCurrencies.listOfAvailableCurrencies.length - 1 ==
+                    index);
+          },
         ),
       ),
     );

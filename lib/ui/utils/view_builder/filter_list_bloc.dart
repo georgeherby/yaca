@@ -34,6 +34,12 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
     on<RefreshList<F>>(_onRefreshList);
   }
 
+  @override
+  void onTransition(Transition<ListEvent, ViewState> transition) {
+    debugPrint(transition.toString());
+    super.onTransition(transition);
+  }
+
   F? get filter => _filter;
 
   /// Loads elements using the given [filter].

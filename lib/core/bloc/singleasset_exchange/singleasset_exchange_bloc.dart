@@ -1,6 +1,7 @@
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/models/api/coingecko/exchange_ticker.dart';
@@ -16,6 +17,13 @@ class SingleAssetExchangeBloc
   SingleAssetExchangeBloc({required this.exchangeTickerRespository})
       : super(SingleAssetExchangeInitial()) {
     on<SingleAssetExchangeLoad>(_onSingleAssetExchangeLoad);
+  }
+  @override
+  void onTransition(
+      Transition<SingleAssetExchangeEvent, SingleAssetExchangeState>
+          transition) {
+    debugPrint(transition.toString());
+    super.onTransition(transition);
   }
 
   void _onSingleAssetExchangeLoad(

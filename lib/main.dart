@@ -18,6 +18,7 @@ import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/bloc/search/search_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/bloc/trending/trending_bloc.dart';
 import 'package:yaca/core/bloc/utils/all_bloc_observer.dart';
 import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/core/models/favourites.dart';
@@ -25,6 +26,7 @@ import 'package:yaca/core/repositories/api/coingecko/coin_list_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
+import 'package:yaca/core/repositories/api/coingecko/trending_asset_repository.dart';
 import 'package:yaca/core/repositories/api/whalealerts/whale_transactions_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
@@ -100,6 +102,10 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
             create: (BuildContext context) =>
                 ExchangeTickerRespository(_client)),
+        RepositoryProvider(
+            create: (BuildContext context) => CoinListReposiotry(_client)),
+        RepositoryProvider(
+            create: (BuildContext context) => TrendingAssetRepository(_client)),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -116,15 +122,12 @@ class _MyAppState extends State<MyApp> {
                   BlocProvider.of<AppSettingsBloc>(context).state.currency;
               return MultiBlocProvider(
                 providers: [
-                  BlocProvider(
-                      create: (_) => SearchBloc(
-                          coinListReposiotry: CoinListReposiotry(_client))
-                        ..add(const GetAssetListEvent())),
-                  BlocProvider(
-                      create: (_) => FilterListBloc<WhaleTransaction, String>(
-                          WhaleTransactionReposiotry(
-                              apiPreferences:
-                                  context.read<ApiTokensPreference>()))),
+                  BlocProvider<FilterListBloc<WhaleTransaction, String>>(
+                      create: (BuildContext context) =>
+                          FilterListBloc<WhaleTransaction, String>(
+                              WhaleTransactionReposiotry(
+                                  apiPreferences:
+                                      context.read<ApiTokensPreference>()))),
                   BlocProvider<GlobalMarketBloc>(
                     create: (BuildContext context) => GlobalMarketBloc(
                       context.read<GlobalMarketRespository>(),
@@ -136,11 +139,20 @@ class _MyAppState extends State<MyApp> {
                       FavouritesDao(box: box),
                       context.read<MarketOverviewRepository>(),
                       context.read<AssetOverviewPreference>(),
-                    )..add(const AssetOverviewLoad(
-                      )),
+                    )..add(const AssetOverviewLoad()),
                   ),
+                  BlocProvider<SearchBloc>(
+                      lazy: false,
+                      create: (BuildContext context) => SearchBloc(
+                            context.read<CoinListReposiotry>(),
+                          )..add(const GetAssetListEvent())),
+                  BlocProvider<TrendingBloc>(
+                      lazy: false,
+                      create: (BuildContext context) => TrendingBloc(
+                            context.read<TrendingAssetRepository>(),
+                          )..add(const LoadTrending())),
                   BlocProvider<SingleAssetExchangeBloc>(
-                    create: (_) => SingleAssetExchangeBloc(
+                    create: (BuildContext context) => SingleAssetExchangeBloc(
                       exchangeTickerRespository:
                           context.read<ExchangeTickerRespository>(),
                     ),

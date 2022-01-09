@@ -14,6 +14,7 @@ import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
 import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AppSettingsView extends StatelessWidget {
   const AppSettingsView({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class AppSettingsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -36,10 +37,7 @@ class AppSettingsView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Material(
-            clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
-            elevation: Theme.of(context).cardTheme.elevation!,
+          MaterialSurface(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -117,10 +115,7 @@ class AppSettingsView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          Material(
-            clipBehavior: Clip.antiAlias,
-            borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
-            elevation: Theme.of(context).cardTheme.elevation!,
+          MaterialSurface(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

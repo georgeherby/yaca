@@ -25,19 +25,19 @@ part 'asset_overview_state.dart';
 class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   late StreamSubscription subscription;
 
-  final AppSettingsBloc settingsBloc;
+  final AppSettingsBloc _settingsBloc;
   final FavouritesDao _favouriteDao;
   final MarketOverviewRepository _marketOverviewRepository;
   final AssetOverviewPreference _assetOverviewPreference;
 
-  AssetOverviewBloc(this.settingsBloc, this._favouriteDao,
+  AssetOverviewBloc(this._settingsBloc, this._favouriteDao,
       this._marketOverviewRepository, this._assetOverviewPreference)
       : super(const AssetOverviewInitial()) {
     on<AssetFavourited>(_onAssetFavourited);
     on<AssetOverviewLoad>(_onAssetOverviewLoad);
     on<AssetSorted>(_onAssetSort);
 
-    subscription = settingsBloc.stream.listen((stateOfSettings) {
+    subscription = _settingsBloc.stream.listen((stateOfSettings) {
       if (stateOfSettings is AppSettingsLoaded) {
         debugPrint('Initial load');
         add(const AssetOverviewLoad());
@@ -69,10 +69,10 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       var _marketCoins = <MarketCoin>[];
 
       var marketCoinsResponse = (await _marketOverviewRepository
-          .fetchCoinMarkets(settingsBloc.state.currency));
+          .fetchCoinMarkets(_settingsBloc.state.currency));
 
       List<MarketCoin> favouriteAssets =
-          await _favourites(marketCoinsResponse, settingsBloc.state.currency);
+          await _favourites(marketCoinsResponse, _settingsBloc.state.currency);
 
       _marketCoins.addAll(marketCoinsResponse.map((coinData) {
         var favs = (favouriteAssets.where((MarketCoin fav) =>
@@ -127,7 +127,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       final sortedAll = _sortBy(updatedAssets.toList(), sortType, sortOrder);
 
       List<MarketCoin> favouriteAssets =
-          await _favourites(event.allMarketCoins, settingsBloc.state.currency);
+          await _favourites(event.allMarketCoins, _settingsBloc.state.currency);
 
       final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
 
@@ -171,7 +171,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       final sortOrder = await _assetOverviewPreference.getSortOrder();
       final sorted = _sortBy(updatedAssets.toList(), sortType, sortOrder);
       List<MarketCoin> favouriteAssets =
-          await _favourites(event.allMarketCoins, settingsBloc.state.currency);
+          await _favourites(event.allMarketCoins, _settingsBloc.state.currency);
 
       final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
 
@@ -190,7 +190,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     await _assetOverviewPreference.setSortType(event.sortType);
 
     List<MarketCoin> favouriteAssets =
-        await _favourites(event.allMarketCoins, settingsBloc.state.currency);
+        await _favourites(event.allMarketCoins, _settingsBloc.state.currency);
 
     final sortedFavourites =
         _sortBy(favouriteAssets, event.sortType, event.sortOrder);

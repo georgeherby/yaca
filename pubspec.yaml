@@ -71,6 +71,7 @@ flutter:
     - assets/whale_outline.svg
     - assets/whale_filled.svg
     - assets/logo.svg
+    - assets/flame.svg
     - assets/crypto_icons/btc.svg
     - assets/crypto_icons/eth.svg
     - assets/crypto_icons/ltc.svg
