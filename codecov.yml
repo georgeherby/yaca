@@ -1,0 +1,4 @@
+ignore:
+  - "path/to/folder"  # ignore folders and all its contents
+  - "**/*.gr.dart"       # wildcards accepted
+  - "lib/generated_plugin_registrant.dart"         # glob accepted
