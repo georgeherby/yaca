@@ -80,8 +80,7 @@ class _AssetGraphState extends State<AssetGraph> {
       mainAxisSize: MainAxisSize.min,
       children: [
         Padding(
-          padding:
-              const EdgeInsets.only(bottom: 8.0, left: 8, right: 8, top: 8),
+          padding: const EdgeInsets.only(left: 8, right: 8, top: 8),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -156,7 +155,8 @@ class _AssetGraphState extends State<AssetGraph> {
           ),
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.only(top: 0.0, right: 0, left: 24),
+            padding: EdgeInsets
+                .zero, //const EdgeInsets.only(top: 0.0, right: 0, left: 24),
             child: LineChart(
               LineChartData(
                 backgroundColor: Colors.transparent,
@@ -186,7 +186,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   show: true,
                 ),
                 titlesData: FlTitlesData(
-                  show: true,
+                  show: false,
                   topTitles: SideTitles(showTitles: false),
                   bottomTitles: SideTitles(
                     showTitles: true,
@@ -237,11 +237,16 @@ class _AssetGraphState extends State<AssetGraph> {
                       return TouchedSpotIndicatorData(
                         FlLine(
                           color: _dashColour,
-                          strokeWidth: 1.5,
+                          strokeWidth: 1,
                           dashArray: [6, 2],
                         ),
                         FlDotData(
-                          show: false,
+                          show: true,
+                          getDotPainter: (spot, percent, barData, index) =>
+                              FlDotCirclePainter(
+                                  color: positive
+                                      .toPositiveNegativeColorFromBool(context),
+                                  strokeWidth: 0),
                         ),
                       );
                     }).toList();
@@ -275,12 +280,19 @@ class _AssetGraphState extends State<AssetGraph> {
                 ),
                 lineBarsData: [
                   LineChartBarData(
-                    isCurved: false,
+                    isCurved: true,
                     colors: [positive.toPositiveNegativeColorFromBool(context)],
                     barWidth: 2.5,
                     isStrokeCapRound: true,
                     dotData: FlDotData(
                       show: false,
+                      getDotPainter: (spot, percent, barData, index) =>
+                          FlDotCirclePainter(
+                              color: positive
+                                  .toPositiveNegativeColorFromBool(context),
+                              strokeWidth: 0),
+                      checkToShowDot: (FlSpot spot, LineChartBarData barData) =>
+                          spot.y == maxPrice || spot.y == minPrice,
                     ),
                     belowBarData: BarAreaData(
                       show: true,

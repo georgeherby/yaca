@@ -65,6 +65,7 @@ class AssetView extends StatelessWidget {
                 : LeadingButtonType.back,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Hero(
                   tag: 'coin-icon-${singleAsset.name}',
@@ -77,9 +78,11 @@ class AssetView extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(width: 8),
-                Hero(
-                  tag: 'coin-title-${singleAsset.name}',
-                  child: AppBarTitle(singleAsset.name),
+                Flexible(
+                  child: Hero(
+                    tag: 'coin-title-${singleAsset.name}',
+                    child: AppBarTitle(singleAsset.name),
+                  ),
                 ),
               ],
             ),

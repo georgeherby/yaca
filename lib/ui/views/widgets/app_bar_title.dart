@@ -19,10 +19,14 @@ class AppBarTitle extends StatelessWidget {
         ? Text(
             title,
             style: Theme.of(context).textTheme.bodyText1,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           )
         : Text(
             title,
             style: Theme.of(context).appBarTheme.titleTextStyle,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           );
   }
 }
