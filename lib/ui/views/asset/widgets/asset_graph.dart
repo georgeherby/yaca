@@ -244,6 +244,7 @@ class _AssetGraphState extends State<AssetGraph> {
                           show: true,
                           getDotPainter: (spot, percent, barData, index) =>
                               FlDotCirclePainter(
+                                  radius: 6,
                                   color: positive
                                       .toPositiveNegativeColorFromBool(context),
                                   strokeWidth: 0),
@@ -278,6 +279,14 @@ class _AssetGraphState extends State<AssetGraph> {
                     }).toList();
                   }),
                 ),
+                extraLinesData: ExtraLinesData(horizontalLines: [
+                  HorizontalLine(
+                    y: widget.history.first.value,
+                    color: _dashColour,
+                    strokeWidth: 1,
+                    dashArray: [4, 4],
+                  ),
+                ]),
                 lineBarsData: [
                   LineChartBarData(
                     isCurved: true,
@@ -288,6 +297,7 @@ class _AssetGraphState extends State<AssetGraph> {
                       show: false,
                       getDotPainter: (spot, percent, barData, index) =>
                           FlDotCirclePainter(
+                              radius: 6,
                               color: positive
                                   .toPositiveNegativeColorFromBool(context),
                               strokeWidth: 0),
