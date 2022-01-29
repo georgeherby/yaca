@@ -1,15 +1,13 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
+// � Package imports:
 import 'package:fl_chart/fl_chart.dart';
+// � Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/models/api/coingecko/asset_history.dart';
@@ -281,6 +279,13 @@ class _AssetGraphState extends State<AssetGraph> {
                 ),
                 extraLinesData: ExtraLinesData(horizontalLines: [
                   HorizontalLine(
+                    label: HorizontalLineLabel(
+                      show: true,
+                      alignment: Alignment.topRight,
+                      labelResolver: (HorizontalLine value) {
+                        return value.y.currencyFormatWithPrefix("£", context);
+                      },
+                    ),
                     y: widget.history.first.value,
                     color: _dashColour,
                     strokeWidth: 1,
@@ -294,7 +299,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     barWidth: 2.5,
                     isStrokeCapRound: true,
                     dotData: FlDotData(
-                      show: false,
+                      show: true,
                       getDotPainter: (spot, percent, barData, index) =>
                           FlDotCirclePainter(
                               radius: 6,
