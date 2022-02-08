@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -10,6 +12,7 @@ import 'package:mocktail/mocktail.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/config/currency.dart';
+import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
@@ -111,7 +114,7 @@ void main() {
 
         when(() => mockMarketOverviewRepository.fetchCoinMarkets(
                 defaultCurrency,
-                specficCoinIds: btcFavouriteWithID.coinId))
+                specficCoinIds: [btcFavouriteWithID.coinId]))
             .thenAnswer((_) => Future.value([btcMarketCoin]));
 
         when(() => mockFavouritesDao.getAll())
@@ -131,8 +134,9 @@ void main() {
             equals(AssetOverviewLoaded(
                 List.empty(),
                 [
-                  btcMarketCoin.copyWith(
-                      favouriteCacheId: btcFavouriteWithID.id),
+                  MarketCoin(
+                      market: btcMarketCoin,
+                      favouriteCacheId: btcFavouriteWithID.id)
                 ],
                 SortType.sortByRank,
                 SortOrder.ascending)));
@@ -168,11 +172,15 @@ void main() {
             bloc.state,
             equals(AssetOverviewLoaded(
               [
-                btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-                ethMarketCoin
+                MarketCoin(
+                    market: btcMarketCoin,
+                    favouriteCacheId: btcFavouriteWithID.id),
+                MarketCoin(market: ethMarketCoin)
               ],
               [
-                btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+                MarketCoin(
+                    market: btcMarketCoin,
+                    favouriteCacheId: btcFavouriteWithID.id),
               ],
               SortType.sortByRank,
               SortOrder.ascending,
@@ -266,11 +274,13 @@ void main() {
       // Tap favourite
       bloc.add(AssetFavourited(
         allMarketCoins: [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ethMarketCoin
+          MarketCoin(
+              market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+          MarketCoin(market: ethMarketCoin)
         ],
         favourites: [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+          MarketCoin(
+              market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
         ],
         symbol: ethMarketCoin.symbol,
         coinId: ethMarketCoin.id,
@@ -283,23 +293,35 @@ void main() {
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded(
             [
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-              ethMarketCoin,
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(market: ethMarketCoin),
             ],
             [
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
             ],
             SortType.sortByRank,
             SortOrder.ascending,
           ),
           AssetOverviewLoaded(
             [
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-              ethMarketCoin.copyWith(favouriteCacheId: ethFavouriteWithId.id),
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(
+                  market: ethMarketCoin,
+                  favouriteCacheId: ethFavouriteWithId.id)
             ],
             [
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-              ethMarketCoin.copyWith(favouriteCacheId: ethFavouriteWithId.id),
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(
+                  market: ethMarketCoin,
+                  favouriteCacheId: ethFavouriteWithId.id)
             ],
             SortType.sortByRank,
             SortOrder.ascending,
@@ -310,12 +332,12 @@ void main() {
     test('unfavourite an favourited item that is not in allAssetList',
         () async {
       // Mocks
-      when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
-              specficCoinIds: null))
+      when(() => mockMarketOverviewRepository
+              .fetchCoinMarkets(defaultCurrency, specficCoinIds: []))
           .thenAnswer((_) => Future.value([ethMarketCoin, bnbMarketCoin]));
 
       when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency,
-              specficCoinIds: btcMarketCoin.id))
+              specficCoinIds: [btcMarketCoin.id]))
           .thenAnswer((_) => Future.value([btcMarketCoin]));
 
       var mockFavouritesDaoCallCount = 0;
@@ -354,11 +376,12 @@ void main() {
       // Tap favourite
       bloc.add(AssetFavourited(
         allMarketCoins: [
-          ethMarketCoin,
-          bnbMarketCoin,
+          MarketCoin(market: ethMarketCoin),
+          MarketCoin(market: bnbMarketCoin),
         ],
         favourites: [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id)
+          MarketCoin(
+              market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id)
         ],
         symbol: btcMarketCoin.symbol,
         coinId: btcMarketCoin.id,
@@ -371,19 +394,21 @@ void main() {
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded(
             [
-              ethMarketCoin,
-              bnbMarketCoin,
+              MarketCoin(market: ethMarketCoin),
+              MarketCoin(market: bnbMarketCoin),
             ],
             [
-              btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
             ],
             SortType.sortByRank,
             SortOrder.ascending,
           ),
           AssetOverviewLoaded(
             [
-              ethMarketCoin,
-              bnbMarketCoin,
+              MarketCoin(market: ethMarketCoin),
+              MarketCoin(market: bnbMarketCoin),
             ],
             const [],
             SortType.sortByRank,
@@ -434,11 +459,13 @@ void main() {
     // Tap favourite
     bloc.add(AssetFavourited(
       allMarketCoins: [
-        btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-        ethMarketCoin
+        MarketCoin(
+            market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+        MarketCoin(market: ethMarketCoin)
       ],
       favourites: [
-        btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id)
+        MarketCoin(
+            market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
       ],
       symbol: btcMarketCoin.symbol,
       coinId: btcMarketCoin.id,
@@ -451,19 +478,21 @@ void main() {
       emitsInOrder(<AssetOverviewState>[
         AssetOverviewLoaded(
           [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin
+            MarketCoin(
+                market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+            MarketCoin(market: ethMarketCoin)
           ],
           [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            MarketCoin(
+                market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
           ],
           SortType.sortByRank,
           SortOrder.ascending,
         ),
         AssetOverviewLoaded(
           [
-            btcMarketCoin,
-            ethMarketCoin,
+            MarketCoin(market: btcMarketCoin),
+            MarketCoin(market: ethMarketCoin)
           ],
           const [],
           SortType.sortByRank,
@@ -505,11 +534,17 @@ void main() {
             bloc.state,
             equals(AssetOverviewLoaded(
               [
-                btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-                ethMarketCoin,
-                bnbMarketCoin
+                MarketCoin(
+                    market: btcMarketCoin,
+                    favouriteCacheId: btcFavouriteWithID.id),
+                MarketCoin(market: ethMarketCoin),
+                MarketCoin(market: bnbMarketCoin)
               ],
-              [btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id)],
+              [
+                MarketCoin(
+                    market: btcMarketCoin,
+                    favouriteCacheId: btcFavouriteWithID.id),
+              ],
               SortType.sortByRank,
               SortOrder.ascending,
             )));
@@ -555,9 +590,10 @@ void main() {
       // Tap sort
       bloc.add(AssetSorted(
         [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          bnbMarketCoin,
-          ethMarketCoin,
+          MarketCoin(
+              market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+          MarketCoin(market: ethMarketCoin),
+          MarketCoin(market: bnbMarketCoin)
         ],
         SortType.sortBy24hPercentageChange,
         SortOrder.descending,
@@ -566,20 +602,38 @@ void main() {
       await expectLater(
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin,
-            bnbMarketCoin
-          ], [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ], SortType.sortByRank, SortOrder.ascending),
-          AssetOverviewLoaded([
-            ethMarketCoin,
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            bnbMarketCoin,
-          ], [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ], SortType.sortBy24hPercentageChange, SortOrder.descending),
+          AssetOverviewLoaded(
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(market: ethMarketCoin),
+              MarketCoin(market: bnbMarketCoin)
+            ],
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            SortType.sortByRank,
+            SortOrder.ascending,
+          ),
+          AssetOverviewLoaded(
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(market: ethMarketCoin),
+              MarketCoin(market: bnbMarketCoin)
+            ],
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            SortType.sortBy24hPercentageChange,
+            SortOrder.descending,
+          ),
         ]),
       );
     });
@@ -622,9 +676,10 @@ void main() {
       // Tap sort
       bloc.add(AssetSorted(
         [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          bnbMarketCoin,
-          ethMarketCoin,
+          MarketCoin(
+              market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+          MarketCoin(market: ethMarketCoin),
+          MarketCoin(market: bnbMarketCoin),
         ],
         SortType.sortBy24hPercentageChange,
         SortOrder.ascending,
@@ -633,23 +688,42 @@ void main() {
       await expectLater(
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
-          AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin,
-            bnbMarketCoin
-          ], [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ], SortType.sortByRank, SortOrder.ascending),
-          AssetOverviewLoaded([
-            bnbMarketCoin,
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin,
-          ], [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          ], SortType.sortBy24hPercentageChange, SortOrder.ascending),
+          AssetOverviewLoaded(
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+              MarketCoin(market: ethMarketCoin),
+              MarketCoin(market: bnbMarketCoin),
+            ],
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            SortType.sortByRank,
+            SortOrder.ascending,
+          ),
+          AssetOverviewLoaded(
+            [
+              MarketCoin(market: bnbMarketCoin),
+              MarketCoin(market: ethMarketCoin),
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            [
+              MarketCoin(
+                  market: btcMarketCoin,
+                  favouriteCacheId: btcFavouriteWithID.id),
+            ],
+            SortType.sortBy24hPercentageChange,
+            SortOrder.ascending,
+          ),
         ]),
       );
     });
+
     test('Call AssetSorted with Rank and Descending', () async {
       // Mocks
       when(() => mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
@@ -692,9 +766,10 @@ void main() {
       // Tap sort
       bloc.add(AssetSorted(
         [
-          btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-          bnbMarketCoin,
-          ethMarketCoin,
+          MarketCoin(
+              market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+          MarketCoin(market: bnbMarketCoin),
+          MarketCoin(market: ethMarketCoin),
         ],
         SortType.sortByRank,
         SortOrder.descending,
@@ -704,18 +779,22 @@ void main() {
         bloc.stream,
         emitsInOrder(<AssetOverviewState>[
           AssetOverviewLoaded([
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
-            ethMarketCoin,
-            bnbMarketCoin
+            MarketCoin(
+                market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
+            MarketCoin(market: ethMarketCoin),
+            MarketCoin(market: bnbMarketCoin),
           ], [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            MarketCoin(
+                market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortByRank, SortOrder.ascending),
           AssetOverviewLoaded([
-            bnbMarketCoin,
-            ethMarketCoin,
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            MarketCoin(market: bnbMarketCoin),
+            MarketCoin(market: ethMarketCoin),
+            MarketCoin(
+                market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
           ], [
-            btcMarketCoin.copyWith(favouriteCacheId: btcFavouriteWithID.id),
+            MarketCoin(
+                market: btcMarketCoin, favouriteCacheId: btcFavouriteWithID.id),
           ], SortType.sortByRank, SortOrder.descending),
         ]),
       );

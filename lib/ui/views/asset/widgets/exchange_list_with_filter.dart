@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:coingecko_api/data/ticker.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/extensions/platform.dart';
-import 'package:yaca/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:yaca/core/models/filter.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
@@ -17,7 +17,7 @@ import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
-  final List<Tickers> exchanges;
+  final List<Ticker> exchanges;
 
   const ExchangeListWithFilter({Key? key, required this.exchanges})
       : super(key: key);
@@ -27,7 +27,7 @@ class ExchangeListWithFilter extends StatefulWidget {
 }
 
 class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
-  List<Tickers> tickers = [];
+  List<Ticker> tickers = [];
   List<Filter> currencyFilter = [];
 
   @override
@@ -78,13 +78,13 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
             checkmarkColor: Theme.of(context).chipTheme.checkmarkColor,
             label: Text(
               currencyFilter[index].value.toUpperCase(),
-              style: Theme.of(context).chipTheme.labelStyle.copyWith(
+              style: Theme.of(context).chipTheme.labelStyle?.copyWith(
                   fontWeight: currencyFilter[index].selected
                       ? FontWeight.bold
                       : FontWeight.normal,
                   color: currencyFilter[index].selected
                       ? Theme.of(context).chipTheme.checkmarkColor
-                      : Theme.of(context).chipTheme.labelStyle.color),
+                      : Theme.of(context).chipTheme.labelStyle?.color),
             ),
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             selectedColor: Theme.of(context).chipTheme.selectedColor,
@@ -108,20 +108,18 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: GestureDetector(
-                onTap: () => tickers[index].tradeUrl != null
-                    ? _launchURL(tickers[index].tradeUrl)
-                    : null,
+                onTap: () => _launchURL(tickers[index].tradeUrl),
                 child: Row(
                   children: [
                     ClipRRect(
                         borderRadius:
                             BorderRadius.circular(kCornerRadiusCirlcular),
-                        child: tickers[index].market != null
+                        child: tickers[index].market.logo != null
                             ? AssetIconWeb(
-                                tickers[index].market!.logo,
+                                tickers[index].market.logo!,
                                 iconSize: kIconSize,
                                 assetSymbol:
-                                    tickers[index].market!.name.substring(0, 2),
+                                    tickers[index].market.name.substring(0, 2),
                               )
                             : const AssetTextIcon(
                                 assetSymbol: "?", iconSize: kIconSize)),
@@ -129,7 +127,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     Expanded(
                         flex: _isPhoneOnly ? 50 : 80,
                         child: Text(
-                          tickers[index].market!.name,
+                          tickers[index].market.name,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 1,
                         )),
@@ -145,19 +143,15 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                         : Expanded(
                             flex: 30,
                             child: RelevanceIndicator(
-                              value: _trustScoreToInt(tickers[index]
-                                          .trustScore
-                                          ?.toUpperCase() ??
-                                      '') *
+                              value: _trustScoreToInt(
+                                      tickers[index].trustScore.toUpperCase()) *
                                   2,
                               amount: 6,
                               barWidth: 2.5,
                               semanticLabel:
-                                  "Trust score is ${tickers[index].trustScore?.toUpperCase() ?? 'n/a'}",
-                              selectedColor: _trustScoreToColor(
-                                  context,
-                                  tickers[index].trustScore?.toUpperCase() ??
-                                      ''),
+                                  "Trust score is ${tickers[index].trustScore.toUpperCase()}",
+                              selectedColor: _trustScoreToColor(context,
+                                  tickers[index].trustScore.toUpperCase()),
                               unselectedolor: Theme.of(context).dividerColor,
                             ),
                           ),
@@ -181,15 +175,11 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       ),
                     ),
                     const Spacer(flex: 5),
-                    tickers[index].tradeUrl != null
-                        ? Icon(
-                            Ionicons.chevron_forward_outline,
-                            color: Theme.of(context)
-                                .iconTheme
-                                .color
-                                ?.withOpacity(0.6),
-                          )
-                        : const SizedBox(width: 24),
+                    Icon(
+                      Ionicons.chevron_forward_outline,
+                      color:
+                          Theme.of(context).iconTheme.color?.withOpacity(0.6),
+                    )
                   ],
                 ),
               ),

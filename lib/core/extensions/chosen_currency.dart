@@ -1,6 +1,5 @@
 // 🌎 Project imports:
 import 'package:yaca/core/config/currency.dart';
-import 'package:yaca/core/models/api/coingecko/global_market.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 extension ChosenCurrencyExtension on String {
@@ -18,17 +17,8 @@ extension ChosenCurrencyExtension on String {
   }
 }
 
-extension TotalMarketCapForCurrency on TotalMarketCap {
-  double getForCurrency(String currency) {
-    switch (currency.toUpperCase()) {
-      case 'GBP':
-        return gbp;
-      case 'USD':
-        return usd;
-      case 'BTC':
-        return btc;
-      default:
-        return usd;
-    }
+extension TotalMarketCapForCurrency on Map {
+  double? getForCurrency(String currency) {
+    return this[currency.toLowerCase()];
   }
 }

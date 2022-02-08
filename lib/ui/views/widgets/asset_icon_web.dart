@@ -11,21 +11,26 @@ class AssetIconWeb extends StatelessWidget {
       {Key? key, required this.assetSymbol, required this.iconSize})
       : super(key: key);
 
-  final String iconUrl;
+  final String? iconUrl;
   final String assetSymbol;
   final double iconSize;
   @override
   Widget build(BuildContext context) {
-    return WebBuilder(
-      web: AssetTextIcon(
-        iconSize: iconSize,
-        assetSymbol: assetSymbol,
-      ),
-      other: AssetNetworkIcon(
-        iconUrl,
-        assetSymbol: assetSymbol,
-        iconSize: iconSize,
-      ),
-    );
+    return iconUrl != null
+        ? WebBuilder(
+            web: AssetTextIcon(
+              iconSize: iconSize,
+              assetSymbol: assetSymbol,
+            ),
+            other: AssetNetworkIcon(
+              iconUrl!,
+              assetSymbol: assetSymbol,
+              iconSize: iconSize,
+            ),
+          )
+        : AssetTextIcon(
+            iconSize: iconSize,
+            assetSymbol: assetSymbol,
+          );
   }
 }

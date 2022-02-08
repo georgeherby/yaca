@@ -1,35 +1,30 @@
 // 🎯 Dart imports:
-import 'dart:convert';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:http/http.dart' as http;
+import 'package:coingecko_api/coingecko_api.dart';
+import 'package:coingecko_api/data/global_coin_data.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/models/api/coingecko/global_market.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 class GlobalMarketRespository {
-  final http.Client client;
+  final CoinGeckoApi _api;
 
-  GlobalMarketRespository({required this.client});
+  GlobalMarketRespository(this._api);
 
-  Future<GlobalMarket> fetchMarketOverview(ChosenCurrency currencyCode) async {
-    debugPrint(
-        'fetchMarketOverview called for currency ${currencyCode.currencyCode}');
+  Future<GlobalCoinData> fetchMarketOverview(
+      ChosenCurrency currencyCode) async {
+    debugPrint('fetchMarketOverview callled for currency: $currencyCode');
 
-    var url =
-        'https://api.coingecko.com/api/v3/global?vs_currency=${currencyCode.currencyCode}';
-    final response = await client.get(Uri.parse(url));
+    final result = await _api.global.getGlobalData();
 
-    debugPrint(response.statusCode.toString());
-    if (response.statusCode != 200) {
-      debugPrint(response.headers.toString());
-      debugPrint('Error getting Market Overivew');
+    if (!result.isError) {
+      return result.data!;
+    } else {
+      throw Exception('Failed to load coin list');
     }
-
-    return GlobalMarket.fromJson(jsonDecode(response.body));
   }
 }

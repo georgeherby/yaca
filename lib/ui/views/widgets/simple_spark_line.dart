@@ -10,6 +10,9 @@ import 'package:fl_chart/fl_chart.dart';
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/colours.dart';
 
+// � Package imports:
+// � Flutter imports:
+
 class SimpleSparkLine extends StatelessWidget {
   final List<double> data;
   final double width;
@@ -45,13 +48,11 @@ class SimpleSparkLine extends StatelessWidget {
           lineBarsData: [
             LineChartBarData(
               isCurved: true,
-              curveSmoothness: 1,
-              preventCurveOverShooting: true,
+              isStrokeCapRound: true,
               colors: [
                 graphColor,
               ],
               barWidth: 2,
-              isStrokeCapRound: false,
               dotData: FlDotData(
                 show: false,
               ),

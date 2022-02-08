@@ -12,7 +12,7 @@ class TrendingInitial extends TrendingState {}
 class TrendingLoading extends TrendingState {}
 
 class TrendingLoaded extends TrendingState {
-  final List<TrendingAsset> trending;
+  final List<SearchTrendingCoin> trending;
 
   const TrendingLoaded({required this.trending});
 

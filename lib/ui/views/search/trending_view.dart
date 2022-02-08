@@ -56,7 +56,7 @@ class TrendingView extends StatelessWidget {
                   children: <Widget>[
                     const SizedBox(width: 8.0),
                     ...List.generate(state.trending.length, (index) {
-                      var asset = state.trending[index].asset;
+                      var asset = state.trending[index];
                       return Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

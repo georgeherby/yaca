@@ -1,25 +1,19 @@
 // 📦 Package imports:
-import 'package:http/http.dart' as http;
-
-// 🌎 Project imports:
-import 'package:yaca/core/models/api/coingecko/tranding_asset.dart';
+import 'package:coingecko_api/coingecko_api.dart';
+import 'package:coingecko_api/data/search_trending.dart';
 
 class TrendingAssetRepository {
-  final http.Client _client;
+  final CoinGeckoApi api;
 
-  TrendingAssetRepository(this._client);
+  TrendingAssetRepository(this.api);
 
-  Future<List<TrendingAsset>> getTrendingAssets() async {
-    final response = await _client
-        .get(
-          Uri.parse('https://api.coingecko.com/api/v3/search/trending'),
-        )
-        .timeout(const Duration(seconds: 20));
+  Future<List<SearchTrendingCoin>> getTrendingAssets() async {
+    final result = await api.trending.getSearchTrending();
 
-    if (response.statusCode == 200) {
-      return TrendingAssets.fromJson(response.body).coins;
+    if (!result.isError) {
+      return result.data!.coins;
     } else {
-      throw Exception('Failed to load coin list');
+      throw Exception('Failed getTrendingAssets');
     }
   }
 }

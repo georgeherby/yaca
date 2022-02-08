@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -14,7 +16,7 @@ import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/extensions/sort_order.dart';
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/ui/consts/colours.dart';
@@ -179,9 +181,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               AssetFavourited(
                                   allMarketCoins: state.allAssets,
                                   favourites: state.favourites,
-                                  symbol: marketCoin.symbol,
-                                  name: marketCoin.name,
-                                  coinId: marketCoin.id,
+                                  symbol: marketCoin.market.symbol,
+                                  name: marketCoin.market.name,
+                                  coinId: marketCoin.market.id,
                                   addToFavourite: isChecked),
                             ),
                           ),

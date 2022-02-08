@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:coingecko_api/data/market_sparkline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/extensions/list.dart';
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
@@ -22,15 +22,15 @@ class MobileRow extends StatelessWidget {
   final int rank;
   final String symbol;
   final String name;
-  final String iconUrl;
-  final SparklineIn7d? sparklineIn7d;
+  final String? iconUrl;
+  final MarketSparkline? sparklineIn7d;
   final double? sevenDayPercentageChange;
   final double? sevenDayChange;
   final double? oneDayPercentageChange;
   final double? oneDayChange;
   final double? oneHourPercentageChange;
   final double? oneHourChange;
-  final double price;
+  final double? price;
   final bool isFavourited;
   final VoidCallback onFavourite;
 
@@ -120,18 +120,20 @@ class MobileRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  price.currencyFormatWithPrefix(
-                      BlocProvider.of<AppSettingsBloc>(context)
-                          .state
-                          .currency
-                          .currencyString,
-                      context),
-                  textAlign: TextAlign.end,
-                  maxLines: 1,
-                  overflow: TextOverflow.clip,
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
+                price != null
+                    ? Text(
+                        price!.currencyFormatWithPrefix(
+                            BlocProvider.of<AppSettingsBloc>(context)
+                                .state
+                                .currency
+                                .currencyString,
+                            context),
+                        textAlign: TextAlign.end,
+                        maxLines: 1,
+                        overflow: TextOverflow.clip,
+                        style: Theme.of(context).textTheme.bodyText2,
+                      )
+                    : const SizedBox.shrink(),
                 DeltaWithArrow(
                     oneDayPercentageChange != null
                         ? oneDayPercentageChange!

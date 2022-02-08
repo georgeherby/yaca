@@ -17,7 +17,7 @@ class SingleAssetExchangeLoading extends SingleAssetExchangeState {
 }
 
 class SingleAssetExchangeLoaded extends SingleAssetExchangeState {
-  final List<Tickers> exchangeTickers;
+  final List<Ticker> exchangeTickers;
 
   const SingleAssetExchangeLoaded(this.exchangeTickers);
 
