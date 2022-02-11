@@ -1,27 +1,19 @@
 // 🎯 Dart imports:
-import 'dart:convert';
 
 // 📦 Package imports:
-import 'package:http/http.dart' as http;
-
-// 🌎 Project imports:
-import 'package:yaca/core/models/api/coingecko/simple_asset.dart';
+import 'package:coingecko_api/coingecko_api.dart';
+import 'package:coingecko_api/data/coin_short.dart';
 
 class CoinListReposiotry {
-  final http.Client _client;
+  final CoinGeckoApi _api;
 
-  CoinListReposiotry(this._client);
+  CoinListReposiotry(this._api);
 
-  Future<List<SimpleAsset>> getCoinList() async {
-    final response = await _client
-        .get(
-          Uri.parse('https://api.coingecko.com/api/v3/coins/list'),
-        )
-        .timeout(const Duration(seconds: 20));
+  Future<List<CoinShort>> getCoinList() async {
+    final result = await _api.coins.listCoins();
 
-    if (response.statusCode == 200) {
-      final json = jsonDecode(response.body);
-      return (json as List).map((e) => SimpleAsset.fromJson(e)).toList();
+    if (!result.isError) {
+      return result.data;
     } else {
       throw Exception('Failed to load coin list');
     }

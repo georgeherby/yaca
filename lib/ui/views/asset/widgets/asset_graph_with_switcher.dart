@@ -2,16 +2,20 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
+// 📦 Package imports:
+import 'package:coingecko_api/data/market_chart_data.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/core/extensions/platform.dart';
-import 'package:yaca/core/models/api/coingecko/asset_history.dart';
+import 'package:yaca/core/models/api/asset_history_splits.dart';
+import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/asset/widgets/asset_graph.dart';
 
-class _AssetGraphChipConfig {
+class _AssetGraphChipConfigurations {
   final String label;
   final Duration? duration;
 
-  _AssetGraphChipConfig(this.label, this.duration);
+  const _AssetGraphChipConfigurations(this.label, this.duration);
 }
 
 class AssetGraphWithSwitcher extends StatefulWidget {
@@ -29,23 +33,34 @@ class AssetGraphWithSwitcher extends StatefulWidget {
 class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   int _index = 2;
 
-  final List<_AssetGraphChipConfig> _chips = [
-    _AssetGraphChipConfig('3h', const Duration(hours: 3)),
-    _AssetGraphChipConfig('12H', const Duration(hours: 12)),
-    _AssetGraphChipConfig('1D', const Duration(days: 1)),
-    _AssetGraphChipConfig('3D', const Duration(days: 3)),
-    _AssetGraphChipConfig('1W', const Duration(days: 7)),
-    _AssetGraphChipConfig('1M', const Duration(days: 30)),
-    _AssetGraphChipConfig('3M', const Duration(days: 90)),
-    _AssetGraphChipConfig('6M', const Duration(days: 180)),
-    _AssetGraphChipConfig('1Y', const Duration(days: 365)),
-    _AssetGraphChipConfig('3Y', const Duration(days: 365 * 3)),
-    _AssetGraphChipConfig('All', null),
+  final List<_AssetGraphChipConfigurations> kChips = const [
+    _AssetGraphChipConfigurations('3h', Duration(hours: 3)),
+    _AssetGraphChipConfigurations('12H', Duration(hours: 12)),
+    _AssetGraphChipConfigurations('1D', Duration(days: 1)),
+    _AssetGraphChipConfigurations('3D', Duration(days: 3)),
+    _AssetGraphChipConfigurations('1W', Duration(days: 7)),
+    _AssetGraphChipConfigurations('1M', Duration(days: 30)),
+    _AssetGraphChipConfigurations('3M', Duration(days: 90)),
+    _AssetGraphChipConfigurations('6M', Duration(days: 180)),
+    _AssetGraphChipConfigurations('1Y', Duration(days: 365)),
+    _AssetGraphChipConfigurations('3Y', Duration(days: 365 * 3)),
+    _AssetGraphChipConfigurations('All', null),
   ];
 
   @override
   Widget build(BuildContext context) {
-    var _duration = _chips[_index].duration;
+    //Get chips where there data. For example data may only go back 1 year, so dont show 3y chips
+    var _chips = kChips
+        .where((element) => element.duration == null
+            ? true
+            : widget.allHistory.allMonths.first.date.millisecondsSinceEpoch <
+                DateTime.now()
+                    .subtract(element.duration!)
+                    .millisecondsSinceEpoch)
+        .toList();
+
+    var _duration =
+        _chips.length < _index ? _chips[0].duration : _chips[_index].duration;
     var _data = applyFilter(widget.allHistory, _duration);
 
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -76,6 +91,10 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                           .copyWith(canvasColor: Colors.transparent),
                       child: ChoiceChip(
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(kCornerRadiusCirlcular),
+                        ),
                         padding: const EdgeInsets.symmetric(horizontal: 3),
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
@@ -85,7 +104,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                           style: Theme.of(context)
                               .chipTheme
                               .labelStyle
-                              .copyWith(
+                              ?.copyWith(
                                   fontWeight: _selected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
@@ -98,7 +117,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                                           : Theme.of(context)
                                               .chipTheme
                                               .labelStyle
-                                              .color),
+                                              ?.color),
                         ),
                         selected: listIndex == _index,
                         backgroundColor:
@@ -124,6 +143,10 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                           .copyWith(canvasColor: Colors.transparent),
                       child: ChoiceChip(
                         padding: const EdgeInsets.symmetric(horizontal: 2),
+                        shape: RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.circular(kCornerRadiusCirlcular),
+                        ),
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
                         label: Text(
@@ -132,7 +155,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                           style: Theme.of(context)
                               .chipTheme
                               .labelStyle
-                              .copyWith(
+                              ?.copyWith(
                                   fontWeight: _selected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
@@ -145,7 +168,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                                           : Theme.of(context)
                                               .chipTheme
                                               .labelStyle
-                                              .color),
+                                              ?.color),
                         ),
                         selected: listIndex == _index,
                         backgroundColor:
@@ -164,27 +187,27 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
     ]);
   }
 
-  List<TimeValuePair> applyFilter(
+  List<MarketChartData> applyFilter(
       AssetHistorySplits historySplits, Duration? duration) {
-    List<TimeValuePair> data;
+    List<MarketChartData> data;
 
     if (duration != null) {
       debugPrint(duration.toString());
       if (duration <= const Duration(hours: 24)) {
-        data = historySplits.last24Hours.prices;
+        data = historySplits.last24Hours;
       } else if (duration <= const Duration(days: 90)) {
-        data = historySplits.last3Month.prices;
+        data = historySplits.last3Month;
       } else {
-        data = historySplits.allMonths.prices;
+        data = historySplits.allMonths;
       }
 
       return data
           .where((element) =>
-              element.timeEpochUtc >
+              element.date.millisecondsSinceEpoch >
               DateTime.now().subtract(duration).millisecondsSinceEpoch)
           .toList();
     } else {
-      return historySplits.allMonths.prices;
+      return historySplits.allMonths;
     }
   }
 }

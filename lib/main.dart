@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 // 📦 Package imports:
+import 'package:coingecko_api/coingecko_api.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:http/http.dart' as http;
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
     box = Hive.box<Favourites>('favouritesBox');
   }
 
-  final http.Client _client = http.Client();
+  final CoinGeckoApi _api = CoinGeckoApi();
   final _appRouter = AppRouter();
 
   @override
@@ -94,18 +94,16 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
             create: (BuildContext context) => ApiTokensPreference()),
         RepositoryProvider(
-            create: (BuildContext context) =>
-                GlobalMarketRespository(client: _client)),
+            create: (BuildContext context) => GlobalMarketRespository(_api)),
         RepositoryProvider(
             create: (BuildContext context) =>
-                MarketOverviewRepository(_client)),
+                MarketOverviewRepository(_api)),
         RepositoryProvider(
-            create: (BuildContext context) =>
-                ExchangeTickerRespository(_client)),
+            create: (BuildContext context) => ExchangeTickerRespository(_api)),
         RepositoryProvider(
-            create: (BuildContext context) => CoinListReposiotry(_client)),
+            create: (BuildContext context) => CoinListReposiotry(_api)),
         RepositoryProvider(
-            create: (BuildContext context) => TrendingAssetRepository(_client)),
+            create: (BuildContext context) => TrendingAssetRepository(_api)),
       ],
       child: MultiBlocProvider(
         providers: [

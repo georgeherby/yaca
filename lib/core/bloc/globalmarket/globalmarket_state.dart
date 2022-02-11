@@ -19,7 +19,7 @@ class GlobalMarketLoading extends GlobalMarketState {
 }
 
 class GlobalMarketLoaded extends GlobalMarketState {
-  final GlobalMarket globalMarket;
+  final GlobalCoinData globalMarket;
 
   const GlobalMarketLoaded(this.globalMarket);
 

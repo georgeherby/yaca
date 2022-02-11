@@ -20,10 +20,8 @@ class SearchView extends StatelessWidget {
   const SearchView({Key? key}) : super(key: key);
 
   void _resetSearch(BuildContext context, TextEditingController controller) {
-    // if (controller.value.text.isNotEmpty) {
     context.read<SearchBloc>().add(const SearchEvent(query: null));
     controller.clear();
-    // }
   }
 
   @override

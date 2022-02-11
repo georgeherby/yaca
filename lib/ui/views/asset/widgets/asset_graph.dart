@@ -5,6 +5,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:coingecko_api/data/market_chart_data.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -12,13 +13,15 @@ import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:yaca/core/models/api/coingecko/asset_history.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 
+// � Package imports:
+// � Flutter imports:
+
 class AssetGraph extends StatefulWidget {
-  final List<TimeValuePair> history;
+  final List<MarketChartData> history;
   final Duration? duration;
   const AssetGraph({
     Key? key,
@@ -41,33 +44,35 @@ class _AssetGraphState extends State<AssetGraph> {
   void didUpdateWidget(covariant AssetGraph oldWidget) {
     if (oldWidget.duration != widget.duration) {
       debugPrint('Duration changed reset touched values');
-      touchedPrice = widget.history.last.value;
-      touchedTime = widget.history.last.timeEpochUtc;
+      touchedPrice = widget.history.last.price!;
+      touchedTime = widget.history.last.date.millisecondsSinceEpoch;
     }
     super.didUpdateWidget(oldWidget);
   }
 
   @override
   void initState() {
-    touchedPrice = widget.history.last.value;
-    touchedTime = widget.history.last.timeEpochUtc;
+    touchedPrice = widget.history.last.price!;
+    touchedTime = widget.history.last.date.millisecondsSinceEpoch;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var positive = widget.history.isNotEmpty &&
-        widget.history.first.value < widget.history.last.value;
+        widget.history.first.price! < widget.history.last.price!;
 
     var _dashColour = (Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700
         : Colors.white70);
 
-    var maxPrice = widget.history.map((e) => e.value).reduce(max);
-    var minPrice = widget.history.map((e) => e.value).reduce(min);
+    var maxPrice = widget.history.map((e) => e.price!).reduce(max);
+    var minPrice = widget.history.map((e) => e.price!).reduce(min);
 
-    var maxTime = widget.history.map((e) => e.timeEpochUtc).reduce(max);
-    var minTime = widget.history.map((e) => e.timeEpochUtc).reduce(min);
+    var maxTime =
+        widget.history.map((e) => e.date.millisecondsSinceEpoch).reduce(max);
+    var minTime =
+        widget.history.map((e) => e.date.millisecondsSinceEpoch).reduce(min);
 
     var _dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
@@ -101,12 +106,12 @@ class _AssetGraphState extends State<AssetGraph> {
                       const SizedBox(height: 4),
                       SizedBox(
                         height: 20,
-                        child: (price != widget.history.last.value)
+                        child: (price != widget.history.last.price!)
                             ? Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   DeltaWithArrow(
-                                      ((price - (widget.history.last.value)) /
+                                      ((price - (widget.history.last.price!)) /
                                               price) *
                                           100,
                                       isPercentage: true),
@@ -244,6 +249,7 @@ class _AssetGraphState extends State<AssetGraph> {
                           show: true,
                           getDotPainter: (spot, percent, barData, index) =>
                               FlDotCirclePainter(
+                                  radius: 6,
                                   color: positive
                                       .toPositiveNegativeColorFromBool(context),
                                   strokeWidth: 0),
@@ -264,10 +270,11 @@ class _AssetGraphState extends State<AssetGraph> {
                       setState(() {
                         touchedTime = widget
                             .history[lineTouch.lineBarSpots!.first.spotIndex]
-                            .timeEpochUtc;
+                            .date
+                            .millisecondsSinceEpoch;
                         touchedPrice = widget
                             .history[lineTouch.lineBarSpots!.first.spotIndex]
-                            .value;
+                            .price!;
                       });
                     }
                   },
@@ -278,16 +285,32 @@ class _AssetGraphState extends State<AssetGraph> {
                     }).toList();
                   }),
                 ),
+                extraLinesData: ExtraLinesData(horizontalLines: [
+                  HorizontalLine(
+                    label: HorizontalLineLabel(
+                      show: true,
+                      alignment: Alignment.bottomLeft,
+                      labelResolver: (HorizontalLine value) {
+                        return value.y.currencyFormatWithPrefix("£", context);
+                      },
+                    ),
+                    y: widget.history.first.price!,
+                    color: _dashColour,
+                    strokeWidth: 1,
+                    dashArray: [4, 4],
+                  ),
+                ]),
                 lineBarsData: [
                   LineChartBarData(
                     isCurved: true,
                     colors: [positive.toPositiveNegativeColorFromBool(context)],
-                    barWidth: 2.5,
+                    barWidth: 2,
                     isStrokeCapRound: true,
                     dotData: FlDotData(
-                      show: false,
+                      show: true,
                       getDotPainter: (spot, percent, barData, index) =>
                           FlDotCirclePainter(
+                              radius: 6,
                               color: positive
                                   .toPositiveNegativeColorFromBool(context),
                               strokeWidth: 0),
@@ -295,7 +318,7 @@ class _AssetGraphState extends State<AssetGraph> {
                           spot.y == maxPrice || spot.y == minPrice,
                     ),
                     belowBarData: BarAreaData(
-                      show: true,
+                      show: false,
                       colors: [
                         Colors.transparent,
                         (positive.toPositiveNegativeColorFromBool(context))
@@ -308,8 +331,9 @@ class _AssetGraphState extends State<AssetGraph> {
                     spots: List.generate(
                         widget.history.length,
                         (index) => FlSpot(
-                              widget.history[index].timeEpochUtc.toDouble(),
-                              widget.history[index].value,
+                              widget.history[index].date.millisecondsSinceEpoch
+                                  .toDouble(),
+                              widget.history[index].price!,
                             )),
                   ),
                 ],

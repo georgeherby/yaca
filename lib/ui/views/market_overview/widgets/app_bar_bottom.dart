@@ -44,12 +44,12 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                         .state
                         .currency
                         .currencyString,
-                    marketCap: state.globalMarket.data.totalMarketCap,
+                    marketCap: state.globalMarket.totalMarketCap,
                     marketCap24hPercentageChange:
-                        state.globalMarket.data.marketCapChangePercentage24hUsd,
+                        state.globalMarket.marketCapChangePercentage24hUsd,
                     marketCapPercentage:
-                        state.globalMarket.data.marketCapPercentage,
-                    totalVolume: state.globalMarket.data.totalVolume,
+                        state.globalMarket.marketCapPercentage,
+                    totalVolume: state.globalMarket.totalVolume,
                   );
                 }
 

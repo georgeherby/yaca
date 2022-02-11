@@ -2,33 +2,38 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:http/http.dart' as http;
+import 'package:coingecko_api/coingecko_api.dart';
+import 'package:coingecko_api/data/enumerations.dart';
+import 'package:coingecko_api/data/market.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 class MarketOverviewRepository {
-  final http.Client _client;
-  MarketOverviewRepository(this._client);
+  final CoinGeckoApi _api;
+  MarketOverviewRepository(this._api);
 
-  Future<List<MarketCoin>> fetchCoinMarkets(ChosenCurrency chosenCurrency,
-      {String? specficCoinIds}) async {
+  Future<List<Market>> fetchCoinMarkets(ChosenCurrency chosenCurrency,
+      {List<String> specficCoinIds = const []}) async {
     var currencyCode = chosenCurrency.currencyCode;
     debugPrint('fetchCoinMarkets called for currency $currencyCode');
 
     const assetsPerPage = 200;
 
-    String uri =
-        'https://api.coingecko.com/api/v3/coins/markets?vs_currency=$currencyCode&order=marketCap_desc&per_page=$assetsPerPage&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d';
+    final result = await _api.coins.listCoinMarkets(
+      vsCurrency: currencyCode,
+      order: CoinMarketsOrder.marketCapDescending,
+      itemsPerPage: assetsPerPage,
+      page: 1,
+      sparkline: true,
+      coinIds: specficCoinIds,
+      priceChangePercentageIntervals: ['1h', '24h', '7d'],
+    );
 
-    if (specficCoinIds != null) {
-      uri += '&ids=$specficCoinIds';
+    if (!result.isError) {
+      return result.data;
+    } else {
+      throw Exception('Failed to load coin list');
     }
-
-    final response =
-        await _client.get(Uri.parse(uri)).timeout(const Duration(seconds: 20));
-
-    return marketCoinFromJson(response.body);
   }
 }

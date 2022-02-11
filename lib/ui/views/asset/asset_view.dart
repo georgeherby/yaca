@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +18,6 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset/asset_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:yaca/core/extensions/double_per_currency.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/extensions/string.dart';
 import 'package:yaca/ui/consts/colours.dart';
@@ -56,7 +57,12 @@ class AssetView extends StatelessWidget {
 
     return BlocBuilder<AssetBloc, AssetState>(builder: (context, state) {
       if (state is AssetLoaded) {
-        var singleAsset = state.singleAsset;
+        var singleAsset = state.coin;
+        var marketDataPerCurrnecy = state.coin.marketData!.dataByCurrency
+            .where((element) =>
+                element.coinId.equalsIgnoreCase(_currency.currencyCode))
+            .first;
+
         return Scaffold(
           appBar: GeneralAppBar(
             platform: Theme.of(context).platform,
@@ -70,7 +76,7 @@ class AssetView extends StatelessWidget {
                 Hero(
                   tag: 'coin-icon-${singleAsset.name}',
                   child: AssetIconWeb(
-                    singleAsset.image.small,
+                    singleAsset.image?.small,
                     assetSymbol: singleAsset.symbol,
                     iconSize: Theme.of(context).platform.isMacOnly()
                         ? kIconSizeMacAppBar
@@ -91,7 +97,7 @@ class AssetView extends StatelessWidget {
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {
                     var isFavourite = state.favourites
-                        .where((element) => element.id == singleAsset.id)
+                        .where((element) => element.market.id == singleAsset.id)
                         .isNotEmpty;
 
                     return IconButton(
@@ -173,9 +179,7 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(singleAsset.marketData.high24h
-                                                  .getValueForCurrency(
-                                                      _currency)
+                                          Text(marketDataPerCurrnecy.high24h
                                                   ?.currencyFormatWithPrefix(
                                                       _currency.currencyString,
                                                       context) ??
@@ -190,9 +194,7 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(singleAsset.marketData.low24h
-                                                  .getValueForCurrency(
-                                                      _currency)
+                                          Text(marketDataPerCurrnecy.low24h
                                                   ?.currencyFormatWithPrefix(
                                                       _currency.currencyString,
                                                       context) ??
@@ -220,8 +222,8 @@ class AssetView extends StatelessWidget {
                                                   .textTheme
                                                   .caption),
                                           DeltaWithArrow(
-                                              singleAsset
-                                                  .marketData.priceChange24h,
+                                              marketDataPerCurrnecy
+                                                  .priceChange24hInCurrency,
                                               textSize: Theme.of(context)
                                                   .textTheme
                                                   .bodyText1
@@ -237,11 +239,11 @@ class AssetView extends StatelessWidget {
                                                   .textTheme
                                                   .caption),
                                           DeltaWithArrow(
-                                            singleAsset.marketData
-                                                        .priceChangePercentage24h !=
+                                            marketDataPerCurrnecy
+                                                        .priceChange24hInCurrency !=
                                                     null
-                                                ? singleAsset.marketData
-                                                    .priceChangePercentage24h!
+                                                ? marketDataPerCurrnecy
+                                                    .priceChange24hInCurrency!
                                                 : null,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
@@ -288,12 +290,15 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(_currency.currencyString +
-                                              compactNumberFormat(context)
-                                                  .format(singleAsset
-                                                      .marketData.marketCap
-                                                      .getValueForCurrency(
-                                                          _currency)))
+                                          Text(marketDataPerCurrnecy
+                                                      .marketCap !=
+                                                  null
+                                              ? _currency.currencyString +
+                                                  compactNumberFormat(context)
+                                                      .format(
+                                                          marketDataPerCurrnecy
+                                                              .marketCap!)
+                                              : "-")
                                         ],
                                       ),
                                       Row(
@@ -305,7 +310,7 @@ class AssetView extends StatelessWidget {
                                                   .textTheme
                                                   .caption),
                                           Text(compactNumberFormat(context)
-                                              .format(singleAsset.marketData
+                                              .format(singleAsset.marketData!
                                                   .circulatingSupply))
                                         ],
                                       ),
@@ -317,13 +322,13 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          singleAsset.marketData.totalSupply !=
+                                          singleAsset.marketData?.totalSupply !=
                                                   null
                                               ? Text(
                                                   compactNumberFormat(context)
                                                       .format(singleAsset
-                                                          .marketData
-                                                          .totalSupply))
+                                                          .marketData!
+                                                          .totalSupply!))
                                               : const Text('-')
                                         ],
                                       ),
@@ -335,13 +340,13 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          singleAsset.marketData.maxSupply !=
+                                          singleAsset.marketData?.maxSupply !=
                                                   null
                                               ? Text(
                                                   compactNumberFormat(context)
                                                       .format(singleAsset
-                                                          .marketData
-                                                          .maxSupply))
+                                                          .marketData!
+                                                          .maxSupply!))
                                               : const Text('-')
                                         ],
                                       ),
@@ -377,11 +382,13 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(compactNumberFormat(context)
-                                              .format(singleAsset
-                                                  .marketData.totalVolume
-                                                  .getValueForCurrency(
-                                                      _currency)))
+                                          Text(marketDataPerCurrnecy
+                                                      .totalVolume !=
+                                                  null
+                                              ? compactNumberFormat(context)
+                                                  .format(marketDataPerCurrnecy
+                                                      .totalVolume!)
+                                              : "-")
                                         ],
                                       ),
                                       Row(
@@ -392,13 +399,12 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .caption),
-                                          Text(singleAsset.marketData.ath
-                                                  .getValueForCurrency(
-                                                      _currency)
-                                                  ?.currencyFormatWithPrefix(
+                                          Text(marketDataPerCurrnecy.ath != null
+                                              ? marketDataPerCurrnecy.ath!
+                                                  .currencyFormatWithPrefix(
                                                       _currency.currencyString,
-                                                      context) ??
-                                              '-'),
+                                                      context)
+                                              : '-'),
                                         ],
                                       ),
                                       Row(
@@ -410,16 +416,8 @@ class AssetView extends StatelessWidget {
                                                   .textTheme
                                                   .caption),
                                           DeltaWithArrow(
-                                            singleAsset.marketData
-                                                        .athChangePercentage
-                                                        .getValueForCurrency(
-                                                            _currency) !=
-                                                    null
-                                                ? singleAsset.marketData
-                                                    .athChangePercentage
-                                                    .getValueForCurrency(
-                                                        _currency)!
-                                                : null,
+                                            marketDataPerCurrnecy
+                                                .athChangePercentage,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
                                                 .textTheme
@@ -438,8 +436,8 @@ class AssetView extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    state.singleAsset.sentimentVotesDownPercentage != null &&
-                            state.singleAsset.sentimentVotesUpPercentage != null
+                    state.coin.sentimentVotesDownPercentage != null &&
+                            state.coin.sentimentVotesUpPercentage != null
                         ? _buildCard(
                             context,
                             false,
@@ -453,7 +451,7 @@ class AssetView extends StatelessWidget {
                                 const SizedBox(height: 8),
                                 Row(children: [
                                   Expanded(
-                                    flex: (state.singleAsset
+                                    flex: (state.coin
                                                 .sentimentVotesDownPercentage! *
                                             100)
                                         .toInt(),
@@ -473,8 +471,8 @@ class AssetView extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          state.singleAsset
-                                              .sentimentVotesDownPercentage
+                                          state
+                                              .coin.sentimentVotesDownPercentage
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -486,7 +484,7 @@ class AssetView extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   Expanded(
-                                    flex: (state.singleAsset
+                                    flex: (state.coin
                                                 .sentimentVotesUpPercentage! *
                                             100)
                                         .toInt(),
@@ -506,8 +504,7 @@ class AssetView extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          state.singleAsset
-                                              .sentimentVotesUpPercentage
+                                          state.coin.sentimentVotesUpPercentage
                                               .toString(),
                                           style: Theme.of(context)
                                               .textTheme
@@ -521,8 +518,8 @@ class AssetView extends StatelessWidget {
                               ],
                             ))
                         : Container(),
-                    state.singleAsset.sentimentVotesDownPercentage != null &&
-                            state.singleAsset.sentimentVotesUpPercentage != null
+                    state.coin.sentimentVotesDownPercentage != null &&
+                            state.coin.sentimentVotesUpPercentage != null
                         ? const SizedBox(height: 8)
                         : Container(),
                     Column(
@@ -545,7 +542,7 @@ class AssetView extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 8),
-                    state.singleAsset.description.en.isNotEmpty
+                    state.coin.description?.translations['en'] != null
                         ? _buildCard(
                             context,
                             false,
@@ -558,12 +555,12 @@ class AssetView extends StatelessWidget {
                                         Theme.of(context).textTheme.headline6),
                                 const SizedBox(height: 8),
                                 ScreenBuilder(
-                                  mobile: _buildHtml(
-                                      state.singleAsset.description.en),
-                                  tablet: _buildHtml(
-                                      state.singleAsset.description.en),
-                                  desktop: _buildHtml(
-                                      state.singleAsset.description.en),
+                                  mobile: _buildHtml(state
+                                      .coin.description!.translations['en']!),
+                                  tablet: _buildHtml(state
+                                      .coin.description!.translations['en']!),
+                                  desktop: _buildHtml(state
+                                      .coin.description!.translations['en']!),
                                 ),
                                 const SizedBox(height: 4),
                               ],

@@ -1,13 +1,16 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:coingecko_api/data/market_sparkline.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/desktop_header.dart';
@@ -78,7 +81,7 @@ class AssetsDataTable extends StatelessWidget {
                             onTap: () async {
                               await context.router.push(
                                 AssetRoute(
-                                  id: mc.id,
+                                  id: mc.market.id,
                                 ),
                               );
                             },
@@ -90,22 +93,24 @@ class AssetsDataTable extends StatelessWidget {
                                 mobile: 60,
                               ),
                               child: _buildRow(context, blockSize,
-                                  rank: mc.marketCapRank,
-                                  symbol: mc.symbol,
-                                  name: mc.name,
-                                  sparkline: mc.sparklineIn7d,
-                                  iconUrl: mc.image
-                                      .replaceFirst("/large/", "/small/"),
+                                  rank: mc.market.marketCapRank!,
+                                  symbol: mc.market.symbol,
+                                  name: mc.market.name,
+                                  sparkline: mc.market.sparklineIn7d,
+                                  iconUrl: mc.market.image != null
+                                      ? mc.market.image!
+                                          .replaceFirst("/large/", "/small/")
+                                      : null,
                                   sevenDayChange: mc.priceChange7d,
-                                  sevenDayPercentageChange:
-                                      mc.priceChangePercentage7dInCurrency,
-                                  oneDayChange: mc.priceChange24h,
-                                  oneDayPercentageChange:
-                                      mc.priceChangePercentage24hInCurrency,
+                                  sevenDayPercentageChange: mc
+                                      .market.priceChangePercentage7dInCurrency,
+                                  oneDayChange: mc.market.priceChange24h,
+                                  oneDayPercentageChange: mc.market
+                                      .priceChangePercentage24hInCurrency,
                                   oneHourChange: mc.priceChange1h,
-                                  oneHourPercentageChange:
-                                      mc.priceChangePercentage1hInCurrency,
-                                  price: mc.currentPrice,
+                                  oneHourPercentageChange: mc
+                                      .market.priceChangePercentage1hInCurrency,
+                                  price: mc.market.currentPrice,
                                   isFavourited: mc.isFavourited,
                                   onFavourite: () =>
                                       onFavourite(mc, !mc.isFavourited)),
@@ -125,15 +130,15 @@ class AssetsDataTable extends StatelessWidget {
       {required int rank,
       required String symbol,
       required String name,
-      required String iconUrl,
-      required SparklineIn7d? sparkline,
+      required String? iconUrl,
+      required MarketSparkline? sparkline,
       required double? sevenDayPercentageChange,
       required double? sevenDayChange,
       required double? oneDayPercentageChange,
       required double? oneDayChange,
       required double? oneHourPercentageChange,
       required double? oneHourChange,
-      required double price,
+      required double? price,
       required bool isFavourited,
       required VoidCallback onFavourite}) {
     return ScreenBuilder(

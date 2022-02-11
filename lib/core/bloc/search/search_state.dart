@@ -20,7 +20,7 @@ class SearchLoading extends SearchState {
 }
 
 class SearchLoaded extends SearchState {
-  final List<SimpleAsset> filteredList;
+  final List<CoinShort> filteredList;
 
   const SearchLoaded(this.filteredList);
   @override

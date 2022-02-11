@@ -1,9 +1,9 @@
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:coingecko_api/data/search_trending.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/models/api/coingecko/tranding_asset.dart';
 import 'package:yaca/core/repositories/api/coingecko/trending_asset_repository.dart';
 
 part 'trending_event.dart';
@@ -17,7 +17,7 @@ class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
       emit(TrendingLoading());
 
       try {
-        List<TrendingAsset> assets =
+        List<SearchTrendingCoin> assets =
             await _trendingAssetRepository.getTrendingAssets();
         emit(TrendingLoaded(trending: assets));
       } catch (e) {

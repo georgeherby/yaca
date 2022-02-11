@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:coingecko_api/data/ticker.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/models/api/coingecko/exchange_ticker.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 
 part 'singleasset_exchange_event.dart';
@@ -38,7 +38,7 @@ class SingleAssetExchangeBloc
       var exchangeTickers = await exchangeTickerRespository
           .getExchangeTickerForCoin(event.marketCoinId);
 
-      emit(SingleAssetExchangeLoaded(exchangeTickers.tickers));
+      emit(SingleAssetExchangeLoaded(exchangeTickers));
     } on Exception catch (e) {
       emit(SingleAssetExchangeError(e.toString()));
     }

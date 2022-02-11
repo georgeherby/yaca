@@ -6,18 +6,21 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:bloc/bloc.dart';
+import 'package:coingecko_api/data/market.dart';
 import 'package:equatable/equatable.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/string.dart';
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/core/models/sort_type.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
 import 'package:yaca/core/repositories/preferences/asset_overview_preference.dart';
+
+// � Package imports:
 
 part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';
@@ -72,18 +75,18 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
           .fetchCoinMarkets(_settingsBloc.state.currency));
 
       List<MarketCoin> favouriteAssets =
-          await _favourites(marketCoinsResponse, _settingsBloc.state.currency);
+          await _favourites(marketCoinsResponse.map((e) => MarketCoin(market: e)).toList(), _settingsBloc.state.currency);
 
       _marketCoins.addAll(marketCoinsResponse.map((coinData) {
         var favs = (favouriteAssets.where((MarketCoin fav) =>
-            fav.name.equalsIgnoreCase(coinData.name) &&
-            fav.symbol.equalsIgnoreCase(coinData.symbol)));
+            fav.market.name.equalsIgnoreCase(coinData.name) &&
+            fav.market.symbol.equalsIgnoreCase(coinData.symbol)));
 
         if (favs.isNotEmpty) {
-          return coinData.copyWith(
-              favouriteCacheId: favs.first.favouriteCacheId);
+          return MarketCoin(
+              market: coinData, favouriteCacheId: favs.first.favouriteCacheId);
         }
-        return coinData;
+        return MarketCoin(market: coinData);
       }));
 
       final sortType = await _assetOverviewPreference.getSortType();
@@ -116,7 +119,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       debugPrint('Inserted id $idForRecord');
 
       final updatedAssets = listOfAssets.map((e) {
-        if (e.id == event.coinId) {
+        if (e.market.id == event.coinId) {
           return e.copyWith(favouriteCacheId: idForRecord);
         } else {
           return e;
@@ -137,7 +140,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       debugPrint('!addToFavourite');
 
       var allAssetsindex =
-          listOfAssets.indexWhere((item) => item.id == event.coinId);
+          listOfAssets.indexWhere((item) => item.market.id == event.coinId);
 
       if (allAssetsindex != -1) {
         if (listOfAssets[allAssetsindex].favouriteCacheId != null) {
@@ -148,8 +151,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
         }
       } else {
         var favourites = event.favourites;
-        var favouritesIndex =
-            event.favourites.indexWhere((item) => item.id == event.coinId);
+        var favouritesIndex = event.favourites
+            .indexWhere((item) => item.market.id == event.coinId);
         if (favouritesIndex != -1) {
           if (favourites[favouritesIndex].favouriteCacheId != null) {
             debugPrint(
@@ -161,7 +164,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       }
 
       final updatedAssets = listOfAssets.map((e) {
-        if (e.id == event.coinId) {
+        if (e.market.id == event.coinId) {
           return e.copyWith(favouriteCacheId: null);
         } else {
           return e;
@@ -203,23 +206,22 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       List<MarketCoin> allAssetList, ChosenCurrency currency) async {
     List<Favourites> favourites = await _favouriteDao.getAll();
     List<String> favouriteIds = favourites.map((e) => e.coinId).toList();
-    String? ids = favouriteIds.isEmpty ? null : favouriteIds.join(',');
+    List<String> ids = favouriteIds.isEmpty ? [] : favouriteIds;
 
-    Iterable<String> allAssetIds = allAssetList.map((e) => e.id);
+    Iterable<String> allAssetIds = allAssetList.map((e) => e.market.id);
 
     // Check so network call is only made if a favourited item is not in allAssetList
     bool areThereExtraCoinsToFetch = favourites
         .where((element) => !allAssetIds.contains(element.coinId))
         .isNotEmpty;
 
-    List<MarketCoin> listOfFavourites = ids == null
-        ? []
-        : areThereExtraCoinsToFetch
-            ? await _marketOverviewRepository.fetchCoinMarkets(currency,
-                specficCoinIds: ids)
-            : allAssetList
-                .where((element) => favouriteIds.contains(element.id))
-                .toList();
+    List<Market> listOfFavourites = (areThereExtraCoinsToFetch
+        ? (await _marketOverviewRepository.fetchCoinMarkets(currency,
+            specficCoinIds: ids))
+        : allAssetList
+            .where((element) => favouriteIds.contains(element.market.id))
+            .map((e) => e.market)
+            .toList());
 
     return listOfFavourites.map((coinData) {
       var favs = (favourites.where((Favourites fav) =>
@@ -227,9 +229,9 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
           fav.symbol.equalsIgnoreCase(coinData.symbol)));
 
       if (favs.isNotEmpty) {
-        return coinData.copyWith(favouriteCacheId: favs.first.id);
+        return MarketCoin(market: coinData, favouriteCacheId: favs.first.id);
       }
-      return coinData;
+      return MarketCoin(market: coinData);
     }).toList();
   }
 
@@ -248,8 +250,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     return allMarketCoins
       ..sort(
         (a, b) {
-          final first = a.marketCapRank;
-          final second = b.marketCapRank;
+          final first = a.market.marketCapRank!;
+          final second = b.market.marketCapRank!;
 
           switch (sortOrder) {
             case SortOrder.ascending:
@@ -265,8 +267,8 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       List<MarketCoin> allMarketCoins, SortOrder sortOrder) {
     return allMarketCoins
       ..sort((a, b) {
-        final first = a.priceChangePercentage24h ?? 0.0;
-        final second = b.priceChangePercentage24h ?? 0.0;
+        final first = a.market.priceChangePercentage24h ?? 0.0;
+        final second = b.market.priceChangePercentage24h ?? 0.0;
 
         switch (sortOrder) {
           case SortOrder.ascending:

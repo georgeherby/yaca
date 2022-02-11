@@ -8,7 +8,7 @@ import 'package:ionicons/ionicons.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/extensions/sort_order.dart';
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
+import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/sort_type.dart';
 
 class SortBottomSheet extends StatelessWidget {

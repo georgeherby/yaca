@@ -3,12 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import 'package:coingecko_api/data/market_sparkline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:yaca/core/models/api/coingecko/market_coins.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
@@ -21,15 +21,15 @@ class TabletRow extends StatelessWidget {
   final int rank;
   final String symbol;
   final String name;
-  final String iconUrl;
-  final SparklineIn7d? sparkline;
+  final String? iconUrl;
+  final MarketSparkline? sparkline;
   final double? sevenDayPercentageChange;
   final double? sevenDayChange;
   final double? oneDayPercentageChange;
   final double? oneDayChange;
   final double? oneHourPercentageChange;
   final double? oneHourChange;
-  final double price;
+  final double? price;
   final bool isFavourited;
   final VoidCallback onFavourite;
 
@@ -148,17 +148,19 @@ class TabletRow extends StatelessWidget {
           ),
           Expanded(
             flex: 25,
-            child: Text(
-              price.currencyFormatWithPrefix(
-                  BlocProvider.of<AppSettingsBloc>(context)
-                      .state
-                      .currency
-                      .currencyString,
-                  context),
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.end,
-            ),
+            child: price != null
+                ? Text(
+                    price!.currencyFormatWithPrefix(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencyString,
+                        context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.end,
+                  )
+                : const SizedBox.shrink(),
           ),
           BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
             builder: (context, state) {
