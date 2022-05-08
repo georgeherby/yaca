@@ -1,16 +1,14 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
+//  Package imports:
 import 'package:coingecko_api/data/market_chart_data.dart';
 import 'package:fl_chart/fl_chart.dart';
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/ui/consts/colours.dart';
@@ -187,46 +185,56 @@ class _AssetGraphState extends State<AssetGraph> {
                 borderData: FlBorderData(
                   show: false,
                 ),
-                axisTitleData: FlAxisTitleData(
-                  show: true,
-                ),
                 titlesData: FlTitlesData(
                   show: false,
-                  topTitles: SideTitles(showTitles: false),
-                  bottomTitles: SideTitles(
-                    showTitles: true,
-                    interval: ((maxTime - minTime) / verticals),
-                    margin: 12,
-                    reservedSize: 22,
-                    getTextStyles: (context, value) =>
-                        Theme.of(context).textTheme.caption!,
-                    getTitles: (double value) {
-                      DateFormat formatter;
-                      if (widget.duration != null &&
-                          DateTime.now().year ==
-                              DateTime.fromMillisecondsSinceEpoch(value.toInt())
-                                  .year) {
-                        formatter = DateFormat('HH:mm\nd MMM');
-                      } else {
-                        formatter = DateFormat('HH:mm\nd MMM yyyy');
-                      }
+                  topTitles:
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: ((maxTime - minTime) / verticals),
+                      reservedSize: 22,
+                      getTitlesWidget: (double value, titleMeta) {
+                        DateFormat formatter;
+                        if (widget.duration != null &&
+                            DateTime.now().year ==
+                                DateTime.fromMillisecondsSinceEpoch(
+                                        value.toInt())
+                                    .year) {
+                          formatter = DateFormat('HH:mm\nd MMM');
+                        } else {
+                          formatter = DateFormat('HH:mm\nd MMM yyyy');
+                        }
 
-                      return formatter.format(
-                          DateTime.fromMillisecondsSinceEpoch(value.toInt()));
-                    },
+                        return Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Text(
+                              formatter.format(
+                                  DateTime.fromMillisecondsSinceEpoch(
+                                      value.toInt())),
+                              style: Theme.of(context).textTheme.caption!),
+                        );
+                      },
+                    ),
                   ),
-                  leftTitles: SideTitles(showTitles: false),
-                  rightTitles: SideTitles(
-                    showTitles: true,
-                    interval: (maxPrice - minPrice) / horizonals,
-                    getTextStyles: (context, value) =>
-                        Theme.of(context).textTheme.caption!,
-                    getTitles: (value) {
-                      return value.currencyFormatWithPrefix(
-                          currencyString, context);
-                    },
-                    reservedSize: 56,
-                    margin: 8,
+                  leftTitles:
+                      AxisTitles(sideTitles: SideTitles(showTitles: false)),
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      interval: (maxPrice - minPrice) / horizonals,
+                      getTitlesWidget: (value, titleMeta) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            value.currencyFormatWithPrefix(
+                                currencyString, context),
+                            style: Theme.of(context).textTheme.caption!,
+                          ),
+                        );
+                      },
+                      reservedSize: 56,
+                    ),
                   ),
                 ),
                 minY: minPrice,
@@ -303,7 +311,7 @@ class _AssetGraphState extends State<AssetGraph> {
                 lineBarsData: [
                   LineChartBarData(
                     isCurved: true,
-                    colors: [positive.toPositiveNegativeColorFromBool(context)],
+                    color: positive.toPositiveNegativeColorFromBool(context),
                     barWidth: 2,
                     isStrokeCapRound: true,
                     dotData: FlDotData(
@@ -318,16 +326,17 @@ class _AssetGraphState extends State<AssetGraph> {
                           spot.y == maxPrice || spot.y == minPrice,
                     ),
                     belowBarData: BarAreaData(
-                      show: false,
-                      colors: [
-                        Colors.transparent,
-                        (positive.toPositiveNegativeColorFromBool(context))
-                            .withOpacity(0.3)
-                      ],
-                      gradientFrom: const Offset(0, 1),
-                      gradientTo: const Offset(0, 0),
-                      gradientColorStops: [0, 0.7],
-                    ),
+                        show: false,
+                        gradient: LinearGradient(
+                          colors: [
+                            Colors.transparent,
+                            (positive.toPositiveNegativeColorFromBool(context))
+                                .withOpacity(0.3)
+                          ],
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          stops: const [0, 0.7],
+                        )),
                     spots: List.generate(
                         widget.history.length,
                         (index) => FlSpot(
