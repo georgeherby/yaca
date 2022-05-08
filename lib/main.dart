@@ -1,16 +1,14 @@
 // 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 // 📦 Package imports:
 import 'package:coingecko_api/coingecko_api.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -36,6 +34,7 @@ import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
+
 import 'firebase_options.dart';
 
 void main() async {
@@ -96,8 +95,7 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
             create: (BuildContext context) => GlobalMarketRespository(_api)),
         RepositoryProvider(
-            create: (BuildContext context) =>
-                MarketOverviewRepository(_api)),
+            create: (BuildContext context) => MarketOverviewRepository(_api)),
         RepositoryProvider(
             create: (BuildContext context) => ExchangeTickerRespository(_api)),
         RepositoryProvider(
@@ -163,6 +161,7 @@ class _MyAppState extends State<MyApp> {
                   debugShowCheckedModeBanner: false,
                   themeMode: state.theme,
                   theme: ThemeData.light().copyWith(
+                      useMaterial3: true,
                       inputDecorationTheme: InputDecorationTheme(
                           filled: true,
                           fillColor: LightThemeColors().textInputBackground,
@@ -267,6 +266,7 @@ class _MyAppState extends State<MyApp> {
                         brightness: Brightness.light,
                       )),
                   darkTheme: ThemeData.dark().copyWith(
+                    useMaterial3: true,
                     inputDecorationTheme: InputDecorationTheme(
                       filled: true,
                       fillColor: DarkThemeColors().textInputBackground,

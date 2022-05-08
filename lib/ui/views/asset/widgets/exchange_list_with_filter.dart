@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:coingecko_api/data/ticker.dart';
+import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:url_launcher/url_launcher.dart';
-
+import 'package:url_launcher/url_launcher_string.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/models/filter.dart';
@@ -219,8 +217,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
   }
 
   Future _launchURL(url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(url);
     } else {
       throw 'Could not launch $url';
     }

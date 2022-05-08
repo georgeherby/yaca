@@ -1,12 +1,10 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
-// 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
-// 📦 Package imports:
+// � Package imports:
 import 'package:fl_chart/fl_chart.dart';
-
+// � Flutter imports:
+import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/colours.dart';
 
@@ -36,9 +34,6 @@ class SimpleSparkLine extends StatelessWidget {
             show: false,
           ),
           borderData: FlBorderData(show: false),
-          axisTitleData: FlAxisTitleData(
-            show: false,
-          ),
           titlesData: FlTitlesData(show: false),
           minY: minPrice,
           maxY: maxPrice,
@@ -49,9 +44,7 @@ class SimpleSparkLine extends StatelessWidget {
             LineChartBarData(
               isCurved: true,
               isStrokeCapRound: true,
-              colors: [
-                graphColor,
-              ],
+              color: graphColor,
               barWidth: 2,
               dotData: FlDotData(
                 show: false,

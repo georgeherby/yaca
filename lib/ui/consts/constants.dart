@@ -5,7 +5,7 @@ const String kAppName = 'yaca.';
 const double kLeadingButtonWidthMac = 108.0;
 const double kLeadingButtonWidth = 56.0;
 const double kTitleBarDesktopHeight = 38.0;
-const double kTitleBarHeight = 48.0;
+const double kTitleBarMobileHeight = 48.0;
 const double kMobileIconButtonSize = 48.0;
 const double kMobileButtonButtonSize = 48.0;
 

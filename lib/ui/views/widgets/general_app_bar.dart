@@ -1,16 +1,14 @@
-// 🐦 Flutter imports:
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+// 📦 Package imports:
 import 'package:ionicons/ionicons.dart';
-
+import 'package:macos_ui/macos_ui.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/ui/consts/constants.dart';
-import 'package:yaca/ui/views/widgets/back_chevron_button.dart';
 
 enum LeadingButtonType { back, settings }
 
@@ -32,7 +30,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
 
   @override
   Size get preferredSize => Size.fromHeight(
-      ((platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarHeight) +
+      ((platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarMobileHeight) +
           (bottom == null ? 0 : kMarqueTapHeight)));
 
   @override
@@ -54,9 +52,13 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       height: 28,
                       width: 32,
                       alignment: AlignmentDirectional.center,
-                      child: BackChevronButton(
-                        key: const Key('back-chevron-macos'),
-                        onTapped: () => context.router.pop(),
+                      child: MacosTheme(
+                        data: MacosThemeData(
+                            brightness: Theme.of(context).brightness),
+                        child: MacosBackButton(
+                          key: const Key('back-chevron-macos'),
+                          onPressed: () => context.router.pop(),
+                        ),
                       ),
                     ),
                   ],
