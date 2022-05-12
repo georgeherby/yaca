@@ -1,5 +1,5 @@
 // 📦 Package imports:
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:coingecko_api/data/search_trending.dart';
 import 'package:equatable/equatable.dart';
 

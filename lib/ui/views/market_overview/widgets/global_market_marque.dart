@@ -3,10 +3,8 @@ import 'dart:async';
 
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/chosen_currency.dart';
@@ -32,7 +30,7 @@ class GlobalMarketMarque extends StatefulWidget {
   final Map<String, double>? marketCapPercentage;
 
   @override
-  _GlobalMarketMarqueState createState() => _GlobalMarketMarqueState();
+  State<GlobalMarketMarque> createState() => _GlobalMarketMarqueState();
 }
 
 class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {

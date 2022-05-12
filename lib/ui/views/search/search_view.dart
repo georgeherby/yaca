@@ -26,8 +26,8 @@ class SearchView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _textController = TextEditingController();
-    _resetSearch(context, _textController);
+    final textController = TextEditingController();
+    _resetSearch(context, textController);
 
     return Scaffold(
       appBar: AppBar(
@@ -38,7 +38,7 @@ class SearchView extends StatelessWidget {
         ),
         title: TextFormField(
           autofocus: true,
-          controller: _textController,
+          controller: textController,
           onChanged: (value) {
             if (value.isNotEmpty) {
               context.read<SearchBloc>().add(SearchEvent(query: value));
@@ -49,7 +49,7 @@ class SearchView extends StatelessWidget {
             iconColor: Theme.of(context).appBarTheme.actionsIconTheme?.color,
             suffixIcon: IconButton(
               onPressed: () {
-                _resetSearch(context, _textController);
+                _resetSearch(context, textController);
               },
               icon: Icon(Ionicons.close_outline,
                   color: Theme.of(context).appBarTheme.iconTheme?.color,

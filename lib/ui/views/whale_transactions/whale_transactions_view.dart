@@ -1,12 +1,10 @@
 // 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:ionicons/ionicons.dart';
-
 // 🌎 Project imports:
 import 'package:yaca/core/exceptions/missing_config_exception.dart';
 import 'package:yaca/core/extensions/platform.dart';
@@ -26,7 +24,7 @@ class WhaleTransactionView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _WhaleTransactionViewState createState() => _WhaleTransactionViewState();
+  State<WhaleTransactionView> createState() => _WhaleTransactionViewState();
 }
 
 class _WhaleTransactionViewState extends State<WhaleTransactionView> {

@@ -9,11 +9,11 @@ class FavouritesDao {
 
   const FavouritesDao({required this.box});
 
-  Future<int> insertFavourite(Favourites _favourite) async {
+  Future<int> insertFavourite(Favourites favourite) async {
     return await box.add(Favourites(
-        name: _favourite.name,
-        coinId: _favourite.coinId,
-        symbol: _favourite.symbol));
+        name: favourite.name,
+        coinId: favourite.coinId,
+        symbol: favourite.symbol));
   }
 
   Future<void> delete(int idToDelete) async {

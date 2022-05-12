@@ -65,7 +65,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -225,15 +225,17 @@ class _MyAppState extends State<MyApp> {
                             IconThemeData(color: LightThemeColors().iconColor),
                       ),
                       navigationRailTheme: NavigationRailThemeData(
+                        indicatorColor:
+                            LightThemeColors().primary.withOpacity(0.3),
                         backgroundColor: LightThemeColors().scaffoldBackground,
                         unselectedIconTheme: IconThemeData(
                             color: LightThemeColors().unSelectedColor),
                         unselectedLabelTextStyle: TextStyle(
                             color: LightThemeColors().unSelectedColor),
                         selectedIconTheme:
-                            IconThemeData(color: LightThemeColors().primary),
+                            IconThemeData(color: LightThemeColors().textColor),
                         selectedLabelTextStyle:
-                            TextStyle(color: LightThemeColors().primary),
+                            TextStyle(color: LightThemeColors().textColor),
                       ),
                       scaffoldBackgroundColor:
                           LightThemeColors().scaffoldBackground,
@@ -331,15 +333,17 @@ class _MyAppState extends State<MyApp> {
                           IconThemeData(color: DarkThemeColors().iconColor),
                     ),
                     navigationRailTheme: NavigationRailThemeData(
+                      indicatorColor:
+                          DarkThemeColors().primary.withOpacity(0.5),
                       backgroundColor: DarkThemeColors().scaffoldBackground,
                       unselectedIconTheme: IconThemeData(
                           color: DarkThemeColors().unSelectedColor),
                       unselectedLabelTextStyle:
                           TextStyle(color: DarkThemeColors().unSelectedColor),
-                      selectedIconTheme: IconThemeData(
-                          color: DarkThemeColors().chipSelectedColor),
+                      selectedIconTheme:
+                          IconThemeData(color: DarkThemeColors().textColor),
                       selectedLabelTextStyle:
-                          TextStyle(color: DarkThemeColors().chipSelectedColor),
+                          TextStyle(color: DarkThemeColors().textColor),
                     ),
                     scaffoldBackgroundColor:
                         DarkThemeColors().scaffoldBackground,

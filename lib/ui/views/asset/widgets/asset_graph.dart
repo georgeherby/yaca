@@ -28,7 +28,7 @@ class AssetGraph extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetGraphState createState() => _AssetGraphState();
+  State<AssetGraph> createState() => _AssetGraphState();
 }
 
 class _AssetGraphState extends State<AssetGraph> {
@@ -60,7 +60,7 @@ class _AssetGraphState extends State<AssetGraph> {
     var positive = widget.history.isNotEmpty &&
         widget.history.first.price! < widget.history.last.price!;
 
-    var _dashColour = (Theme.of(context).brightness == Brightness.light
+    var dashColour = (Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700
         : Colors.white70);
 
@@ -72,7 +72,7 @@ class _AssetGraphState extends State<AssetGraph> {
     var minTime =
         widget.history.map((e) => e.date.millisecondsSinceEpoch).reduce(min);
 
-    var _dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
+    var dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
     var price = touchedPrice;
     var currencyString =
@@ -97,7 +97,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        formatDate.format(_dateTimeTouchedDate),
+                        formatDate.format(dateTimeTouchedDate),
                         style: Theme.of(context).textTheme.caption?.copyWith(
                             fontWeight: FontWeight.normal, fontSize: 13),
                       ),
@@ -249,7 +249,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     return spotIndexes.map((spotIndex) {
                       return TouchedSpotIndicatorData(
                         FlLine(
-                          color: _dashColour,
+                          color: dashColour,
                           strokeWidth: 1,
                           dashArray: [6, 2],
                         ),
@@ -303,7 +303,7 @@ class _AssetGraphState extends State<AssetGraph> {
                       },
                     ),
                     y: widget.history.first.price!,
-                    color: _dashColour,
+                    color: dashColour,
                     strokeWidth: 1,
                     dashArray: [4, 4],
                   ),

@@ -1,11 +1,9 @@
 // 🐦 Flutter imports:
-import 'package:flutter/material.dart';
-
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
-
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
@@ -17,7 +15,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -25,10 +23,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var _isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
+    var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Scaffold(
-      bottomNavigationBar: _isPhoneOnly
+      bottomNavigationBar: isPhoneOnly
           ? NavigationBar(
               onDestinationSelected: onTabTapped,
               selectedIndex: _selectedIndex,
@@ -68,7 +66,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         bottom: false,
         child: Row(children: [
-          _isPhoneOnly
+          isPhoneOnly
               ? Container()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,

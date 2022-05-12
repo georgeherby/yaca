@@ -96,7 +96,7 @@ class LightThemeColors implements ThemeColours {
   Color enabledBorderColor = Colors.black87;
 
   @override
-  Color textColor = Colors.black;
+  Color textColor = Colors.black87;
 }
 
 class DarkThemeColors implements ThemeColours {

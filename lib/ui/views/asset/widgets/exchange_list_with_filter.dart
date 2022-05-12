@@ -21,7 +21,7 @@ class ExchangeListWithFilter extends StatefulWidget {
       : super(key: key);
 
   @override
-  _ExchangeListWithFilterState createState() => _ExchangeListWithFilterState();
+  State<ExchangeListWithFilter> createState() => _ExchangeListWithFilterState();
 }
 
 class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
@@ -42,14 +42,14 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   void applyFilter() {
     tickers.clear();
-    var _selectedCurrencies = currencyFilter
+    var selectedCurrencies = currencyFilter
         .where((element) => element.selected)
         .map((e) => e.value)
         .toList();
 
-    if (_selectedCurrencies.isNotEmpty) {
+    if (selectedCurrencies.isNotEmpty) {
       tickers.addAll(widget.exchanges
-          .where((element) => _selectedCurrencies.contains(element.target)));
+          .where((element) => selectedCurrencies.contains(element.target)));
     } else {
       tickers.addAll(widget.exchanges);
     }
@@ -57,7 +57,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   @override
   Widget build(BuildContext context) {
-    var _isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
+    var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text('Select currency to filter',
@@ -123,7 +123,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                                 assetSymbol: "?", iconSize: kIconSize)),
                     const Spacer(flex: 5),
                     Expanded(
-                        flex: _isPhoneOnly ? 50 : 80,
+                        flex: isPhoneOnly ? 50 : 80,
                         child: Text(
                           tickers[index].market.name,
                           overflow: TextOverflow.ellipsis,
@@ -133,10 +133,10 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     Expanded(
                       flex: 30,
                       child: Text(
-                          tickers[index].base + '/' + tickers[index].target),
+                          '${tickers[index].base}/${tickers[index].target}'),
                     ),
-                    _isPhoneOnly ? Container() : const Spacer(flex: 5),
-                    _isPhoneOnly
+                    isPhoneOnly ? Container() : const Spacer(flex: 5),
+                    isPhoneOnly
                         ? Container()
                         : Expanded(
                             flex: 30,
@@ -153,8 +153,8 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                               unselectedolor: Theme.of(context).dividerColor,
                             ),
                           ),
-                    _isPhoneOnly ? Container() : const Spacer(flex: 5),
-                    _isPhoneOnly
+                    isPhoneOnly ? Container() : const Spacer(flex: 5),
+                    isPhoneOnly
                         ? Container()
                         : Expanded(
                             flex: 40,
@@ -168,7 +168,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       flex: 50,
                       child: Text(
                         tickers[index].last.currencyFormatWithPrefix(
-                            tickers[index].target.toUpperCase() + ' ', context),
+                            '${tickers[index].target.toUpperCase()} ', context),
                         textAlign: TextAlign.right,
                       ),
                     ),
