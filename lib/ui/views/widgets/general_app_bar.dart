@@ -1,10 +1,12 @@
-// 📦 Package imports:
-import 'package:auto_route/auto_route.dart';
+// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:macos_ui/macos_ui.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';

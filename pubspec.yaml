@@ -30,6 +30,7 @@ dependencies:
   google_fonts: ^2.3.2
   hive: ^2.1.0
   hive_flutter: ^1.1.0
+  html: ^0.15.0
   http: ^0.13.4
   intl: ^0.17.0
   ionicons: ^0.1.2
@@ -53,14 +54,14 @@ flutter_icons:
   image_path: "assets/icon-1024.png"
 
 dev_dependencies:
-  flutter_launcher_icons:
-    git:
-      url: https://github.com/dirkbo/flutter_launcher_icons.git
-      ref: desktop_linux_
   auto_route_generator: ^4.0.0
   bloc_test: ^9.0.3
   build_runner: ^2.1.10
   dart_code_metrics: ^4.15.0
+  flutter_launcher_icons:
+    git:
+      url: https://github.com/dirkbo/flutter_launcher_icons.git
+      ref: desktop_linux_
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter

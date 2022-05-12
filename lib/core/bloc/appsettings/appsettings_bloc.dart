@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/config/currency.dart';

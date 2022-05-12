@@ -1,9 +1,13 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:ionicons/ionicons.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';

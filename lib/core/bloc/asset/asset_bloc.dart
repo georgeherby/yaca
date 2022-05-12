@@ -1,7 +1,7 @@
 // 📦 Package imports:
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:coingecko_api/data/coin.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/models/api/asset_history_splits.dart';

@@ -1,12 +1,17 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
-// � Package imports:
-import 'package:fl_chart/fl_chart.dart';
-// � Flutter imports:
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:fl_chart/fl_chart.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/colours.dart';
+
+// � Package imports:
+// � Flutter imports:
 
 // � Package imports:
 // � Flutter imports:
