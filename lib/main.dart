@@ -206,9 +206,8 @@ class _MyAppState extends State<MyApp> {
                         height: kBottomNavigationBarHeight,
                         labelBehavior:
                             NavigationDestinationLabelBehavior.alwaysHide,
-                        backgroundColor: LightThemeColors().cardBackground,
-                        indicatorColor:
-                            LightThemeColors().primary.withOpacity(0.5),
+                        backgroundColor: LightThemeColors().scaffoldBackground,
+                        indicatorColor: LightThemeColors().primary,
                       ),
                       brightness: Brightness.light,
                       primaryColor: LightThemeColors().primary,
@@ -226,8 +225,7 @@ class _MyAppState extends State<MyApp> {
                             IconThemeData(color: LightThemeColors().iconColor),
                       ),
                       navigationRailTheme: NavigationRailThemeData(
-                        indicatorColor:
-                            LightThemeColors().primary.withOpacity(0.3),
+                        indicatorColor: LightThemeColors().primary,
                         backgroundColor: LightThemeColors().scaffoldBackground,
                         unselectedIconTheme: IconThemeData(
                             color: LightThemeColors().unSelectedColor),
@@ -318,11 +316,10 @@ class _MyAppState extends State<MyApp> {
                           size: kBottomNavBarIconSize,
                           color: DarkThemeColors().iconColor)),
                       height: kBottomNavigationBarHeight,
+                      backgroundColor: DarkThemeColors().scaffoldBackground,
                       labelBehavior:
                           NavigationDestinationLabelBehavior.alwaysHide,
-                      backgroundColor: DarkThemeColors().cardBackground,
-                      indicatorColor:
-                          DarkThemeColors().primary.withOpacity(0.5),
+                      indicatorColor: DarkThemeColors().primary,
                     ),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
@@ -334,8 +331,7 @@ class _MyAppState extends State<MyApp> {
                           IconThemeData(color: DarkThemeColors().iconColor),
                     ),
                     navigationRailTheme: NavigationRailThemeData(
-                      indicatorColor:
-                          DarkThemeColors().primary.withOpacity(0.5),
+                      indicatorColor: DarkThemeColors().primary,
                       backgroundColor: DarkThemeColors().scaffoldBackground,
                       unselectedIconTheme: IconThemeData(
                           color: DarkThemeColors().unSelectedColor),
