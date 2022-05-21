@@ -32,7 +32,7 @@ class GlobalMarketMarque extends StatefulWidget {
   final Map<String, double>? marketCapPercentage;
 
   @override
-  _GlobalMarketMarqueState createState() => _GlobalMarketMarqueState();
+  State<GlobalMarketMarque> createState() => _GlobalMarketMarqueState();
 }
 
 class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {

@@ -3,8 +3,8 @@ import 'package:yaca/core/models/api/coingecko/single_asset_data/common/double_p
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 extension DoublePerCurrencyExt on DoublePerCurrency {
-  double? getValueForCurrency(ChosenCurrency _chosenCurrency) {
-    switch (_chosenCurrency.currencyCode.toUpperCase()) {
+  double? getValueForCurrency(ChosenCurrency chosenCurrency) {
+    switch (chosenCurrency.currencyCode.toUpperCase()) {
       // Fiat
       case 'GBP':
         return gbp;
@@ -22,7 +22,7 @@ extension DoublePerCurrencyExt on DoublePerCurrency {
         return ltc;
       default:
         throw Exception(
-            "Currency not supported ${_chosenCurrency.currencyCode}");
+            "Currency not supported ${chosenCurrency.currencyCode}");
     }
   }
 }

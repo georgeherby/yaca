@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:bloc/bloc.dart';
 import 'package:coingecko_api/data/ticker.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';

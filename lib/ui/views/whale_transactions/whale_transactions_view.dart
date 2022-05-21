@@ -26,7 +26,7 @@ class WhaleTransactionView extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _WhaleTransactionViewState createState() => _WhaleTransactionViewState();
+  State<WhaleTransactionView> createState() => _WhaleTransactionViewState();
 }
 
 class _WhaleTransactionViewState extends State<WhaleTransactionView> {

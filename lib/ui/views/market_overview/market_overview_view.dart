@@ -1,5 +1,7 @@
 // 🐦 Flutter imports:
 
+// � Package imports:
+
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
@@ -30,11 +32,13 @@ import 'package:yaca/ui/views/market_overview/widgets/sort_bottom_sheet.dart';
 import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
+// � Flutter imports:
+
 class MarketOverviewView extends StatefulWidget {
   const MarketOverviewView({Key? key}) : super(key: key);
 
   @override
-  _MarketOverviewViewState createState() => _MarketOverviewViewState();
+  State<MarketOverviewView> createState() => _MarketOverviewViewState();
 }
 
 class _MarketOverviewViewState extends State<MarketOverviewView> {

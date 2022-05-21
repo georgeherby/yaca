@@ -18,6 +18,8 @@ class _AssetGraphChipConfigurations {
   const _AssetGraphChipConfigurations(this.label, this.duration);
 }
 
+
+
 class AssetGraphWithSwitcher extends StatefulWidget {
   final AssetHistorySplits allHistory;
 
@@ -27,7 +29,7 @@ class AssetGraphWithSwitcher extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetGraphWithSwitcherState createState() => _AssetGraphWithSwitcherState();
+  State<AssetGraphWithSwitcher> createState() => _AssetGraphWithSwitcherState();
 }
 
 class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
@@ -50,7 +52,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   @override
   Widget build(BuildContext context) {
     //Get chips where there data. For example data may only go back 1 year, so dont show 3y chips
-    var _chips = kChips
+    var chips = kChips
         .where((element) => element.duration == null
             ? true
             : widget.allHistory.allMonths.first.date.millisecondsSinceEpoch <
@@ -59,15 +61,15 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                     .millisecondsSinceEpoch)
         .toList();
 
-    var _duration =
-        _chips.length < _index ? _chips[0].duration : _chips[_index].duration;
-    var _data = applyFilter(widget.allHistory, _duration);
+    var duration =
+        chips.length < _index ? chips[0].duration : chips[_index].duration;
+    var data = applyFilter(widget.allHistory, duration);
 
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      _data.isNotEmpty
+      data.isNotEmpty
           ? AssetGraph(
-              history: _data,
-              duration: _duration,
+              history: data,
+              duration: duration,
             )
           : const SizedBox(
               height: 250,
@@ -84,8 +86,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 child: Wrap(
                   spacing: 8,
                   runSpacing: 6,
-                  children: List.generate(_chips.length, (listIndex) {
-                    var _selected = listIndex == _index;
+                  children: List.generate(chips.length, (listIndex) {
+                    var selected = listIndex == _index;
                     return Theme(
                       data: Theme.of(context)
                           .copyWith(canvasColor: Colors.transparent),
@@ -99,20 +101,20 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
                         label: Text(
-                          _chips[listIndex].label,
+                          chips[listIndex].label,
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .chipTheme
                               .labelStyle
                               ?.copyWith(
-                                  fontWeight: _selected
+                                  fontWeight: selected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
-                                  color: _selected &&
+                                  color: selected &&
                                           Theme.of(context).brightness ==
                                               Brightness.light
                                       ? Colors.white
-                                      : _selected
+                                      : selected
                                           ? Colors.black
                                           : Theme.of(context)
                                               .chipTheme
@@ -136,8 +138,8 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 physics: const ClampingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: List.generate(_chips.length, (listIndex) {
-                    var _selected = listIndex == _index;
+                  children: List.generate(chips.length, (listIndex) {
+                    var selected = listIndex == _index;
                     return Theme(
                       data: Theme.of(context)
                           .copyWith(canvasColor: Colors.transparent),
@@ -150,20 +152,20 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                         selectedColor:
                             Theme.of(context).chipTheme.selectedColor,
                         label: Text(
-                          _chips[listIndex].label,
+                          chips[listIndex].label,
                           textAlign: TextAlign.center,
                           style: Theme.of(context)
                               .chipTheme
                               .labelStyle
                               ?.copyWith(
-                                  fontWeight: _selected
+                                  fontWeight: selected
                                       ? FontWeight.bold
                                       : FontWeight.normal,
-                                  color: _selected &&
+                                  color: selected &&
                                           Theme.of(context).brightness ==
                                               Brightness.light
                                       ? Colors.white
-                                      : _selected
+                                      : selected
                                           ? Colors.black
                                           : Theme.of(context)
                                               .chipTheme

@@ -2,9 +2,9 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:bloc/bloc.dart';
 import 'package:coingecko_api/data/coin_short.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/repositories/api/coingecko/coin_list_repository.dart';
@@ -23,7 +23,7 @@ class SearchBloc extends Bloc<SearchBaseEvent, SearchState> {
 
   @override
   void onTransition(Transition<SearchBaseEvent, SearchState> transition) {
-    debugPrint("SearchBloc :: " + transition.toString());
+    debugPrint("SearchBloc :: $transition");
     super.onTransition(transition);
   }
 

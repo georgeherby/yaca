@@ -1,4 +1,6 @@
 // 🐦 Flutter imports:
+
+// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
@@ -17,7 +19,7 @@ class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
@@ -25,10 +27,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var _isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
+    var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Scaffold(
-      bottomNavigationBar: _isPhoneOnly
+      bottomNavigationBar: isPhoneOnly
           ? NavigationBar(
               onDestinationSelected: onTabTapped,
               selectedIndex: _selectedIndex,
@@ -68,7 +70,7 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         bottom: false,
         child: Row(children: [
-          _isPhoneOnly
+          isPhoneOnly
               ? Container()
               : Column(
                   mainAxisAlignment: MainAxisAlignment.center,

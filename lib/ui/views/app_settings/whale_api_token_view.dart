@@ -62,14 +62,14 @@ class WhaleApiTokenView extends StatelessWidget {
                   Expanded(
                     child: SecondaryButton(
                       onTap: () async {
+                        FilterListBloc filterListBloc = BlocProvider.of<
+                            FilterListBloc<WhaleTransaction, String>>(context);
+
                         await RepositoryProvider.of<ApiTokensPreference>(
                                 context)
                             .removeWhalesApiToken();
                         tokenController.clear();
-                        BlocProvider.of<
-                                    FilterListBloc<WhaleTransaction, String>>(
-                                context)
-                            .loadElements();
+                        filterListBloc.loadElements();
                       },
                       buttonText: 'Clear',
                     ),
@@ -81,13 +81,14 @@ class WhaleApiTokenView extends StatelessWidget {
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           debugPrint('Saving ${tokenController.text}');
+                          FilterListBloc bloc = BlocProvider.of<
+                                  FilterListBloc<WhaleTransaction, String>>(
+                              context);
                           await RepositoryProvider.of<ApiTokensPreference>(
                                   context)
                               .saveWhalesApiToken(tokenController.text);
-                          BlocProvider.of<
-                                      FilterListBloc<WhaleTransaction, String>>(
-                                  context)
-                              .loadElements();
+
+                          bloc.loadElements();
                           await context.router.pop();
                         }
                       },

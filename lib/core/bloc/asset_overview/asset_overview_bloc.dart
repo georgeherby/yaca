@@ -5,9 +5,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:bloc/bloc.dart';
 import 'package:coingecko_api/data/market.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -69,7 +69,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   ) async {
     emit(const AssetOverviewLoading());
     try {
-      var _marketCoins = <MarketCoin>[];
+      var marketCoins = <MarketCoin>[];
 
       var marketCoinsResponse = (await _marketOverviewRepository
           .fetchCoinMarkets(_settingsBloc.state.currency));
@@ -77,7 +77,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
       List<MarketCoin> favouriteAssets =
           await _favourites(marketCoinsResponse.map((e) => MarketCoin(market: e)).toList(), _settingsBloc.state.currency);
 
-      _marketCoins.addAll(marketCoinsResponse.map((coinData) {
+      marketCoins.addAll(marketCoinsResponse.map((coinData) {
         var favs = (favouriteAssets.where((MarketCoin fav) =>
             fav.market.name.equalsIgnoreCase(coinData.name) &&
             fav.market.symbol.equalsIgnoreCase(coinData.symbol)));
@@ -91,7 +91,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
 
       final sortType = await _assetOverviewPreference.getSortType();
       final sortOrder = await _assetOverviewPreference.getSortOrder();
-      final sorted = _sortBy(_marketCoins, sortType, sortOrder);
+      final sorted = _sortBy(marketCoins, sortType, sortOrder);
 
       final sortedFavourites = _sortBy(favouriteAssets, sortType, sortOrder);
 

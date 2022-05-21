@@ -1,15 +1,15 @@
 // 🐦 Flutter imports:
-
-// � Package imports:
-import 'package:auto_route/auto_route.dart';
-// 🐦 Flutter imports:
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:url_launcher/url_launcher_string.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -51,14 +51,14 @@ class AssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
 
-    var _currency = BlocProvider.of<AppSettingsBloc>(context).state.currency;
+    var currency = BlocProvider.of<AppSettingsBloc>(context).state.currency;
 
     return BlocBuilder<AssetBloc, AssetState>(builder: (context, state) {
       if (state is AssetLoaded) {
         var singleAsset = state.coin;
         var marketDataPerCurrnecy = state.coin.marketData!.dataByCurrency
             .where((element) =>
-                element.coinId.equalsIgnoreCase(_currency.currencyCode))
+                element.coinId.equalsIgnoreCase(currency.currencyCode))
             .first;
 
         return Scaffold(
@@ -135,12 +135,12 @@ class AssetView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    _currency.currencyCode.equalsIgnoreCase(singleAsset.symbol)
+                    currency.currencyCode.equalsIgnoreCase(singleAsset.symbol)
                         ? _buildCard(
                             context,
                             false,
                             Text(
-                                'No graph is possible. Your chosen currency ${_currency.currencyCode.toUpperCase()} is the same as the coin your are viewing (${singleAsset.symbol.toUpperCase()}).'))
+                                'No graph is possible. Your chosen currency ${currency.currencyCode.toUpperCase()} is the same as the coin your are viewing (${singleAsset.symbol.toUpperCase()}).'))
                         : _buildCard(
                             context,
                             true,
@@ -148,6 +148,7 @@ class AssetView extends StatelessWidget {
                                 allHistory: state.assetHistorySplits),
                           ),
                     const SizedBox(height: 8),
+                  
                     _buildCard(
                       context,
                       false,
@@ -179,7 +180,7 @@ class AssetView extends StatelessWidget {
                                                   .caption),
                                           Text(marketDataPerCurrnecy.high24h
                                                   ?.currencyFormatWithPrefix(
-                                                      _currency.currencyString,
+                                                      currency.currencyString,
                                                       context) ??
                                               '-'),
                                         ],
@@ -194,7 +195,7 @@ class AssetView extends StatelessWidget {
                                                   .caption),
                                           Text(marketDataPerCurrnecy.low24h
                                                   ?.currencyFormatWithPrefix(
-                                                      _currency.currencyString,
+                                                      currency.currencyString,
                                                       context) ??
                                               '-')
                                         ],
@@ -291,7 +292,7 @@ class AssetView extends StatelessWidget {
                                           Text(marketDataPerCurrnecy
                                                       .marketCap !=
                                                   null
-                                              ? _currency.currencyString +
+                                              ? currency.currencyString +
                                                   compactNumberFormat(context)
                                                       .format(
                                                           marketDataPerCurrnecy
@@ -400,7 +401,7 @@ class AssetView extends StatelessWidget {
                                           Text(marketDataPerCurrnecy.ath != null
                                               ? marketDataPerCurrnecy.ath!
                                                   .currencyFormatWithPrefix(
-                                                      _currency.currencyString,
+                                                      currency.currencyString,
                                                       context)
                                               : '-'),
                                         ],

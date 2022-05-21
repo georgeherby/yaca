@@ -1,14 +1,16 @@
 // 🐦 Flutter imports:
-// 📦 Package imports:
-import 'package:coingecko_api/coingecko_api.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+
+// 📦 Package imports:
+import 'package:coingecko_api/coingecko_api.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
@@ -34,7 +36,6 @@ import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
-
 import 'firebase_options.dart';
 
 void main() async {
@@ -65,7 +66,7 @@ class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 }
 
 class _MyAppState extends State<MyApp> {
@@ -205,9 +206,8 @@ class _MyAppState extends State<MyApp> {
                         height: kBottomNavigationBarHeight,
                         labelBehavior:
                             NavigationDestinationLabelBehavior.alwaysHide,
-                        backgroundColor: LightThemeColors().cardBackground,
-                        indicatorColor:
-                            LightThemeColors().primary.withOpacity(0.5),
+                        backgroundColor: LightThemeColors().scaffoldBackground,
+                        indicatorColor: LightThemeColors().primary,
                       ),
                       brightness: Brightness.light,
                       primaryColor: LightThemeColors().primary,
@@ -225,15 +225,16 @@ class _MyAppState extends State<MyApp> {
                             IconThemeData(color: LightThemeColors().iconColor),
                       ),
                       navigationRailTheme: NavigationRailThemeData(
+                        indicatorColor: LightThemeColors().primary,
                         backgroundColor: LightThemeColors().scaffoldBackground,
                         unselectedIconTheme: IconThemeData(
                             color: LightThemeColors().unSelectedColor),
                         unselectedLabelTextStyle: TextStyle(
                             color: LightThemeColors().unSelectedColor),
                         selectedIconTheme:
-                            IconThemeData(color: LightThemeColors().primary),
+                            IconThemeData(color: LightThemeColors().textColor),
                         selectedLabelTextStyle:
-                            TextStyle(color: LightThemeColors().primary),
+                            TextStyle(color: LightThemeColors().textColor),
                       ),
                       scaffoldBackgroundColor:
                           LightThemeColors().scaffoldBackground,
@@ -315,11 +316,10 @@ class _MyAppState extends State<MyApp> {
                           size: kBottomNavBarIconSize,
                           color: DarkThemeColors().iconColor)),
                       height: kBottomNavigationBarHeight,
+                      backgroundColor: DarkThemeColors().scaffoldBackground,
                       labelBehavior:
                           NavigationDestinationLabelBehavior.alwaysHide,
-                      backgroundColor: DarkThemeColors().cardBackground,
-                      indicatorColor:
-                          DarkThemeColors().primary.withOpacity(0.5),
+                      indicatorColor: DarkThemeColors().primary,
                     ),
                     canvasColor: DarkThemeColors().cardBackground,
                     appBarTheme: AppBarTheme(
@@ -331,15 +331,16 @@ class _MyAppState extends State<MyApp> {
                           IconThemeData(color: DarkThemeColors().iconColor),
                     ),
                     navigationRailTheme: NavigationRailThemeData(
+                      indicatorColor: DarkThemeColors().primary,
                       backgroundColor: DarkThemeColors().scaffoldBackground,
                       unselectedIconTheme: IconThemeData(
                           color: DarkThemeColors().unSelectedColor),
                       unselectedLabelTextStyle:
                           TextStyle(color: DarkThemeColors().unSelectedColor),
-                      selectedIconTheme: IconThemeData(
-                          color: DarkThemeColors().chipSelectedColor),
+                      selectedIconTheme:
+                          IconThemeData(color: DarkThemeColors().textColor),
                       selectedLabelTextStyle:
-                          TextStyle(color: DarkThemeColors().chipSelectedColor),
+                          TextStyle(color: DarkThemeColors().textColor),
                     ),
                     scaffoldBackgroundColor:
                         DarkThemeColors().scaffoldBackground,

@@ -1,19 +1,23 @@
 // 🎯 Dart imports:
 import 'dart:math';
 
-//  Package imports:
-import 'package:coingecko_api/data/market_chart_data.dart';
-import 'package:fl_chart/fl_chart.dart';
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
+
+// 📦 Package imports:
+import 'package:coingecko_api/data/market_chart_data.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
+
+//  Package imports:
 
 // � Package imports:
 // � Flutter imports:
@@ -28,7 +32,7 @@ class AssetGraph extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AssetGraphState createState() => _AssetGraphState();
+  State<AssetGraph> createState() => _AssetGraphState();
 }
 
 class _AssetGraphState extends State<AssetGraph> {
@@ -60,7 +64,7 @@ class _AssetGraphState extends State<AssetGraph> {
     var positive = widget.history.isNotEmpty &&
         widget.history.first.price! < widget.history.last.price!;
 
-    var _dashColour = (Theme.of(context).brightness == Brightness.light
+    var dashColour = (Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700
         : Colors.white70);
 
@@ -72,7 +76,7 @@ class _AssetGraphState extends State<AssetGraph> {
     var minTime =
         widget.history.map((e) => e.date.millisecondsSinceEpoch).reduce(min);
 
-    var _dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
+    var dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
     var price = touchedPrice;
     var currencyString =
@@ -97,7 +101,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        formatDate.format(_dateTimeTouchedDate),
+                        formatDate.format(dateTimeTouchedDate),
                         style: Theme.of(context).textTheme.caption?.copyWith(
                             fontWeight: FontWeight.normal, fontSize: 13),
                       ),
@@ -249,7 +253,7 @@ class _AssetGraphState extends State<AssetGraph> {
                     return spotIndexes.map((spotIndex) {
                       return TouchedSpotIndicatorData(
                         FlLine(
-                          color: _dashColour,
+                          color: dashColour,
                           strokeWidth: 1,
                           dashArray: [6, 2],
                         ),
@@ -303,7 +307,7 @@ class _AssetGraphState extends State<AssetGraph> {
                       },
                     ),
                     y: widget.history.first.price!,
-                    color: _dashColour,
+                    color: dashColour,
                     strokeWidth: 1,
                     dashArray: [4, 4],
                   ),
