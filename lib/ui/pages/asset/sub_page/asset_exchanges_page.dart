@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
@@ -24,12 +23,12 @@ class AssetExchangePage extends StatelessWidget {
           builder: (context, state) {
             if (state is SingleAssetExchangeLoaded) {
               return MaterialSurface(
-                externalPadding: getValueForScreenType<EdgeInsets>(
-                  context: context,
-                  mobile: const EdgeInsets.all(8.0),
-                  tablet: const EdgeInsets.all(8.0),
-                  desktop: const EdgeInsets.all(8.0),
-                ),
+                // externalPadding: getValueForScreenType<EdgeInsets>(
+                //   context: context,
+                //   mobile: const EdgeInsets.all(8.0),
+                //   tablet: const EdgeInsets.all(8.0),
+                //   desktop: const EdgeInsets.all(8.0),
+                // ),
                 contentPadding: const EdgeInsets.all(8.0),
                 child: ExchangeListWithFilter(exchanges: state.exchangeTickers),
               );

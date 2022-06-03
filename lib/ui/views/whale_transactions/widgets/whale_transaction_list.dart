@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:intl/intl.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/config/currency.dart';
@@ -28,12 +27,6 @@ class WhaleTransactionList extends StatelessWidget {
     var currencyString = AvailableCurrencies.usd.currencyString;
 
     return MaterialSurface(
-      externalPadding: getValueForScreenType<EdgeInsets>(
-        context: context,
-        mobile: const EdgeInsets.symmetric(horizontal: 8.0),
-        tablet: const EdgeInsets.only(bottom: 8.0),
-        desktop: const EdgeInsets.only(bottom: 8.0),
-      ),
       fullScreen: true,
       child: RefreshableList(
         onRefresh: onRefresh,

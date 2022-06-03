@@ -53,6 +53,7 @@ class AssetsDataTable extends StatelessWidget {
               mobile: Container()),
           Expanded(
             child: MaterialSurface(
+              contentPadding: EdgeInsets.zero,
               fullScreen: true,
               child: favouriteOnly && marketCoins.isEmpty
                   ? Column(

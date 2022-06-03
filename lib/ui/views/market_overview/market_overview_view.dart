@@ -80,17 +80,14 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                 : IconButton(
                     icon: const Icon(Ionicons.search_outline),
                     onPressed: () {
-                      debugPrint("pressed");
-
                       context.router.push(const SearchRoute());
-                      debugPrint("router");
                     },
                   )
           ],
           bottom: null //AppBarBottom(),
           ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        padding: const EdgeInsets.symmetric(horizontal: 4.0),
         child: LayoutBuilder(
           builder: (context, constraint) {
             return ConstrainedBox(
@@ -103,72 +100,68 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: SizedBox(
-                            height: kMobileIconButtonSize,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ChoiceChip(
-                                  tooltip: _showAllAssets
-                                      ? "Show favourites only"
-                                      : "Show all assets",
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  onSelected: (selected) {
-                                    setState(() {
-                                      _showAllAssets = !selected;
-                                    });
-                                  },
-                                  selected: !_showAllAssets,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          kCornerRadiusCirlcular)),
-                                  label: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 8),
-                                    child: Icon(
-                                        _showAllAssets
-                                            ? Ionicons.star_outline
-                                            : Ionicons.star,
-                                        size: 16,
-                                        color: _showAllAssets
-                                            ? Theme.of(context).iconTheme.color
-                                            : kYellow),
-                                  ),
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              ChoiceChip(
+                                tooltip: _showAllAssets
+                                    ? "Show favourites only"
+                                    : "Show all assets",
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.padded,
+                                onSelected: (selected) {
+                                  setState(() {
+                                    _showAllAssets = !selected;
+                                  });
+                                },
+                                selected: !_showAllAssets,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        kCornerRadiusCirlcular)),
+                                label: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 4.0, horizontal: 8.0),
+                                  child: Icon(
+                                      _showAllAssets
+                                          ? Ionicons.star_outline
+                                          : Ionicons.star,
+                                      size: 16,
+                                      color: _showAllAssets
+                                          ? Theme.of(context).iconTheme.color
+                                          : kYellow),
                                 ),
-                                ActionChip(
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  onPressed: () async {
-                                    await showModalBottomSheet(
-                                        context: context,
-                                        builder: (context) {
-                                          return SafeArea(
-                                              child: SortBottomSheet(
-                                            assets: state.allAssets,
-                                            sortType: state.sortType,
-                                            sortOrder: state.sortOrder,
-                                          ));
-                                        });
-                                  },
-                                  avatar: Icon(
-                                    state.sortOrder.isAscending()
-                                        ? Ionicons.arrow_up_outline
-                                        : Ionicons.arrow_down_outline,
-                                    size: 16,
-                                    color: Theme.of(context).iconTheme.color,
-                                  ),
-                                  labelPadding: const EdgeInsets.all(4.0),
-                                  padding: const EdgeInsets.all(8.0),
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                          kCornerRadiusCirlcular)),
-                                  label: Text(_getLabelForCurrentSortType(
-                                      state.sortType)),
-                                )
-                              ],
-                            ),
+                              ),
+                              ActionChip(
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.padded,
+                                onPressed: () async {
+                                  await showModalBottomSheet(
+                                      context: context,
+                                      builder: (context) {
+                                        return SafeArea(
+                                            child: SortBottomSheet(
+                                          assets: state.allAssets,
+                                          sortType: state.sortType,
+                                          sortOrder: state.sortOrder,
+                                        ));
+                                      });
+                                },
+                                avatar: Icon(
+                                  state.sortOrder.isAscending()
+                                      ? Ionicons.arrow_up_outline
+                                      : Ionicons.arrow_down_outline,
+                                  size: 16,
+                                  color: Theme.of(context).iconTheme.color,
+                                ),
+                                labelPadding: const EdgeInsets.only(right: 8.0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(
+                                        kCornerRadiusCirlcular)),
+                                label: Text(_getLabelForCurrentSortType(
+                                    state.sortType)),
+                              )
+                            ],
                           ),
                         ),
                         Expanded(

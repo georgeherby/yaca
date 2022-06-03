@@ -17,11 +17,11 @@ Color kSecondary = const Color(0xFFF5828D);
 Color kDarkSecondary = const Color(0xFFF5828D);
 
 Color kDarkSurface = const Color(0xFF1E1F1F);
-Color kDarkBackground = const Color(0xFF121313);
+Color kDarkBackground = const Color(0xFF1C1B1F);
 Color kDarkError = const Color(0xFFCE6771);
 
-Color kLightSurface = const Color(0xFFFEFEFF);
-Color kLightBackground = const Color(0xFffffbfe);
+Color kLightSurface = const Color(0xFFFFFBFE);
+Color kLightBackground = const Color(0xFFFFFBFE);
 Color kLightError = const Color(0xFFCE6771);
 
 Map<int, Color> colorCodes = {
@@ -75,7 +75,7 @@ class LightThemeColors implements ThemeColours {
   Color appBarColour = kLightBackground;
 
   @override
-  Color cardBackground = kLightSurface;
+  Color cardBackground = Colors.orange;
 
   @override
   Color chipSelectedColor = kPrimary;
@@ -119,7 +119,7 @@ class DarkThemeColors implements ThemeColours {
   Color appBarColour = kDarkBackground;
 
   @override
-  Color cardBackground = kDarkSurface;
+  Color cardBackground = Colors.green;
 
   @override
   Color chipSelectedColor = Colors.white.withOpacity(0.87);

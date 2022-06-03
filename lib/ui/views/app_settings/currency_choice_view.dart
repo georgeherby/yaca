@@ -22,8 +22,8 @@ class CurrencyChoiceView extends StatelessWidget {
     return ScaffoldWithBack(
       title: 'Choose currency',
       body: MaterialSurface(
-        externalPadding:
-            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+        // externalPadding:
+        //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView.separated(
           separatorBuilder: (context, index) => const Divider(
               thickness: kDividerWeighting, height: kDividerWeighting),

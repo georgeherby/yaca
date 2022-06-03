@@ -34,6 +34,7 @@ import 'package:yaca/core/repositories/preferences/currency_preference.dart';
 import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/consts/lib_color_schemes.g.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 import 'firebase_options.dart';
 
@@ -161,10 +162,111 @@ class _MyAppState extends State<MyApp> {
                   debugShowCheckedModeBanner: false,
                   themeMode: state.theme,
                   theme: ThemeData.light().copyWith(
-                    useMaterial3: true,
-                    inputDecorationTheme: InputDecorationTheme(
+                      useMaterial3: true,
+                      inputDecorationTheme: InputDecorationTheme(
+                          filled: true,
+                          fillColor: LightThemeColors().textInputBackground,
+                          focusedBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(kCornerRadiusCirlcular),
+                            ),
+                            borderSide: BorderSide.none,
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(kCornerRadiusCirlcular),
+                            ),
+                            borderSide: BorderSide.none,
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(kCornerRadiusCirlcular),
+                            ),
+                            borderSide: BorderSide(
+                                color: LightThemeColors().errorColor,
+                                width: kInputBorderWeighting),
+                          ),
+                          focusedErrorBorder: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              Radius.circular(kCornerRadiusCirlcular),
+                            ),
+                            borderSide: BorderSide(
+                                color: LightThemeColors().errorColor,
+                                width: kInputBorderWeighting),
+                          ),
+                          errorStyle:
+                              TextStyle(color: LightThemeColors().errorColor)),
+                      textTheme: GoogleFonts.ibmPlexSansTextTheme(
+                        ThemeData.light().textTheme,
+                      ),
+                      // navigationBarTheme: const NavigationBarThemeData(
+                      //   iconTheme: MaterialStateProperty.all(IconThemeData(
+                      //       size: kBottomNavBarIconSize,
+                      //       color: LightThemeColors().iconColor)),
+                      //   height: kBottomNavigationBarHeight,
+                      // labelBehavior:
+                      //     NavigationDestinationLabelBehavior.alwaysShow,
+                      //   indicatorColor: LightThemeColors().primary,
+                      // ),
+                      // brightness: Brightness.light,
+                      // primaryColor: LightThemeColors().primary,
+                      // cardTheme: CardTheme(
+                      //   elevation: 0,
+                      //   color: LightThemeColors().cardBackground,
+                      // ),
+                      // appBarTheme: AppBarTheme(
+                      //   systemOverlayStyle: SystemUiOverlayStyle.dark,
+                      //   elevation: 0,
+                      //   foregroundColor: LightThemeColors().textColor,
+                      //   color: LightThemeColors().appBarColour,
+                      //   iconTheme:
+                      //       IconThemeData(color: LightThemeColors().iconColor),
+                      // ),
+                      // navigationRailTheme: NavigationRailThemeData(
+                      //   indicatorColor: LightThemeColors().primary,
+                      //   backgroundColor: LightThemeColors().scaffoldBackground,
+                      //   unselectedIconTheme: IconThemeData(
+                      //       color: LightThemeColors().unSelectedColor),
+                      //   unselectedLabelTextStyle:
+                      //       TextStyle(color: LightThemeColors().unSelectedColor),
+                      //   selectedIconTheme:
+                      //       IconThemeData(color: LightThemeColors().textColor),
+                      //   selectedLabelTextStyle:
+                      //       TextStyle(color: LightThemeColors().textColor),
+                      // ),
+                      // scaffoldBackgroundColor:
+                      //     LightThemeColors().scaffoldBackground,
+                      // iconTheme:
+                      //     IconThemeData(color: LightThemeColors().iconColor),
+                      chipTheme: ChipThemeData(
+                        padding: const EdgeInsets.all(0),
+                        elevation: 0,
+                        pressElevation: 0,
+                        brightness: Brightness.light,
+                        checkmarkColor: LightThemeColors().chipUnselectedColor,
+                        secondaryLabelStyle: const TextStyle(),
+                        labelStyle: const TextStyle(color: Colors.black),
+                        disabledColor: Colors.transparent,
+                        backgroundColor: LightThemeColors().chipUnselectedColor,
+                        selectedColor: LightThemeColors().chipSelectedColor,
+                        secondarySelectedColor: LightThemeColors().primary,
+                        shadowColor: Colors.transparent,
+                        selectedShadowColor: Colors.transparent,
+                      ),
+                      // listTileTheme: ListTileThemeData(
+                      //     textColor: LightThemeColors().textColor,
+                      //     iconColor: LightThemeColors().iconColor,
+                      //     selectedTileColor:
+                      //         LightThemeColors().scaffoldBackground,
+                      //     selectedColor: LightThemeColors().textColor),
+                      visualDensity: VisualDensity.adaptivePlatformDensity,
+                      applyElevationOverlayColor: true,
+                      colorScheme: lightColorScheme),
+                  darkTheme: ThemeData.dark().copyWith(
+                      useMaterial3: true,
+                      inputDecorationTheme: InputDecorationTheme(
                         filled: true,
-                        fillColor: LightThemeColors().textInputBackground,
+                        fillColor: DarkThemeColors().textInputBackground,
                         focusedBorder: const OutlineInputBorder(
                           borderRadius: BorderRadius.all(
                             Radius.circular(kCornerRadiusCirlcular),
@@ -182,7 +284,7 @@ class _MyAppState extends State<MyApp> {
                             Radius.circular(kCornerRadiusCirlcular),
                           ),
                           borderSide: BorderSide(
-                              color: LightThemeColors().errorColor,
+                              color: DarkThemeColors().errorColor,
                               width: kInputBorderWeighting),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
@@ -190,200 +292,38 @@ class _MyAppState extends State<MyApp> {
                             Radius.circular(kCornerRadiusCirlcular),
                           ),
                           borderSide: BorderSide(
-                              color: LightThemeColors().errorColor,
+                              color: DarkThemeColors().errorColor,
                               width: kInputBorderWeighting),
                         ),
                         errorStyle:
-                            TextStyle(color: LightThemeColors().errorColor)),
-                    textTheme: GoogleFonts.ibmPlexSansTextTheme(
-                      ThemeData.light().textTheme,
-                    ),
-                    // navigationBarTheme: const NavigationBarThemeData(
-                    //   iconTheme: MaterialStateProperty.all(IconThemeData(
-                    //       size: kBottomNavBarIconSize,
-                    //       color: LightThemeColors().iconColor)),
-                    //   height: kBottomNavigationBarHeight,
-                    // labelBehavior:
-                    //     NavigationDestinationLabelBehavior.alwaysShow,
-                    //   indicatorColor: LightThemeColors().primary,
-                    // ),
-                    // brightness: Brightness.light,
-                    // primaryColor: LightThemeColors().primary,
-                    // cardTheme: CardTheme(
-                    //   elevation: 0,
-                    //   color: LightThemeColors().cardBackground,
-                    // ),
-                    // appBarTheme: AppBarTheme(
-                    //   systemOverlayStyle: SystemUiOverlayStyle.dark,
-                    //   elevation: 0,
-                    //   foregroundColor: LightThemeColors().textColor,
-                    //   color: LightThemeColors().appBarColour,
-                    //   iconTheme:
-                    //       IconThemeData(color: LightThemeColors().iconColor),
-                    // ),
-                    // navigationRailTheme: NavigationRailThemeData(
-                    //   indicatorColor: LightThemeColors().primary,
-                    //   backgroundColor: LightThemeColors().scaffoldBackground,
-                    //   unselectedIconTheme: IconThemeData(
-                    //       color: LightThemeColors().unSelectedColor),
-                    //   unselectedLabelTextStyle:
-                    //       TextStyle(color: LightThemeColors().unSelectedColor),
-                    //   selectedIconTheme:
-                    //       IconThemeData(color: LightThemeColors().textColor),
-                    //   selectedLabelTextStyle:
-                    //       TextStyle(color: LightThemeColors().textColor),
-                    // ),
-                    // scaffoldBackgroundColor:
-                    //     LightThemeColors().scaffoldBackground,
-                    // iconTheme:
-                    //     IconThemeData(color: LightThemeColors().iconColor),
-                    chipTheme: ChipThemeData(
-                      padding: const EdgeInsets.all(0),
-                      elevation: 0,
-                      pressElevation: 0,
-                      brightness: Brightness.light,
-                      checkmarkColor: LightThemeColors().chipUnselectedColor,
-                      secondaryLabelStyle: const TextStyle(),
-                      labelStyle: const TextStyle(color: Colors.black),
-                      disabledColor: Colors.transparent,
-                      backgroundColor: LightThemeColors().chipUnselectedColor,
-                      selectedColor: LightThemeColors().chipSelectedColor,
-                      secondarySelectedColor: LightThemeColors().primary,
-                      shadowColor: Colors.transparent,
-                      selectedShadowColor: Colors.transparent,
-                    ),
-                    // listTileTheme: ListTileThemeData(
-                    //     textColor: LightThemeColors().textColor,
-                    //     iconColor: LightThemeColors().iconColor,
-                    //     selectedTileColor:
-                    //         LightThemeColors().scaffoldBackground,
-                    //     selectedColor: LightThemeColors().textColor),
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    applyElevationOverlayColor: true,
-                    colorScheme: ColorScheme.light(
-                        primary: LightThemeColors().primary,
-                        secondary: LightThemeColors().secondary,
-                        onSecondary: Colors.white,
-                        surfaceTint: LightThemeColors().primary,
-                        surface: LightThemeColors().cardBackground,
-                        background: LightThemeColors().scaffoldBackground,
-                        secondaryContainer: LightThemeColors().primary,
-                        onSurface: Colors.black,
-                        onSurfaceVariant: Colors.black,
-                        onSecondaryContainer: Colors.white),
-                  ),
-                  darkTheme: ThemeData.dark().copyWith(
-                    useMaterial3: true,
-                    inputDecorationTheme: InputDecorationTheme(
-                      filled: true,
-                      fillColor: DarkThemeColors().textInputBackground,
-                      focusedBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(kCornerRadiusCirlcular),
-                        ),
-                        borderSide: BorderSide.none,
+                            TextStyle(color: DarkThemeColors().errorColor),
                       ),
-                      enabledBorder: const OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(kCornerRadiusCirlcular),
-                        ),
-                        borderSide: BorderSide.none,
+                      textTheme: GoogleFonts.ibmPlexSansTextTheme(
+                        ThemeData.dark().textTheme,
                       ),
-                      errorBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(kCornerRadiusCirlcular),
-                        ),
-                        borderSide: BorderSide(
-                            color: DarkThemeColors().errorColor,
-                            width: kInputBorderWeighting),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderRadius: const BorderRadius.all(
-                          Radius.circular(kCornerRadiusCirlcular),
-                        ),
-                        borderSide: BorderSide(
-                            color: DarkThemeColors().errorColor,
-                            width: kInputBorderWeighting),
-                      ),
-                      errorStyle:
-                          TextStyle(color: DarkThemeColors().errorColor),
-                    ),
-                    textTheme: GoogleFonts.ibmPlexSansTextTheme(
-                      ThemeData.dark().textTheme,
-                    ),
-                    brightness: Brightness.dark,
-                    // primaryColor: DarkThemeColors().primary,
-                    // cardTheme: CardTheme(
-                    //   elevation: 0,
-                    //   color: DarkThemeColors().cardBackground,
-                    // ),
-                    // navigationBarTheme: const NavigationBarThemeData(
-                    //   iconTheme: MaterialStateProperty.all(IconThemeData(
-                    //       size: kBottomNavBarIconSize,
-                    //       color: DarkThemeColors().iconColor)),
-                    //   height: kBottomNavigationBarHeight,
-                    //   // backgroundColor: DarkThemeColors().scaffoldBackground,
-                    // labelBehavior:
-                    //     NavigationDestinationLabelBehavior.alwaysShow,
-                    //   indicatorColor: DarkThemeColors().primary,
-                    // ),
-                    // canvasColor: DarkThemeColors().cardBackground,
-                    // appBarTheme: AppBarTheme(
-                    //   systemOverlayStyle: SystemUiOverlayStyle.light,
-                    //   elevation: 0,
-                    //   foregroundColor: DarkThemeColors().textColor,
-                    //   color: DarkThemeColors().appBarColour,
-                    //   iconTheme:
-                    //       IconThemeData(color: DarkThemeColors().iconColor),
-                    // ),
-                    // navigationRailTheme: NavigationRailThemeData(
-                    //   indicatorColor: DarkThemeColors().primary,
-                    //   backgroundColor: DarkThemeColors().scaffoldBackground,
-                    //   unselectedIconTheme: IconThemeData(
-                    //       color: DarkThemeColors().unSelectedColor),
-                    //   unselectedLabelTextStyle:
-                    //       TextStyle(color: DarkThemeColors().unSelectedColor),
-                    //   selectedIconTheme:
-                    //       IconThemeData(color: DarkThemeColors().textColor),
-                    //   selectedLabelTextStyle:
-                    //       TextStyle(color: DarkThemeColors().textColor),
-                    // ),
-                    // scaffoldBackgroundColor:
-                    //     DarkThemeColors().scaffoldBackground,
-                    // iconTheme:
-                    //     IconThemeData(color: DarkThemeColors().iconColor),
-                    chipTheme: ChipThemeData(
-                      // padding: const EdgeInsets.all(0),
-                      elevation: 0,
-                      pressElevation: 0,
-                      checkmarkColor: DarkThemeColors().chipUnselectedColor,
                       brightness: Brightness.dark,
-                      secondaryLabelStyle: const TextStyle(),
-                      labelStyle: const TextStyle(color: Colors.white),
-                      disabledColor: Colors.transparent,
-                      backgroundColor: DarkThemeColors().chipUnselectedColor,
-                      selectedColor: DarkThemeColors().chipSelectedColor,
-                      secondarySelectedColor: DarkThemeColors().primary,
-                      shadowColor: Colors.transparent,
-                      selectedShadowColor: Colors.transparent,
-                    ),
-                    // listTileTheme: ListTileThemeData(
-                    //     textColor: DarkThemeColors().textColor,
-                    //     iconColor: DarkThemeColors().iconColor,
-                    //     selectedColor: DarkThemeColors().iconColor),
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                    applyElevationOverlayColor: true,
-                    colorScheme: ColorScheme.dark(
-                        primary: DarkThemeColors().primary,
-                        secondary: DarkThemeColors().secondary,
-                        onSecondary: Colors.white,
-                        surface: DarkThemeColors().cardBackground,
-                        background: DarkThemeColors().scaffoldBackground,
-                        secondaryContainer: DarkThemeColors().primary,
-                        onSurface: Colors.white,
-                        onSurfaceVariant: Colors.white.withOpacity(0.87),
-                        onSecondaryContainer: Colors.white),
-                  ),
+                      chipTheme: ChipThemeData(
+                        // padding: const EdgeInsets.all(0),
+                        elevation: 0,
+                        pressElevation: 0,
+                        checkmarkColor: DarkThemeColors().chipUnselectedColor,
+                        brightness: Brightness.dark,
+                        secondaryLabelStyle: const TextStyle(),
+                        labelStyle: const TextStyle(color: Colors.white),
+                        disabledColor: Colors.transparent,
+                        backgroundColor: DarkThemeColors().chipUnselectedColor,
+                        selectedColor: DarkThemeColors().chipSelectedColor,
+                        secondarySelectedColor: DarkThemeColors().primary,
+                        shadowColor: Colors.transparent,
+                        selectedShadowColor: Colors.transparent,
+                      ),
+                      // listTileTheme: ListTileThemeData(
+                      //     textColor: DarkThemeColors().textColor,
+                      //     iconColor: DarkThemeColors().iconColor,
+                      //     selectedColor: DarkThemeColors().iconColor),
+                      visualDensity: VisualDensity.adaptivePlatformDensity,
+                      applyElevationOverlayColor: true,
+                      colorScheme: darkColorScheme),
                 ),
               );
             }

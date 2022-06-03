@@ -121,7 +121,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                         ),
                         selected: listIndex == _index,
                         backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                            Theme.of(context).chipTheme.backgroundColor,
                         onSelected: (bool selected) {
                           setState(() {
                             _index = listIndex;
@@ -172,7 +172,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                         ),
                         selected: listIndex == _index,
                         backgroundColor:
-                            Theme.of(context).scaffoldBackgroundColor,
+                            Theme.of(context).chipTheme.backgroundColor,
                         onSelected: (bool selected) {
                           setState(() {
                             _index = listIndex;

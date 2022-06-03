@@ -6,7 +6,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
@@ -71,14 +70,14 @@ class SearchView extends StatelessWidget {
                 Expanded(
                   flex: 3,
                   child: MaterialSurface(
-                    externalPadding: getValueForScreenType<EdgeInsets>(
-                      context: context,
-                      mobile: const EdgeInsets.symmetric(horizontal: 8.0),
-                      tablet: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, bottom: 8.0),
-                      desktop: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, bottom: 8.0),
-                    ),
+                    // externalPadding: getValueForScreenType<EdgeInsets>(
+                    //   context: context,
+                    //   mobile: const EdgeInsets.symmetric(horizontal: 8.0),
+                    //   tablet: const EdgeInsets.only(
+                    //       left: 8.0, right: 8.0, bottom: 8.0),
+                    //   desktop: const EdgeInsets.only(
+                    //       left: 8.0, right: 8.0, bottom: 8.0),
+                    // ),
                     child: ListView.builder(
                         itemCount: state.filteredList.length,
                         shrinkWrap: true,

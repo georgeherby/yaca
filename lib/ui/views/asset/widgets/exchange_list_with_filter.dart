@@ -87,7 +87,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       ? Theme.of(context).chipTheme.checkmarkColor
                       : Theme.of(context).chipTheme.labelStyle?.color),
             ),
-            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            backgroundColor: Theme.of(context).chipTheme.backgroundColor,
             selectedColor: Theme.of(context).chipTheme.selectedColor,
             onSelected: (bool selected) {
               setState(() {

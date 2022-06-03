@@ -30,7 +30,7 @@ class SortBottomSheet extends StatelessWidget {
       children: <Widget>[
         ListTile(
           dense: true,
-          tileColor: Theme.of(context).scaffoldBackgroundColor,
+          tileColor: Theme.of(context).colorScheme.surface,
           title: Text(
             'Sort By',
             style: Theme.of(context)

@@ -127,7 +127,7 @@ class AssetView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(
-                    left: 8.0, right: 8.0, bottom: 8.0, top: 8.0),
+                    left: 4.0, right: 4.0, bottom: 4.0, top: 4.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -508,7 +508,8 @@ class AssetView extends StatelessWidget {
                                   ),
                                 ]),
                               ],
-                            ))
+                            ),
+                          )
                         : Container(),
                     state.coin.sentimentVotesDownPercentage != null &&
                             state.coin.sentimentVotesUpPercentage != null

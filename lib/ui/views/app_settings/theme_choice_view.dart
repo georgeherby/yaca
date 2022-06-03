@@ -21,8 +21,8 @@ class ThemeChoiceView extends StatelessWidget {
     return ScaffoldWithBack(
       title: 'Choose theme',
       body: MaterialSurface(
-        externalPadding:
-            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+        // externalPadding:
+        //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView(
           padding: EdgeInsets.zero,
           shrinkWrap: true,
