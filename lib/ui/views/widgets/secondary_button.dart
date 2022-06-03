@@ -6,8 +6,7 @@ import 'package:yaca/ui/consts/constants.dart';
 
 class SecondaryButton extends StatelessWidget {
   const SecondaryButton(
-      {Key? key, required this.buttonText, required this.onTap})
-      : super(key: key);
+      {super.key, required this.buttonText, required this.onTap});
 
   final String buttonText;
   final VoidCallback onTap;

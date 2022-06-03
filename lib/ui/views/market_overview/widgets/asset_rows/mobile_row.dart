@@ -35,7 +35,7 @@ class MobileRow extends StatelessWidget {
   final VoidCallback onFavourite;
 
   const MobileRow(this.blockSize,
-      {Key? key,
+      {super.key,
       required this.rank,
       required this.symbol,
       required this.name,
@@ -49,8 +49,7 @@ class MobileRow extends StatelessWidget {
       required this.oneHourChange,
       required this.price,
       required this.isFavourited,
-      required this.onFavourite})
-      : super(key: key);
+      required this.onFavourite});
 
   @override
   Widget build(BuildContext context) {

@@ -36,7 +36,7 @@ import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AssetView extends StatelessWidget {
   final String id;
-  const AssetView({Key? key, required this.id}) : super(key: key);
+  const AssetView({super.key, required this.id});
 
   void _onRefresh(BuildContext context) {
     return BlocProvider.of<AssetBloc>(context).add(
@@ -127,10 +127,7 @@ class AssetView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.only(
-                  left: 8.0,
-                  right: 8.0,
-                  bottom: 8.0,
-                ),
+                    left: 8.0, right: 8.0, bottom: 8.0, top: 8.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -147,8 +144,6 @@ class AssetView extends StatelessWidget {
                             AssetGraphWithSwitcher(
                                 allHistory: state.assetHistorySplits),
                           ),
-                    const SizedBox(height: 8),
-                  
                     _buildCard(
                       context,
                       false,
@@ -261,7 +256,6 @@ class AssetView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 8),
                     _buildCard(
                       context,
                       false,
@@ -434,7 +428,6 @@ class AssetView extends StatelessWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 8),
                     state.coin.sentimentVotesDownPercentage != null &&
                             state.coin.sentimentVotesUpPercentage != null
                         ? _buildCard(
@@ -525,17 +518,21 @@ class AssetView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: kMobileButtonButtonSize,
-                          child: PrimaryButton(
-                            onTap: () async {
-                              BlocProvider.of<SingleAssetExchangeBloc>(context)
-                                  .add(SingleAssetExchangeLoad(
-                                      marketCoinId: singleAsset.id));
-                              await context.router
-                                  .push(const AssetExchangeRoute());
-                            },
-                            buttonText: 'View markets',
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                          child: SizedBox(
+                            height: kMobileButtonButtonSize,
+                            child: PrimaryButton(
+                              onTap: () async {
+                                BlocProvider.of<SingleAssetExchangeBloc>(
+                                        context)
+                                    .add(SingleAssetExchangeLoad(
+                                        marketCoinId: singleAsset.id));
+                                await context.router
+                                    .push(const AssetExchangeRoute());
+                              },
+                              buttonText: 'View markets',
+                            ),
                           ),
                         ),
                       ],

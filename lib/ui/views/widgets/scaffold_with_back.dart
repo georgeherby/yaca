@@ -13,8 +13,7 @@ class ScaffoldWithBack extends StatelessWidget {
   final List<Widget>? actions;
 
   const ScaffoldWithBack(
-      {Key? key, required this.body, this.title, this.actions})
-      : super(key: key);
+      {super.key, required this.body, this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {

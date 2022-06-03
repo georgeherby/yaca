@@ -16,7 +16,7 @@ class ScreenBuilder extends StatelessWidget {
   final WidgetBuilder? desktopWeb;
 
   ScreenBuilder({
-    Key? key,
+    super.key,
     // this.breakpoints,
     required Widget mobile,
     Widget? mobileDesktop,
@@ -31,11 +31,10 @@ class ScreenBuilder extends StatelessWidget {
         tabletWeb = _builderOrNull(tabletWeb),
         tabletDesktop = _builderOrNull(tabletDesktop),
         desktop = _builderOrNull(desktop)!,
-        desktopWeb = _builderOrNull(desktopWeb),
-        super(key: key);
+        desktopWeb = _builderOrNull(desktopWeb);
 
   const ScreenBuilder.builder({
-    Key? key,
+    super.key,
     required this.mobile,
     this.mobileDesktop,
     required this.tablet,
@@ -43,7 +42,7 @@ class ScreenBuilder extends StatelessWidget {
     this.tabletDesktop,
     required this.desktop,
     this.desktopWeb,
-  }) : super(key: key);
+  });
 
   static WidgetBuilder? _builderOrNull(Widget? widget) {
     return widget == null ? null : ((_) => widget);

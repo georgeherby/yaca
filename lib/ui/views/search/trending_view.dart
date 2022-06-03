@@ -17,7 +17,7 @@ import 'package:yaca/ui/views/widgets/ranking_card.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class TrendingView extends StatelessWidget {
-  const TrendingView({Key? key}) : super(key: key);
+  const TrendingView({super.key});
   static const kTrendingTileWidth = 100.0;
   static const kTrendingTileHeight = 100.0;
 
@@ -26,7 +26,7 @@ class TrendingView extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
           child: Row(
             children: [
               SvgPicture.asset(
@@ -44,7 +44,6 @@ class TrendingView extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(height: 8),
         SizedBox(
           height: kTrendingTileHeight,
           child: BlocBuilder<TrendingBloc, TrendingState>(

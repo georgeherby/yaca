@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 
 class AppSettingsHomePage extends StatelessWidget {
-  const AppSettingsHomePage({Key? key}) : super(key: key);
+  const AppSettingsHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

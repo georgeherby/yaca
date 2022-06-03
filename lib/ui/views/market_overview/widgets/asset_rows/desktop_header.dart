@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class DesktopHeader extends StatelessWidget {
   final double blockSize;
-  const DesktopHeader({Key? key, required this.blockSize}) : super(key: key);
+  const DesktopHeader({super.key, required this.blockSize});
 
   @override
   Widget build(BuildContext context) {

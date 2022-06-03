@@ -16,7 +16,7 @@ import 'package:yaca/ui/views/widgets/secondary_button.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class WhaleApiTokenView extends StatelessWidget {
-  WhaleApiTokenView({Key? key}) : super(key: key);
+  WhaleApiTokenView({super.key});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -35,7 +35,8 @@ class WhaleApiTokenView extends StatelessWidget {
     return ScaffoldWithBack(
       title: 'Whale Transactions',
       body: MaterialSurface(
-        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        externalPadding:
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(mainAxisSize: MainAxisSize.min, children: [

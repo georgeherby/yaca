@@ -14,14 +14,15 @@ import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class ThemeChoiceView extends StatelessWidget {
-  const ThemeChoiceView({Key? key}) : super(key: key);
+  const ThemeChoiceView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose theme',
       body: MaterialSurface(
-        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        externalPadding:
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView(
           padding: EdgeInsets.zero,
           shrinkWrap: true,

@@ -18,15 +18,13 @@ class _AssetGraphChipConfigurations {
   const _AssetGraphChipConfigurations(this.label, this.duration);
 }
 
-
-
 class AssetGraphWithSwitcher extends StatefulWidget {
   final AssetHistorySplits allHistory;
 
   const AssetGraphWithSwitcher({
-    Key? key,
+    super.key,
     required this.allHistory,
-  }) : super(key: key);
+  });
 
   @override
   State<AssetGraphWithSwitcher> createState() => _AssetGraphWithSwitcherState();

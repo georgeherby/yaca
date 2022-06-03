@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:yaca/ui/views/app_settings/whale_api_token_view.dart';
 
 class AppSettingsWhalePage extends StatelessWidget {
-  const AppSettingsWhalePage({Key? key}) : super(key: key);
+  const AppSettingsWhalePage({super.key});
 
   @override
   Widget build(BuildContext context) {

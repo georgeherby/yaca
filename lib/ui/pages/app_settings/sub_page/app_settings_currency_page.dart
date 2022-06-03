@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:yaca/ui/views/app_settings/currency_choice_view.dart';
 
 class AppSettingsCurrencyPage extends StatelessWidget {
-  const AppSettingsCurrencyPage({Key? key}) : super(key: key);
+  const AppSettingsCurrencyPage({super.key});
 
   @override
   Widget build(BuildContext context) {

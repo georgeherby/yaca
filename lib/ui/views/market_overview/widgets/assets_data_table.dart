@@ -27,12 +27,12 @@ class AssetsDataTable extends StatelessWidget {
   final Function(MarketCoin, bool) onFavourite;
   final ValueGetter<Future<void>> onRefresh;
   const AssetsDataTable({
-    Key? key,
+    super.key,
     required this.favouriteOnly,
     required this.marketCoins,
     required this.onFavourite,
     required this.onRefresh,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

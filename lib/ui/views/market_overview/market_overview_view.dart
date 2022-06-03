@@ -26,7 +26,6 @@ import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/common/errors/timeout_view.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view_loading.dart';
-import 'package:yaca/ui/views/market_overview/widgets/app_bar_bottom.dart';
 import 'package:yaca/ui/views/market_overview/widgets/assets_data_table.dart';
 import 'package:yaca/ui/views/market_overview/widgets/sort_bottom_sheet.dart';
 import 'package:yaca/ui/views/widgets/app_bar_title.dart';
@@ -35,7 +34,7 @@ import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 // � Flutter imports:
 
 class MarketOverviewView extends StatefulWidget {
-  const MarketOverviewView({Key? key}) : super(key: key);
+  const MarketOverviewView({super.key});
 
   @override
   State<MarketOverviewView> createState() => _MarketOverviewViewState();
@@ -51,44 +50,45 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
 
     return Scaffold(
       appBar: GeneralAppBar(
-        platform: Theme.of(context).platform,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            SvgPicture.asset(
-              'assets/logo.svg',
-              height: kIconSizeMacAppBar,
-              color: Theme.of(context).iconTheme.color?.withOpacity(1),
-            ),
-            const SizedBox(width: 4),
-            const AppBarTitle(kAppName)
-          ],
-        ),
-        leadingButtonType: Theme.of(context).platform.onlyMobile(context)
-            ? LeadingButtonType.settings
-            : null,
-        actions: [
-          (Theme.of(context).platform.isDesktop())
-              ? IconButton(
-                  icon: Icon(
-                    Ionicons.sync_outline,
-                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
-                  ),
-                  tooltip: 'Refresh',
-                  onPressed: () => _onRefresh(context, chosenCurrency))
-              : IconButton(
-                  icon: const Icon(Ionicons.search_outline),
-                  onPressed: () {
-                    debugPrint("pressed");
+          platform: Theme.of(context).platform,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SvgPicture.asset(
+                'assets/logo.svg',
+                height: kIconSizeMacAppBar,
+                color: Theme.of(context).iconTheme.color?.withOpacity(1),
+              ),
+              const SizedBox(width: 4),
+              const AppBarTitle(kAppName)
+            ],
+          ),
+          leadingButtonType: Theme.of(context).platform.onlyMobile(context)
+              ? LeadingButtonType.settings
+              : null,
+          actions: [
+            (Theme.of(context).platform.isDesktop())
+                ? IconButton(
+                    icon: Icon(
+                      Ionicons.sync_outline,
+                      size:
+                          !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                    ),
+                    tooltip: 'Refresh',
+                    onPressed: () => _onRefresh(context, chosenCurrency))
+                : IconButton(
+                    icon: const Icon(Ionicons.search_outline),
+                    onPressed: () {
+                      debugPrint("pressed");
 
-                    context.router.push(const SearchRoute());
-                    debugPrint("router");
-                  },
-                )
-        ],
-        bottom: AppBarBottom(),
-      ),
+                      context.router.push(const SearchRoute());
+                      debugPrint("router");
+                    },
+                  )
+          ],
+          bottom: null //AppBarBottom(),
+          ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: LayoutBuilder(
@@ -103,7 +103,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2.0),
+                          padding: const EdgeInsets.symmetric(vertical: 4.0),
                           child: SizedBox(
                             height: kMobileIconButtonSize,
                             child: Row(
@@ -126,7 +126,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                           kCornerRadiusCirlcular)),
                                   label: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 12.0, horizontal: 8),
+                                        vertical: 8.0, horizontal: 8),
                                     child: Icon(
                                         _showAllAssets
                                             ? Ionicons.star_outline

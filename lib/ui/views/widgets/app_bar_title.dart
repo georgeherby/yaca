@@ -10,8 +10,8 @@ class AppBarTitle extends StatelessWidget {
 
   const AppBarTitle(
     this.title, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

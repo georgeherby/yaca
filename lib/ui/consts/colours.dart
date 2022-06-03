@@ -21,7 +21,7 @@ Color kDarkBackground = const Color(0xFF121313);
 Color kDarkError = const Color(0xFFCE6771);
 
 Color kLightSurface = const Color(0xFFFEFEFF);
-Color kLightBackground = const Color(0xFFF1F3F6);
+Color kLightBackground = const Color(0xFffffbfe);
 Color kLightError = const Color(0xFFCE6771);
 
 Map<int, Color> colorCodes = {

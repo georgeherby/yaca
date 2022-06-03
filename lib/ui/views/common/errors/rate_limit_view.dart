@@ -7,7 +7,7 @@ import 'package:ionicons/ionicons.dart';
 class RatelimtedView extends StatelessWidget {
   final VoidCallback onRefresh;
 
-  const RatelimtedView({Key? key, required this.onRefresh}) : super(key: key);
+  const RatelimtedView({super.key, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {

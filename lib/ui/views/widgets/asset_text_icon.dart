@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class AssetTextIcon extends StatelessWidget {
   const AssetTextIcon(
-      {Key? key, required this.assetSymbol, required this.iconSize})
-      : super(key: key);
+      {super.key, required this.assetSymbol, required this.iconSize});
 
   final String assetSymbol;
   final double iconSize;

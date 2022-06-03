@@ -15,9 +15,9 @@ class MyResponsiveBuilder extends StatelessWidget {
   ) builder;
 
   const MyResponsiveBuilder({
-    Key? key,
+    super.key,
     required this.builder,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -14,7 +14,7 @@ import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AssetExchangePage extends StatelessWidget {
-  const AssetExchangePage({Key? key}) : super(key: key);
+  const AssetExchangePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,17 +26,11 @@ class AssetExchangePage extends StatelessWidget {
               return MaterialSurface(
                 externalPadding: getValueForScreenType<EdgeInsets>(
                   context: context,
-                  mobile: const EdgeInsets.symmetric(horizontal: 8.0),
-                  tablet:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
-                  desktop:
-                      const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
+                  mobile: const EdgeInsets.all(8.0),
+                  tablet: const EdgeInsets.all(8.0),
+                  desktop: const EdgeInsets.all(8.0),
                 ),
-                contentPadding: const EdgeInsets.only(
-                  left: 8.0,
-                  right: 8.0,
-                  top: 8.0,
-                ),
+                contentPadding: const EdgeInsets.all(8.0),
                 child: ExchangeListWithFilter(exchanges: state.exchangeTickers),
               );
             } else if (state is SingleAssetExchangeError) {

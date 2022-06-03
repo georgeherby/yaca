@@ -21,7 +21,7 @@ import 'package:yaca/ui/views/widgets/surface.dart';
 // � Flutter imports:
 
 class AppSettingsView extends StatelessWidget {
-  const AppSettingsView({Key? key}) : super(key: key);
+  const AppSettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +30,7 @@ class AppSettingsView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const SizedBox(height: 6),
           Row(
             children: [
               const SizedBox(width: 16),

@@ -21,8 +21,7 @@ import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 class ExchangeListWithFilter extends StatefulWidget {
   final List<Ticker> exchanges;
 
-  const ExchangeListWithFilter({Key? key, required this.exchanges})
-      : super(key: key);
+  const ExchangeListWithFilter({super.key, required this.exchanges});
 
   @override
   State<ExchangeListWithFilter> createState() => _ExchangeListWithFilterState();

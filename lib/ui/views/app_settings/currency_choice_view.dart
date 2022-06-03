@@ -15,14 +15,15 @@ import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class CurrencyChoiceView extends StatelessWidget {
-  const CurrencyChoiceView({Key? key}) : super(key: key);
+  const CurrencyChoiceView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose currency',
       body: MaterialSurface(
-        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+        externalPadding:
+            const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView.separated(
           separatorBuilder: (context, index) => const Divider(
               thickness: kDividerWeighting, height: kDividerWeighting),
@@ -57,8 +58,8 @@ class CurrencyChoiceView extends StatelessWidget {
               data: ThemeData(
                   iconTheme: IconThemeData(
                       color: bloc.state.currency == currencyToUse
-                          ? Theme.of(context).listTileTheme.selectedColor
-                          : Theme.of(context).listTileTheme.iconColor)),
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.onSurfaceVariant)),
               child: currencyToUse.currencyIcon),
         ],
       ),

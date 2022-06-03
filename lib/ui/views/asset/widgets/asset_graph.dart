@@ -26,10 +26,10 @@ class AssetGraph extends StatefulWidget {
   final List<MarketChartData> history;
   final Duration? duration;
   const AssetGraph({
-    Key? key,
+    super.key,
     required this.history,
     required this.duration,
-  }) : super(key: key);
+  });
 
   @override
   State<AssetGraph> createState() => _AssetGraphState();

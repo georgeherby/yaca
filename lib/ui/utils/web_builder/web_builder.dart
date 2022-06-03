@@ -6,8 +6,7 @@ class WebBuilder extends StatelessWidget {
   final Widget web;
   final Widget other;
 
-  const WebBuilder({Key? key, required this.web, required this.other})
-      : super(key: key);
+  const WebBuilder({super.key, required this.web, required this.other});
 
   @override
   Widget build(BuildContext context) {

@@ -17,13 +17,13 @@ import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 
 class GlobalMarketMarque extends StatefulWidget {
   const GlobalMarketMarque({
-    Key? key,
+    super.key,
     required this.currencyString,
     required this.marketCap,
     required this.marketCap24hPercentageChange,
     required this.totalVolume,
     required this.marketCapPercentage,
-  }) : super(key: key);
+  });
 
   final String currencyString;
   final Map<String, double>? marketCap;

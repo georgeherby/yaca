@@ -9,8 +9,8 @@ import 'package:yaca/ui/views/asset/asset_view.dart';
 
 class AssetDetailsPage extends StatelessWidget {
   const AssetDetailsPage({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

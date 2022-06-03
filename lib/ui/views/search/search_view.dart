@@ -17,7 +17,7 @@ import 'package:yaca/ui/views/search/trending_view.dart';
 import 'package:yaca/ui/views/widgets/surface.dart';
 
 class SearchView extends StatelessWidget {
-  const SearchView({Key? key}) : super(key: key);
+  const SearchView({super.key});
 
   void _resetSearch(BuildContext context, TextEditingController controller) {
     context.read<SearchBloc>().add(const SearchEvent(query: null));

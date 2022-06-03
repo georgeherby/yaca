@@ -17,12 +17,11 @@ class DeltaWithArrow extends StatelessWidget {
   final bool isPercentage;
 
   const DeltaWithArrow(this.priceChangeDelta,
-      {Key? key,
+      {super.key,
       this.textSize,
       this.textColor,
       this.isPercentage = false,
-      this.useTextColorForArrow = false})
-      : super(key: key);
+      this.useTextColorForArrow = false});
 
   @override
   Widget build(BuildContext context) {

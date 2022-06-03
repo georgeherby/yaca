@@ -9,8 +9,7 @@ class RefreshableList extends StatelessWidget {
   final ValueGetter<Future<void>> onRefresh;
 
   const RefreshableList(
-      {Key? key, required this.onRefresh, required this.child})
-      : super(key: key);
+      {super.key, required this.onRefresh, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +25,6 @@ class RefreshableList extends StatelessWidget {
   }
 
   Widget _buildRefreshIndicator(BuildContext context) {
-    return RefreshIndicator(
-        onRefresh: onRefresh,
-        child: child);
+    return RefreshIndicator(onRefresh: onRefresh, child: child);
   }
 }

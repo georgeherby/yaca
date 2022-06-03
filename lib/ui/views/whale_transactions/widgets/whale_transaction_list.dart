@@ -19,8 +19,7 @@ class WhaleTransactionList extends StatelessWidget {
   final ValueGetter<Future<void>> onRefresh;
 
   const WhaleTransactionList(
-      {Key? key, required this.transactions, required this.onRefresh})
-      : super(key: key);
+      {super.key, required this.transactions, required this.onRefresh});
 
   static const double sidePadding = 12;
 

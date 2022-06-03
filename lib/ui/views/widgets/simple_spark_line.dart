@@ -19,8 +19,7 @@ import 'package:yaca/ui/consts/colours.dart';
 class SimpleSparkLine extends StatelessWidget {
   final List<double> data;
   final double width;
-  const SimpleSparkLine({Key? key, required this.data, required this.width})
-      : super(key: key);
+  const SimpleSparkLine({super.key, required this.data, required this.width});
 
   @override
   Widget build(BuildContext context) {

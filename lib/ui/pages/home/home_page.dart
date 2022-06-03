@@ -11,12 +11,11 @@ import 'package:ionicons/ionicons.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
-import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view.dart';
 import 'package:yaca/ui/views/whale_transactions/whale_transactions_view.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -30,41 +29,38 @@ class _HomePageState extends State<HomePage> {
     var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Scaffold(
+      extendBody: true,
       bottomNavigationBar: isPhoneOnly
-          ? NavigationBar(
-              onDestinationSelected: onTabTapped,
-              selectedIndex: _selectedIndex,
-              destinations: [
-                NavigationDestination(
-                  icon: Icon(
-                    Ionicons.bar_chart_outline,
-                    size: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedIconTheme
-                        ?.size,
+          ? ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(40.0),
+                topRight: Radius.circular(40.0),
+              ),
+              child: NavigationBar(
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+                onDestinationSelected: onTabTapped,
+                selectedIndex: _selectedIndex,
+                destinations: [
+                  const NavigationDestination(
+                    icon: Icon(Ionicons.bar_chart_outline),
+                    selectedIcon: Icon(Ionicons.bar_chart),
+                    label: 'Market',
+                    tooltip: 'Market overview',
                   ),
-                  selectedIcon: Icon(
-                    Ionicons.bar_chart,
-                    size: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedIconTheme
-                        ?.size,
-                  ),
-                  label: 'Market',
-                ),
-                NavigationDestination(
-                    icon: SvgPicture.asset('assets/whale_outline.svg',
-                        semanticsLabel: 'Whale unselected icon',
-                        height: kBottomNavBarIconSize,
-                        width: kBottomNavBarIconSize,
-                        color: Theme.of(context).iconTheme.color),
-                    selectedIcon: SvgPicture.asset('assets/whale_filled.svg',
-                        semanticsLabel: 'Whale selected icon',
-                        height: kBottomNavBarIconSize,
-                        width: kBottomNavBarIconSize,
-                        color: Theme.of(context).iconTheme.color),
-                    label: 'Whale transactions'),
-              ],
+                  NavigationDestination(
+                      icon: SvgPicture.asset('assets/whale_outline.svg',
+                          semanticsLabel: 'Whale unselected icon',
+                          color:
+                              Theme.of(context).colorScheme.onSurfaceVariant),
+                      selectedIcon: SvgPicture.asset('assets/whale_filled.svg',
+                          semanticsLabel: 'Whale selected icon',
+                          color: Theme.of(context)
+                              .colorScheme
+                              .onSecondaryContainer),
+                      tooltip: 'Whale transactions',
+                      label: 'Whales'),
+                ],
+              ),
             )
           : null,
       body: SafeArea(
@@ -94,34 +90,16 @@ class _HomePageState extends State<HomePage> {
                               icon: SvgPicture.asset(
                                 'assets/whale_outline.svg',
                                 semanticsLabel: 'Whale unselected icon',
-                                height: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
-                                width: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
                                 color: Theme.of(context)
-                                    .navigationRailTheme
-                                    .unselectedIconTheme
-                                    ?.color,
+                                    .colorScheme
+                                    .onSurfaceVariant,
                               ),
                               selectedIcon: SvgPicture.asset(
                                 'assets/whale_filled.svg',
                                 semanticsLabel: 'Whale selected icon',
-                                height: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
-                                width: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
                                 color: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.color,
+                                    .colorScheme
+                                    .onSecondaryContainer,
                               ),
                               label: const Text(
                                 'Whales',
@@ -129,16 +107,20 @@ class _HomePageState extends State<HomePage> {
                         ],
                       ),
                     ),
-                    SizedBox(
-                      child: IconButton(
-                        tooltip: 'Open settings',
-                        onPressed: () =>
-                            context.router.push(const AppSettingsHomeRoute()),
-                        icon: Icon(Ionicons.cog_outline,
-                            size: Theme.of(context).iconTheme.size),
+                    Container(
+                      width: 80,
+                      color: Theme.of(context).colorScheme.surface,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: IconButton(
+                          tooltip: 'Open settings',
+                          onPressed: () =>
+                              context.router.push(const AppSettingsHomeRoute()),
+                          icon: Icon(Ionicons.cog_outline,
+                              size: Theme.of(context).iconTheme.size),
+                        ),
                       ),
                     ),
-                    const SizedBox(height: 8)
                   ],
                 ),
           Expanded(

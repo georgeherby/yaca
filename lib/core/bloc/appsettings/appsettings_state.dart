@@ -16,6 +16,5 @@ class AppSettingsInitial extends AppSettingsState {
 }
 
 class AppSettingsLoaded extends AppSettingsState {
-  const AppSettingsLoaded(ThemeMode theme, ChosenCurrency currency)
-      : super(theme, currency);
+  const AppSettingsLoaded(super.theme, super.currency);
 }

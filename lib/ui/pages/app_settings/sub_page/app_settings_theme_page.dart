@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:yaca/ui/views/app_settings/theme_choice_view.dart';
 
 class AppSettingsThemePage extends StatelessWidget {
-  const AppSettingsThemePage({Key? key}) : super(key: key);
+  const AppSettingsThemePage({super.key});
 
   @override
   Widget build(BuildContext context) {

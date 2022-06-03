@@ -22,13 +22,12 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
   final LeadingButtonType? leadingButtonType;
 
   const GeneralAppBar(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.actions,
       required this.platform,
       required this.leadingButtonType,
-      this.bottom})
-      : super(key: key);
+      this.bottom});
 
   @override
   Size get preferredSize => Size.fromHeight(
@@ -40,7 +39,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: title,
       centerTitle: true,
-      elevation: 0,
+      elevation: 2,
       leadingWidth: platform == TargetPlatform.macOS && !kIsWeb
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,

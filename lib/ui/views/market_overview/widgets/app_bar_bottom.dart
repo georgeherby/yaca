@@ -13,7 +13,7 @@ import 'package:yaca/ui/views/market_overview/widgets/global_market_marque.dart'
 import 'package:yaca/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
 
 class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
-  AppBarBottom({Key? key, this.isAppBar = false}) : super(key: key);
+  AppBarBottom({super.key, this.isAppBar = false});
 
   final bool isAppBar;
   final padding = 8.0;
@@ -32,7 +32,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
             : EdgeInsets.symmetric(horizontal: padding),
         child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor,
+              color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.all(
                   Radius.circular(kCornerRadiusCirlcular)),
             ),
@@ -47,8 +47,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                     marketCap: state.globalMarket.totalMarketCap,
                     marketCap24hPercentageChange:
                         state.globalMarket.marketCapChangePercentage24hUsd,
-                    marketCapPercentage:
-                        state.globalMarket.marketCapPercentage,
+                    marketCapPercentage: state.globalMarket.marketCapPercentage,
                     totalVolume: state.globalMarket.totalVolume,
                   );
                 }

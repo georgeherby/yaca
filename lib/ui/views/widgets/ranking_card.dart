@@ -6,7 +6,7 @@ import 'package:yaca/ui/consts/constants.dart';
 
 class RankingCard extends StatelessWidget {
   final int ranking;
-  const RankingCard({Key? key, required this.ranking}) : super(key: key);
+  const RankingCard({super.key, required this.ranking});
 
   @override
   Widget build(BuildContext context) {

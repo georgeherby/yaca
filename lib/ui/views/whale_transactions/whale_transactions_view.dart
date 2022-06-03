@@ -22,8 +22,8 @@ import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 class WhaleTransactionView extends StatefulWidget {
   const WhaleTransactionView({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   State<WhaleTransactionView> createState() => _WhaleTransactionViewState();

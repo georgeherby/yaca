@@ -9,13 +9,13 @@ class SelectableIcon extends StatelessWidget {
   final Color selectedColor;
 
   const SelectableIcon({
-    Key? key,
+    super.key,
     required this.selectedIcon,
     required this.unSelectedIcon,
     required this.isSelected,
     required this.size,
     required this.selectedColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

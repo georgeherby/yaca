@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
 class MarketOverviewViewLoading extends StatelessWidget {
-  const MarketOverviewViewLoading({Key? key}) : super(key: key);
+  const MarketOverviewViewLoading({super.key});
 
   @override
   Widget build(BuildContext context) {

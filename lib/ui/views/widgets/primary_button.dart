@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:yaca/ui/consts/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
-  const PrimaryButton({Key? key, required this.buttonText, required this.onTap})
-      : super(key: key);
+  const PrimaryButton(
+      {super.key, required this.buttonText, required this.onTap});
 
   final String buttonText;
   final VoidCallback onTap;
@@ -17,12 +17,11 @@ class PrimaryButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(kCornerRadiusCirlcular)),
-        backgroundColor: Theme.of(context).primaryColor,
       ),
       onPressed: onTap,
       child: Text(
         buttonText,
-        style: const TextStyle(color: Colors.white),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }

@@ -16,9 +16,9 @@ class AssetPage extends StatelessWidget {
   final String id;
 
   AssetPage({
-    Key? key,
+    super.key,
     @PathParam('assetId') required this.id,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

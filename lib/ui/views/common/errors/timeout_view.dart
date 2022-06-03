@@ -7,7 +7,7 @@ import 'package:ionicons/ionicons.dart';
 class TimeoutView extends StatelessWidget {
   final VoidCallback onRefresh;
 
-  const TimeoutView({Key? key, required this.onRefresh}) : super(key: key);
+  const TimeoutView({super.key, required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {

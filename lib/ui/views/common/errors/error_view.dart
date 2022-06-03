@@ -8,8 +8,7 @@ class ErrorView extends StatelessWidget {
   final VoidCallback? onRefresh;
   final String error;
 
-  const ErrorView({Key? key, this.onRefresh, required this.error})
-      : super(key: key);
+  const ErrorView({super.key, this.onRefresh, required this.error});
 
   @override
   Widget build(BuildContext context) {

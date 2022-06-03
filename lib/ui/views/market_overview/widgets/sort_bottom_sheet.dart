@@ -17,11 +17,10 @@ class SortBottomSheet extends StatelessWidget {
   final List<MarketCoin> assets;
 
   const SortBottomSheet(
-      {Key? key,
+      {super.key,
       required this.assets,
       required this.sortType,
-      required this.sortOrder})
-      : super(key: key);
+      required this.sortOrder});
 
   @override
   Widget build(BuildContext context) {
