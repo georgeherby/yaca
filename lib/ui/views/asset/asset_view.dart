@@ -469,7 +469,10 @@ class AssetView extends StatelessWidget {
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              ?.copyWith(color: Colors.white),
+                                              ?.copyWith(
+                                                  color: false
+                                                      .toPositiveNegativeForegroundColorFromBool(
+                                                          context)),
                                         ),
                                       ),
                                     ),
@@ -501,7 +504,10 @@ class AssetView extends StatelessWidget {
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyText1
-                                              ?.copyWith(color: Colors.white),
+                                              ?.copyWith(
+                                                  color: true
+                                                      .toPositiveNegativeForegroundColorFromBool(
+                                                          context)),
                                         ),
                                       ),
                                     ),

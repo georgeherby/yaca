@@ -165,3 +165,12 @@ extension PositiveNegativeColorForBool on bool {
         : Theme.of(context).colorScheme.error.withOpacity(opacity);
   }
 }
+
+extension PositiveNegativeColorForegroundForBool on bool {
+  Color toPositiveNegativeForegroundColorFromBool(BuildContext context,
+      {double opacity = 1.0}) {
+    return this
+        ? Theme.of(context).colorScheme.onPrimary.withOpacity(opacity)
+        : Theme.of(context).colorScheme.onError.withOpacity(opacity);
+  }
+}

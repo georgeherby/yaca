@@ -214,8 +214,8 @@ class _MyAppState extends State<MyApp> {
                       //   elevation: 0,
                       //   color: LightThemeColors().cardBackground,
                       // ),
-                      // appBarTheme: AppBarTheme(
-                      //   systemOverlayStyle: SystemUiOverlayStyle.dark,
+                      // appBarTheme: const AppBarTheme(
+                      // systemOverlayStyle: SystemUiOverlayStyle.light,
                       //   elevation: 0,
                       //   foregroundColor: LightThemeColors().textColor,
                       //   color: LightThemeColors().appBarColour,

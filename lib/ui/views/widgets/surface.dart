@@ -20,7 +20,7 @@ class MaterialSurface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 0,
+      elevation: 0.5,
       child: Padding(
         padding: contentPadding ?? EdgeInsets.zero,
         child: child,
