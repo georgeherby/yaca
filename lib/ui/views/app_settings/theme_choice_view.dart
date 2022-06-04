@@ -76,7 +76,10 @@ class ThemeChoiceView extends StatelessWidget {
         bloc.add(UpdateThemeOptionEvent(bloc.state.currency, themeToUse));
         context.router.pop();
       },
-      leading: Icon(themeToUse.toIcon() ?? Ionicons.color_palette_outline),
+      leading: Icon(themeToUse.toIcon() ?? Ionicons.color_palette_outline,
+          color: bloc.state.theme == themeToUse
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onSurface),
       title: Text(title),
       selected: bloc.state.theme == themeToUse,
       trailing: Column(

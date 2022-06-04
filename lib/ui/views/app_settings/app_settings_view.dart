@@ -35,10 +35,10 @@ class AppSettingsView extends StatelessWidget {
             children: [
               const SizedBox(width: 16),
               Text('GENERAL',
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption
-                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
+                  style: Theme.of(context).textTheme.caption?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.onBackground)),
             ],
           ),
           const SizedBox(height: 6),
@@ -53,8 +53,9 @@ class AppSettingsView extends StatelessWidget {
                   title: const Text('Default currency'),
                   leading: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Ionicons.cash_outline),
+                    children: [
+                      Icon(Ionicons.cash_outline,
+                          color: Theme.of(context).colorScheme.onSurface),
                     ],
                   ),
                   trailing: Row(
@@ -70,7 +71,8 @@ class AppSettingsView extends StatelessWidget {
                         style: Theme.of(context).textTheme.headline6,
                       ),
                       const VerticalDivider(color: Colors.transparent),
-                      const Icon(Ionicons.chevron_forward_outline),
+                      Icon(Ionicons.chevron_forward_outline,
+                          color: Theme.of(context).colorScheme.onSurface),
                     ],
                   ),
                 ),
@@ -85,8 +87,9 @@ class AppSettingsView extends StatelessWidget {
                   title: const Text('Theme'),
                   leading: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Icon(Ionicons.color_palette_outline),
+                    children: [
+                      Icon(Ionicons.color_palette_outline,
+                          color: Theme.of(context).colorScheme.onSurface),
                     ],
                   ),
                   trailing: Row(
@@ -94,13 +97,14 @@ class AppSettingsView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
-                        BlocProvider.of<AppSettingsBloc>(context)
-                            .state
-                            .theme
-                            .toIcon(),
-                      ),
+                          BlocProvider.of<AppSettingsBloc>(context)
+                              .state
+                              .theme
+                              .toIcon(),
+                          color: Theme.of(context).colorScheme.onSurface),
                       const VerticalDivider(color: Colors.transparent),
-                      const Icon(Ionicons.chevron_forward_outline),
+                      Icon(Ionicons.chevron_forward_outline,
+                          color: Theme.of(context).colorScheme.onSurface),
                     ],
                   ),
                 ),
@@ -113,10 +117,10 @@ class AppSettingsView extends StatelessWidget {
             children: [
               const SizedBox(width: 16),
               Text('API TOKENS',
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption
-                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
+                  style: Theme.of(context).textTheme.caption?.copyWith(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                      color: Theme.of(context).colorScheme.onBackground)),
             ],
           ),
           const SizedBox(height: 6),
@@ -125,9 +129,8 @@ class AppSettingsView extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ListTile(
-                  onTap: () {
-                    context.router.push(const AppSettingsWhaleRoute());
-                  },
+                  onTap: () =>
+                      context.router.push(const AppSettingsWhaleRoute()),
                   title: const Text('Whale Transactions'),
                   leading: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -136,11 +139,14 @@ class AppSettingsView extends StatelessWidget {
                         'assets/whale_outline.svg',
                         height: Theme.of(context).iconTheme.size,
                         width: Theme.of(context).iconTheme.size,
-                        color: Theme.of(context).iconTheme.color,
+                        color: Theme.of(context).colorScheme.onSurface,
                       ),
                     ],
                   ),
-                  trailing: const Icon(Ionicons.chevron_forward_outline),
+                  trailing: Icon(
+                    Ionicons.chevron_forward_outline,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ],
             ),

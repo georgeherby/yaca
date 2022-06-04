@@ -24,9 +24,7 @@ class SelectableIcon extends StatelessWidget {
       size: size,
       color: isSelected
           ? selectedColor
-          : (Theme.of(context).brightness == Brightness.dark
-              ? Colors.white24
-              : Colors.black26),
+          : (Theme.of(context).colorScheme.onSurface),
     );
   }
 }

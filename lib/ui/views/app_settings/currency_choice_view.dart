@@ -59,14 +59,14 @@ class CurrencyChoiceView extends StatelessWidget {
                   iconTheme: IconThemeData(
                       color: bloc.state.currency == currencyToUse
                           ? Theme.of(context).colorScheme.primary
-                          : Theme.of(context).colorScheme.onSurfaceVariant)),
+                          : Theme.of(context).colorScheme.onSurface)),
               child: currencyToUse.currencyIcon),
         ],
       ),
       title: Text(currencyToUse.currencyName),
       subtitle: Text(
         "${currencyToUse.currencyCode} ${currencyToUse.currencyString}",
-        style: Theme.of(context).textTheme.caption,
+        // style: Theme.of(context).textTheme.caption,
       ),
       selected: bloc.state.currency == currencyToUse,
       trailing: Column(

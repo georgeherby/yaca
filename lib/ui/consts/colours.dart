@@ -160,14 +160,8 @@ extension PositiveNegativeColor on double {
 extension PositiveNegativeColorForBool on bool {
   Color toPositiveNegativeColorFromBool(BuildContext context,
       {double opacity = 1.0}) {
-    if (Theme.of(context).brightness == Brightness.dark) {
-      return this
-          ? kPositiveGreenDark.withOpacity(opacity)
-          : kNegativeRedDark.withOpacity(opacity);
-    } else {
-      return this
-          ? kPositiveGreenLight.withOpacity(opacity)
-          : kNegativeRedLight.withOpacity(opacity);
-    }
+    return this
+        ? Theme.of(context).colorScheme.primary.withOpacity(opacity)
+        : Theme.of(context).colorScheme.error.withOpacity(opacity);
   }
 }
