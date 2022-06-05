@@ -630,12 +630,4 @@ class AssetView extends StatelessWidget {
             removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
         child: content);
   }
-
-  Widget _buildFilledCard(
-      BuildContext context, bool removePadding, Widget content) {
-    return FilledCard(
-        contentPadding:
-            removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
-        child: content);
-  }
 }
