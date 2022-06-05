@@ -564,12 +564,18 @@ class AssetView extends StatelessWidget {
                                         .titleMedium),
                                 const SizedBox(height: 8),
                                 ScreenBuilder(
-                                  mobile: _buildHtml(state
-                                      .coin.description!.translations['en']!),
-                                  tablet: _buildHtml(state
-                                      .coin.description!.translations['en']!),
-                                  desktop: _buildHtml(state
-                                      .coin.description!.translations['en']!),
+                                  mobile: _buildHtml(
+                                      state.coin.description!
+                                          .translations['en']!,
+                                      context),
+                                  tablet: _buildHtml(
+                                      state.coin.description!
+                                          .translations['en']!,
+                                      context),
+                                  desktop: _buildHtml(
+                                      state.coin.description!
+                                          .translations['en']!,
+                                      context),
                                 ),
                                 const SizedBox(height: 4),
                               ],
@@ -592,10 +598,15 @@ class AssetView extends StatelessWidget {
     });
   }
 
-  SelectableHtml _buildHtml(String html) {
+  SelectableHtml _buildHtml(String html, BuildContext context) {
+    debugPrint(html);
+
     return SelectableHtml(
       shrinkWrap: true,
       data: html,
+      style: {
+        "*": Style.fromTextStyle(Theme.of(context).textTheme.bodyMedium!)
+      },
       onLinkTap: (String? url, RenderContext context,
           Map<String, String> attributes, dom.Element? element) async {
         if (url != null) {
