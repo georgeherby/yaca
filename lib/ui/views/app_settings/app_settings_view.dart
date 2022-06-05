@@ -16,7 +16,7 @@ import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
 import 'package:yaca/ui/consts/constants.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 // � Flutter imports:
 
@@ -42,7 +42,7 @@ class AppSettingsView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          MaterialSurface(
+          ElevatedCard(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -124,7 +124,7 @@ class AppSettingsView extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          MaterialSurface(
+          ElevatedCard(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [

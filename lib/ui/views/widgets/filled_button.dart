@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/constants.dart';
 
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton(
+class FilledButton extends StatelessWidget {
+  const FilledButton(
       {super.key, required this.buttonText, required this.onTap});
 
   final String buttonText;
@@ -16,9 +16,9 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 1,
-        primary: Theme.of(context).colorScheme.surface,
+        primary: Theme.of(context).colorScheme.primary,
         onSurface: Theme.of(context).colorScheme.onSurface,
-        onPrimary: Theme.of(context).colorScheme.primary,
+        onPrimary: Theme.of(context).colorScheme.onPrimary,
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         shadowColor: Theme.of(context).colorScheme.shadow,
         shape: RoundedRectangleBorder(
@@ -26,10 +26,7 @@ class PrimaryButton extends StatelessWidget {
         ),
       ),
       onPressed: onTap,
-      child: Text(
-        buttonText,
-        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
-      ),
+      child: Text(buttonText),
     );
   }
 }

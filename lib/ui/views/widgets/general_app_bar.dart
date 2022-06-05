@@ -39,7 +39,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
     return AppBar(
       title: title,
       centerTitle: true,
-      elevation: 2,
+      elevation: 0,
       leadingWidth: platform == TargetPlatform.macOS && !kIsWeb
           ? kLeadingButtonWidthMac
           : kLeadingButtonWidth,

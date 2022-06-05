@@ -35,7 +35,7 @@ class SortBottomSheet extends StatelessWidget {
             'Sort By',
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .bodyMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),

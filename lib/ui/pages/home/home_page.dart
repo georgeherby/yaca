@@ -11,6 +11,7 @@ import 'package:ionicons/ionicons.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
+import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view.dart';
 import 'package:yaca/ui/views/whale_transactions/whale_transactions_view.dart';
 
@@ -33,8 +34,8 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: isPhoneOnly
           ? ClipRRect(
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(40.0),
-                topRight: Radius.circular(40.0),
+                topLeft: Radius.circular(kCornerRadiusCirlcular * 3),
+                topRight: Radius.circular(kCornerRadiusCirlcular * 3),
               ),
               child: NavigationBar(
                 labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,

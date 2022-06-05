@@ -32,7 +32,6 @@ import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:yaca/core/repositories/preferences/asset_overview_preference.dart';
 import 'package:yaca/core/repositories/preferences/currency_preference.dart';
 import 'package:yaca/core/repositories/preferences/theme_preference.dart';
-import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/consts/lib_color_schemes.g.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
@@ -163,39 +162,40 @@ class _MyAppState extends State<MyApp> {
                   themeMode: state.theme,
                   theme: ThemeData.light().copyWith(
                       useMaterial3: true,
-                      inputDecorationTheme: InputDecorationTheme(
-                          filled: true,
-                          fillColor: LightThemeColors().textInputBackground,
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(kCornerRadiusCirlcular),
-                            ),
-                            borderSide: BorderSide.none,
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(kCornerRadiusCirlcular),
-                            ),
-                            borderSide: BorderSide.none,
-                          ),
-                          errorBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(kCornerRadiusCirlcular),
-                            ),
-                            borderSide: BorderSide(
-                                color: LightThemeColors().errorColor,
-                                width: kInputBorderWeighting),
-                          ),
-                          focusedErrorBorder: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(kCornerRadiusCirlcular),
-                            ),
-                            borderSide: BorderSide(
-                                color: LightThemeColors().errorColor,
-                                width: kInputBorderWeighting),
-                          ),
-                          errorStyle:
-                              TextStyle(color: LightThemeColors().errorColor)),
+                      scaffoldBackgroundColor: lightColorScheme.background,
+                      // inputDecorationTheme: InputDecorationTheme(
+                      //     filled: true,
+                      //     fillColor: LightThemeColors().textInputBackground,
+                      //     focusedBorder: const OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(
+                      //         Radius.circular(kCornerRadiusCirlcular),
+                      //       ),
+                      //       borderSide: BorderSide.none,
+                      //     ),
+                      //     enabledBorder: const OutlineInputBorder(
+                      //       borderRadius: BorderRadius.all(
+                      //         Radius.circular(kCornerRadiusCirlcular),
+                      //       ),
+                      //       borderSide: BorderSide.none,
+                      //     ),
+                      //     errorBorder: OutlineInputBorder(
+                      //       borderRadius: const BorderRadius.all(
+                      //         Radius.circular(kCornerRadiusCirlcular),
+                      //       ),
+                      //       borderSide: BorderSide(
+                      //           color: LightThemeColors().errorColor,
+                      //           width: kInputBorderWeighting),
+                      //     ),
+                      //     focusedErrorBorder: OutlineInputBorder(
+                      //       borderRadius: const BorderRadius.all(
+                      //         Radius.circular(kCornerRadiusCirlcular),
+                      //       ),
+                      //       borderSide: BorderSide(
+                      //           color: LightThemeColors().errorColor,
+                      //           width: kInputBorderWeighting),
+                      //     ),
+                      //     errorStyle:
+                      //         TextStyle(color: LightThemeColors().errorColor)),
                       textTheme: GoogleFonts.ibmPlexSansTextTheme(
                         ThemeData.light().textTheme,
                       ),
@@ -258,40 +258,42 @@ class _MyAppState extends State<MyApp> {
                       colorScheme: lightColorScheme),
                   darkTheme: ThemeData.dark().copyWith(
                       useMaterial3: true,
-                      inputDecorationTheme: InputDecorationTheme(
-                        filled: true,
-                        fillColor: DarkThemeColors().textInputBackground,
-                        focusedBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(kCornerRadiusCirlcular),
-                          ),
-                          borderSide: BorderSide.none,
-                        ),
-                        enabledBorder: const OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(kCornerRadiusCirlcular),
-                          ),
-                          borderSide: BorderSide.none,
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(kCornerRadiusCirlcular),
-                          ),
-                          borderSide: BorderSide(
-                              color: DarkThemeColors().errorColor,
-                              width: kInputBorderWeighting),
-                        ),
-                        focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: const BorderRadius.all(
-                            Radius.circular(kCornerRadiusCirlcular),
-                          ),
-                          borderSide: BorderSide(
-                              color: DarkThemeColors().errorColor,
-                              width: kInputBorderWeighting),
-                        ),
-                        errorStyle:
-                            TextStyle(color: DarkThemeColors().errorColor),
-                      ),
+                      scaffoldBackgroundColor: darkColorScheme.background,
+
+                      // inputDecorationTheme: InputDecorationTheme(
+                      //   filled: true,
+                      //   fillColor: DarkThemeColors().textInputBackground,
+                      //   focusedBorder: const OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(
+                      //       Radius.circular(kCornerRadiusCirlcular),
+                      //     ),
+                      //     borderSide: BorderSide.none,
+                      //   ),
+                      //   enabledBorder: const OutlineInputBorder(
+                      //     borderRadius: BorderRadius.all(
+                      //       Radius.circular(kCornerRadiusCirlcular),
+                      //     ),
+                      //     borderSide: BorderSide.none,
+                      //   ),
+                      //   errorBorder: OutlineInputBorder(
+                      //     borderRadius: const BorderRadius.all(
+                      //       Radius.circular(kCornerRadiusCirlcular),
+                      //     ),
+                      //     borderSide: BorderSide(
+                      //         color: DarkThemeColors().errorColor,
+                      //         width: kInputBorderWeighting),
+                      //   ),
+                      //   focusedErrorBorder: OutlineInputBorder(
+                      //     borderRadius: const BorderRadius.all(
+                      //       Radius.circular(kCornerRadiusCirlcular),
+                      //     ),
+                      //     borderSide: BorderSide(
+                      //         color: DarkThemeColors().errorColor,
+                      //         width: kInputBorderWeighting),
+                      //   ),
+                      //   errorStyle:
+                      //       TextStyle(color: DarkThemeColors().errorColor),
+                      // ),
                       textTheme: GoogleFonts.ibmPlexSansTextTheme(
                         ThemeData.dark().textTheme,
                       ),

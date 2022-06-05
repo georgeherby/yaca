@@ -29,10 +29,11 @@ import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 import 'package:yaca/ui/views/widgets/favourite_icon.dart';
+import 'package:yaca/ui/views/widgets/filled_button.dart';
+import 'package:yaca/ui/views/widgets/filled_card.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
-import 'package:yaca/ui/views/widgets/primary_button.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class AssetView extends StatelessWidget {
   final String id;
@@ -133,18 +134,18 @@ class AssetView extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     currency.currencyCode.equalsIgnoreCase(singleAsset.symbol)
-                        ? _buildCard(
+                        ? _buildElevatedCard(
                             context,
                             false,
                             Text(
                                 'No graph is possible. Your chosen currency ${currency.currencyCode.toUpperCase()} is the same as the coin your are viewing (${singleAsset.symbol.toUpperCase()}).'))
-                        : _buildCard(
+                        : _buildElevatedCard(
                             context,
                             true,
                             AssetGraphWithSwitcher(
                                 allHistory: state.assetHistorySplits),
                           ),
-                    _buildCard(
+                    _buildElevatedCard(
                       context,
                       false,
                       Column(
@@ -253,16 +254,7 @@ class AssetView extends StatelessWidget {
                               ],
                             ),
                           ),
-                        ],
-                      ),
-                    ),
-                    _buildCard(
-                      context,
-                      false,
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                          const Divider(),
                           Text('Market Stats',
                               style: Theme.of(context).textTheme.headline6),
                           const SizedBox(height: 4),
@@ -425,111 +417,113 @@ class AssetView extends StatelessWidget {
                               ],
                             ),
                           ),
+                          state.coin.sentimentVotesDownPercentage != null &&
+                                  state.coin.sentimentVotesUpPercentage != null
+                              ? const Divider()
+                              : Container(),
+                          state.coin.sentimentVotesDownPercentage != null &&
+                                  state.coin.sentimentVotesUpPercentage != null
+                              ? Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                      Text(
+                                        'Sentiment',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline6,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      Row(children: [
+                                        Expanded(
+                                          flex: (state.coin
+                                                      .sentimentVotesDownPercentage! *
+                                                  100)
+                                              .toInt(),
+                                          child: Container(
+                                            height:
+                                                (kCornerRadiusCirlcular * 2) +
+                                                    kCornerRadiusCirlcular,
+                                            decoration: BoxDecoration(
+                                              color: false
+                                                  .toPositiveNegativeColorFromBool(
+                                                      context),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topLeft: Radius.circular(
+                                                    kCornerRadiusCirlcular),
+                                                bottomLeft: Radius.circular(
+                                                    kCornerRadiusCirlcular),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                state.coin
+                                                    .sentimentVotesDownPercentage
+                                                    .toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    ?.copyWith(
+                                                        color: false
+                                                            .toPositiveNegativeForegroundColorFromBool(
+                                                                context)),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        const Spacer(),
+                                        Expanded(
+                                          flex: (state.coin
+                                                      .sentimentVotesUpPercentage! *
+                                                  100)
+                                              .toInt(),
+                                          child: Container(
+                                            height:
+                                                (kCornerRadiusCirlcular * 2) +
+                                                    kCornerRadiusCirlcular,
+                                            decoration: BoxDecoration(
+                                              color: true
+                                                  .toPositiveNegativeColorFromBool(
+                                                      context),
+                                              borderRadius:
+                                                  const BorderRadius.only(
+                                                topRight: Radius.circular(
+                                                    kCornerRadiusCirlcular),
+                                                bottomRight: Radius.circular(
+                                                    kCornerRadiusCirlcular),
+                                              ),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                state.coin
+                                                    .sentimentVotesUpPercentage
+                                                    .toString(),
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText1
+                                                    ?.copyWith(
+                                                        color: true
+                                                            .toPositiveNegativeForegroundColorFromBool(
+                                                                context)),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ])
+                                    ])
+                              : Container(),
                         ],
                       ),
                     ),
-                    state.coin.sentimentVotesDownPercentage != null &&
-                            state.coin.sentimentVotesUpPercentage != null
-                        ? _buildCard(
-                            context,
-                            false,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  'Sentiment',
-                                  style: Theme.of(context).textTheme.headline6,
-                                ),
-                                const SizedBox(height: 8),
-                                Row(children: [
-                                  Expanded(
-                                    flex: (state.coin
-                                                .sentimentVotesDownPercentage! *
-                                            100)
-                                        .toInt(),
-                                    child: Container(
-                                      height: (kCornerRadiusCirlcular * 2) +
-                                          kCornerRadiusCirlcular,
-                                      decoration: BoxDecoration(
-                                        color: false
-                                            .toPositiveNegativeColorFromBool(
-                                                context),
-                                        borderRadius: const BorderRadius.only(
-                                          topLeft: Radius.circular(
-                                              kCornerRadiusCirlcular),
-                                          bottomLeft: Radius.circular(
-                                              kCornerRadiusCirlcular),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          state
-                                              .coin.sentimentVotesDownPercentage
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              ?.copyWith(
-                                                  color: false
-                                                      .toPositiveNegativeForegroundColorFromBool(
-                                                          context)),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const Spacer(),
-                                  Expanded(
-                                    flex: (state.coin
-                                                .sentimentVotesUpPercentage! *
-                                            100)
-                                        .toInt(),
-                                    child: Container(
-                                      height: (kCornerRadiusCirlcular * 2) +
-                                          kCornerRadiusCirlcular,
-                                      decoration: BoxDecoration(
-                                        color: true
-                                            .toPositiveNegativeColorFromBool(
-                                                context),
-                                        borderRadius: const BorderRadius.only(
-                                          topRight: Radius.circular(
-                                              kCornerRadiusCirlcular),
-                                          bottomRight: Radius.circular(
-                                              kCornerRadiusCirlcular),
-                                        ),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          state.coin.sentimentVotesUpPercentage
-                                              .toString(),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              ?.copyWith(
-                                                  color: true
-                                                      .toPositiveNegativeForegroundColorFromBool(
-                                                          context)),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ]),
-                              ],
-                            ),
-                          )
-                        : Container(),
-                    state.coin.sentimentVotesDownPercentage != null &&
-                            state.coin.sentimentVotesUpPercentage != null
-                        ? const SizedBox(height: 8)
-                        : Container(),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: SizedBox(
-                            height: kMobileButtonButtonSize,
-                            child: PrimaryButton(
+                        Expanded(
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 4.0),
+                            child: FilledButton(
                               onTap: () async {
                                 BlocProvider.of<SingleAssetExchangeBloc>(
                                         context)
@@ -544,9 +538,8 @@ class AssetView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 8),
                     state.coin.description?.translations['en'] != null
-                        ? _buildCard(
+                        ? _buildElevatedCard(
                             context,
                             false,
                             Column(
@@ -606,8 +599,17 @@ class AssetView extends StatelessWidget {
     );
   }
 
-  Widget _buildCard(BuildContext context, bool removePadding, Widget content) {
-    return MaterialSurface(
+  Widget _buildElevatedCard(
+      BuildContext context, bool removePadding, Widget content) {
+    return ElevatedCard(
+        contentPadding:
+            removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
+        child: content);
+  }
+
+  Widget _buildFilledCard(
+      BuildContext context, bool removePadding, Widget content) {
+    return FilledCard(
         contentPadding:
             removePadding ? EdgeInsets.zero : const EdgeInsets.all(8.0),
         child: content);

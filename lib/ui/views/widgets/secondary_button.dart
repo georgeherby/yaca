@@ -21,7 +21,7 @@ class SecondaryButton extends StatelessWidget {
       onPressed: onTap,
       child: Text(
         buttonText,
-        style: TextStyle(color: Theme.of(context).textTheme.button?.color),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }

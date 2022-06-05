@@ -78,7 +78,7 @@ class MobileRow extends StatelessWidget {
                   child: Text(
                     name,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -90,7 +90,7 @@ class MobileRow extends StatelessWidget {
                     RankingCard(ranking: rank),
                     const SizedBox(width: 4),
                     Text(symbol.toUpperCase(),
-                        style: Theme.of(context).textTheme.caption),
+                        style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
               ],
@@ -130,7 +130,7 @@ class MobileRow extends StatelessWidget {
                         textAlign: TextAlign.end,
                         maxLines: 1,
                         overflow: TextOverflow.clip,
-                        style: Theme.of(context).textTheme.bodyText2,
+                        style: Theme.of(context).textTheme.bodyMedium,
                       )
                     : const SizedBox.shrink(),
                 DeltaWithArrow(
@@ -138,7 +138,7 @@ class MobileRow extends StatelessWidget {
                         ? oneDayPercentageChange!
                         : null,
                     isPercentage: true,
-                    textSize: Theme.of(context).textTheme.caption?.fontSize)
+                    textSize: Theme.of(context).textTheme.bodySmall?.fontSize)
               ],
             ),
           ),

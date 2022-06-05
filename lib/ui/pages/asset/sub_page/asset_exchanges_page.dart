@@ -10,7 +10,7 @@ import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.da
 import 'package:yaca/ui/views/asset/widgets/exchange_list_with_filter.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class AssetExchangePage extends StatelessWidget {
   const AssetExchangePage({super.key});
@@ -22,7 +22,7 @@ class AssetExchangePage extends StatelessWidget {
         body: BlocBuilder<SingleAssetExchangeBloc, SingleAssetExchangeState>(
           builder: (context, state) {
             if (state is SingleAssetExchangeLoaded) {
-              return MaterialSurface(
+              return ElevatedCard(
                 // externalPadding: getValueForScreenType<EdgeInsets>(
                 //   context: context,
                 //   mobile: const EdgeInsets.all(8.0),

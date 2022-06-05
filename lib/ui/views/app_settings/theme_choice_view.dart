@@ -11,7 +11,7 @@ import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class ThemeChoiceView extends StatelessWidget {
   const ThemeChoiceView({super.key});
@@ -20,7 +20,7 @@ class ThemeChoiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose theme',
-      body: MaterialSurface(
+      body: ElevatedCard(
         // externalPadding:
         //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView(

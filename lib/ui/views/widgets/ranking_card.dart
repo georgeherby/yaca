@@ -19,7 +19,9 @@ class RankingCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6),
         child: Text(ranking.toString(),
-            style: Theme.of(context).textTheme.caption),
+            style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: Theme.of(context).colorScheme.onBackground,
+                )),
       ),
     );
   }

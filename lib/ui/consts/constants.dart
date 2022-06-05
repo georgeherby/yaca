@@ -14,7 +14,7 @@ const String kLightMode = 'LIGHT';
 const String kDarkMode = 'DARK';
 
 const double kBottomNavBarIconSize = 20.0;
-const double kCornerRadiusCirlcular = 10.0;
+const double kCornerRadiusCirlcular = 12.0;
 const double kDividerWeighting = 0.0;
 const double kInputBorderWeighting = 2.0;
 const double kIconSize = 32.0;

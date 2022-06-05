@@ -14,7 +14,7 @@ import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/ranking_card.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class TrendingView extends StatelessWidget {
   const TrendingView({super.key});
@@ -26,7 +26,7 @@ class TrendingView extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
           child: Row(
             children: [
               SvgPicture.asset(
@@ -36,7 +36,7 @@ class TrendingView extends StatelessWidget {
                 color: kNegativeRedDark,
               ),
               const SizedBox(width: 4),
-              Text("TRENDING SEARCHES",
+              Text('TRENDING SEARCHES',
                   style: Theme.of(context)
                       .textTheme
                       .caption
@@ -53,7 +53,7 @@ class TrendingView extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    const SizedBox(width: 8.0),
+                    const SizedBox(width: 4),
                     ...List.generate(state.trending.length, (index) {
                       var asset = state.trending[index];
                       return Row(
@@ -68,9 +68,9 @@ class TrendingView extends StatelessWidget {
                                   id: asset.id,
                                 ),
                               ),
-                              child: MaterialSurface(
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 4),
+                              child: ElevatedCard(
+                                // contentPadding:
+                                //     const EdgeInsets.symmetric(vertical: 4),
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   mainAxisSize: MainAxisSize.max,
@@ -109,10 +109,10 @@ class TrendingView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8.0),
                         ],
                       );
                     }),
+                    const SizedBox(width: 4),
                   ],
                 );
               } else if (state is TrendingError) {

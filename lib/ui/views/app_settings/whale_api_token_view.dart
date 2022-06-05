@@ -10,10 +10,10 @@ import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
-import 'package:yaca/ui/views/widgets/primary_button.dart';
+import 'package:yaca/ui/views/widgets/tonal_button.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 import 'package:yaca/ui/views/widgets/secondary_button.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class WhaleApiTokenView extends StatelessWidget {
   WhaleApiTokenView({super.key});
@@ -34,7 +34,7 @@ class WhaleApiTokenView extends StatelessWidget {
     updateText(context);
     return ScaffoldWithBack(
       title: 'Whale Transactions',
-      body: MaterialSurface(
+      body: ElevatedCard(
         // externalPadding:
         //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: Padding(
@@ -77,7 +77,7 @@ class WhaleApiTokenView extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: PrimaryButton(
+                    child: TonalButton(
                       buttonText: 'Save',
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {

@@ -12,7 +12,7 @@ import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class CurrencyChoiceView extends StatelessWidget {
   const CurrencyChoiceView({super.key});
@@ -21,7 +21,7 @@ class CurrencyChoiceView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose currency',
-      body: MaterialSurface(
+      body: ElevatedCard(
         // externalPadding:
         //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView.separated(

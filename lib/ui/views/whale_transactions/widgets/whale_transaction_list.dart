@@ -11,7 +11,7 @@ import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class WhaleTransactionList extends StatelessWidget {
   final List<WhaleTransaction> transactions;
@@ -26,7 +26,7 @@ class WhaleTransactionList extends StatelessWidget {
   Widget build(BuildContext context) {
     var currencyString = AvailableCurrencies.usd.currencyString;
 
-    return MaterialSurface(
+    return ElevatedCard(
       fullScreen: true,
       child: RefreshableList(
         onRefresh: onRefresh,

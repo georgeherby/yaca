@@ -49,6 +49,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
         BlocProvider.of<AppSettingsBloc>(context).state.currency;
 
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: GeneralAppBar(
           platform: Theme.of(context).platform,
           title: Row(
@@ -86,122 +87,119 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
           ],
           bottom: null //AppBarBottom(),
           ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-        child: LayoutBuilder(
-          builder: (context, constraint) {
-            return ConstrainedBox(
-              constraints: BoxConstraints(minWidth: constraint.maxWidth),
-              child: BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
-                builder: (context, state) {
-                  if (state is AssetOverviewLoaded) {
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ChoiceChip(
-                                tooltip: _showAllAssets
-                                    ? "Show favourites only"
-                                    : "Show all assets",
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.padded,
-                                onSelected: (selected) {
-                                  setState(() {
-                                    _showAllAssets = !selected;
-                                  });
-                                },
-                                selected: !_showAllAssets,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        kCornerRadiusCirlcular)),
-                                label: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 4.0, horizontal: 8.0),
-                                  child: Icon(
-                                      _showAllAssets
-                                          ? Ionicons.star_outline
-                                          : Ionicons.star,
-                                      size: 16,
-                                      color: _showAllAssets
-                                          ? Theme.of(context).iconTheme.color
-                                          : kYellow),
-                                ),
+      body: LayoutBuilder(
+        builder: (context, constraint) {
+          return ConstrainedBox(
+            constraints: BoxConstraints(minWidth: constraint.maxWidth),
+            child: BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
+              builder: (context, state) {
+                if (state is AssetOverviewLoaded) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ChoiceChip(
+                              tooltip: _showAllAssets
+                                  ? "Show favourites only"
+                                  : "Show all assets",
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.padded,
+                              onSelected: (selected) {
+                                setState(() {
+                                  _showAllAssets = !selected;
+                                });
+                              },
+                              selected: !_showAllAssets,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      kCornerRadiusCirlcular)),
+                              label: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 8.0),
+                                child: Icon(
+                                    _showAllAssets
+                                        ? Ionicons.star_outline
+                                        : Ionicons.star,
+                                    size: 16,
+                                    color: _showAllAssets
+                                        ? Theme.of(context).iconTheme.color
+                                        : kYellow),
                               ),
-                              ActionChip(
-                                materialTapTargetSize:
-                                    MaterialTapTargetSize.padded,
-                                onPressed: () async {
-                                  await showModalBottomSheet(
-                                      context: context,
-                                      builder: (context) {
-                                        return SafeArea(
-                                            child: SortBottomSheet(
-                                          assets: state.allAssets,
-                                          sortType: state.sortType,
-                                          sortOrder: state.sortOrder,
-                                        ));
-                                      });
-                                },
-                                avatar: Icon(
-                                  state.sortOrder.isAscending()
-                                      ? Ionicons.arrow_up_outline
-                                      : Ionicons.arrow_down_outline,
-                                  size: 16,
-                                  color: Theme.of(context).iconTheme.color,
-                                ),
-                                labelPadding: const EdgeInsets.only(right: 8.0),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(
-                                        kCornerRadiusCirlcular)),
-                                label: Text(_getLabelForCurrentSortType(
-                                    state.sortType)),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: AssetsDataTable(
-                            favouriteOnly: !_showAllAssets,
-                            marketCoins: _showAllAssets
-                                ? state.allAssets
-                                : state.favourites,
-                            onRefresh: () async =>
-                                _onRefresh(context, chosenCurrency),
-                            onFavourite: (MarketCoin marketCoin,
-                                    bool isChecked) =>
-                                BlocProvider.of<AssetOverviewBloc>(context).add(
-                              AssetFavourited(
-                                  allMarketCoins: state.allAssets,
-                                  favourites: state.favourites,
-                                  symbol: marketCoin.market.symbol,
-                                  name: marketCoin.market.name,
-                                  coinId: marketCoin.market.id,
-                                  addToFavourite: isChecked),
                             ),
+                            ActionChip(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.padded,
+                              onPressed: () async {
+                                await showModalBottomSheet(
+                                    context: context,
+                                    builder: (context) {
+                                      return SafeArea(
+                                          child: SortBottomSheet(
+                                        assets: state.allAssets,
+                                        sortType: state.sortType,
+                                        sortOrder: state.sortOrder,
+                                      ));
+                                    });
+                              },
+                              avatar: Icon(
+                                state.sortOrder.isAscending()
+                                    ? Ionicons.arrow_up_outline
+                                    : Ionicons.arrow_down_outline,
+                                size: 16,
+                                color: Theme.of(context).iconTheme.color,
+                              ),
+                              labelPadding: const EdgeInsets.only(right: 8.0),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      kCornerRadiusCirlcular)),
+                              label: Text(
+                                  _getLabelForCurrentSortType(state.sortType)),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: AssetsDataTable(
+                          favouriteOnly: !_showAllAssets,
+                          marketCoins: _showAllAssets
+                              ? state.allAssets
+                              : state.favourites,
+                          onRefresh: () async =>
+                              _onRefresh(context, chosenCurrency),
+                          onFavourite: (MarketCoin marketCoin,
+                                  bool isChecked) =>
+                              BlocProvider.of<AssetOverviewBloc>(context).add(
+                            AssetFavourited(
+                                allMarketCoins: state.allAssets,
+                                favourites: state.favourites,
+                                symbol: marketCoin.market.symbol,
+                                name: marketCoin.market.name,
+                                coinId: marketCoin.market.id,
+                                addToFavourite: isChecked),
                           ),
                         ),
-                      ],
-                    );
-                  } else if (state is AssetOverviewError) {
-                    return ErrorView(
-                        onRefresh: () => _onRefresh(context, chosenCurrency),
-                        error: state.error);
-                  } else if (state is AssetOverviewTimeout) {
-                    return TimeoutView(
+                      ),
+                    ],
+                  );
+                } else if (state is AssetOverviewError) {
+                  return ErrorView(
                       onRefresh: () => _onRefresh(context, chosenCurrency),
-                    );
-                  }
-                  return const MarketOverviewViewLoading();
-                },
-              ),
-            );
-          },
-        ),
+                      error: state.error);
+                } else if (state is AssetOverviewTimeout) {
+                  return TimeoutView(
+                    onRefresh: () => _onRefresh(context, chosenCurrency),
+                  );
+                }
+                return const MarketOverviewViewLoading();
+              },
+            ),
+          );
+        },
       ),
     );
   }

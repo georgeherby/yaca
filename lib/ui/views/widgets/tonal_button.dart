@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:yaca/ui/consts/constants.dart';
 
-class PrimaryButton extends StatelessWidget {
-  const PrimaryButton(
-      {super.key, required this.buttonText, required this.onTap});
+class TonalButton extends StatelessWidget {
+  const TonalButton({super.key, required this.buttonText, required this.onTap});
 
   final String buttonText;
   final VoidCallback onTap;
@@ -15,10 +14,10 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        elevation: 1,
-        primary: Theme.of(context).colorScheme.surface,
+        elevation: 0,
+        primary: Theme.of(context).colorScheme.secondaryContainer,
         onSurface: Theme.of(context).colorScheme.onSurface,
-        onPrimary: Theme.of(context).colorScheme.primary,
+        onPrimary: Theme.of(context).colorScheme.onSecondaryContainer,
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         shadowColor: Theme.of(context).colorScheme.shadow,
         shape: RoundedRectangleBorder(
