@@ -20,17 +20,17 @@ class SearchLoading extends SearchState {
 }
 
 class SearchLoaded extends SearchState {
-  final List<CoinShort> filteredList;
 
   const SearchLoaded(this.filteredList);
+  final List<CoinShort> filteredList;
   @override
   List<Object> get props => [filteredList];
 }
 
 class SearchError extends SearchState {
-  final String error;
 
   const SearchError(this.error);
+  final String error;
   @override
   List<Object> get props => [error];
 }

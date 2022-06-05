@@ -12,19 +12,17 @@ import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/asset/widgets/asset_graph.dart';
 
 class _AssetGraphChipConfigurations {
+  const _AssetGraphChipConfigurations(this.label, this.duration);
   final String label;
   final Duration? duration;
-
-  const _AssetGraphChipConfigurations(this.label, this.duration);
 }
 
 class AssetGraphWithSwitcher extends StatefulWidget {
-  final AssetHistorySplits allHistory;
-
   const AssetGraphWithSwitcher({
     super.key,
     required this.allHistory,
   });
+  final AssetHistorySplits allHistory;
 
   @override
   State<AssetGraphWithSwitcher> createState() => _AssetGraphWithSwitcherState();
@@ -50,7 +48,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
   @override
   Widget build(BuildContext context) {
     //Get chips where there data. For example data may only go back 1 year, so dont show 3y chips
-    var chips = kChips
+    final chips = kChips
         .where((element) => element.duration == null
             ? true
             : widget.allHistory.allMonths.first.date.millisecondsSinceEpoch <
@@ -59,23 +57,24 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                     .millisecondsSinceEpoch)
         .toList();
 
-    var duration =
+    final duration =
         chips.length < _index ? chips[0].duration : chips[_index].duration;
-    var data = applyFilter(widget.allHistory, duration);
+    final data = applyFilter(widget.allHistory, duration);
 
     return Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-      data.isNotEmpty
-          ? AssetGraph(
-              history: data,
-              duration: duration,
-            )
-          : const SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: Center(
-                child: Text('No historical data found'),
-              ),
-            ),
+      if (data.isNotEmpty)
+        AssetGraph(
+          history: data,
+          duration: duration,
+        )
+      else
+        const SizedBox(
+          height: 250,
+          width: double.infinity,
+          child: Center(
+            child: Text('No historical data found'),
+          ),
+        ),
       Padding(
         padding: const EdgeInsets.only(bottom: 8, top: 16),
         child: (Theme.of(context).platform.isDesktop() || kIsWeb)
@@ -85,7 +84,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                   spacing: 8,
                   runSpacing: 6,
                   children: List.generate(chips.length, (listIndex) {
-                    var selected = listIndex == _index;
+                    final selected = listIndex == _index;
                     return Theme(
                       data: Theme.of(context)
                           .copyWith(canvasColor: Colors.transparent),
@@ -137,7 +136,7 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: List.generate(chips.length, (listIndex) {
-                    var selected = listIndex == _index;
+                    final selected = listIndex == _index;
                     return Theme(
                       data: Theme.of(context)
                           .copyWith(canvasColor: Colors.transparent),

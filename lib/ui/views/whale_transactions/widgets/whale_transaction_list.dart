@@ -14,17 +14,16 @@ import 'package:yaca/ui/views/widgets/refresh_list.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class WhaleTransactionList extends StatelessWidget {
-  final List<WhaleTransaction> transactions;
-  final ValueGetter<Future<void>> onRefresh;
-
   const WhaleTransactionList(
       {super.key, required this.transactions, required this.onRefresh});
+  final List<WhaleTransaction> transactions;
+  final ValueGetter<Future<void>> onRefresh;
 
   static const double sidePadding = 12;
 
   @override
   Widget build(BuildContext context) {
-    var currencyString = AvailableCurrencies.usd.currencyString;
+    final currencyString = AvailableCurrencies.usd.currencyString;
 
     return ElevatedCard(
       fullScreen: true,
@@ -40,10 +39,10 @@ class WhaleTransactionList extends StatelessWidget {
           },
           itemCount: transactions.length,
           itemBuilder: (context, index) {
-            var transaction = transactions[index];
-            var date = DateTime.fromMillisecondsSinceEpoch(
+            final transaction = transactions[index];
+            final date = DateTime.fromMillisecondsSinceEpoch(
                 transaction.timestamp * 1000);
-            var formatDate = DateFormat('HH:mm EEE dd MMM');
+            final formatDate = DateFormat('HH:mm EEE dd MMM');
 
             return ListTile(
               isThreeLine: true,
@@ -82,7 +81,8 @@ class WhaleTransactionList extends StatelessWidget {
                 children: [
                   Text(
                     transaction.amountUsd.currencyFormatWithPrefix(
-                        currencyString, context, false),
+                        currencyString, context,
+                        showDecimals: false),
                     textAlign: TextAlign.end,
                   ),
                   Text(

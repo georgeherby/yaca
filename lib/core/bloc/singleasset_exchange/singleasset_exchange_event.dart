@@ -5,9 +5,9 @@ abstract class SingleAssetExchangeEvent extends Equatable {
 }
 
 class SingleAssetExchangeLoad extends SingleAssetExchangeEvent {
-  final String marketCoinId;
 
   const SingleAssetExchangeLoad({required this.marketCoinId});
+  final String marketCoinId;
 
   @override
   List<Object> get props => [marketCoinId];

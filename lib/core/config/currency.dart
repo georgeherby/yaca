@@ -7,7 +7,7 @@ class AvailableCurrencies {
     currencyName: 'US Dollar',
     currencyCode: 'USD',
     currencyType: CurrencyType.fiat,
-    currencyIcon: SvgIcon("assets/fiat_icons/usd.svg"),
+    currencyIcon: SvgIcon('assets/fiat_icons/usd.svg'),
     currencyString: '\$',
   );
 
@@ -15,7 +15,7 @@ class AvailableCurrencies {
     currencyName: 'Euro',
     currencyCode: 'EUR',
     currencyType: CurrencyType.fiat,
-    currencyIcon: SvgIcon("assets/fiat_icons/eur.svg"),
+    currencyIcon: SvgIcon('assets/fiat_icons/eur.svg'),
     currencyString: '€',
   );
 
@@ -23,7 +23,7 @@ class AvailableCurrencies {
     currencyName: 'British Pound',
     currencyCode: 'GBP',
     currencyType: CurrencyType.fiat,
-    currencyIcon: SvgIcon("assets/fiat_icons/gbp.svg"),
+    currencyIcon: SvgIcon('assets/fiat_icons/gbp.svg'),
     currencyString: '£',
   );
 
@@ -31,7 +31,7 @@ class AvailableCurrencies {
     currencyName: 'Bitcoin',
     currencyCode: 'BTC',
     currencyType: CurrencyType.crypto,
-    currencyIcon: SvgIcon("assets/crypto_icons/btc.svg"),
+    currencyIcon: SvgIcon('assets/crypto_icons/btc.svg'),
     currencyString: '₿',
   );
 
@@ -39,14 +39,14 @@ class AvailableCurrencies {
     currencyName: 'Ethereum',
     currencyCode: 'ETH',
     currencyType: CurrencyType.crypto,
-    currencyIcon: SvgIcon("assets/crypto_icons/eth.svg"),
+    currencyIcon: SvgIcon('assets/crypto_icons/eth.svg'),
     currencyString: 'Ξ',
   );
   static ChosenCurrency ltc = const ChosenCurrency(
     currencyName: 'Litecoin',
     currencyCode: 'LTC',
     currencyType: CurrencyType.crypto,
-    currencyIcon: SvgIcon("assets/crypto_icons/ltc.svg"),
+    currencyIcon: SvgIcon('assets/crypto_icons/ltc.svg'),
     currencyString: 'Ł',
   );
 

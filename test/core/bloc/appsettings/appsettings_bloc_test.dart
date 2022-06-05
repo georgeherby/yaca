@@ -23,8 +23,8 @@ void main() {
     registerFallbackValue(ThemeMode.system);
   });
   group('AppSettingsBloc', () {
-    var mockTheme = MockThemePreferenceRepository();
-    var mockCurrency = MockCurrencyPreferenceRepository();
+    final mockTheme = MockThemePreferenceRepository();
+    final mockCurrency = MockCurrencyPreferenceRepository();
 
     tearDown(() {
       reset(mockCurrency);
@@ -47,9 +47,9 @@ void main() {
 
     blocTest('emits AppSettingsLoaded when Event is LoadAppSettings',
         build: () {
-          when(() => mockTheme.getThemeMode())
+          when(mockTheme.getThemeMode)
               .thenAnswer((_) => Future.value(ThemeMode.system));
-          when(() => mockCurrency.get()).thenAnswer((_) =>
+          when(mockCurrency.get).thenAnswer((_) =>
               Future.value(AvailableCurrencies.gbp.currencyCode.toUpperCase()));
 
           return AppSettingsBloc(mockTheme, mockCurrency);
@@ -58,8 +58,8 @@ void main() {
         expect: () =>
             [AppSettingsLoaded(ThemeMode.system, AvailableCurrencies.gbp)],
         verify: (_) {
-          verify(() => mockTheme.getThemeMode()).called(1);
-          verify(() => mockCurrency.get()).called(1);
+          verify(mockTheme.getThemeMode).called(1);
+          verify(mockCurrency.get).called(1);
         });
 
     blocTest('emits AppSettingsLoaded when Event is UpdateCurrencyOptionEvent',

@@ -73,78 +73,80 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               indent: kMarqueTapHeight / 4,
               endIndent: kMarqueTapHeight / 4,
             ),
-            widget.marketCap != null
-                ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Total Market Cap:',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold, color: _textColor),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        widget.currencyString +
-                            compactNumberFormat(context).format(
-                              widget.marketCap!.getForCurrency(
-                                  BlocProvider.of<AppSettingsBloc>(context)
-                                      .state
-                                      .currency
-                                      .currencyCode),
-                            ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: _textColor),
-                      ),
-                      const SizedBox(width: 4),
-                      DeltaWithArrow(
-                        widget.marketCap24hPercentageChange,
-                        isPercentage: true,
-                        textColor: _textColor,
-                        useTextColorForArrow: true,
-                      ),
-                      const VerticalDivider(
-                        thickness: 2,
-                        color: _textColor,
-                        indent: kMarqueTapHeight / 4,
-                        endIndent: kMarqueTapHeight / 4,
-                      ),
-                    ],
-                  )
-                : const SizedBox.shrink(),
-            widget.totalVolume != null
-                ? Row(
-                    children: [
-                      Text(
-                        '24h Volume:',
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold, color: _textColor),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        widget.currencyString +
-                            compactNumberFormat(context).format(
-                              widget.totalVolume!.getForCurrency(
-                                  BlocProvider.of<AppSettingsBloc>(context)
-                                      .state
-                                      .currency
-                                      .currencyCode),
-                            ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(color: _textColor),
-                      ),
-                      const VerticalDivider(
-                        thickness: 2,
-                        color: _textColor,
-                        indent: kMarqueTapHeight / 4,
-                        endIndent: kMarqueTapHeight / 4,
-                      ),
-                    ],
-                  )
-                : const SizedBox.shrink(),
+            if (widget.marketCap != null)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Total Market Cap:',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold, color: _textColor),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    widget.currencyString +
+                        compactNumberFormat(context).format(
+                          widget.marketCap!.getForCurrency(
+                              BlocProvider.of<AppSettingsBloc>(context)
+                                  .state
+                                  .currency
+                                  .currencyCode),
+                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: _textColor),
+                  ),
+                  const SizedBox(width: 4),
+                  DeltaWithArrow(
+                    widget.marketCap24hPercentageChange,
+                    isPercentage: true,
+                    textColor: _textColor,
+                    useTextColorForArrow: true,
+                  ),
+                  const VerticalDivider(
+                    thickness: 2,
+                    color: _textColor,
+                    indent: kMarqueTapHeight / 4,
+                    endIndent: kMarqueTapHeight / 4,
+                  ),
+                ],
+              )
+            else
+              const SizedBox.shrink(),
+            if (widget.totalVolume != null)
+              Row(
+                children: [
+                  Text(
+                    '24h Volume:',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold, color: _textColor),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    widget.currencyString +
+                        compactNumberFormat(context).format(
+                          widget.totalVolume!.getForCurrency(
+                              BlocProvider.of<AppSettingsBloc>(context)
+                                  .state
+                                  .currency
+                                  .currencyCode),
+                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: _textColor),
+                  ),
+                  const VerticalDivider(
+                    thickness: 2,
+                    color: _textColor,
+                    indent: kMarqueTapHeight / 4,
+                    endIndent: kMarqueTapHeight / 4,
+                  ),
+                ],
+              )
+            else
+              const SizedBox.shrink(),
             Text(
               'Dominance:',
               style: Theme.of(context)

@@ -8,8 +8,8 @@ import 'package:coingecko_api/coingecko_api.dart';
 import 'package:coingecko_api/data/ticker.dart';
 
 class ExchangeTickerRespository {
-  final CoinGeckoApi _api;
   ExchangeTickerRespository(this._api);
+  final CoinGeckoApi _api;
 
   Future<List<Ticker>> getExchangeTickerForCoin(String cryptoName) async {
     debugPrint('getExchangeTicker called for $cryptoName');

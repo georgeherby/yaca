@@ -12,15 +12,14 @@ import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/sort_type.dart';
 
 class SortBottomSheet extends StatelessWidget {
-  final SortType sortType;
-  final SortOrder sortOrder;
-  final List<MarketCoin> assets;
-
   const SortBottomSheet(
       {super.key,
       required this.assets,
       required this.sortType,
       required this.sortOrder});
+  final SortType sortType;
+  final SortOrder sortOrder;
+  final List<MarketCoin> assets;
 
   @override
   Widget build(BuildContext context) {

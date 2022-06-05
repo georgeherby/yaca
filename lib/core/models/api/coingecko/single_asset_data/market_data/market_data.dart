@@ -11,48 +11,6 @@ import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/atl
 import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/roi.dart';
 
 class MarketData extends Equatable {
-  final DoublePerCurrency currentPrice;
-  final DoublePerCurrency? totalValueLocked;
-  final double? mcapToTvlRatio;
-  final double? fdvToTvlRatio;
-  final Roi roi;
-  final DoublePerCurrency ath;
-  final DoublePerCurrency athChangePercentage;
-  final AthDate athDate;
-  final DoublePerCurrency atl;
-  final DoublePerCurrency atlChangePercentage;
-  final AtlDate atlDate;
-  final DoublePerCurrency marketCap;
-  final int? marketCapRank;
-  final DoublePerCurrency fullyDilutedValuation;
-  final DoublePerCurrency totalVolume;
-  final DoublePerCurrency high24h;
-  final DoublePerCurrency low24h;
-  final double? priceChange24h;
-  final double? priceChangePercentage24h;
-  final double? priceChangePercentage7d;
-  final double? priceChangePercentage14d;
-  final double? priceChangePercentage30d;
-  final double? priceChangePercentage60d;
-  final double? priceChangePercentage200d;
-  final double? priceChangePercentage1y;
-  final double? marketCapChange24h;
-  final double? marketCapChangePercentage24h;
-  final DoublePerCurrency? priceChange24hInCurrency;
-  final DoublePerCurrency? priceChangePercentage1hInCurrency;
-  final DoublePerCurrency? priceChangePercentage24hInCurrency;
-  final DoublePerCurrency? priceChangePercentage7dInCurrency;
-  final DoublePerCurrency? priceChangePercentage14dInCurrency;
-  final DoublePerCurrency? priceChangePercentage30dInCurrency;
-  final DoublePerCurrency? priceChangePercentage60dInCurrency;
-  final DoublePerCurrency? priceChangePercentage200dInCurrency;
-  final DoublePerCurrency? priceChangePercentage1yInCurrency;
-  final DoublePerCurrency? marketCapChange24hInCurrency;
-  final DoublePerCurrency? marketCapChangePercentage24hInCurrency;
-  final int? totalSupply;
-  final int? maxSupply;
-  final int? circulatingSupply;
-  final String lastUpdated;
   const MarketData({
     required this.currentPrice,
     required this.totalValueLocked,
@@ -97,6 +55,140 @@ class MarketData extends Equatable {
     required this.circulatingSupply,
     required this.lastUpdated,
   });
+  factory MarketData.fromJson(String source) =>
+      MarketData.fromMap(json.decode(source));
+
+  factory MarketData.fromMap(Map<String, dynamic> map) {
+    return MarketData(
+      currentPrice: DoublePerCurrency.fromMap(map['current_price']),
+      totalValueLocked: map['total_value_locked'] != null
+          ? DoublePerCurrency.fromMap(map['total_value_locked'])
+          : null,
+      mcapToTvlRatio: map['mcap_to_tvl_ratio'],
+      fdvToTvlRatio:
+          map['fdv_to_tvl_ratio'] != null && map['fdv_to_tvl_ratio'] == '?'
+              ? null
+              : map['fdv_to_tvl_ratio'],
+      roi: Roi.fromMap(map['roi']),
+      ath: DoublePerCurrency.fromMap(map['ath']),
+      athChangePercentage:
+          DoublePerCurrency.fromMap(map['ath_change_percentage']),
+      athDate: AthDate.fromMap(map['ath_date']),
+      atl: DoublePerCurrency.fromMap(map['atl']),
+      atlChangePercentage:
+          DoublePerCurrency.fromMap(map['atl_change_percentage']),
+      atlDate: AtlDate.fromMap(map['atl_date']),
+      marketCap: DoublePerCurrency.fromMap(map['market_cap']),
+      marketCapRank: map['market_cap_rank']?.toInt(),
+      fullyDilutedValuation:
+          DoublePerCurrency.fromMap(map['fully_diluted_valuation']),
+      totalVolume: DoublePerCurrency.fromMap(map['total_volume']),
+      high24h: DoublePerCurrency.fromMap(map['high_24h']),
+      low24h: DoublePerCurrency.fromMap(map['low_24h']),
+      priceChange24h: map['price_change_24h']?.toDouble(),
+      priceChangePercentage24h: map['price_change_percentage_24h']?.toDouble(),
+      priceChangePercentage7d: map['price_change_percentage_7d']?.toDouble(),
+      priceChangePercentage14d: map['price_change_percentage_14d']?.toDouble(),
+      priceChangePercentage30d: map['price_change_percentage_30d']?.toDouble(),
+      priceChangePercentage60d: map['price_change_percentage_60d']?.toDouble(),
+      priceChangePercentage200d:
+          map['price_change_percentage_200d']?.toDouble(),
+      priceChangePercentage1y: map['price_change_percentage_1y']?.toDouble(),
+      marketCapChange24h: map['market_cap_change_24h']?.toDouble(),
+      marketCapChangePercentage24h:
+          map['market_cap_change_percentage_24h']?.toDouble(),
+      priceChange24hInCurrency: map['price_change_24h_in_currency'] != null
+          ? DoublePerCurrency.fromMap(map['price_change_24h_in_currency'])
+          : null,
+      priceChangePercentage1hInCurrency:
+          map['price_change_percentage_1h_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_1h_in_currency'])
+              : null,
+      priceChangePercentage24hInCurrency:
+          map['price_change_percentage_24h_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_24h_in_currency'])
+              : null,
+      priceChangePercentage7dInCurrency:
+          map['price_change_percentage_7d_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_7d_in_currency'])
+              : null,
+      priceChangePercentage14dInCurrency:
+          map['price_change_percentage_14d_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_14d_in_currency'])
+              : null,
+      priceChangePercentage30dInCurrency:
+          map['price_change_percentage_30d_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_30d_in_currency'])
+              : null,
+      priceChangePercentage60dInCurrency:
+          map['price_change_percentage_60d_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_60d_in_currency'])
+              : null,
+      priceChangePercentage200dInCurrency: DoublePerCurrency.fromMap(
+          map['price_change_percentage_200d_in_currency']),
+      priceChangePercentage1yInCurrency:
+          map['price_change_percentage_1y_in_currency'] != null
+              ? DoublePerCurrency.fromMap(
+                  map['price_change_percentage_1y_in_currency'])
+              : null,
+      marketCapChange24hInCurrency:
+          DoublePerCurrency.fromMap(map['market_cap_change_24h_in_currency']),
+      marketCapChangePercentage24hInCurrency: DoublePerCurrency.fromMap(
+          map['market_cap_change_percentage_24h_in_currency']),
+      totalSupply: map['total_supply']?.toInt(),
+      maxSupply: map['max_supply']?.toInt(),
+      circulatingSupply: map['circulating_supply']?.toInt(),
+      lastUpdated: map['last_updated'],
+    );
+  }
+  final DoublePerCurrency currentPrice;
+  final DoublePerCurrency? totalValueLocked;
+  final double? mcapToTvlRatio;
+  final double? fdvToTvlRatio;
+  final Roi roi;
+  final DoublePerCurrency ath;
+  final DoublePerCurrency athChangePercentage;
+  final AthDate athDate;
+  final DoublePerCurrency atl;
+  final DoublePerCurrency atlChangePercentage;
+  final AtlDate atlDate;
+  final DoublePerCurrency marketCap;
+  final int? marketCapRank;
+  final DoublePerCurrency fullyDilutedValuation;
+  final DoublePerCurrency totalVolume;
+  final DoublePerCurrency high24h;
+  final DoublePerCurrency low24h;
+  final double? priceChange24h;
+  final double? priceChangePercentage24h;
+  final double? priceChangePercentage7d;
+  final double? priceChangePercentage14d;
+  final double? priceChangePercentage30d;
+  final double? priceChangePercentage60d;
+  final double? priceChangePercentage200d;
+  final double? priceChangePercentage1y;
+  final double? marketCapChange24h;
+  final double? marketCapChangePercentage24h;
+  final DoublePerCurrency? priceChange24hInCurrency;
+  final DoublePerCurrency? priceChangePercentage1hInCurrency;
+  final DoublePerCurrency? priceChangePercentage24hInCurrency;
+  final DoublePerCurrency? priceChangePercentage7dInCurrency;
+  final DoublePerCurrency? priceChangePercentage14dInCurrency;
+  final DoublePerCurrency? priceChangePercentage30dInCurrency;
+  final DoublePerCurrency? priceChangePercentage60dInCurrency;
+  final DoublePerCurrency? priceChangePercentage200dInCurrency;
+  final DoublePerCurrency? priceChangePercentage1yInCurrency;
+  final DoublePerCurrency? marketCapChange24hInCurrency;
+  final DoublePerCurrency? marketCapChangePercentage24hInCurrency;
+  final int? totalSupply;
+  final int? maxSupply;
+  final int? circulatingSupply;
+  final String lastUpdated;
 
   MarketData copyWith({
     DoublePerCurrency? currentPrice,
@@ -267,100 +359,7 @@ class MarketData extends Equatable {
     };
   }
 
-  factory MarketData.fromMap(Map<String, dynamic> map) {
-    return MarketData(
-      currentPrice: DoublePerCurrency.fromMap(map['current_price']),
-      totalValueLocked: map['total_value_locked'] != null
-          ? DoublePerCurrency.fromMap(map['total_value_locked'])
-          : null,
-      mcapToTvlRatio: map['mcap_to_tvl_ratio'],
-      fdvToTvlRatio:
-          map['fdv_to_tvl_ratio'] != null && map['fdv_to_tvl_ratio'] == '?'
-              ? null
-              : map['fdv_to_tvl_ratio'],
-      roi: Roi.fromMap(map['roi']),
-      ath: DoublePerCurrency.fromMap(map['ath']),
-      athChangePercentage:
-          DoublePerCurrency.fromMap(map['ath_change_percentage']),
-      athDate: AthDate.fromMap(map['ath_date']),
-      atl: DoublePerCurrency.fromMap(map['atl']),
-      atlChangePercentage:
-          DoublePerCurrency.fromMap(map['atl_change_percentage']),
-      atlDate: AtlDate.fromMap(map['atl_date']),
-      marketCap: DoublePerCurrency.fromMap(map['market_cap']),
-      marketCapRank: map['market_cap_rank']?.toInt(),
-      fullyDilutedValuation:
-          DoublePerCurrency.fromMap(map['fully_diluted_valuation']),
-      totalVolume: DoublePerCurrency.fromMap(map['total_volume']),
-      high24h: DoublePerCurrency.fromMap(map['high_24h']),
-      low24h: DoublePerCurrency.fromMap(map['low_24h']),
-      priceChange24h: map['price_change_24h']?.toDouble(),
-      priceChangePercentage24h: map['price_change_percentage_24h']?.toDouble(),
-      priceChangePercentage7d: map['price_change_percentage_7d']?.toDouble(),
-      priceChangePercentage14d: map['price_change_percentage_14d']?.toDouble(),
-      priceChangePercentage30d: map['price_change_percentage_30d']?.toDouble(),
-      priceChangePercentage60d: map['price_change_percentage_60d']?.toDouble(),
-      priceChangePercentage200d:
-          map['price_change_percentage_200d']?.toDouble(),
-      priceChangePercentage1y: map['price_change_percentage_1y']?.toDouble(),
-      marketCapChange24h: map['market_cap_change_24h']?.toDouble(),
-      marketCapChangePercentage24h:
-          map['market_cap_change_percentage_24h']?.toDouble(),
-      priceChange24hInCurrency: map['price_change_24h_in_currency'] != null
-          ? DoublePerCurrency.fromMap(map['price_change_24h_in_currency'])
-          : null,
-      priceChangePercentage1hInCurrency:
-          map['price_change_percentage_1h_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_1h_in_currency'])
-              : null,
-      priceChangePercentage24hInCurrency:
-          map['price_change_percentage_24h_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_24h_in_currency'])
-              : null,
-      priceChangePercentage7dInCurrency:
-          map['price_change_percentage_7d_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_7d_in_currency'])
-              : null,
-      priceChangePercentage14dInCurrency:
-          map['price_change_percentage_14d_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_14d_in_currency'])
-              : null,
-      priceChangePercentage30dInCurrency:
-          map['price_change_percentage_30d_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_30d_in_currency'])
-              : null,
-      priceChangePercentage60dInCurrency:
-          map['price_change_percentage_60d_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_60d_in_currency'])
-              : null,
-      priceChangePercentage200dInCurrency: DoublePerCurrency.fromMap(
-          map['price_change_percentage_200d_in_currency']),
-      priceChangePercentage1yInCurrency:
-          map['price_change_percentage_1y_in_currency'] != null
-              ? DoublePerCurrency.fromMap(
-                  map['price_change_percentage_1y_in_currency'])
-              : null,
-      marketCapChange24hInCurrency:
-          DoublePerCurrency.fromMap(map['market_cap_change_24h_in_currency']),
-      marketCapChangePercentage24hInCurrency: DoublePerCurrency.fromMap(
-          map['market_cap_change_percentage_24h_in_currency']),
-      totalSupply: map['total_supply']?.toInt(),
-      maxSupply: map['max_supply']?.toInt(),
-      circulatingSupply: map['circulating_supply']?.toInt(),
-      lastUpdated: map['last_updated'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory MarketData.fromJson(String source) =>
-      MarketData.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -413,4 +412,3 @@ class MarketData extends Equatable {
     ];
   }
 }
-

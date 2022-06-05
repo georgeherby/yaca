@@ -5,10 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
 class ErrorView extends StatelessWidget {
+  const ErrorView({super.key, this.onRefresh, required this.error});
   final VoidCallback? onRefresh;
   final String error;
-
-  const ErrorView({super.key, this.onRefresh, required this.error});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +24,7 @@ class ErrorView extends StatelessWidget {
               const Icon(Ionicons.bug_outline, size: 48),
               const SizedBox(height: 16),
               const Text(
-                  "Error occured. Please try again. If you still face issues, please contact the developer with details in the section below."),
+                  'Error occured. Please try again. If you still face issues, please contact the developer with details in the section below.'),
               const SizedBox(height: 16),
               Theme(
                 data: ThemeData(dividerColor: Colors.transparent),
@@ -37,7 +36,7 @@ class ErrorView extends StatelessWidget {
                   iconColor: Theme.of(context).iconTheme.color,
                   collapsedIconColor: Theme.of(context).iconTheme.color,
                   title: Text(
-                    "Error details",
+                    'Error details',
                     style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   children: [
@@ -46,10 +45,10 @@ class ErrorView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              onRefresh != null
-                  ? ElevatedButton(
-                      onPressed: onRefresh, child: const Text("Retry"))
-                  : Container(),
+              if (onRefresh != null)
+                ElevatedButton(onPressed: onRefresh, child: const Text('Retry'))
+              else
+                Container(),
             ],
           ),
         ),

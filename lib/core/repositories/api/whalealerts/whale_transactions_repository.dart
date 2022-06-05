@@ -16,21 +16,20 @@ import 'package:yaca/ui/utils/view_builder/filter_list_repository.dart';
 
 class WhaleTransactionReposiotry
     extends FilterListRepository<WhaleTransaction, String> {
+  WhaleTransactionReposiotry({required this.apiPreferences});
   final client = http.Client();
 
   final ApiTokensPreference apiPreferences;
-
-  WhaleTransactionReposiotry({required this.apiPreferences});
 
   @override
   Future<List<WhaleTransaction>> getAll() async {
     debugPrint('getAllWhaleTransactions called');
 
-    var token = await apiPreferences.getWhalesApiToken();
+    final token = await apiPreferences.getWhalesApiToken();
 
     if (token != null) {
       //TODO Make the min value a configurable value
-      var url =
+      final url =
           'https://api.whale-alert.io/v1/transactions?api_key=$token&min_value=5000000';
       final response = await client
           .get(Uri.parse(url), headers: {'content-type': 'application/json'});
@@ -50,7 +49,7 @@ class WhaleTransactionReposiotry
   Future<List<WhaleTransaction>> getBy(String filter) async {
     debugPrint('fetchMarketOverview called');
 
-    var url =
+    const url =
         'https://api.whale-alert.io/v1/transactions?api_key=quGcgSYawOg8ZOwpFXAAKU4X6FMXe2fr&min_value=5000000';
     final response = await client.get(Uri.parse(url));
     return WhaleTransactionResults.fromJson(jsonDecode(response.body))

@@ -12,8 +12,8 @@ class MockExchangeTickerRespository extends Mock
     implements ExchangeTickerRespository {}
 
 void main() {
-  var mockExchangeTickerRespository = MockExchangeTickerRespository();
-  var coinId = 'btc';
+  final mockExchangeTickerRespository = MockExchangeTickerRespository();
+  const coinId = 'btc';
   setUp(() {
     reset(mockExchangeTickerRespository);
   });
@@ -32,14 +32,16 @@ void main() {
     blocTest(
         'verify state is SingleAssetExchangeLoaded when bloc is event is SingleAssetExchangeLoad',
         build: () {
-          when(() => mockExchangeTickerRespository.getExchangeTickerForCoin(any()))
-              .thenAnswer((invocation) => Future.value([singleBinanceBtcTicker]));
+          when(() =>
+                  mockExchangeTickerRespository.getExchangeTickerForCoin(any()))
+              .thenAnswer(
+                  (invocation) => Future.value([singleBinanceBtcTicker]));
 
           return SingleAssetExchangeBloc(
               exchangeTickerRespository: mockExchangeTickerRespository);
         },
         act: (SingleAssetExchangeBloc bloc) =>
-            bloc.add(SingleAssetExchangeLoad(marketCoinId: coinId)),
+            bloc.add(const SingleAssetExchangeLoad(marketCoinId: coinId)),
         expect: () => [
               const SingleAssetExchangeLoading(),
               SingleAssetExchangeLoaded([singleBinanceBtcTicker])
@@ -47,14 +49,15 @@ void main() {
     blocTest(
         'verify state is SingleAssetExchangeError when bloc is event is SingleAssetExchangeLoad but API fails',
         build: () {
-          when(() => mockExchangeTickerRespository.getExchangeTickerForCoin(any()))
+          when(() =>
+                  mockExchangeTickerRespository.getExchangeTickerForCoin(any()))
               .thenThrow(Exception('Error'));
 
           return SingleAssetExchangeBloc(
               exchangeTickerRespository: mockExchangeTickerRespository);
         },
         act: (SingleAssetExchangeBloc bloc) =>
-            bloc.add(SingleAssetExchangeLoad(marketCoinId: coinId)),
+            bloc.add(const SingleAssetExchangeLoad(marketCoinId: coinId)),
         expect: () => [
               const SingleAssetExchangeLoading(),
               SingleAssetExchangeError(Exception('Error').toString())

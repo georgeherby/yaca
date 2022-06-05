@@ -7,14 +7,6 @@ import 'package:yaca/ui/utils/screen_chooser/my_responsive_builder.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_chooser.dart';
 
 class ScreenBuilder extends StatelessWidget {
-  final WidgetBuilder mobile;
-  final WidgetBuilder? mobileDesktop;
-  final WidgetBuilder tablet;
-  final WidgetBuilder? tabletWeb;
-  final WidgetBuilder? tabletDesktop;
-  final WidgetBuilder desktop;
-  final WidgetBuilder? desktopWeb;
-
   ScreenBuilder({
     super.key,
     // this.breakpoints,
@@ -32,7 +24,6 @@ class ScreenBuilder extends StatelessWidget {
         tabletDesktop = _builderOrNull(tabletDesktop),
         desktop = _builderOrNull(desktop)!,
         desktopWeb = _builderOrNull(desktopWeb);
-
   const ScreenBuilder.builder({
     super.key,
     required this.mobile,
@@ -43,6 +34,13 @@ class ScreenBuilder extends StatelessWidget {
     required this.desktop,
     this.desktopWeb,
   });
+  final WidgetBuilder mobile;
+  final WidgetBuilder? mobileDesktop;
+  final WidgetBuilder tablet;
+  final WidgetBuilder? tabletWeb;
+  final WidgetBuilder? tabletDesktop;
+  final WidgetBuilder desktop;
+  final WidgetBuilder? desktopWeb;
 
   static WidgetBuilder? _builderOrNull(Widget? widget) {
     return widget == null ? null : ((_) => widget);
@@ -52,7 +50,7 @@ class ScreenBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyResponsiveBuilder(
       builder: (context, screenSize) {
-        var targetPlatform = Theme.of(context).platform;
+        final targetPlatform = Theme.of(context).platform;
         if (screenSize.isLarge()) {
           if (kIsWeb) {
             if (desktopWeb != null) return desktopWeb!(context);

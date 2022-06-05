@@ -5,12 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:yaca/ui/views/widgets/icons/svg_icon.dart';
 
 class ChosenCurrency extends Equatable {
-  final String currencyName;
-  final String currencyCode;
-  final CurrencyType currencyType;
-  final SvgIcon currencyIcon;
-  final String currencyString;
-
   const ChosenCurrency({
     required this.currencyName,
     required this.currencyCode,
@@ -18,6 +12,11 @@ class ChosenCurrency extends Equatable {
     required this.currencyIcon,
     required this.currencyString,
   });
+  final String currencyName;
+  final String currencyCode;
+  final CurrencyType currencyType;
+  final SvgIcon currencyIcon;
+  final String currencyString;
 
   @override
   List<Object?> get props => [currencyName, currencyCode, currencyIcon];

@@ -14,10 +14,10 @@ part 'globalmarket_event.dart';
 part 'globalmarket_state.dart';
 
 class GlobalMarketBloc extends Bloc<GlobalMarketEvent, GlobalMarketState> {
-  final GlobalMarketRespository repository;
   GlobalMarketBloc(this.repository) : super(const GlobalMarketInitial()) {
     on<GlobalMarketLoad>(_onGlobalMarketLoad);
   }
+  final GlobalMarketRespository repository;
 
   @override
   void onTransition(
@@ -26,11 +26,11 @@ class GlobalMarketBloc extends Bloc<GlobalMarketEvent, GlobalMarketState> {
     super.onTransition(transition);
   }
 
-  void _onGlobalMarketLoad(
+  Future<void> _onGlobalMarketLoad(
       GlobalMarketLoad event, Emitter<GlobalMarketState> emit) async {
     try {
       emit(const GlobalMarketLoading());
-      var market = await repository.fetchMarketOverview(event.currency);
+      final market = await repository.fetchMarketOverview(event.currency);
       emit(GlobalMarketLoaded(market));
     } catch (e) {
       emit(GlobalMarketError(e.toString()));

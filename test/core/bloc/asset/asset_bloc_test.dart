@@ -12,9 +12,9 @@ import 'mock/singleasset_data.dart';
 class MockSingleAssetRespository extends Mock implements AssetRespository {}
 
 void main() {
-  var mockSingleAssetRespository = MockSingleAssetRespository();
-  var coinId = 'btc';
-  var chosenCurrency = AvailableCurrencies.gbp;
+  final mockSingleAssetRespository = MockSingleAssetRespository();
+  const coinId = 'btc';
+  final chosenCurrency = AvailableCurrencies.gbp;
   setUp(() {
     reset(mockSingleAssetRespository);
   });

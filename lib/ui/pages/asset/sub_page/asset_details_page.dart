@@ -14,7 +14,7 @@ class AssetDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var coinId = context.routeData.inheritedPathParams.getString('assetId');
+    final coinId = context.routeData.inheritedPathParams.getString('assetId');
     return AssetView(id: coinId);
   }
 }

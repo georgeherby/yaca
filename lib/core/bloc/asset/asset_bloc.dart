@@ -12,20 +12,19 @@ part 'asset_event.dart';
 part 'asset_state.dart';
 
 class AssetBloc extends Bloc<AssetEvent, AssetState> {
-  final AssetRespository singleAssetRespository;
-
   AssetBloc({required this.singleAssetRespository}) : super(AssetInitial()) {
     on<AssetLoad>(_onAssetLoad);
   }
+  final AssetRespository singleAssetRespository;
 
-  void _onAssetLoad(AssetLoad event, Emitter<AssetState> emit) async {
+  Future<void> _onAssetLoad(AssetLoad event, Emitter<AssetState> emit) async {
     emit(const AssetLoading());
 
     try {
-      var assetHistorySplits = await singleAssetRespository
+      final assetHistorySplits = await singleAssetRespository
           .fetchFullAssetHistory(event.marketCoinId, event.currencyCode);
 
-      var assetDetails =
+      final assetDetails =
           await singleAssetRespository.getSingleAssetData(event.marketCoinId);
 
       emit(AssetLoaded(assetDetails, assetHistorySplits));

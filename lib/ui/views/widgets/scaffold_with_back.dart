@@ -8,12 +8,11 @@ import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 class ScaffoldWithBack extends StatelessWidget {
+  const ScaffoldWithBack(
+      {super.key, required this.body, this.title, this.actions});
   final String? title;
   final Widget body;
   final List<Widget>? actions;
-
-  const ScaffoldWithBack(
-      {super.key, required this.body, this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {

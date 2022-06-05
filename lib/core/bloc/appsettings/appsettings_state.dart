@@ -1,10 +1,10 @@
 part of 'appsettings_bloc.dart';
 
 abstract class AppSettingsState extends Equatable {
-  final ThemeMode theme;
-  final ChosenCurrency currency;
 
   const AppSettingsState(this.theme, this.currency);
+  final ThemeMode theme;
+  final ChosenCurrency currency;
 
   @override
   List<Object> get props => [theme, currency];

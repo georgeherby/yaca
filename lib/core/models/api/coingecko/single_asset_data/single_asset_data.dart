@@ -8,34 +8,6 @@ import 'package:equatable/equatable.dart';
 import 'package:yaca/core/models/api/coingecko/single_asset_data/market_data/market_data.dart';
 
 class SingleAssetData extends Equatable {
-  final String id;
-  final String symbol;
-  final String name;
-  final int blockTimeInMinutes;
-  final String? hashingAlgorithm;
-  final List<String?> categories;
-  final List<String?> additionalNotices;
-  final Localization localization;
-  final Description description;
-  final Links links;
-  final Image image;
-  final String countryOrigin;
-  final String? genesisDate;
-  final double? sentimentVotesUpPercentage;
-  final double? sentimentVotesDownPercentage;
-  final int? marketCapRank;
-  final int? coingeckoRank;
-  final double coingeckoScore;
-  final double developerScore;
-  final double communityScore;
-  final double liquidityScore;
-  final double publicInterestScore;
-  final MarketData marketData;
-  final CommunityData communityData;
-  final DeveloperData developerData;
-  final PublicInterestStats publicInterestStats;
-  // final List<String?> status_updates;
-  final String lastUpdated;
   const SingleAssetData({
     required this.id,
     required this.symbol,
@@ -66,6 +38,72 @@ class SingleAssetData extends Equatable {
     // required this.status_updates,
     required this.lastUpdated,
   });
+  factory SingleAssetData.fromJson(String source) =>
+      SingleAssetData.fromMap(jsonDecode(source));
+
+  factory SingleAssetData.fromMap(Map<String, dynamic> map) {
+    return SingleAssetData(
+      id: map['id'],
+      symbol: map['symbol'],
+      name: map['name'],
+      blockTimeInMinutes: map['block_time_in_minutes']?.toInt(),
+      hashingAlgorithm: map['hashing_algorithm'],
+      categories: List<String?>.from(map['categories']),
+      additionalNotices: List<String?>.from(map['additional_notices']),
+      localization: Localization.fromMap(map['localization']),
+      description: Description.fromMap(map['description']),
+      links: Links.fromMap(map['links']),
+      image: Image.fromMap(map['image']),
+      countryOrigin: map['country_origin'],
+      genesisDate: map['genesis_date'],
+      sentimentVotesUpPercentage:
+          map['sentiment_votes_up_percentage']?.toDouble(),
+      sentimentVotesDownPercentage:
+          map['sentiment_votes_down_percentage']?.toDouble(),
+      marketCapRank: map['market_cap_rank']?.toInt(),
+      coingeckoRank: map['coingecko_rank']?.toInt(),
+      coingeckoScore: map['coingecko_score']?.toDouble(),
+      developerScore: map['developer_score']?.toDouble(),
+      communityScore: map['community_score']?.toDouble(),
+      liquidityScore: map['liquidity_score']?.toDouble(),
+      publicInterestScore: map['public_interest_score']?.toDouble(),
+      marketData: MarketData.fromMap(map['market_data']),
+      communityData: CommunityData.fromMap(map['community_data']),
+      developerData: DeveloperData.fromMap(map['developer_data']),
+      publicInterestStats:
+          PublicInterestStats.fromMap(map['public_interest_stats']),
+      // status_updates: List<String?>.from(map['status_updates']),
+      lastUpdated: map['last_updated'],
+    );
+  }
+  final String id;
+  final String symbol;
+  final String name;
+  final int blockTimeInMinutes;
+  final String? hashingAlgorithm;
+  final List<String?> categories;
+  final List<String?> additionalNotices;
+  final Localization localization;
+  final Description description;
+  final Links links;
+  final Image image;
+  final String countryOrigin;
+  final String? genesisDate;
+  final double? sentimentVotesUpPercentage;
+  final double? sentimentVotesDownPercentage;
+  final int? marketCapRank;
+  final int? coingeckoRank;
+  final double coingeckoScore;
+  final double developerScore;
+  final double communityScore;
+  final double liquidityScore;
+  final double publicInterestScore;
+  final MarketData marketData;
+  final CommunityData communityData;
+  final DeveloperData developerData;
+  final PublicInterestStats publicInterestStats;
+  // final List<String?> status_updates;
+  final String lastUpdated;
 
   SingleAssetData copyWith({
     String? id,
@@ -164,46 +202,7 @@ class SingleAssetData extends Equatable {
     };
   }
 
-  factory SingleAssetData.fromMap(Map<String, dynamic> map) {
-    return SingleAssetData(
-      id: map['id'],
-      symbol: map['symbol'],
-      name: map['name'],
-      blockTimeInMinutes: map['block_time_in_minutes']?.toInt(),
-      hashingAlgorithm: map['hashing_algorithm'],
-      categories: List<String?>.from(map['categories']),
-      additionalNotices: List<String?>.from(map['additional_notices']),
-      localization: Localization.fromMap(map['localization']),
-      description: Description.fromMap(map['description']),
-      links: Links.fromMap(map['links']),
-      image: Image.fromMap(map['image']),
-      countryOrigin: map['country_origin'],
-      genesisDate: map['genesis_date'],
-      sentimentVotesUpPercentage:
-          map['sentiment_votes_up_percentage']?.toDouble(),
-      sentimentVotesDownPercentage:
-          map['sentiment_votes_down_percentage']?.toDouble(),
-      marketCapRank: map['market_cap_rank']?.toInt(),
-      coingeckoRank: map['coingecko_rank']?.toInt(),
-      coingeckoScore: map['coingecko_score']?.toDouble(),
-      developerScore: map['developer_score']?.toDouble(),
-      communityScore: map['community_score']?.toDouble(),
-      liquidityScore: map['liquidity_score']?.toDouble(),
-      publicInterestScore: map['public_interest_score']?.toDouble(),
-      marketData: MarketData.fromMap(map['market_data']),
-      communityData: CommunityData.fromMap(map['community_data']),
-      developerData: DeveloperData.fromMap(map['developer_data']),
-      publicInterestStats:
-          PublicInterestStats.fromMap(map['public_interest_stats']),
-      // status_updates: List<String?>.from(map['status_updates']),
-      lastUpdated: map['last_updated'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory SingleAssetData.fromJson(String source) =>
-      SingleAssetData.fromMap(jsonDecode(source));
 
   @override
   bool get stringify => true;
@@ -244,27 +243,6 @@ class SingleAssetData extends Equatable {
 }
 
 class Localization extends Equatable {
-  final String en;
-  final String de;
-  final String es;
-  final String fr;
-  final String it;
-  final String pl;
-  final String ro;
-  final String hu;
-  final String nl;
-  final String pt;
-  final String sv;
-  final String vi;
-  final String tr;
-  final String ru;
-  final String ja;
-  final String zh;
-  final String zhTw;
-  final String ko;
-  final String ar;
-  final String th;
-  final String id;
   const Localization({
     required this.en,
     required this.de,
@@ -288,6 +266,55 @@ class Localization extends Equatable {
     required this.th,
     required this.id,
   });
+  factory Localization.fromJson(String source) =>
+      Localization.fromMap(json.decode(source));
+
+  factory Localization.fromMap(Map<String, dynamic> map) {
+    return Localization(
+      en: map['en'],
+      de: map['de'],
+      es: map['es'],
+      fr: map['fr'],
+      it: map['it'],
+      pl: map['pl'],
+      ro: map['ro'],
+      hu: map['hu'],
+      nl: map['nl'],
+      pt: map['pt'],
+      sv: map['sv'],
+      vi: map['vi'],
+      tr: map['tr'],
+      ru: map['ru'],
+      ja: map['ja'],
+      zh: map['zh'],
+      zhTw: map['zh-tw'],
+      ko: map['ko'],
+      ar: map['ar'],
+      th: map['th'],
+      id: map['id'],
+    );
+  }
+  final String en;
+  final String de;
+  final String es;
+  final String fr;
+  final String it;
+  final String pl;
+  final String ro;
+  final String hu;
+  final String nl;
+  final String pt;
+  final String sv;
+  final String vi;
+  final String tr;
+  final String ru;
+  final String ja;
+  final String zh;
+  final String zhTw;
+  final String ko;
+  final String ar;
+  final String th;
+  final String id;
 
   Localization copyWith({
     String? en,
@@ -363,36 +390,7 @@ class Localization extends Equatable {
     };
   }
 
-  factory Localization.fromMap(Map<String, dynamic> map) {
-    return Localization(
-      en: map['en'],
-      de: map['de'],
-      es: map['es'],
-      fr: map['fr'],
-      it: map['it'],
-      pl: map['pl'],
-      ro: map['ro'],
-      hu: map['hu'],
-      nl: map['nl'],
-      pt: map['pt'],
-      sv: map['sv'],
-      vi: map['vi'],
-      tr: map['tr'],
-      ru: map['ru'],
-      ja: map['ja'],
-      zh: map['zh'],
-      zhTw: map['zh-tw'],
-      ko: map['ko'],
-      ar: map['ar'],
-      th: map['th'],
-      id: map['id'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Localization.fromJson(String source) =>
-      Localization.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -426,27 +424,6 @@ class Localization extends Equatable {
 }
 
 class Description extends Equatable {
-  final String en;
-  final String de;
-  final String es;
-  final String fr;
-  final String it;
-  final String pl;
-  final String ro;
-  final String hu;
-  final String nl;
-  final String pt;
-  final String sv;
-  final String vi;
-  final String tr;
-  final String ru;
-  final String ja;
-  final String zh;
-  final String zhTw;
-  final String ko;
-  final String ar;
-  final String th;
-  final String id;
   const Description({
     required this.en,
     required this.de,
@@ -470,6 +447,55 @@ class Description extends Equatable {
     required this.th,
     required this.id,
   });
+  factory Description.fromJson(String source) =>
+      Description.fromMap(json.decode(source));
+
+  factory Description.fromMap(Map<String, dynamic> map) {
+    return Description(
+      en: map['en'],
+      de: map['de'],
+      es: map['es'],
+      fr: map['fr'],
+      it: map['it'],
+      pl: map['pl'],
+      ro: map['ro'],
+      hu: map['hu'],
+      nl: map['nl'],
+      pt: map['pt'],
+      sv: map['sv'],
+      vi: map['vi'],
+      tr: map['tr'],
+      ru: map['ru'],
+      ja: map['ja'],
+      zh: map['zh'],
+      zhTw: map['zh-tw'],
+      ko: map['ko'],
+      ar: map['ar'],
+      th: map['th'],
+      id: map['id'],
+    );
+  }
+  final String en;
+  final String de;
+  final String es;
+  final String fr;
+  final String it;
+  final String pl;
+  final String ro;
+  final String hu;
+  final String nl;
+  final String pt;
+  final String sv;
+  final String vi;
+  final String tr;
+  final String ru;
+  final String ja;
+  final String zh;
+  final String zhTw;
+  final String ko;
+  final String ar;
+  final String th;
+  final String id;
 
   Description copyWith({
     String? en,
@@ -545,36 +571,7 @@ class Description extends Equatable {
     };
   }
 
-  factory Description.fromMap(Map<String, dynamic> map) {
-    return Description(
-      en: map['en'],
-      de: map['de'],
-      es: map['es'],
-      fr: map['fr'],
-      it: map['it'],
-      pl: map['pl'],
-      ro: map['ro'],
-      hu: map['hu'],
-      nl: map['nl'],
-      pt: map['pt'],
-      sv: map['sv'],
-      vi: map['vi'],
-      tr: map['tr'],
-      ru: map['ru'],
-      ja: map['ja'],
-      zh: map['zh'],
-      zhTw: map['zh-tw'],
-      ko: map['ko'],
-      ar: map['ar'],
-      th: map['th'],
-      id: map['id'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Description.fromJson(String source) =>
-      Description.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -608,16 +605,6 @@ class Description extends Equatable {
 }
 
 class Links extends Equatable {
-  final List<String> homepage;
-  final List<String> blockchainSite;
-  final List<String> officialForumUrl;
-  final List<String> chatUrl;
-  final List<String> announcementUrl;
-  final String? twitterScreenName;
-  final String? facebookUsername;
-  final String? telegramChannelIdentifier;
-  final String? subredditUrl;
-  final ReposUrl reposUrl;
   const Links({
     required this.homepage,
     required this.blockchainSite,
@@ -630,6 +617,32 @@ class Links extends Equatable {
     required this.subredditUrl,
     required this.reposUrl,
   });
+  factory Links.fromJson(String source) => Links.fromMap(json.decode(source));
+
+  factory Links.fromMap(Map<String, dynamic> map) {
+    return Links(
+      homepage: List<String>.from(map['homepage']),
+      blockchainSite: List<String>.from(map['blockchain_site']),
+      officialForumUrl: List<String>.from(map['official_forum_url']),
+      chatUrl: List<String>.from(map['chat_url']),
+      announcementUrl: List<String>.from(map['announcement_url']),
+      twitterScreenName: map['twitter_screen_name'],
+      facebookUsername: map['facebook_username'],
+      telegramChannelIdentifier: map['telegram_channel_identifier'],
+      subredditUrl: map['subreddit_url'],
+      reposUrl: ReposUrl.fromMap(map['repos_url']),
+    );
+  }
+  final List<String> homepage;
+  final List<String> blockchainSite;
+  final List<String> officialForumUrl;
+  final List<String> chatUrl;
+  final List<String> announcementUrl;
+  final String? twitterScreenName;
+  final String? facebookUsername;
+  final String? telegramChannelIdentifier;
+  final String? subredditUrl;
+  final ReposUrl reposUrl;
 
   Links copyWith({
     List<String>? homepage,
@@ -673,24 +686,7 @@ class Links extends Equatable {
     };
   }
 
-  factory Links.fromMap(Map<String, dynamic> map) {
-    return Links(
-      homepage: List<String>.from(map['homepage']),
-      blockchainSite: List<String>.from(map['blockchain_site']),
-      officialForumUrl: List<String>.from(map['official_forum_url']),
-      chatUrl: List<String>.from(map['chat_url']),
-      announcementUrl: List<String>.from(map['announcement_url']),
-      twitterScreenName: map['twitter_screen_name'],
-      facebookUsername: map['facebook_username'],
-      telegramChannelIdentifier: map['telegram_channel_identifier'],
-      subredditUrl: map['subreddit_url'],
-      reposUrl: ReposUrl.fromMap(map['repos_url']),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Links.fromJson(String source) => Links.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -713,12 +709,21 @@ class Links extends Equatable {
 }
 
 class ReposUrl extends Equatable {
-  final List<String> github;
-  final List<String> bitbucket;
   const ReposUrl({
     required this.github,
     required this.bitbucket,
   });
+  factory ReposUrl.fromJson(String source) =>
+      ReposUrl.fromMap(json.decode(source));
+
+  factory ReposUrl.fromMap(Map<String, dynamic> map) {
+    return ReposUrl(
+      github: List<String>.from(map['github']),
+      bitbucket: List<String>.from(map['bitbucket']),
+    );
+  }
+  final List<String> github;
+  final List<String> bitbucket;
 
   ReposUrl copyWith({
     List<String>? github,
@@ -737,17 +742,7 @@ class ReposUrl extends Equatable {
     };
   }
 
-  factory ReposUrl.fromMap(Map<String, dynamic> map) {
-    return ReposUrl(
-      github: List<String>.from(map['github']),
-      bitbucket: List<String>.from(map['bitbucket']),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory ReposUrl.fromJson(String source) =>
-      ReposUrl.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -757,14 +752,23 @@ class ReposUrl extends Equatable {
 }
 
 class Image extends Equatable {
-  final String thumb;
-  final String small;
-  final String large;
   const Image({
     required this.thumb,
     required this.small,
     required this.large,
   });
+  factory Image.fromJson(String source) => Image.fromMap(json.decode(source));
+
+  factory Image.fromMap(Map<String, dynamic> map) {
+    return Image(
+      thumb: map['thumb'],
+      small: map['small'],
+      large: map['large'],
+    );
+  }
+  final String thumb;
+  final String small;
+  final String large;
 
   Image copyWith({
     String? thumb,
@@ -786,17 +790,7 @@ class Image extends Equatable {
     };
   }
 
-  factory Image.fromMap(Map<String, dynamic> map) {
-    return Image(
-      thumb: map['thumb'],
-      small: map['small'],
-      large: map['large'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory Image.fromJson(String source) => Image.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -806,13 +800,6 @@ class Image extends Equatable {
 }
 
 class CommunityData extends Equatable {
-  final String? facebookLikes;
-  final int twitterFollowers;
-  final double redditAveragePosts48h;
-  final double redditAverageComments48h;
-  final int redditSubscribers;
-  final int redditAccountsActive48h;
-  final double? telegramChannelUserCount;
   const CommunityData({
     required this.facebookLikes,
     required this.twitterFollowers,
@@ -822,6 +809,27 @@ class CommunityData extends Equatable {
     required this.redditAccountsActive48h,
     required this.telegramChannelUserCount,
   });
+  factory CommunityData.fromJson(String source) =>
+      CommunityData.fromMap(json.decode(source));
+
+  factory CommunityData.fromMap(Map<String, dynamic> map) {
+    return CommunityData(
+      facebookLikes: map['facebook_likes']?.toString(),
+      twitterFollowers: map['twitter_followers']?.toInt(),
+      redditAveragePosts48h: map['reddit_average_posts_48h']?.toDouble(),
+      redditAverageComments48h: map['reddit_average_comments_48h']?.toDouble(),
+      redditSubscribers: map['reddit_subscribers']?.toInt(),
+      redditAccountsActive48h: map['reddit_accounts_active_48h']?.toInt(),
+      telegramChannelUserCount: map['telegram_channel_user_count']?.toDouble(),
+    );
+  }
+  final String? facebookLikes;
+  final int twitterFollowers;
+  final double redditAveragePosts48h;
+  final double redditAverageComments48h;
+  final int redditSubscribers;
+  final int redditAccountsActive48h;
+  final double? telegramChannelUserCount;
 
   CommunityData copyWith({
     String? facebookLikes,
@@ -859,22 +867,7 @@ class CommunityData extends Equatable {
     };
   }
 
-  factory CommunityData.fromMap(Map<String, dynamic> map) {
-    return CommunityData(
-      facebookLikes: map['facebook_likes']?.toString(),
-      twitterFollowers: map['twitter_followers']?.toInt(),
-      redditAveragePosts48h: map['reddit_average_posts_48h']?.toDouble(),
-      redditAverageComments48h: map['reddit_average_comments_48h']?.toDouble(),
-      redditSubscribers: map['reddit_subscribers']?.toInt(),
-      redditAccountsActive48h: map['reddit_accounts_active_48h']?.toInt(),
-      telegramChannelUserCount: map['telegram_channel_user_count']?.toDouble(),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory CommunityData.fromJson(String source) =>
-      CommunityData.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -894,16 +887,6 @@ class CommunityData extends Equatable {
 }
 
 class DeveloperData extends Equatable {
-  final int forks;
-  final int stars;
-  final int subscribers;
-  final int totalIssues;
-  final int closedIssues;
-  final int pullRequestsMerged;
-  final int pullRequestContributors;
-  final CodeAdditionsDeletions4Weeks codeAdditionsDeletions4Weeks;
-  final int commitCount4Weeks;
-  final List<int> last4WeeksCommitActivitySeries;
   const DeveloperData({
     required this.forks,
     required this.stars,
@@ -916,6 +899,35 @@ class DeveloperData extends Equatable {
     required this.commitCount4Weeks,
     required this.last4WeeksCommitActivitySeries,
   });
+  factory DeveloperData.fromJson(String source) =>
+      DeveloperData.fromMap(json.decode(source));
+
+  factory DeveloperData.fromMap(Map<String, dynamic> map) {
+    return DeveloperData(
+      forks: map['forks']?.toInt(),
+      stars: map['stars']?.toInt(),
+      subscribers: map['subscribers']?.toInt(),
+      totalIssues: map['total_issues']?.toInt(),
+      closedIssues: map['closed_issues']?.toInt(),
+      pullRequestsMerged: map['pull_requests_merged']?.toInt(),
+      pullRequestContributors: map['pull_request_contributors']?.toInt(),
+      codeAdditionsDeletions4Weeks: CodeAdditionsDeletions4Weeks.fromMap(
+          map['code_additions_deletions_4_weeks']),
+      commitCount4Weeks: map['commit_count_4_weeks']?.toInt(),
+      last4WeeksCommitActivitySeries:
+          List<int>.from(map['last_4_weeks_commit_activity_series']),
+    );
+  }
+  final int forks;
+  final int stars;
+  final int subscribers;
+  final int totalIssues;
+  final int closedIssues;
+  final int pullRequestsMerged;
+  final int pullRequestContributors;
+  final CodeAdditionsDeletions4Weeks codeAdditionsDeletions4Weeks;
+  final int commitCount4Weeks;
+  final List<int> last4WeeksCommitActivitySeries;
 
   DeveloperData copyWith({
     int? forks,
@@ -961,27 +973,7 @@ class DeveloperData extends Equatable {
     };
   }
 
-  factory DeveloperData.fromMap(Map<String, dynamic> map) {
-    return DeveloperData(
-      forks: map['forks']?.toInt(),
-      stars: map['stars']?.toInt(),
-      subscribers: map['subscribers']?.toInt(),
-      totalIssues: map['total_issues']?.toInt(),
-      closedIssues: map['closed_issues']?.toInt(),
-      pullRequestsMerged: map['pull_requests_merged']?.toInt(),
-      pullRequestContributors: map['pull_request_contributors']?.toInt(),
-      codeAdditionsDeletions4Weeks: CodeAdditionsDeletions4Weeks.fromMap(
-          map['code_additions_deletions_4_weeks']),
-      commitCount4Weeks: map['commit_count_4_weeks']?.toInt(),
-      last4WeeksCommitActivitySeries:
-          List<int>.from(map['last_4_weeks_commit_activity_series']),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory DeveloperData.fromJson(String source) =>
-      DeveloperData.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -1004,12 +996,21 @@ class DeveloperData extends Equatable {
 }
 
 class CodeAdditionsDeletions4Weeks extends Equatable {
-  final int? additions;
-  final int? deletions;
   const CodeAdditionsDeletions4Weeks({
     required this.additions,
     required this.deletions,
   });
+  factory CodeAdditionsDeletions4Weeks.fromJson(String source) =>
+      CodeAdditionsDeletions4Weeks.fromMap(json.decode(source));
+
+  factory CodeAdditionsDeletions4Weeks.fromMap(Map<String, dynamic> map) {
+    return CodeAdditionsDeletions4Weeks(
+      additions: map['additions']?.toInt(),
+      deletions: map['deletions']?.toInt(),
+    );
+  }
+  final int? additions;
+  final int? deletions;
 
   CodeAdditionsDeletions4Weeks copyWith({
     int? additions,
@@ -1028,17 +1029,7 @@ class CodeAdditionsDeletions4Weeks extends Equatable {
     };
   }
 
-  factory CodeAdditionsDeletions4Weeks.fromMap(Map<String, dynamic> map) {
-    return CodeAdditionsDeletions4Weeks(
-      additions: map['additions']?.toInt(),
-      deletions: map['deletions']?.toInt(),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory CodeAdditionsDeletions4Weeks.fromJson(String source) =>
-      CodeAdditionsDeletions4Weeks.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;
@@ -1048,12 +1039,21 @@ class CodeAdditionsDeletions4Weeks extends Equatable {
 }
 
 class PublicInterestStats extends Equatable {
-  final int? alexaRank;
-  final String? bingMatches;
   const PublicInterestStats({
     required this.alexaRank,
     required this.bingMatches,
   });
+  factory PublicInterestStats.fromJson(String source) =>
+      PublicInterestStats.fromMap(json.decode(source));
+
+  factory PublicInterestStats.fromMap(Map<String, dynamic> map) {
+    return PublicInterestStats(
+      alexaRank: map['alexa_rank']?.toInt(),
+      bingMatches: map['bing_matches']?.toString(),
+    );
+  }
+  final int? alexaRank;
+  final String? bingMatches;
 
   PublicInterestStats copyWith({
     int? alexaRank,
@@ -1072,17 +1072,7 @@ class PublicInterestStats extends Equatable {
     };
   }
 
-  factory PublicInterestStats.fromMap(Map<String, dynamic> map) {
-    return PublicInterestStats(
-      alexaRank: map['alexa_rank']?.toInt(),
-      bingMatches: map['bing_matches']?.toString(),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory PublicInterestStats.fromJson(String source) =>
-      PublicInterestStats.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;

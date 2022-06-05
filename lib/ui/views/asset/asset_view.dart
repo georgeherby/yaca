@@ -30,14 +30,13 @@ import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 import 'package:yaca/ui/views/widgets/favourite_icon.dart';
 import 'package:yaca/ui/views/widgets/filled_button.dart';
-import 'package:yaca/ui/views/widgets/filled_card.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class AssetView extends StatelessWidget {
-  final String id;
   const AssetView({super.key, required this.id});
+  final String id;
 
   void _onRefresh(BuildContext context) {
     return BlocProvider.of<AssetBloc>(context).add(
@@ -52,12 +51,12 @@ class AssetView extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint('SingleAssetView');
 
-    var currency = BlocProvider.of<AppSettingsBloc>(context).state.currency;
+    final currency = BlocProvider.of<AppSettingsBloc>(context).state.currency;
 
     return BlocBuilder<AssetBloc, AssetState>(builder: (context, state) {
       if (state is AssetLoaded) {
-        var singleAsset = state.coin;
-        var marketDataPerCurrnecy = state.coin.marketData!.dataByCurrency
+        final singleAsset = state.coin;
+        final marketDataPerCurrnecy = state.coin.marketData!.dataByCurrency
             .where((element) =>
                 element.coinId.equalsIgnoreCase(currency.currencyCode))
             .first;
@@ -95,7 +94,7 @@ class AssetView extends StatelessWidget {
               BlocBuilder<AssetOverviewBloc, AssetOverviewState>(
                 builder: (context, state) {
                   if (state is AssetOverviewLoaded) {
-                    var isFavourite = state.favourites
+                    final isFavourite = state.favourites
                         .where((element) => element.market.id == singleAsset.id)
                         .isNotEmpty;
 
@@ -133,18 +132,20 @@ class AssetView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    currency.currencyCode.equalsIgnoreCase(singleAsset.symbol)
-                        ? _buildElevatedCard(
-                            context,
-                            false,
-                            Text(
-                                'No graph is possible. Your chosen currency ${currency.currencyCode.toUpperCase()} is the same as the coin your are viewing (${singleAsset.symbol.toUpperCase()}).'))
-                        : _buildElevatedCard(
-                            context,
-                            true,
-                            AssetGraphWithSwitcher(
-                                allHistory: state.assetHistorySplits),
-                          ),
+                    if (currency.currencyCode
+                        .equalsIgnoreCase(singleAsset.symbol))
+                      _buildElevatedCard(
+                          context,
+                          false,
+                          Text(
+                              'No graph is possible. Your chosen currency ${currency.currencyCode.toUpperCase()} is the same as the coin your are viewing (${singleAsset.symbol.toUpperCase()}).'))
+                    else
+                      _buildElevatedCard(
+                        context,
+                        true,
+                        AssetGraphWithSwitcher(
+                            allHistory: state.assetHistorySplits),
+                      ),
                     _buildElevatedCard(
                       context,
                       false,
@@ -294,8 +295,8 @@ class AssetView extends StatelessWidget {
                                                   compactNumberFormat(context)
                                                       .format(
                                                           marketDataPerCurrnecy
-                                                              .marketCap!)
-                                              : "-")
+                                                              .marketCap)
+                                              : '-')
                                         ],
                                       ),
                                       Row(
@@ -319,14 +320,14 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall),
-                                          singleAsset.marketData?.totalSupply !=
-                                                  null
-                                              ? Text(
-                                                  compactNumberFormat(context)
-                                                      .format(singleAsset
-                                                          .marketData!
-                                                          .totalSupply!))
-                                              : const Text('-')
+                                          if (singleAsset
+                                                  .marketData?.totalSupply !=
+                                              null)
+                                            Text(compactNumberFormat(context)
+                                                .format(singleAsset
+                                                    .marketData!.totalSupply))
+                                          else
+                                            const Text('-')
                                         ],
                                       ),
                                       Row(
@@ -337,14 +338,14 @@ class AssetView extends StatelessWidget {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .labelSmall),
-                                          singleAsset.marketData?.maxSupply !=
-                                                  null
-                                              ? Text(
-                                                  compactNumberFormat(context)
-                                                      .format(singleAsset
-                                                          .marketData!
-                                                          .maxSupply!))
-                                              : const Text('-')
+                                          if (singleAsset
+                                                  .marketData?.maxSupply !=
+                                              null)
+                                            Text(compactNumberFormat(context)
+                                                .format(singleAsset
+                                                    .marketData!.maxSupply))
+                                          else
+                                            const Text('-')
                                         ],
                                       ),
                                     ],
@@ -384,8 +385,8 @@ class AssetView extends StatelessWidget {
                                                   null
                                               ? compactNumberFormat(context)
                                                   .format(marketDataPerCurrnecy
-                                                      .totalVolume!)
-                                              : "-")
+                                                      .totalVolume)
+                                              : '-')
                                         ],
                                       ),
                                       Row(
@@ -429,101 +430,98 @@ class AssetView extends StatelessWidget {
                               ],
                             ),
                           ),
-                          state.coin.sentimentVotesDownPercentage != null &&
-                                  state.coin.sentimentVotesUpPercentage != null
-                              ? const Divider()
-                              : Container(),
-                          state.coin.sentimentVotesDownPercentage != null &&
-                                  state.coin.sentimentVotesUpPercentage != null
-                              ? Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                      Text(
-                                        'Sentiment',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .titleMedium,
+                          if (state.coin.sentimentVotesDownPercentage != null &&
+                              state.coin.sentimentVotesUpPercentage != null)
+                            const Divider()
+                          else
+                            Container(),
+                          if (state.coin.sentimentVotesDownPercentage != null &&
+                              state.coin.sentimentVotesUpPercentage != null)
+                            Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Sentiment',
+                                    style:
+                                        Theme.of(context).textTheme.titleMedium,
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Row(children: [
+                                    Expanded(
+                                      flex: (state.coin
+                                                  .sentimentVotesDownPercentage! *
+                                              100)
+                                          .toInt(),
+                                      child: Container(
+                                        height: (kCornerRadiusCirlcular * 2) +
+                                            kCornerRadiusCirlcular,
+                                        decoration: BoxDecoration(
+                                          color: false
+                                              .toPositiveNegativeColorFromBool(
+                                                  context),
+                                          borderRadius: const BorderRadius.only(
+                                            topLeft: Radius.circular(
+                                                kCornerRadiusCirlcular),
+                                            bottomLeft: Radius.circular(
+                                                kCornerRadiusCirlcular),
+                                          ),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            state.coin
+                                                .sentimentVotesDownPercentage
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    color: false
+                                                        .toPositiveNegativeForegroundColorFromBool(
+                                                            context)),
+                                          ),
+                                        ),
                                       ),
-                                      const SizedBox(height: 8),
-                                      Row(children: [
-                                        Expanded(
-                                          flex: (state.coin
-                                                      .sentimentVotesDownPercentage! *
-                                                  100)
-                                              .toInt(),
-                                          child: Container(
-                                            height:
-                                                (kCornerRadiusCirlcular * 2) +
-                                                    kCornerRadiusCirlcular,
-                                            decoration: BoxDecoration(
-                                              color: false
-                                                  .toPositiveNegativeColorFromBool(
-                                                      context),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topLeft: Radius.circular(
-                                                    kCornerRadiusCirlcular),
-                                                bottomLeft: Radius.circular(
-                                                    kCornerRadiusCirlcular),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                state.coin
-                                                    .sentimentVotesDownPercentage
-                                                    .toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                        color: false
-                                                            .toPositiveNegativeForegroundColorFromBool(
-                                                                context)),
-                                              ),
-                                            ),
+                                    ),
+                                    const Spacer(),
+                                    Expanded(
+                                      flex: (state.coin
+                                                  .sentimentVotesUpPercentage! *
+                                              100)
+                                          .toInt(),
+                                      child: Container(
+                                        height: (kCornerRadiusCirlcular * 2) +
+                                            kCornerRadiusCirlcular,
+                                        decoration: BoxDecoration(
+                                          color: true
+                                              .toPositiveNegativeColorFromBool(
+                                                  context),
+                                          borderRadius: const BorderRadius.only(
+                                            topRight: Radius.circular(
+                                                kCornerRadiusCirlcular),
+                                            bottomRight: Radius.circular(
+                                                kCornerRadiusCirlcular),
                                           ),
                                         ),
-                                        const Spacer(),
-                                        Expanded(
-                                          flex: (state.coin
-                                                      .sentimentVotesUpPercentage! *
-                                                  100)
-                                              .toInt(),
-                                          child: Container(
-                                            height:
-                                                (kCornerRadiusCirlcular * 2) +
-                                                    kCornerRadiusCirlcular,
-                                            decoration: BoxDecoration(
-                                              color: true
-                                                  .toPositiveNegativeColorFromBool(
-                                                      context),
-                                              borderRadius:
-                                                  const BorderRadius.only(
-                                                topRight: Radius.circular(
-                                                    kCornerRadiusCirlcular),
-                                                bottomRight: Radius.circular(
-                                                    kCornerRadiusCirlcular),
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                state.coin
-                                                    .sentimentVotesUpPercentage
-                                                    .toString(),
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                        color: true
-                                                            .toPositiveNegativeForegroundColorFromBool(
-                                                                context)),
-                                              ),
-                                            ),
+                                        child: Center(
+                                          child: Text(
+                                            state
+                                                .coin.sentimentVotesUpPercentage
+                                                .toString(),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyMedium
+                                                ?.copyWith(
+                                                    color: true
+                                                        .toPositiveNegativeForegroundColorFromBool(
+                                                            context)),
                                           ),
                                         ),
-                                      ])
-                                    ])
-                              : Container(),
+                                      ),
+                                    ),
+                                  ])
+                                ])
+                          else
+                            Container(),
                         ],
                       ),
                     ),
@@ -550,38 +548,34 @@ class AssetView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    state.coin.description?.translations['en'] != null
-                        ? _buildElevatedCard(
-                            context,
-                            false,
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text('Description',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleMedium),
-                                const SizedBox(height: 8),
-                                ScreenBuilder(
-                                  mobile: _buildHtml(
-                                      state.coin.description!
-                                          .translations['en']!,
-                                      context),
-                                  tablet: _buildHtml(
-                                      state.coin.description!
-                                          .translations['en']!,
-                                      context),
-                                  desktop: _buildHtml(
-                                      state.coin.description!
-                                          .translations['en']!,
-                                      context),
-                                ),
-                                const SizedBox(height: 4),
-                              ],
+                    if (state.coin.description?.translations['en'] != null)
+                      _buildElevatedCard(
+                        context,
+                        false,
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Description',
+                                style: Theme.of(context).textTheme.titleMedium),
+                            const SizedBox(height: 8),
+                            ScreenBuilder(
+                              mobile: _buildHtml(
+                                  state.coin.description!.translations['en']!,
+                                  context),
+                              tablet: _buildHtml(
+                                  state.coin.description!.translations['en']!,
+                                  context),
+                              desktop: _buildHtml(
+                                  state.coin.description!.translations['en']!,
+                                  context),
                             ),
-                          )
-                        : Container(),
+                            const SizedBox(height: 4),
+                          ],
+                        ),
+                      )
+                    else
+                      Container(),
                   ],
                 ),
               ),
@@ -589,10 +583,9 @@ class AssetView extends StatelessWidget {
           ),
         );
       } else if (state is AssetError) {
-        debugPrint(state.error.toString());
+        debugPrint(state.error);
         return ErrorView(
-            onRefresh: () async => _onRefresh(context),
-            error: state.error.toString());
+            onRefresh: () async => _onRefresh(context), error: state.error);
       }
       return const FullPageLoadingView();
     });
@@ -605,7 +598,7 @@ class AssetView extends StatelessWidget {
       shrinkWrap: true,
       data: html,
       style: {
-        "*": Style.fromTextStyle(Theme.of(context).textTheme.bodyMedium!)
+        '*': Style.fromTextStyle(Theme.of(context).textTheme.bodyMedium!)
       },
       onLinkTap: (String? url, RenderContext context,
           Map<String, String> attributes, dom.Element? element) async {

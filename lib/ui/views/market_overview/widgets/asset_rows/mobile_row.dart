@@ -18,22 +18,6 @@ import 'package:yaca/ui/views/widgets/ranking_card.dart';
 import 'package:yaca/ui/views/widgets/simple_spark_line.dart';
 
 class MobileRow extends StatelessWidget {
-  final double blockSize;
-  final int rank;
-  final String symbol;
-  final String name;
-  final String? iconUrl;
-  final MarketSparkline? sparklineIn7d;
-  final double? sevenDayPercentageChange;
-  final double? sevenDayChange;
-  final double? oneDayPercentageChange;
-  final double? oneDayChange;
-  final double? oneHourPercentageChange;
-  final double? oneHourChange;
-  final double? price;
-  final bool isFavourited;
-  final VoidCallback onFavourite;
-
   const MobileRow(this.blockSize,
       {super.key,
       required this.rank,
@@ -50,6 +34,21 @@ class MobileRow extends StatelessWidget {
       required this.price,
       required this.isFavourited,
       required this.onFavourite});
+  final double blockSize;
+  final int rank;
+  final String symbol;
+  final String name;
+  final String? iconUrl;
+  final MarketSparkline? sparklineIn7d;
+  final double? sevenDayPercentageChange;
+  final double? sevenDayChange;
+  final double? oneDayPercentageChange;
+  final double? oneDayChange;
+  final double? oneHourPercentageChange;
+  final double? oneHourChange;
+  final double? price;
+  final bool isFavourited;
+  final VoidCallback onFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -119,20 +118,21 @@ class MobileRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                price != null
-                    ? Text(
-                        price!.currencyFormatWithPrefix(
-                            BlocProvider.of<AppSettingsBloc>(context)
-                                .state
-                                .currency
-                                .currencyString,
-                            context),
-                        textAlign: TextAlign.end,
-                        maxLines: 1,
-                        overflow: TextOverflow.clip,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      )
-                    : const SizedBox.shrink(),
+                if (price != null)
+                  Text(
+                    price!.currencyFormatWithPrefix(
+                        BlocProvider.of<AppSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencyString,
+                        context),
+                    textAlign: TextAlign.end,
+                    maxLines: 1,
+                    overflow: TextOverflow.clip,
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  )
+                else
+                  const SizedBox.shrink(),
                 DeltaWithArrow(
                     oneDayPercentageChange != null
                         ? oneDayPercentageChange!

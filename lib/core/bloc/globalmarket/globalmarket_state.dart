@@ -19,18 +19,18 @@ class GlobalMarketLoading extends GlobalMarketState {
 }
 
 class GlobalMarketLoaded extends GlobalMarketState {
-  final GlobalCoinData globalMarket;
 
   const GlobalMarketLoaded(this.globalMarket);
+  final GlobalCoinData globalMarket;
 
   @override
   List<Object> get props => [globalMarket];
 }
 
 class GlobalMarketError extends GlobalMarketState {
-  final String error;
 
   const GlobalMarketError(this.error);
+  final String error;
 
   @override
   List<Object> get props => [error];

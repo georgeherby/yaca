@@ -23,13 +23,13 @@ import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 // � Flutter imports:
 
 class AssetGraph extends StatefulWidget {
-  final List<MarketChartData> history;
-  final Duration? duration;
   const AssetGraph({
     super.key,
     required this.history,
     required this.duration,
   });
+  final List<MarketChartData> history;
+  final Duration? duration;
 
   @override
   State<AssetGraph> createState() => _AssetGraphState();
@@ -61,28 +61,29 @@ class _AssetGraphState extends State<AssetGraph> {
 
   @override
   Widget build(BuildContext context) {
-    var positive = widget.history.isNotEmpty &&
+    final positive = widget.history.isNotEmpty &&
         widget.history.first.price! < widget.history.last.price!;
 
-    var dashColour = (Theme.of(context).brightness == Brightness.light
+    final dashColour = Theme.of(context).brightness == Brightness.light
         ? Colors.grey.shade700
-        : Colors.white70);
+        : Colors.white70;
 
-    var maxPrice = widget.history.map((e) => e.price!).reduce(max);
-    var minPrice = widget.history.map((e) => e.price!).reduce(min);
+    final maxPrice = widget.history.map((e) => e.price!).reduce(max);
+    final minPrice = widget.history.map((e) => e.price!).reduce(min);
 
-    var maxTime =
+    final maxTime =
         widget.history.map((e) => e.date.millisecondsSinceEpoch).reduce(max);
-    var minTime =
+    final minTime =
         widget.history.map((e) => e.date.millisecondsSinceEpoch).reduce(min);
 
-    var dateTimeTouchedDate = DateTime.fromMillisecondsSinceEpoch(touchedTime);
+    final dateTimeTouchedDate =
+        DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
-    var price = touchedPrice;
-    var currencyString =
+    final price = touchedPrice;
+    final currencyString =
         BlocProvider.of<AppSettingsBloc>(context).state.currency.currencyString;
 
-    var formatDate = DateFormat('EEE, MMM dd, yyyy, HH:mm');
+    final formatDate = DateFormat('EEE, MMM dd, yyyy, HH:mm');
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -196,7 +197,7 @@ class _AssetGraphState extends State<AssetGraph> {
                   bottomTitles: AxisTitles(
                     sideTitles: SideTitles(
                       showTitles: true,
-                      interval: ((maxTime - minTime) / verticals),
+                      interval: (maxTime - minTime) / verticals,
                       reservedSize: 22,
                       getTitlesWidget: (double value, titleMeta) {
                         DateFormat formatter;
@@ -216,7 +217,7 @@ class _AssetGraphState extends State<AssetGraph> {
                               formatter.format(
                                   DateTime.fromMillisecondsSinceEpoch(
                                       value.toInt())),
-                              style: Theme.of(context).textTheme.bodySmall!),
+                              style: Theme.of(context).textTheme.bodySmall),
                         );
                       },
                     ),
@@ -233,7 +234,7 @@ class _AssetGraphState extends State<AssetGraph> {
                           child: Text(
                             value.currencyFormatWithPrefix(
                                 currencyString, context),
-                            style: Theme.of(context).textTheme.bodySmall!,
+                            style: Theme.of(context).textTheme.bodySmall,
                           ),
                         );
                       },
@@ -303,7 +304,7 @@ class _AssetGraphState extends State<AssetGraph> {
                       show: true,
                       alignment: Alignment.bottomLeft,
                       labelResolver: (HorizontalLine value) {
-                        return value.y.currencyFormatWithPrefix("£", context);
+                        return value.y.currencyFormatWithPrefix('£', context);
                       },
                     ),
                     y: widget.history.first.price!,

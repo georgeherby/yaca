@@ -13,14 +13,14 @@ class MockGlobalMarketRespository extends Mock
     implements GlobalMarketRespository {}
 
 void main() {
-  var mockRepository = MockGlobalMarketRespository();
+  final mockRepository = MockGlobalMarketRespository();
 
   setUp(() {
     reset(mockRepository);
   });
 
   group('GlobalMarketBloc', () {
-    var currency = AvailableCurrencies.gbp;
+    final currency = AvailableCurrencies.gbp;
     blocTest(
       'verify initsate is GlobalMarketInitial when bloc is created',
       build: () => GlobalMarketBloc(mockRepository),

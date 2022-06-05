@@ -63,7 +63,7 @@ class WhaleApiTokenView extends StatelessWidget {
                   Expanded(
                     child: SecondaryButton(
                       onTap: () async {
-                        FilterListBloc filterListBloc = BlocProvider.of<
+                        final FilterListBloc filterListBloc = BlocProvider.of<
                             FilterListBloc<WhaleTransaction, String>>(context);
 
                         await RepositoryProvider.of<ApiTokensPreference>(
@@ -82,7 +82,7 @@ class WhaleApiTokenView extends StatelessWidget {
                       onTap: () async {
                         if (_formKey.currentState!.validate()) {
                           debugPrint('Saving ${tokenController.text}');
-                          FilterListBloc bloc = BlocProvider.of<
+                          final FilterListBloc bloc = BlocProvider.of<
                                   FilterListBloc<WhaleTransaction, String>>(
                               context);
                           await RepositoryProvider.of<ApiTokensPreference>(

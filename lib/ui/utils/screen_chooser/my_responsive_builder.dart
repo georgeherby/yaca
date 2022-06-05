@@ -9,23 +9,24 @@ import 'package:yaca/ui/utils/screen_chooser/screen_chooser.dart';
 ///
 /// This widget is used by the ScreenTypeLayout to provide different widget builders
 class MyResponsiveBuilder extends StatelessWidget {
+  const MyResponsiveBuilder({
+    super.key,
+    required this.builder,
+  });
   final Widget Function(
     BuildContext context,
     ScreenSize screenSize,
   ) builder;
 
-  const MyResponsiveBuilder({
-    super.key,
-    required this.builder,
-  });
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, boxConstraints) {
-      var mediaQuery = MediaQuery.of(context);
+      final mediaQuery = MediaQuery.of(context);
 
-      return builder(context,
-          getScreenSize(mediaQuery.size, Theme.of(context).platform, kIsWeb));
+      return builder(
+          context,
+          getScreenSize(mediaQuery.size, Theme.of(context).platform,
+              isWeb: kIsWeb));
     });
   }
 }

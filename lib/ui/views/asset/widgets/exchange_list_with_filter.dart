@@ -19,9 +19,8 @@ import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 
 class ExchangeListWithFilter extends StatefulWidget {
-  final List<Ticker> exchanges;
-
   const ExchangeListWithFilter({super.key, required this.exchanges});
+  final List<Ticker> exchanges;
 
   @override
   State<ExchangeListWithFilter> createState() => _ExchangeListWithFilterState();
@@ -37,16 +36,17 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
     tickers.addAll(widget.exchanges);
 
-    currencyFilter.addAll(
-        (tickers.map((e) => e.target)).toSet().map((e) => Filter(e, false)));
+    currencyFilter.addAll((tickers.map((e) => e.target))
+        .toSet()
+        .map((e) => Filter(e, isSelected: false)));
 
     currencyFilter.sort((a, b) => a.value.compareTo(b.value));
   }
 
   void applyFilter() {
     tickers.clear();
-    var selectedCurrencies = currencyFilter
-        .where((element) => element.selected)
+    final selectedCurrencies = currencyFilter
+        .where((element) => element.isSelected)
         .map((e) => e.value)
         .toList();
 
@@ -60,7 +60,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
 
   @override
   Widget build(BuildContext context) {
-    var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
+    final isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text('Select currency to filter',
@@ -75,15 +75,15 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
           currencyFilter.length,
           (index) => FilterChip(
             materialTapTargetSize: MaterialTapTargetSize.padded,
-            selected: currencyFilter[index].selected,
+            selected: currencyFilter[index].isSelected,
             checkmarkColor: Theme.of(context).chipTheme.checkmarkColor,
             label: Text(
               currencyFilter[index].value.toUpperCase(),
               style: Theme.of(context).chipTheme.labelStyle?.copyWith(
-                  fontWeight: currencyFilter[index].selected
+                  fontWeight: currencyFilter[index].isSelected
                       ? FontWeight.bold
                       : FontWeight.normal,
-                  color: currencyFilter[index].selected
+                  color: currencyFilter[index].isSelected
                       ? Theme.of(context).chipTheme.checkmarkColor
                       : Theme.of(context).chipTheme.labelStyle?.color),
             ),
@@ -91,7 +91,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
             selectedColor: Theme.of(context).chipTheme.selectedColor,
             onSelected: (bool selected) {
               setState(() {
-                currencyFilter[index].selected = selected;
+                currencyFilter[index].isSelected = selected;
                 applyFilter();
               });
             },
@@ -117,13 +117,13 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                             BorderRadius.circular(kCornerRadiusCirlcular),
                         child: tickers[index].market.logo != null
                             ? AssetIconWeb(
-                                tickers[index].market.logo!,
+                                tickers[index].market.logo,
                                 iconSize: kIconSize,
                                 assetSymbol:
                                     tickers[index].market.name.substring(0, 2),
                               )
                             : const AssetTextIcon(
-                                assetSymbol: "?", iconSize: kIconSize)),
+                                assetSymbol: '?', iconSize: kIconSize)),
                     const Spacer(flex: 5),
                     Expanded(
                         flex: isPhoneOnly ? 50 : 80,
@@ -138,34 +138,36 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                       child: Text(
                           '${tickers[index].base}/${tickers[index].target}'),
                     ),
-                    isPhoneOnly ? Container() : const Spacer(flex: 5),
-                    isPhoneOnly
-                        ? Container()
-                        : Expanded(
-                            flex: 30,
-                            child: RelevanceIndicator(
-                              value: _trustScoreToInt(
-                                      tickers[index].trustScore.toUpperCase()) *
-                                  2,
-                              amount: 6,
-                              barWidth: 2.5,
-                              semanticLabel:
-                                  "Trust score is ${tickers[index].trustScore.toUpperCase()}",
-                              selectedColor: _trustScoreToColor(context,
-                                  tickers[index].trustScore.toUpperCase()),
-                              unselectedolor: Theme.of(context).dividerColor,
-                            ),
-                          ),
-                    isPhoneOnly ? Container() : const Spacer(flex: 5),
-                    isPhoneOnly
-                        ? Container()
-                        : Expanded(
-                            flex: 40,
-                            child: Text(
-                              'Vol: ${tickers[index].volume.volumeFormat(context)}',
-                              textAlign: TextAlign.right,
-                            ),
-                          ),
+                    if (isPhoneOnly) Container() else const Spacer(flex: 5),
+                    if (isPhoneOnly)
+                      Container()
+                    else
+                      Expanded(
+                        flex: 30,
+                        child: RelevanceIndicator(
+                          value: _trustScoreToInt(
+                                  tickers[index].trustScore.toUpperCase()) *
+                              2,
+                          amount: 6,
+                          barWidth: 2.5,
+                          semanticLabel:
+                              'Trust score is ${tickers[index].trustScore.toUpperCase()}',
+                          selectedColor: _trustScoreToColor(
+                              context, tickers[index].trustScore.toUpperCase()),
+                          unselectedolor: Theme.of(context).dividerColor,
+                        ),
+                      ),
+                    if (isPhoneOnly) Container() else const Spacer(flex: 5),
+                    if (isPhoneOnly)
+                      Container()
+                    else
+                      Expanded(
+                        flex: 40,
+                        child: Text(
+                          'Vol: ${tickers[index].volume.volumeFormat(context)}',
+                          textAlign: TextAlign.right,
+                        ),
+                      ),
                     const Spacer(flex: 5),
                     Expanded(
                       flex: 50,

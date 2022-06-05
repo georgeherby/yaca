@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
+    final isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Scaffold(
       extendBody: true,
@@ -67,63 +67,63 @@ class _HomePageState extends State<HomePage> {
       body: SafeArea(
         bottom: false,
         child: Row(children: [
-          isPhoneOnly
-              ? Container()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: NavigationRail(
-                        minWidth: 80.0,
-                        groupAlignment: 0.0,
-                        selectedIndex: _selectedIndex, //_selectedIndex,
-                        onDestinationSelected: onTabTapped,
-                        labelType: NavigationRailLabelType.all,
-                        destinations: [
-                          const NavigationRailDestination(
-                            icon: Icon(Ionicons.bar_chart_outline),
-                            selectedIcon: Icon(Ionicons.bar_chart),
-                            label: Text(
-                              'Market',
-                            ),
-                          ),
-                          NavigationRailDestination(
-                              icon: SvgPicture.asset(
-                                'assets/whale_outline.svg',
-                                semanticsLabel: 'Whale unselected icon',
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSurfaceVariant,
-                              ),
-                              selectedIcon: SvgPicture.asset(
-                                'assets/whale_filled.svg',
-                                semanticsLabel: 'Whale selected icon',
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .onSecondaryContainer,
-                              ),
-                              label: const Text(
-                                'Whales',
-                              ))
-                        ],
-                      ),
-                    ),
-                    Container(
-                      width: 80,
-                      color: Theme.of(context).colorScheme.surface,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: IconButton(
-                          tooltip: 'Open settings',
-                          onPressed: () =>
-                              context.router.push(const AppSettingsHomeRoute()),
-                          icon: Icon(Ionicons.cog_outline,
-                              size: Theme.of(context).iconTheme.size),
+          if (isPhoneOnly)
+            Container()
+          else
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: NavigationRail(
+                    minWidth: 80.0,
+                    groupAlignment: 0.0,
+                    selectedIndex: _selectedIndex, //_selectedIndex,
+                    onDestinationSelected: onTabTapped,
+                    labelType: NavigationRailLabelType.all,
+                    destinations: [
+                      const NavigationRailDestination(
+                        icon: Icon(Ionicons.bar_chart_outline),
+                        selectedIcon: Icon(Ionicons.bar_chart),
+                        label: Text(
+                          'Market',
                         ),
                       ),
-                    ),
-                  ],
+                      NavigationRailDestination(
+                          icon: SvgPicture.asset(
+                            'assets/whale_outline.svg',
+                            semanticsLabel: 'Whale unselected icon',
+                            color:
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
+                          selectedIcon: SvgPicture.asset(
+                            'assets/whale_filled.svg',
+                            semanticsLabel: 'Whale selected icon',
+                            color: Theme.of(context)
+                                .colorScheme
+                                .onSecondaryContainer,
+                          ),
+                          label: const Text(
+                            'Whales',
+                          ))
+                    ],
+                  ),
                 ),
+                Container(
+                  width: 80,
+                  color: Theme.of(context).colorScheme.surface,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: IconButton(
+                      tooltip: 'Open settings',
+                      onPressed: () =>
+                          context.router.push(const AppSettingsHomeRoute()),
+                      icon: Icon(Ionicons.cog_outline,
+                          size: Theme.of(context).iconTheme.size),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           Expanded(
             child: showPage(_selectedIndex),
           )
@@ -132,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void onTabTapped(int index) async {
+  Future<void> onTabTapped(int index) async {
     if (_selectedIndex != index) {
       // await FirebaseAnalytics.instance
       //     .setCurrentScreen(screenName: getScreenName(index));
@@ -145,9 +145,9 @@ class _HomePageState extends State<HomePage> {
   String getScreenName(int index) {
     switch (index) {
       case 0:
-        return "market_overview";
+        return 'market_overview';
       case 1:
-        return "whale_transactions";
+        return 'whale_transactions';
       default:
         throw Exception('Unknown page index: $index');
     }

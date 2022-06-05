@@ -12,13 +12,12 @@ import 'package:yaca/core/bloc/asset/asset_bloc.dart';
 import 'package:yaca/core/repositories/api/coingecko/single_asset_repository.dart';
 
 class AssetPage extends StatelessWidget {
-  final CoinGeckoApi _api = CoinGeckoApi();
-  final String id;
-
   AssetPage({
     super.key,
     @PathParam('assetId') required this.id,
   });
+  final CoinGeckoApi _api = CoinGeckoApi();
+  final String id;
 
   @override
   Widget build(BuildContext context) {

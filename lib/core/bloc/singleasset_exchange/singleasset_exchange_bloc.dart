@@ -14,12 +14,11 @@ part 'singleasset_exchange_state.dart';
 
 class SingleAssetExchangeBloc
     extends Bloc<SingleAssetExchangeEvent, SingleAssetExchangeState> {
-  final ExchangeTickerRespository exchangeTickerRespository;
-
   SingleAssetExchangeBloc({required this.exchangeTickerRespository})
       : super(SingleAssetExchangeInitial()) {
     on<SingleAssetExchangeLoad>(_onSingleAssetExchangeLoad);
   }
+  final ExchangeTickerRespository exchangeTickerRespository;
   @override
   void onTransition(
       Transition<SingleAssetExchangeEvent, SingleAssetExchangeState>
@@ -28,14 +27,14 @@ class SingleAssetExchangeBloc
     super.onTransition(transition);
   }
 
-  void _onSingleAssetExchangeLoad(
+  Future<void> _onSingleAssetExchangeLoad(
     SingleAssetExchangeLoad event,
     Emitter<SingleAssetExchangeState> emit,
   ) async {
     emit(const SingleAssetExchangeLoading());
 
     try {
-      var exchangeTickers = await exchangeTickerRespository
+      final exchangeTickers = await exchangeTickerRespository
           .getExchangeTickerForCoin(event.marketCoinId);
 
       emit(SingleAssetExchangeLoaded(exchangeTickers));

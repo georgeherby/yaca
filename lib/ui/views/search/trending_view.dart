@@ -29,7 +29,7 @@ class TrendingView extends StatelessWidget {
           child: Row(
             children: [
               SvgPicture.asset(
-                "assets/flame.svg",
+                'assets/flame.svg',
                 width: 12,
                 height: 12,
                 color: Theme.of(context).colorScheme.error,
@@ -53,7 +53,7 @@ class TrendingView extends StatelessWidget {
                   children: <Widget>[
                     const SizedBox(width: 4),
                     ...List.generate(state.trending.length, (index) {
-                      var asset = state.trending[index];
+                      final asset = state.trending[index];
                       return Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

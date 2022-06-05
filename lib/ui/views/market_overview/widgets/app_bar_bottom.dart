@@ -30,7 +30,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
         padding: isAppBar
             ? EdgeInsets.only(left: padding, right: padding, top: padding)
             : EdgeInsets.symmetric(horizontal: padding),
-        child: Container(
+        child: DecoratedBox(
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.all(

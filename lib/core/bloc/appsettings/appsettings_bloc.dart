@@ -17,9 +17,6 @@ part 'appsettings_event.dart';
 part 'appsettings_state.dart';
 
 class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
-  final ThemePreferenceRepository _darkThemePreferenceRepository;
-  final CurrencyPreferenceRepository _currencyPreferenceRepository;
-
   AppSettingsBloc(
       this._darkThemePreferenceRepository, this._currencyPreferenceRepository)
       : super(AppSettingsInitial()) {
@@ -27,19 +24,21 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     on<UpdateCurrencyOptionEvent>(_onUpdateCurrencyOptionEvent);
     on<UpdateThemeOptionEvent>(_onUpdateThemeOptionEvent);
   }
+  final ThemePreferenceRepository _darkThemePreferenceRepository;
+  final CurrencyPreferenceRepository _currencyPreferenceRepository;
 
-  void _onLoadAppSettings(
+  Future<void> _onLoadAppSettings(
     LoadAppSettings event,
     Emitter<AppSettingsState> emit,
   ) async {
-    var theme = await _darkThemePreferenceRepository.getThemeMode();
-    var currency =
+    final theme = await _darkThemePreferenceRepository.getThemeMode();
+    final currency =
         (await _currencyPreferenceRepository.get()).toChosenCurrency();
 
     emit(AppSettingsLoaded(theme, currency));
   }
 
-  void _onUpdateCurrencyOptionEvent(
+  Future<void> _onUpdateCurrencyOptionEvent(
     UpdateCurrencyOptionEvent event,
     Emitter<AppSettingsState> emit,
   ) async {
@@ -49,7 +48,7 @@ class AppSettingsBloc extends Bloc<AppSettingsEvent, AppSettingsState> {
     emit(AppSettingsLoaded(event.theme, event.newCurrencyChoice));
   }
 
-  void _onUpdateThemeOptionEvent(
+  Future<void> _onUpdateThemeOptionEvent(
     UpdateThemeOptionEvent event,
     Emitter<AppSettingsState> emit,
   ) async {

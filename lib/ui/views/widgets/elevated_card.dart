@@ -3,11 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:yaca/ui/consts/constants.dart';
 
 class ElevatedCard extends StatelessWidget {
-  final EdgeInsets? contentPadding;
-  final EdgeInsets? margin;
-  final Widget child;
-  final bool fullScreen;
-
   const ElevatedCard({
     super.key,
     required this.child,
@@ -15,6 +10,10 @@ class ElevatedCard extends StatelessWidget {
     this.margin,
     this.fullScreen = false,
   });
+  final EdgeInsets? contentPadding;
+  final EdgeInsets? margin;
+  final Widget child;
+  final bool fullScreen;
 
   @override
   Widget build(BuildContext context) {

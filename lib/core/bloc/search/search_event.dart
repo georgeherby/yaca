@@ -15,9 +15,9 @@ class GetAssetListEvent extends SearchBaseEvent {
 }
 
 class SearchEvent extends SearchBaseEvent {
-  final String? query;
 
   const SearchEvent({required this.query});
+  final String? query;
 
   @override
   List<Object?> get props => [query];

@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class DesktopHeader extends StatelessWidget {
-  final double blockSize;
   const DesktopHeader({super.key, required this.blockSize});
+  final double blockSize;
 
   @override
   Widget build(BuildContext context) {

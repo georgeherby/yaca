@@ -17,22 +17,6 @@ import 'package:yaca/ui/views/widgets/favourite_icon.dart';
 import 'package:yaca/ui/views/widgets/ranking_card.dart';
 
 class TabletRow extends StatelessWidget {
-  final double blockSize;
-  final int rank;
-  final String symbol;
-  final String name;
-  final String? iconUrl;
-  final MarketSparkline? sparkline;
-  final double? sevenDayPercentageChange;
-  final double? sevenDayChange;
-  final double? oneDayPercentageChange;
-  final double? oneDayChange;
-  final double? oneHourPercentageChange;
-  final double? oneHourChange;
-  final double? price;
-  final bool isFavourited;
-  final VoidCallback onFavourite;
-
   const TabletRow(this.blockSize,
       {super.key,
       required this.rank,
@@ -49,6 +33,21 @@ class TabletRow extends StatelessWidget {
       required this.price,
       required this.isFavourited,
       required this.onFavourite});
+  final double blockSize;
+  final int rank;
+  final String symbol;
+  final String name;
+  final String? iconUrl;
+  final MarketSparkline? sparkline;
+  final double? sevenDayPercentageChange;
+  final double? sevenDayChange;
+  final double? oneDayPercentageChange;
+  final double? oneDayChange;
+  final double? oneHourPercentageChange;
+  final double? oneHourChange;
+  final double? price;
+  final bool isFavourited;
+  final VoidCallback onFavourite;
 
   @override
   Widget build(BuildContext context) {

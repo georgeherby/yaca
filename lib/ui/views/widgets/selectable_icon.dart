@@ -2,12 +2,6 @@
 import 'package:flutter/material.dart';
 
 class SelectableIcon extends StatelessWidget {
-  final IconData selectedIcon;
-  final IconData unSelectedIcon;
-  final bool isSelected;
-  final double size;
-  final Color selectedColor;
-
   const SelectableIcon({
     super.key,
     required this.selectedIcon,
@@ -16,6 +10,11 @@ class SelectableIcon extends StatelessWidget {
     required this.size,
     required this.selectedColor,
   });
+  final IconData selectedIcon;
+  final IconData unSelectedIcon;
+  final bool isSelected;
+  final double size;
+  final Color selectedColor;
 
   @override
   Widget build(BuildContext context) {

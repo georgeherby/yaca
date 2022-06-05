@@ -5,55 +5,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class DoublePerCurrency extends Equatable {
-  // final double? aed;
-  // final double? ars;
-  // final double? aud;
-  // final double? bch;
-  // final double? bdt;
-  // final double? bhd;
-  // final double? bmd;
-  // final double? bnb;
-  // final double? brl;
-  final double? btc;
-  // final double? cad;
-  // final double? chf;
-  // final double? clp;
-  // final double? cny;
-  // final double? czk;
-  // final double? dkk;
-  // final double? dot;
-  // final double? eos;
-  final double? eth;
-  final double? eur;
-  final double? gbp;
-  // final double? hkd;
-  // final double? huf;
-  // final double? idr;
-  // final double? ils;
-  // final double? inr;
-  // final double? jpy;
-  // final double? krw;
-  // final double? kwd;
-  // final double? lkr;
-  final double? ltc;
-  // final double? mmk;
-  // final double? mxn;
-  // final double? myr;
-  // final double? ngn;
-  // final double? nok;
-  // final double? nzd;
-  // final double? php;
-  // final double? pkr;
-  // final double? pln;
-  // final double? rub;
-  // final double? sar;
-  // final double? sek;
-  // final double? sgd;
-  // final double? thb;
-  // final double? tTry;
-  // final double? twd;
-  // final double? uah;
-  final double? usd;
   // final double? vef;
   // final double? vnd;
   // final double? xag;
@@ -129,6 +80,123 @@ class DoublePerCurrency extends Equatable {
     // required this.link,
     // required this.sats,
   });
+  factory DoublePerCurrency.fromJson(String source) =>
+      DoublePerCurrency.fromMap(json.decode(source));
+
+  factory DoublePerCurrency.fromMap(Map<String, dynamic> map) {
+    return DoublePerCurrency(
+      // aed: map['aed']?.toDouble(),
+      // ars: map['ars']?.toDouble(),
+      // aud: map['aud']?.toDouble(),
+      // bch: map['bch']?.toDouble(),
+      // bdt: map['bdt']?.toDouble(),
+      // bhd: map['bhd']?.toDouble(),
+      // bmd: map['bmd']?.toDouble(),
+      // bnb: map['bnb']?.toDouble(),
+      // brl: map['brl']?.toDouble(),
+      btc: map['btc']?.toDouble(),
+      // cad: map['cad']?.toDouble(),
+      // chf: map['chf']?.toDouble(),
+      // clp: map['clp']?.toDouble(),
+      // cny: map['cny']?.toDouble(),
+      // czk: map['czk']?.toDouble(),
+      // dkk: map['dkk']?.toDouble(),
+      // dot: map['dot']?.toDouble(),
+      // eos: map['eos']?.toDouble(),
+      eth: map['eth']?.toDouble(),
+      eur: map['eur']?.toDouble(),
+      gbp: map['gbp']?.toDouble(),
+      // hkd: map['hkd']?.toDouble(),
+      // huf: map['huf']?.toDouble(),
+      // idr: map['idr']?.toDouble(),
+      // ils: map['ils']?.toDouble(),
+      // inr: map['inr']?.toDouble(),
+      // jpy: map['jpy']?.toDouble(),
+      // krw: map['krw']?.toDouble(),
+      // kwd: map['kwd']?.toDouble(),
+      // lkr: map['lkr']?.toDouble(),
+      ltc: map['ltc']?.toDouble(),
+      // mmk: map['mmk']?.toDouble(),
+      // mxn: map['mxn']?.toDouble(),
+      // myr: map['myr']?.toDouble(),
+      // ngn: map['ngn']?.toDouble(),
+      // nok: map['nok']?.toDouble(),
+      // nzd: map['nzd']?.toDouble(),
+      // php: map['php']?.toDouble(),
+      // pkr: map['pkr']?.toDouble(),
+      // pln: map['pln']?.toDouble(),
+      // rub: map['rub']?.toDouble(),
+      // sar: map['sar']?.toDouble(),
+      // sek: map['sek']?.toDouble(),
+      // sgd: map['sgd']?.toDouble(),
+      // thb: map['thb']?.toDouble(),
+      // tTry: map['try']?.toDouble(),
+      // twd: map['twd']?.toDouble(),
+      // uah: map['uah']?.toDouble(),
+      usd: map['usd']?.toDouble(),
+      // vef: map['vef']?.toDouble(),
+      // vnd: map['vnd']?.toDouble(),
+      // xag: map['xag']?.toDouble(),
+      // xau: map['xau']?.toDouble(),
+      // xdr: map['xdr']?.toDouble(),
+      // xlm: map['xlm']?.toDouble(),
+      // xrp: map['xrp']?.toDouble(),
+      // yfi: map['yfi']?.toDouble(),
+      // zar: map['zar']?.toDouble(),
+      // bits: map['bits']?.toDouble(),
+      // link: map['link']?.toDouble(),
+      // sats: map['sats']?.toDouble(),
+    );
+  }
+  // final double? aed;
+  // final double? ars;
+  // final double? aud;
+  // final double? bch;
+  // final double? bdt;
+  // final double? bhd;
+  // final double? bmd;
+  // final double? bnb;
+  // final double? brl;
+  final double? btc;
+  // final double? cad;
+  // final double? chf;
+  // final double? clp;
+  // final double? cny;
+  // final double? czk;
+  // final double? dkk;
+  // final double? dot;
+  // final double? eos;
+  final double? eth;
+  final double? eur;
+  final double? gbp;
+  // final double? hkd;
+  // final double? huf;
+  // final double? idr;
+  // final double? ils;
+  // final double? inr;
+  // final double? jpy;
+  // final double? krw;
+  // final double? kwd;
+  // final double? lkr;
+  final double? ltc;
+  // final double? mmk;
+  // final double? mxn;
+  // final double? myr;
+  // final double? ngn;
+  // final double? nok;
+  // final double? nzd;
+  // final double? php;
+  // final double? pkr;
+  // final double? pln;
+  // final double? rub;
+  // final double? sar;
+  // final double? sek;
+  // final double? sgd;
+  // final double? thb;
+  // final double? tTry;
+  // final double? twd;
+  // final double? uah;
+  final double? usd;
 
   DoublePerCurrency copyWith({
     // double? aed,
@@ -324,76 +392,7 @@ class DoublePerCurrency extends Equatable {
     };
   }
 
-  factory DoublePerCurrency.fromMap(Map<String, dynamic> map) {
-    return DoublePerCurrency(
-      // aed: map['aed']?.toDouble(),
-      // ars: map['ars']?.toDouble(),
-      // aud: map['aud']?.toDouble(),
-      // bch: map['bch']?.toDouble(),
-      // bdt: map['bdt']?.toDouble(),
-      // bhd: map['bhd']?.toDouble(),
-      // bmd: map['bmd']?.toDouble(),
-      // bnb: map['bnb']?.toDouble(),
-      // brl: map['brl']?.toDouble(),
-      btc: map['btc']?.toDouble(),
-      // cad: map['cad']?.toDouble(),
-      // chf: map['chf']?.toDouble(),
-      // clp: map['clp']?.toDouble(),
-      // cny: map['cny']?.toDouble(),
-      // czk: map['czk']?.toDouble(),
-      // dkk: map['dkk']?.toDouble(),
-      // dot: map['dot']?.toDouble(),
-      // eos: map['eos']?.toDouble(),
-      eth: map['eth']?.toDouble(),
-      eur: map['eur']?.toDouble(),
-      gbp: map['gbp']?.toDouble(),
-      // hkd: map['hkd']?.toDouble(),
-      // huf: map['huf']?.toDouble(),
-      // idr: map['idr']?.toDouble(),
-      // ils: map['ils']?.toDouble(),
-      // inr: map['inr']?.toDouble(),
-      // jpy: map['jpy']?.toDouble(),
-      // krw: map['krw']?.toDouble(),
-      // kwd: map['kwd']?.toDouble(),
-      // lkr: map['lkr']?.toDouble(),
-      ltc: map['ltc']?.toDouble(),
-      // mmk: map['mmk']?.toDouble(),
-      // mxn: map['mxn']?.toDouble(),
-      // myr: map['myr']?.toDouble(),
-      // ngn: map['ngn']?.toDouble(),
-      // nok: map['nok']?.toDouble(),
-      // nzd: map['nzd']?.toDouble(),
-      // php: map['php']?.toDouble(),
-      // pkr: map['pkr']?.toDouble(),
-      // pln: map['pln']?.toDouble(),
-      // rub: map['rub']?.toDouble(),
-      // sar: map['sar']?.toDouble(),
-      // sek: map['sek']?.toDouble(),
-      // sgd: map['sgd']?.toDouble(),
-      // thb: map['thb']?.toDouble(),
-      // tTry: map['try']?.toDouble(),
-      // twd: map['twd']?.toDouble(),
-      // uah: map['uah']?.toDouble(),
-      usd: map['usd']?.toDouble(),
-      // vef: map['vef']?.toDouble(),
-      // vnd: map['vnd']?.toDouble(),
-      // xag: map['xag']?.toDouble(),
-      // xau: map['xau']?.toDouble(),
-      // xdr: map['xdr']?.toDouble(),
-      // xlm: map['xlm']?.toDouble(),
-      // xrp: map['xrp']?.toDouble(),
-      // yfi: map['yfi']?.toDouble(),
-      // zar: map['zar']?.toDouble(),
-      // bits: map['bits']?.toDouble(),
-      // link: map['link']?.toDouble(),
-      // sats: map['sats']?.toDouble(),
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory DoublePerCurrency.fromJson(String source) =>
-      DoublePerCurrency.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;

@@ -69,21 +69,21 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
               ? LeadingButtonType.settings
               : null,
           actions: [
-            (Theme.of(context).platform.isDesktop())
-                ? IconButton(
-                    icon: Icon(
-                      Ionicons.sync_outline,
-                      size:
-                          !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
-                    ),
-                    tooltip: 'Refresh',
-                    onPressed: () => _onRefresh(context, chosenCurrency))
-                : IconButton(
-                    icon: const Icon(Ionicons.search_outline),
-                    onPressed: () {
-                      context.router.push(const SearchRoute());
-                    },
-                  )
+            if (Theme.of(context).platform.isDesktop())
+              IconButton(
+                  icon: Icon(
+                    Ionicons.sync_outline,
+                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                  ),
+                  tooltip: 'Refresh',
+                  onPressed: () => _onRefresh(context, chosenCurrency))
+            else
+              IconButton(
+                icon: const Icon(Ionicons.search_outline),
+                onPressed: () {
+                  context.router.push(const SearchRoute());
+                },
+              )
           ],
           bottom: null //AppBarBottom(),
           ),
@@ -105,8 +105,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                           children: [
                             ChoiceChip(
                               tooltip: _showAllAssets
-                                  ? "Show favourites only"
-                                  : "Show all assets",
+                                  ? 'Show favourites only'
+                                  : 'Show all assets',
                               materialTapTargetSize:
                                   MaterialTapTargetSize.padded,
                               onSelected: (selected) {
@@ -213,9 +213,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   String _getLabelForCurrentSortType(SortType currentSortType) {
     switch (currentSortType) {
       case SortType.sortByRank:
-        return "Rank";
+        return 'Rank';
       case SortType.sortBy24hPercentageChange:
-        return "24h % change";
+        return '24h % change';
     }
   }
 }

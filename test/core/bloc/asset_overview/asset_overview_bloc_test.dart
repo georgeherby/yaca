@@ -31,11 +31,11 @@ class MockAssetOverviewPreferneces extends Mock
     implements AssetOverviewPreference {}
 
 void main() {
-  var mockFavouritesDao = MockFavouritesDao();
-  var mockMarketOverviewRepository = MockMarketOverviewRepository();
-  var mockAppSettingsBloc = MockAppSettingsBloc();
-  var mockAssetOverviewPreferneces = MockAssetOverviewPreferneces();
-  var defaultCurrency = AvailableCurrencies.usd;
+  final mockFavouritesDao = MockFavouritesDao();
+  final mockMarketOverviewRepository = MockMarketOverviewRepository();
+  final mockAppSettingsBloc = MockAppSettingsBloc();
+  final mockAssetOverviewPreferneces = MockAssetOverviewPreferneces();
+  final defaultCurrency = AvailableCurrencies.usd;
   setUpAll(() {
     registerFallbackValue(SortType.sortByRank);
     registerFallbackValue(SortOrder.ascending);
@@ -80,13 +80,13 @@ void main() {
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) => Future.value(List.empty()));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value(List.empty()));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferneces.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferneces.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
 
         return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
@@ -117,13 +117,13 @@ void main() {
                 specficCoinIds: [btcFavouriteWithID.coinId]))
             .thenAnswer((_) => Future.value([btcMarketCoin]));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferneces.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferneces.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
         return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
             mockMarketOverviewRepository, mockAssetOverviewPreferneces);
@@ -155,13 +155,13 @@ void main() {
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferneces.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferneces.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
 
         return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
@@ -206,7 +206,7 @@ void main() {
               AssetOverviewError(Exception('ERROR').toString())
             ],
         verify: (_) {
-          verifyNever(() => mockFavouritesDao.getAll());
+          verifyNever(mockFavouritesDao.getAll);
         });
     blocTest('throw error if the asset api succeeds but favourites fails',
         build: () {
@@ -220,7 +220,7 @@ void main() {
                   .fetchCoinMarkets(defaultCurrency))
               .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
-          when(() => mockFavouritesDao.getAll())
+          when(mockFavouritesDao.getAll)
               .thenThrow(Exception('Error getting favourites'));
 
           return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
@@ -240,20 +240,20 @@ void main() {
 
       var mockFavouritesDaoCallCount = 0;
 
-      var responses = [
+      final responses = [
         Future.value([btcFavouriteWithID]),
         Future.value([btcFavouriteWithID, ethFavouriteWithId]),
       ];
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
       when(() => mockFavouritesDao.insertFavourite(ethFavouriteNoId))
           .thenAnswer((_) => Future.value(ethFavouriteWithId.id));
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferneces.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferneces.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       whenListen(
@@ -262,7 +262,7 @@ void main() {
             [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
+      final bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
           mockMarketOverviewRepository, mockAssetOverviewPreferneces);
 
       await expectLater(
@@ -341,21 +341,21 @@ void main() {
           .thenAnswer((_) => Future.value([btcMarketCoin]));
 
       var mockFavouritesDaoCallCount = 0;
-      var responses = [
+      final responses = [
         Future.value(<Favourites>[btcFavouriteWithID]),
         Future.value(<Favourites>[]),
       ];
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
       when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferneces.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferneces.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       whenListen(
@@ -364,7 +364,7 @@ void main() {
             [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
+      final bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
           mockMarketOverviewRepository, mockAssetOverviewPreferneces);
 
       await expectLater(
@@ -424,21 +424,21 @@ void main() {
         .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
     var mockFavouritesDaoCallCount = 0;
-    var responses = [
+    final responses = [
       Future.value(<Favourites>[btcFavouriteWithID]),
       Future.value(<Favourites>[]),
     ];
 
-    when(() => mockFavouritesDao.getAll())
+    when(mockFavouritesDao.getAll)
         .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
     when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
         .thenAnswer((_) => Future.value());
 
-    when(() => mockAssetOverviewPreferneces.getSortOrder())
+    when(mockAssetOverviewPreferneces.getSortOrder)
         .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-    when(() => mockAssetOverviewPreferneces.getSortType())
+    when(mockAssetOverviewPreferneces.getSortType)
         .thenAnswer((_) => Future.value(SortType.sortByRank));
 
     whenListen(
@@ -447,7 +447,7 @@ void main() {
           [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
     );
 
-    var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
+    final bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
         mockMarketOverviewRepository, mockAssetOverviewPreferneces);
 
     await expectLater(
@@ -517,13 +517,13 @@ void main() {
             .thenAnswer((_) =>
                 Future.value([bnbMarketCoin, btcMarketCoin, ethMarketCoin]));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferneces.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferneces.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
 
         return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
@@ -557,13 +557,13 @@ void main() {
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferneces.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferneces.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       when(() => mockAssetOverviewPreferneces.setSortOrder(any<SortOrder>()))
@@ -578,7 +578,7 @@ void main() {
             [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
+      final bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
           mockMarketOverviewRepository, mockAssetOverviewPreferneces);
 
       await expectLater(
@@ -643,13 +643,13 @@ void main() {
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferneces.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferneces.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       when(() => mockAssetOverviewPreferneces.setSortOrder(any<SortOrder>()))
@@ -664,7 +664,7 @@ void main() {
             [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
+      final bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
           mockMarketOverviewRepository, mockAssetOverviewPreferneces);
 
       await expectLater(
@@ -730,16 +730,16 @@ void main() {
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
       when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferneces.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferneces.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       when(() => mockAssetOverviewPreferneces.setSortOrder(any<SortOrder>()))
@@ -754,7 +754,7 @@ void main() {
             [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
+      final bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
           mockMarketOverviewRepository, mockAssetOverviewPreferneces);
 
       await expectLater(

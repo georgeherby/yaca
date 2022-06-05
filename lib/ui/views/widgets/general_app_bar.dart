@@ -15,12 +15,6 @@ import 'package:yaca/ui/consts/constants.dart';
 enum LeadingButtonType { back, settings }
 
 class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
-  final Widget title;
-  final PreferredSizeWidget? bottom;
-  final List<Widget> actions;
-  final TargetPlatform platform;
-  final LeadingButtonType? leadingButtonType;
-
   const GeneralAppBar(
       {super.key,
       required this.title,
@@ -28,11 +22,16 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
       required this.platform,
       required this.leadingButtonType,
       this.bottom});
+  final Widget title;
+  final PreferredSizeWidget? bottom;
+  final List<Widget> actions;
+  final TargetPlatform platform;
+  final LeadingButtonType? leadingButtonType;
 
   @override
   Size get preferredSize => Size.fromHeight(
-      ((platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarMobileHeight) +
-          (bottom == null ? 0 : kMarqueTapHeight)));
+      (platform.isDesktop() ? kTitleBarDesktopHeight : kTitleBarMobileHeight) +
+          (bottom == null ? 0 : kMarqueTapHeight));
 
   @override
   Widget build(BuildContext context) {

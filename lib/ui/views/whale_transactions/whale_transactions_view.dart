@@ -60,17 +60,18 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
             ? LeadingButtonType.settings
             : null,
         actions: [
-          (Theme.of(context).platform.isDesktop())
-              ? IconButton(
-                  icon: Icon(
-                    Ionicons.sync_outline,
-                    size: Theme.of(context).platform == TargetPlatform.macOS &&
-                            !kIsWeb
-                        ? 20
-                        : Theme.of(context).iconTheme.size,
-                  ),
-                  onPressed: () => _refreshPosts())
-              : Container()
+          if (Theme.of(context).platform.isDesktop())
+            IconButton(
+                icon: Icon(
+                  Ionicons.sync_outline,
+                  size: Theme.of(context).platform == TargetPlatform.macOS &&
+                          !kIsWeb
+                      ? 20
+                      : Theme.of(context).iconTheme.size,
+                ),
+                onPressed: _refreshPosts)
+          else
+            Container()
         ],
       ),
       body: ViewStateBuilder<List<WhaleTransaction>,
@@ -80,8 +81,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
         onLoading: (context) =>
             Center(child: PlatformCircularProgressIndicator()),
         onSuccess: (context, transactions) => WhaleTransactionList(
-            transactions: transactions,
-            onRefresh: () async => await _refreshPosts()),
+            transactions: transactions, onRefresh: () async => _refreshPosts()),
         onRefreshing: (context, posts) =>
             Center(child: PlatformCircularProgressIndicator()),
         onEmpty: (context) => const Center(child: Text('No posts found')),
@@ -94,7 +94,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
               onRefresh: () async => _refreshPosts(), error: error.toString());
         },
         onRateLimited: (BuildContext context, error) {
-          return RatelimtedView(onRefresh: () async => await _refreshPosts());
+          return RatelimtedView(onRefresh: () async => _refreshPosts());
         },
       ),
     );

@@ -44,7 +44,7 @@ class CurrencyChoiceView extends StatelessWidget {
 
   Widget _buildRow(
       BuildContext context, ChosenCurrency currencyToUse, bool isLastRow) {
-    var bloc = BlocProvider.of<AppSettingsBloc>(context);
+    final bloc = BlocProvider.of<AppSettingsBloc>(context);
 
     return ListTile(
       onTap: () {
@@ -65,15 +65,16 @@ class CurrencyChoiceView extends StatelessWidget {
       ),
       title: Text(currencyToUse.currencyName),
       subtitle: Text(
-        "${currencyToUse.currencyCode} ${currencyToUse.currencyString}",
+        '${currencyToUse.currencyCode} ${currencyToUse.currencyString}',
       ),
       selected: bloc.state.currency == currencyToUse,
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          bloc.state.currency == currencyToUse
-              ? const Icon(Ionicons.checkmark_outline)
-              : const SizedBox(height: 0),
+          if (bloc.state.currency == currencyToUse)
+            const Icon(Ionicons.checkmark_outline)
+          else
+            const SizedBox(height: 0),
         ],
       ),
     );

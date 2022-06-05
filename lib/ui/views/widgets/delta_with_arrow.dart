@@ -10,23 +10,22 @@ import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/percentage_formatters.dart';
 
 class DeltaWithArrow extends StatelessWidget {
-  final double? priceChangeDelta;
-  final double? textSize;
-  final Color? textColor;
-  final bool useTextColorForArrow;
-  final bool isPercentage;
-
   const DeltaWithArrow(this.priceChangeDelta,
       {super.key,
       this.textSize,
       this.textColor,
       this.isPercentage = false,
       this.useTextColorForArrow = false});
+  final double? priceChangeDelta;
+  final double? textSize;
+  final Color? textColor;
+  final bool useTextColorForArrow;
+  final bool isPercentage;
 
   @override
   Widget build(BuildContext context) {
     if (priceChangeDelta != null) {
-      var color = priceChangeDelta!.toPositiveNegativeColor(context);
+      final color = priceChangeDelta!.toPositiveNegativeColor(context);
 
       return Row(
         mainAxisSize: MainAxisSize.min,
@@ -50,8 +49,8 @@ class DeltaWithArrow extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color:
-                      textColor ?? Theme.of(context).textTheme.bodyMedium!.color,
+                  color: textColor ??
+                      Theme.of(context).textTheme.bodyMedium!.color,
                   fontSize: textSize ??
                       Theme.of(context).textTheme.bodyMedium!.fontSize),
             ),

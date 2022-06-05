@@ -21,10 +21,6 @@ import 'package:yaca/ui/views/market_overview/widgets/asset_rows/tablet_row.dart
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
 
 class AssetsDataTable extends StatelessWidget {
-  final bool favouriteOnly;
-  final List<MarketCoin> marketCoins;
-  final Function(MarketCoin, bool) onFavourite;
-  final ValueGetter<Future<void>> onRefresh;
   const AssetsDataTable({
     super.key,
     required this.favouriteOnly,
@@ -32,10 +28,14 @@ class AssetsDataTable extends StatelessWidget {
     required this.onFavourite,
     required this.onRefresh,
   });
+  final bool favouriteOnly;
+  final List<MarketCoin> marketCoins;
+  final Function(MarketCoin, bool) onFavourite;
+  final ValueGetter<Future<void>> onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    var blockSize = MediaQuery.of(context).size.width / 100;
+    final blockSize = MediaQuery.of(context).size.width / 100;
 
     return Padding(
       padding: getValueForScreenType<EdgeInsets>(
@@ -72,7 +72,7 @@ class AssetsDataTable extends StatelessWidget {
                       shrinkWrap: false,
                       itemCount: marketCoins.length,
                       itemBuilder: (BuildContext context, int index) {
-                        var mc = marketCoins[index];
+                        final mc = marketCoins[index];
 
                         return InkWell(
                           onTap: () async {
@@ -96,7 +96,7 @@ class AssetsDataTable extends StatelessWidget {
                                 sparkline: mc.market.sparklineIn7d,
                                 iconUrl: mc.market.image != null
                                     ? mc.market.image!
-                                        .replaceFirst("/large/", "/small/")
+                                        .replaceFirst('/large/', '/small/')
                                     : null,
                                 sevenDayChange: mc.priceChange7d,
                                 sevenDayPercentageChange:

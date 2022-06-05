@@ -5,11 +5,11 @@ abstract class AssetEvent extends Equatable {
 }
 
 class AssetLoad extends AssetEvent {
-  final ChosenCurrency currencyCode;
-  final String marketCoinId;
 
   const AssetLoad(
       {required this.currencyCode, required this.marketCoinId});
+  final ChosenCurrency currencyCode;
+  final String marketCoinId;
 
   @override
   List<Object> get props => [currencyCode, marketCoinId];

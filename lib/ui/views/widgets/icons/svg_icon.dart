@@ -5,11 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class SvgIcon extends StatelessWidget {
+  const SvgIcon(this.assetPath, {super.key, this.size, this.color});
   final String assetPath;
   final double? size;
   final Color? color;
-
-  const SvgIcon(this.assetPath, {super.key, this.size, this.color});
 
   @override
   Widget build(BuildContext context) {

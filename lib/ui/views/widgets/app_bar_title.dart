@@ -6,12 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:yaca/core/extensions/platform.dart';
 
 class AppBarTitle extends StatelessWidget {
-  final String title;
-
   const AppBarTitle(
     this.title, {
     super.key,
   });
+  final String title;
 
   @override
   Widget build(BuildContext context) {

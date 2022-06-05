@@ -5,18 +5,18 @@ abstract class AppSettingsEvent extends Equatable {
 }
 
 class UpdateCurrencyOptionEvent extends AppSettingsEvent {
+  const UpdateCurrencyOptionEvent(this.newCurrencyChoice, this.theme);
   final ChosenCurrency newCurrencyChoice;
   final ThemeMode theme;
-  const UpdateCurrencyOptionEvent(this.newCurrencyChoice, this.theme);
 
   @override
   List<Object> get props => [newCurrencyChoice, theme];
 }
 
 class UpdateThemeOptionEvent extends AppSettingsEvent {
+  const UpdateThemeOptionEvent(this.currency, this.newTheme);
   final ChosenCurrency currency;
   final ThemeMode newTheme;
-  const UpdateThemeOptionEvent(this.currency, this.newTheme);
 
   @override
   List<Object> get props => [currency, newTheme];

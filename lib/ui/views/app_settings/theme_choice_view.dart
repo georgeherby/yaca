@@ -30,7 +30,7 @@ class ThemeChoiceView extends StatelessWidget {
             _buildRow(
               context,
               'System theme',
-              "Apply theme being used device wide",
+              'Apply theme being used device wide',
               Ionicons.color_palette_outline,
               ThemeMode.system,
             ),
@@ -41,7 +41,7 @@ class ThemeChoiceView extends StatelessWidget {
             _buildRow(
               context,
               'Light theme',
-              "Apply theme with light colors",
+              'Apply theme with light colors',
               Ionicons.sunny_outline,
               ThemeMode.light,
             ),
@@ -52,7 +52,7 @@ class ThemeChoiceView extends StatelessWidget {
             _buildRow(
               context,
               'Dark theme',
-              "Apply theme with dark colors",
+              'Apply theme with dark colors',
               Ionicons.moon_outline,
               ThemeMode.dark,
             )
@@ -69,7 +69,7 @@ class ThemeChoiceView extends StatelessWidget {
     IconData icon,
     ThemeMode themeToUse,
   ) {
-    var bloc = BlocProvider.of<AppSettingsBloc>(context);
+    final bloc = BlocProvider.of<AppSettingsBloc>(context);
 
     return ListTile(
       onTap: () {
@@ -85,9 +85,10 @@ class ThemeChoiceView extends StatelessWidget {
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          bloc.state.theme == themeToUse
-              ? const Icon(Ionicons.checkmark_outline)
-              : const SizedBox(height: 0),
+          if (bloc.state.theme == themeToUse)
+            const Icon(Ionicons.checkmark_outline)
+          else
+            const SizedBox(height: 0),
         ],
       ),
     );

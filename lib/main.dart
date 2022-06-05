@@ -35,7 +35,7 @@ import 'package:yaca/core/repositories/preferences/theme_preference.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/consts/lib_color_schemes.g.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
-import 'firebase_options.dart';
+import 'package:yaca/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -114,7 +114,7 @@ class _MyAppState extends State<MyApp> {
         child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
           builder: (context, state) {
             if (state is AppSettingsLoaded) {
-              var currencyCode =
+              final currencyCode =
                   BlocProvider.of<AppSettingsBloc>(context).state.currency;
               return MultiBlocProvider(
                 providers: [

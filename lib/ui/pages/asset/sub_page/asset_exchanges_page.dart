@@ -33,7 +33,7 @@ class AssetExchangePage extends StatelessWidget {
                 child: ExchangeListWithFilter(exchanges: state.exchangeTickers),
               );
             } else if (state is SingleAssetExchangeError) {
-              debugPrint(state.error.toString());
+              debugPrint(state.error);
               return ErrorView(error: state.error);
             } else {
               debugPrint('Loading');

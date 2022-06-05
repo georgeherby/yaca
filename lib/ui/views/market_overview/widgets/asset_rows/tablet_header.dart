@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class TabletHeader extends StatelessWidget {
-  final double blockSize;
   const TabletHeader({super.key, required this.blockSize});
+  final double blockSize;
 
   @override
   Widget build(BuildContext context) {

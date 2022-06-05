@@ -17,18 +17,18 @@ class SingleAssetExchangeLoading extends SingleAssetExchangeState {
 }
 
 class SingleAssetExchangeLoaded extends SingleAssetExchangeState {
-  final List<Ticker> exchangeTickers;
 
   const SingleAssetExchangeLoaded(this.exchangeTickers);
+  final List<Ticker> exchangeTickers;
 
   @override
   List<Object> get props => [exchangeTickers];
 }
 
 class SingleAssetExchangeError extends SingleAssetExchangeState {
-  final String error;
 
   const SingleAssetExchangeError(this.error);
+  final String error;
 
   @override
   List<Object> get props => [error];

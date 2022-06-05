@@ -1,15 +1,9 @@
 class WhaleTransactionResults {
-  late String result;
-  late String cursor;
-  late int count;
-  late List<WhaleTransaction> transactions;
-
   WhaleTransactionResults(
       {required this.result,
       required this.cursor,
       required this.count,
       required this.transactions});
-
   WhaleTransactionResults.fromJson(Map<String, dynamic> json) {
     result = json['result'];
     cursor = json['cursor'];
@@ -21,6 +15,10 @@ class WhaleTransactionResults {
       });
     }
   }
+  late String result;
+  late String cursor;
+  late int count;
+  late List<WhaleTransaction> transactions;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -34,18 +32,6 @@ class WhaleTransactionResults {
 }
 
 class WhaleTransaction {
-  late String blockchain;
-  late String symbol;
-  late String id;
-  late String transactionType;
-  late String hash;
-  late Wallet from;
-  late Wallet to;
-  late int timestamp;
-  late double amount;
-  late double amountUsd;
-  late int transactionCount;
-
   WhaleTransaction(
       {required this.blockchain,
       required this.symbol,
@@ -58,7 +44,6 @@ class WhaleTransaction {
       required this.amount,
       required this.amountUsd,
       required this.transactionCount});
-
   WhaleTransaction.fromJson(Map<String, dynamic> json) {
     blockchain = json['blockchain'];
     symbol = json['symbol'];
@@ -74,6 +59,17 @@ class WhaleTransaction {
     amountUsd = json['amount_usd'].toDouble();
     transactionCount = json['transaction_count'];
   }
+  late String blockchain;
+  late String symbol;
+  late String id;
+  late String transactionType;
+  late String hash;
+  late Wallet from;
+  late Wallet to;
+  late int timestamp;
+  late double amount;
+  late double amountUsd;
+  late int transactionCount;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
@@ -95,17 +91,15 @@ class WhaleTransaction {
 }
 
 class Wallet {
-  late String address;
-  late String ownerType;
-  late String? owner;
-
   Wallet({required this.address, required this.ownerType, required this.owner});
-
   Wallet.fromJson(Map<String, dynamic> json) {
     address = json['address'];
     ownerType = json['owner_type'];
     owner = json['owner'];
   }
+  late String address;
+  late String ownerType;
+  late String? owner;
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
