@@ -79,7 +79,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                     children: [
                       Text(
                         'Total Market Cap:',
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold, color: _textColor),
                       ),
                       const SizedBox(width: 4),
@@ -94,7 +94,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                             ),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1
+                            .bodyMedium
                             ?.copyWith(color: _textColor),
                       ),
                       const SizedBox(width: 4),
@@ -118,7 +118,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                     children: [
                       Text(
                         '24h Volume:',
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                             fontWeight: FontWeight.bold, color: _textColor),
                       ),
                       const SizedBox(width: 4),
@@ -133,7 +133,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                             ),
                         style: Theme.of(context)
                             .textTheme
-                            .bodyText1
+                            .bodyMedium
                             ?.copyWith(color: _textColor),
                       ),
                       const VerticalDivider(
@@ -149,7 +149,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'Dominance:',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(fontWeight: FontWeight.bold, color: _textColor),
             ),
             const SizedBox(width: 4),
@@ -157,7 +157,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'BTC ${percentageFormat.format(widget.marketCapPercentage!["btc"]! / 100)}',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
@@ -165,7 +165,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'ETH ${percentageFormat.format(widget.marketCapPercentage!["eth"]! / 100)}',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
@@ -173,7 +173,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'BNB ${percentageFormat.format(widget.marketCapPercentage!["bnb"]! / 100)}',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),

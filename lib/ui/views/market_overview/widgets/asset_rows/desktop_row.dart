@@ -90,7 +90,7 @@ class DesktopRow extends StatelessWidget {
                     RankingCard(ranking: rank),
                     const SizedBox(width: 6),
                     Text(symbol.toUpperCase(),
-                        style: Theme.of(context).textTheme.caption),
+                        style: Theme.of(context).textTheme.bodySmall),
                   ],
                 ),
               ],

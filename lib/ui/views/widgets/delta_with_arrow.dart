@@ -49,11 +49,11 @@ class DeltaWithArrow extends StatelessWidget {
                   : priceChangeDelta!.deltaFormat(),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: Theme.of(context).textTheme.bodyText1?.copyWith(
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color:
-                      textColor ?? Theme.of(context).textTheme.bodyText1!.color,
+                      textColor ?? Theme.of(context).textTheme.bodyMedium!.color,
                   fontSize: textSize ??
-                      Theme.of(context).textTheme.bodyText1!.fontSize),
+                      Theme.of(context).textTheme.bodyMedium!.fontSize),
             ),
           ),
         ],

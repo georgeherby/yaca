@@ -102,8 +102,8 @@ class _AssetGraphState extends State<AssetGraph> {
                     children: [
                       Text(
                         formatDate.format(dateTimeTouchedDate),
-                        style: Theme.of(context).textTheme.caption?.copyWith(
-                            fontWeight: FontWeight.normal, fontSize: 13),
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                            color: Theme.of(context).colorScheme.onSurface),
                       ),
                       const SizedBox(height: 4),
                       SizedBox(
@@ -121,7 +121,7 @@ class _AssetGraphState extends State<AssetGraph> {
                                   Text(
                                     'on current price',
                                     style:
-                                        Theme.of(context).textTheme.bodyText1,
+                                        Theme.of(context).textTheme.bodyMedium,
                                   )
                                 ],
                               )
@@ -136,15 +136,15 @@ class _AssetGraphState extends State<AssetGraph> {
                       context: context,
                       mobile: Theme.of(context)
                           .textTheme
-                          .headline6
+                          .titleMedium
                           ?.copyWith(fontWeight: FontWeight.w600),
                       tablet: Theme.of(context)
                           .textTheme
-                          .headline5
+                          .titleMedium
                           ?.copyWith(fontWeight: FontWeight.w600),
                       desktop: Theme.of(context)
                           .textTheme
-                          .headline5
+                          .titleMedium
                           ?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ),
@@ -216,7 +216,7 @@ class _AssetGraphState extends State<AssetGraph> {
                               formatter.format(
                                   DateTime.fromMillisecondsSinceEpoch(
                                       value.toInt())),
-                              style: Theme.of(context).textTheme.caption!),
+                              style: Theme.of(context).textTheme.bodySmall!),
                         );
                       },
                     ),
@@ -233,7 +233,7 @@ class _AssetGraphState extends State<AssetGraph> {
                           child: Text(
                             value.currencyFormatWithPrefix(
                                 currencyString, context),
-                            style: Theme.of(context).textTheme.caption!,
+                            style: Theme.of(context).textTheme.bodySmall!,
                           ),
                         );
                       },

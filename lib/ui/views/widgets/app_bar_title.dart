@@ -18,7 +18,7 @@ class AppBarTitle extends StatelessWidget {
     return Theme.of(context).platform.isDesktop() && !kIsWeb
         ? Text(
             title,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyMedium,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           )

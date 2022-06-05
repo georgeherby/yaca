@@ -38,7 +38,7 @@ class ErrorView extends StatelessWidget {
                   collapsedIconColor: Theme.of(context).iconTheme.color,
                   title: Text(
                     "Error details",
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   children: [
                     Text(error),

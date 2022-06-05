@@ -35,9 +35,8 @@ class AppSettingsView extends StatelessWidget {
             children: [
               const SizedBox(width: 16),
               Text('GENERAL',
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.onBackground)),
             ],
           ),
@@ -68,7 +67,7 @@ class AppSettingsView extends StatelessWidget {
                             .currency
                             .currencyString
                             .toUpperCase(),
-                        style: Theme.of(context).textTheme.headline6,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const VerticalDivider(color: Colors.transparent),
                       Icon(Ionicons.chevron_forward_outline,
@@ -117,9 +116,8 @@ class AppSettingsView extends StatelessWidget {
             children: [
               const SizedBox(width: 16),
               Text('API TOKENS',
-                  style: Theme.of(context).textTheme.caption?.copyWith(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
                       color: Theme.of(context).colorScheme.onBackground)),
             ],
           ),

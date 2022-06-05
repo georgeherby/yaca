@@ -154,7 +154,13 @@ class AssetView extends StatelessWidget {
                         children: [
                           Text(
                             'Price (24h)',
-                            style: Theme.of(context).textTheme.headline6,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onSurface),
                           ),
                           const SizedBox(height: 4),
                           IntrinsicHeight(
@@ -173,7 +179,7 @@ class AssetView extends StatelessWidget {
                                           Text('High',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(marketDataPerCurrnecy.high24h
                                                   ?.currencyFormatWithPrefix(
                                                       currency.currencyString,
@@ -188,7 +194,7 @@ class AssetView extends StatelessWidget {
                                           Text('Low',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(marketDataPerCurrnecy.low24h
                                                   ?.currencyFormatWithPrefix(
                                                       currency.currencyString,
@@ -215,13 +221,13 @@ class AssetView extends StatelessWidget {
                                           Text('Price',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           DeltaWithArrow(
                                               marketDataPerCurrnecy
                                                   .priceChange24hInCurrency,
                                               textSize: Theme.of(context)
                                                   .textTheme
-                                                  .bodyText1
+                                                  .bodyMedium
                                                   ?.fontSize),
                                         ],
                                       ),
@@ -232,7 +238,7 @@ class AssetView extends StatelessWidget {
                                           Text('Percentage',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           DeltaWithArrow(
                                             marketDataPerCurrnecy
                                                         .priceChange24hInCurrency !=
@@ -243,7 +249,7 @@ class AssetView extends StatelessWidget {
                                             isPercentage: true,
                                             textSize: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1
+                                                .bodyMedium
                                                 ?.fontSize,
                                           ),
                                         ],
@@ -256,7 +262,13 @@ class AssetView extends StatelessWidget {
                           ),
                           const Divider(),
                           Text('Market Stats',
-                              style: Theme.of(context).textTheme.headline6),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .onSurface)),
                           const SizedBox(height: 4),
                           IntrinsicHeight(
                             child: Row(
@@ -274,7 +286,7 @@ class AssetView extends StatelessWidget {
                                           Text('Mkt Cap',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(marketDataPerCurrnecy
                                                       .marketCap !=
                                                   null
@@ -293,7 +305,7 @@ class AssetView extends StatelessWidget {
                                           Text('Circ Supply',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(compactNumberFormat(context)
                                               .format(singleAsset.marketData!
                                                   .circulatingSupply))
@@ -306,7 +318,7 @@ class AssetView extends StatelessWidget {
                                           Text('Tot Supply',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           singleAsset.marketData?.totalSupply !=
                                                   null
                                               ? Text(
@@ -324,7 +336,7 @@ class AssetView extends StatelessWidget {
                                           Text('Max Supply',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           singleAsset.marketData?.maxSupply !=
                                                   null
                                               ? Text(
@@ -354,7 +366,7 @@ class AssetView extends StatelessWidget {
                                           Text('Rank',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(singleAsset.marketCapRank
                                               .toString())
                                         ],
@@ -366,7 +378,7 @@ class AssetView extends StatelessWidget {
                                           Text('Tot Vol',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(marketDataPerCurrnecy
                                                       .totalVolume !=
                                                   null
@@ -383,7 +395,7 @@ class AssetView extends StatelessWidget {
                                           Text('Ath',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           Text(marketDataPerCurrnecy.ath != null
                                               ? marketDataPerCurrnecy.ath!
                                                   .currencyFormatWithPrefix(
@@ -399,14 +411,14 @@ class AssetView extends StatelessWidget {
                                           Text('Ath Change',
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .labelSmall),
                                           DeltaWithArrow(
                                             marketDataPerCurrnecy
                                                 .athChangePercentage,
                                             isPercentage: true,
                                             textSize: Theme.of(context)
                                                 .textTheme
-                                                .bodyText1
+                                                .bodyMedium
                                                 ?.fontSize,
                                           ),
                                         ],
@@ -430,7 +442,7 @@ class AssetView extends StatelessWidget {
                                         'Sentiment',
                                         style: Theme.of(context)
                                             .textTheme
-                                            .headline6,
+                                            .titleMedium,
                                       ),
                                       const SizedBox(height: 8),
                                       Row(children: [
@@ -462,7 +474,7 @@ class AssetView extends StatelessWidget {
                                                     .toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .bodyText1
+                                                    .bodyMedium
                                                     ?.copyWith(
                                                         color: false
                                                             .toPositiveNegativeForegroundColorFromBool(
@@ -500,7 +512,7 @@ class AssetView extends StatelessWidget {
                                                     .toString(),
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .bodyText1
+                                                    .bodyMedium
                                                     ?.copyWith(
                                                         color: true
                                                             .toPositiveNegativeForegroundColorFromBool(
@@ -547,8 +559,9 @@ class AssetView extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text('Description',
-                                    style:
-                                        Theme.of(context).textTheme.headline6),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium),
                                 const SizedBox(height: 8),
                                 ScreenBuilder(
                                   mobile: _buildHtml(state

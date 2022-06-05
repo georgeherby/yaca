@@ -10,7 +10,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/trending/trending_bloc.dart';
-import 'package:yaca/ui/consts/colours.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/ranking_card.dart';
@@ -33,14 +32,13 @@ class TrendingView extends StatelessWidget {
                 "assets/flame.svg",
                 width: 12,
                 height: 12,
-                color: kNegativeRedDark,
+                color: Theme.of(context).colorScheme.error,
               ),
               const SizedBox(width: 4),
               Text('TRENDING SEARCHES',
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption
-                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onBackground)),
             ],
           ),
         ),
@@ -85,7 +83,7 @@ class TrendingView extends StatelessWidget {
                                       overflow: TextOverflow.ellipsis,
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyText1
+                                          .bodyMedium
                                           ?.copyWith(
                                               fontWeight: FontWeight.bold),
                                     ),

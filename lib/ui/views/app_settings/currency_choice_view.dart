@@ -66,7 +66,6 @@ class CurrencyChoiceView extends StatelessWidget {
       title: Text(currencyToUse.currencyName),
       subtitle: Text(
         "${currencyToUse.currencyCode} ${currencyToUse.currencyString}",
-        // style: Theme.of(context).textTheme.caption,
       ),
       selected: bloc.state.currency == currencyToUse,
       trailing: Column(

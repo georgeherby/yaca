@@ -131,15 +131,9 @@ class DarkThemeColors implements ThemeColours {
 
 extension PositiveNegativeColor on double {
   Color toPositiveNegativeColor(BuildContext context, {double opacity = 1.0}) {
-    if (Theme.of(context).brightness == Brightness.dark) {
-      return this > 0
-          ? kPositiveGreenDark.withOpacity(opacity)
-          : kNegativeRedDark.withOpacity(opacity);
-    } else {
-      return this > 0
-          ? kPositiveGreenLight.withOpacity(opacity)
-          : kNegativeRedLight.withOpacity(opacity);
-    }
+    return this > 0
+        ? Theme.of(context).colorScheme.primary.withOpacity(opacity)
+        : Theme.of(context).colorScheme.error.withOpacity(opacity);
   }
 }
 

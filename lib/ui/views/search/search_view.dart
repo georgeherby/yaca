@@ -99,12 +99,8 @@ class SearchView extends StatelessWidget {
                                           .toUpperCase(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .caption
-                                          ?.copyWith(
-                                              fontSize: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText1
-                                                  ?.fontSize))),
+                                          .bodyMedium
+                                          )),
                               onTap: () => context.router.push(
                                 AssetRoute(
                                   id: state.filteredList[index].id,
