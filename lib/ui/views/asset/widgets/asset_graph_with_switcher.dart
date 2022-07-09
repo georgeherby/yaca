@@ -85,48 +85,24 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                   runSpacing: 6,
                   children: List.generate(chips.length, (listIndex) {
                     final selected = listIndex == _index;
-                    return Theme(
-                      data: Theme.of(context)
-                          .copyWith(canvasColor: Colors.transparent),
-                      child: ChoiceChip(
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(kCornerRadiusCirlcular),
-                        ),
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        selectedColor:
-                            Theme.of(context).chipTheme.selectedColor,
-                        label: Text(
-                          chips[listIndex].label,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .chipTheme
-                              .labelStyle
-                              ?.copyWith(
-                                  fontWeight: selected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: selected &&
-                                          Theme.of(context).brightness ==
-                                              Brightness.light
-                                      ? Colors.white
-                                      : selected
-                                          ? Colors.black
-                                          : Theme.of(context)
-                                              .chipTheme
-                                              .labelStyle
-                                              ?.color),
-                        ),
-                        selected: listIndex == _index,
-                        backgroundColor:
-                            Theme.of(context).chipTheme.backgroundColor,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            _index = listIndex;
-                          });
-                        },
+                    return FilterChip(
+                      showCheckmark: false,
+                      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(kCornerRadiusCirlcular),
                       ),
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      label: Text(
+                        chips[listIndex].label,
+                        textAlign: TextAlign.center,
+                      ),
+                      selected: selected,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _index = listIndex;
+                        });
+                      },
                     );
                   }),
                 ),
@@ -137,47 +113,23 @@ class _AssetGraphWithSwitcherState extends State<AssetGraphWithSwitcher> {
                 child: Row(
                   children: List.generate(chips.length, (listIndex) {
                     final selected = listIndex == _index;
-                    return Theme(
-                      data: Theme.of(context)
-                          .copyWith(canvasColor: Colors.transparent),
-                      child: ChoiceChip(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        shape: RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(kCornerRadiusCirlcular),
-                        ),
-                        selectedColor:
-                            Theme.of(context).chipTheme.selectedColor,
-                        label: Text(
-                          chips[listIndex].label,
-                          textAlign: TextAlign.center,
-                          style: Theme.of(context)
-                              .chipTheme
-                              .labelStyle
-                              ?.copyWith(
-                                  fontWeight: selected
-                                      ? FontWeight.bold
-                                      : FontWeight.normal,
-                                  color: selected &&
-                                          Theme.of(context).brightness ==
-                                              Brightness.light
-                                      ? Colors.white
-                                      : selected
-                                          ? Colors.black
-                                          : Theme.of(context)
-                                              .chipTheme
-                                              .labelStyle
-                                              ?.color),
-                        ),
-                        selected: listIndex == _index,
-                        backgroundColor:
-                            Theme.of(context).chipTheme.backgroundColor,
-                        onSelected: (bool selected) {
-                          setState(() {
-                            _index = listIndex;
-                          });
-                        },
+                    return FilterChip(
+                      showCheckmark: false,
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(kCornerRadiusCirlcular),
                       ),
+                      label: Text(
+                        chips[listIndex].label,
+                        textAlign: TextAlign.center,
+                      ),
+                      selected: selected,
+                      onSelected: (bool selected) {
+                        setState(() {
+                          _index = listIndex;
+                        });
+                      },
                     );
                   }),
                 ),

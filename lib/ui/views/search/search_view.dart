@@ -35,8 +35,9 @@ class SearchView extends StatelessWidget {
           icon: Icon(Ionicons.chevron_back_outline,
               size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
         ),
+        centerTitle: false,
         title: TextFormField(
-          autofocus: true,
+          autofocus: false,
           controller: textController,
           onChanged: (value) {
             if (value.isNotEmpty) {
@@ -99,8 +100,7 @@ class SearchView extends StatelessWidget {
                                           .toUpperCase(),
                                       style: Theme.of(context)
                                           .textTheme
-                                          .bodyMedium
-                                          )),
+                                          .bodyMedium)),
                               onTap: () => context.router.push(
                                 AssetRoute(
                                   id: state.filteredList[index].id,

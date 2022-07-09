@@ -44,10 +44,10 @@ class AppSettingsView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                onTap: () {
-                  context.router.push(const AppSettingsCurrencyRoute());
+                onTap: () async {
+                  await context.router.push(const AppSettingsCurrencyRoute());
                 },
-                title: const Text('Default currency'),
+                title: const Text('Currency'),
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -60,7 +60,8 @@ class AppSettingsView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      BlocProvider.of<AppSettingsBloc>(context)
+                      context
+                          .watch<AppSettingsBloc>()
                           .state
                           .currency
                           .currencyString

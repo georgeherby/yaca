@@ -17,8 +17,9 @@ import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class TrendingView extends StatelessWidget {
   const TrendingView({super.key});
-  static const kTrendingTileWidth = 100.0;
-  static const kTrendingTileHeight = 100.0;
+  static const _kPadding = 8.0;
+  static const _kTrendingTileWidth = 100.0 + (_kPadding * 2);
+  static const _kTrendingTileHeight = 100.0 + (_kPadding * 2);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class TrendingView extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: kTrendingTileHeight,
+          height: _kTrendingTileHeight,
           child: BlocBuilder<TrendingBloc, TrendingState>(
             builder: (context, state) {
               if (state is TrendingLoaded) {
@@ -58,51 +59,55 @@ class TrendingView extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                            width: kTrendingTileWidth,
-                            height: kTrendingTileHeight,
-                            child: GestureDetector(
-                              onTap: () => context.router.push(
-                                AssetRoute(
-                                  id: asset.id,
+                            width: _kTrendingTileWidth,
+                            height: _kTrendingTileHeight,
+                            child: ElevatedCard(
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(
+                                    kCornerRadiusCirlcular),
+                                onTap: () => context.router.push(
+                                  AssetRoute(
+                                    id: asset.id,
+                                  ),
                                 ),
-                              ),
-                              child: ElevatedCard(
-                                // contentPadding:
-                                //     const EdgeInsets.symmetric(vertical: 4),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AssetIconWeb(asset.small,
-                                        assetSymbol: asset.symbol.toUpperCase(),
-                                        iconSize: kIconSize),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      asset.name,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        RankingCard(
-                                            ranking: asset.marketCapRank),
-                                        const SizedBox(width: 4),
-                                        Text(asset.symbol,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption),
-                                      ],
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(_kPadding),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      AssetIconWeb(asset.small,
+                                          assetSymbol:
+                                              asset.symbol.toUpperCase(),
+                                          iconSize: kIconSize),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        asset.name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          RankingCard(
+                                              ranking: asset.marketCapRank),
+                                          const SizedBox(width: _kPadding),
+                                          Text(asset.symbol,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .caption),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),

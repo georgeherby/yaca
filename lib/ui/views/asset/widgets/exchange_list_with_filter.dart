@@ -76,19 +76,9 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
           (index) => FilterChip(
             materialTapTargetSize: MaterialTapTargetSize.padded,
             selected: currencyFilter[index].isSelected,
-            checkmarkColor: Theme.of(context).chipTheme.checkmarkColor,
             label: Text(
               currencyFilter[index].value.toUpperCase(),
-              style: Theme.of(context).chipTheme.labelStyle?.copyWith(
-                  fontWeight: currencyFilter[index].isSelected
-                      ? FontWeight.bold
-                      : FontWeight.normal,
-                  color: currencyFilter[index].isSelected
-                      ? Theme.of(context).chipTheme.checkmarkColor
-                      : Theme.of(context).chipTheme.labelStyle?.color),
             ),
-            backgroundColor: Theme.of(context).chipTheme.backgroundColor,
-            selectedColor: Theme.of(context).chipTheme.selectedColor,
             onSelected: (bool selected) {
               setState(() {
                 currencyFilter[index].isSelected = selected;

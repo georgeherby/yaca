@@ -119,13 +119,16 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                   borderRadius: BorderRadius.circular(
                                       kCornerRadiusCirlcular)),
                               label: Icon(
-                                  _showAllAssets
-                                      ? Ionicons.star_outline
-                                      : Ionicons.star,
-                                  size: 16,
-                                  color: _showAllAssets
-                                      ? Theme.of(context).iconTheme.color
-                                      : kYellow),
+                                _showAllAssets
+                                    ? Ionicons.star_outline
+                                    : Ionicons.star,
+                                size: 16,
+                                color: _showAllAssets
+                                    ? Theme.of(context)
+                                        .colorScheme
+                                        .onSurfaceVariant
+                                    : kYellow,
+                              ),
                             ),
                             ActionChip(
                               materialTapTargetSize:
@@ -147,7 +150,9 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                     ? Ionicons.arrow_up_outline
                                     : Ionicons.arrow_down_outline,
                                 size: 16,
-                                color: Theme.of(context).iconTheme.color,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .onSurfaceVariant,
                               ),
                               labelPadding: const EdgeInsets.only(right: 8.0),
                               shape: RoundedRectangleBorder(
