@@ -16,9 +16,8 @@ class PrimaryButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 1,
-        primary: Theme.of(context).colorScheme.surface,
-        onSurface: Theme.of(context).colorScheme.onSurface,
-        onPrimary: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         shadowColor: Theme.of(context).colorScheme.shadow,
         shape: RoundedRectangleBorder(

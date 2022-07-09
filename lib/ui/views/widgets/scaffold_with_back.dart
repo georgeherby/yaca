@@ -25,6 +25,9 @@ class ScaffoldWithBack extends StatelessWidget {
           title: AppBarTitle(title ?? ''),
           actions: actions ?? [],
         ),
-        body: body);
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: body,
+        ));
   }
 }

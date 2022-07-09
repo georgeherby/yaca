@@ -16,9 +16,8 @@ class FilledButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 1,
-        primary: Theme.of(context).colorScheme.primary,
-        onSurface: Theme.of(context).colorScheme.onSurface,
-        onPrimary: Theme.of(context).colorScheme.onPrimary,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+        foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         shadowColor: Theme.of(context).colorScheme.shadow,
         shape: RoundedRectangleBorder(

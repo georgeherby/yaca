@@ -104,11 +104,11 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ChoiceChip(
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.padded,
                               tooltip: _showAllAssets
                                   ? 'Show favourites only'
                                   : 'Show all assets',
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.padded,
                               onSelected: (selected) {
                                 setState(() {
                                   _showAllAssets = !selected;
@@ -118,18 +118,14 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
                                       kCornerRadiusCirlcular)),
-                              label: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 4.0, horizontal: 8.0),
-                                child: Icon(
-                                    _showAllAssets
-                                        ? Ionicons.star_outline
-                                        : Ionicons.star,
-                                    size: 16,
-                                    color: _showAllAssets
-                                        ? Theme.of(context).iconTheme.color
-                                        : kYellow),
-                              ),
+                              label: Icon(
+                                  _showAllAssets
+                                      ? Ionicons.star_outline
+                                      : Ionicons.star,
+                                  size: 16,
+                                  color: _showAllAssets
+                                      ? Theme.of(context).iconTheme.color
+                                      : kYellow),
                             ),
                             ActionChip(
                               materialTapTargetSize:

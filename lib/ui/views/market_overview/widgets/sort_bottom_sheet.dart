@@ -27,9 +27,12 @@ class SortBottomSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        ListTile(
-          dense: true,
-          tileColor: Theme.of(context).colorScheme.surface,
+        AppBar(
+          leading: Container(),
+          leadingWidth: 0,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+          centerTitle: false,
           title: Text(
             'Sort By',
             style: Theme.of(context)
@@ -39,14 +42,9 @@ class SortBottomSheet extends StatelessWidget {
           ),
         ),
         ListTile(
+          selected: sortType == SortType.sortByRank,
           trailing: _trailingWidget(SortType.sortByRank, sortType, sortOrder),
-          title: Text(
-            'Rank',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: sortType == SortType.sortByRank
-                    ? FontWeight.bold
-                    : FontWeight.normal),
-          ),
+          title: const Text('Rank'),
           onTap: () {
             BlocProvider.of<AssetOverviewBloc>(context).add(AssetSorted(
               assets,
@@ -58,15 +56,10 @@ class SortBottomSheet extends StatelessWidget {
           },
         ),
         ListTile(
+          selected: sortType == SortType.sortBy24hPercentageChange,
           trailing: _trailingWidget(
               SortType.sortBy24hPercentageChange, sortType, sortOrder),
-          title: Text(
-            '24h % change',
-            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                fontWeight: sortType == SortType.sortBy24hPercentageChange
-                    ? FontWeight.bold
-                    : FontWeight.normal),
-          ),
+          title: const Text('24h % change'),
           onTap: () {
             BlocProvider.of<AssetOverviewBloc>(context).add(AssetSorted(
               assets,

@@ -15,9 +15,8 @@ class TonalButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        primary: Theme.of(context).colorScheme.secondaryContainer,
-        onSurface: Theme.of(context).colorScheme.onSurface,
-        onPrimary: Theme.of(context).colorScheme.onSecondaryContainer,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         shadowColor: Theme.of(context).colorScheme.shadow,
         shape: RoundedRectangleBorder(

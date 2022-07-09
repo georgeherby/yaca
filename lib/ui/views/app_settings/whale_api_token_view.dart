@@ -35,8 +35,7 @@ class WhaleApiTokenView extends StatelessWidget {
     return ScaffoldWithBack(
       title: 'Whale Transactions',
       body: ElevatedCard(
-        // externalPadding:
-        //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
