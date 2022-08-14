@@ -80,8 +80,10 @@ class _AssetGraphState extends State<AssetGraph> {
         DateTime.fromMillisecondsSinceEpoch(touchedTime);
 
     final price = touchedPrice;
-    final currencyString =
-        BlocProvider.of<ApplicationSettingsBloc>(context).state.currency.currencyString;
+    final currencyString = BlocProvider.of<ApplicationSettingsBloc>(context)
+        .state
+        .currency
+        .currencyString;
 
     final formatDate = DateFormat('EEE, MMM dd, yyyy, HH:mm');
     return Column(

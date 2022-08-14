@@ -17,7 +17,6 @@ class AssetLoading extends AssetState {
 }
 
 class AssetLoaded extends AssetState {
-
   const AssetLoaded(this.coin, this.assetHistorySplits);
   final Coin coin;
   final AssetHistorySplits assetHistorySplits;
@@ -27,7 +26,6 @@ class AssetLoaded extends AssetState {
 }
 
 class AssetError extends AssetState {
-
   const AssetError(this.error);
   final String error;
 

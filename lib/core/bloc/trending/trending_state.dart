@@ -12,7 +12,6 @@ class TrendingInitial extends TrendingState {}
 class TrendingLoading extends TrendingState {}
 
 class TrendingLoaded extends TrendingState {
-
   const TrendingLoaded({required this.trending});
   final List<SearchTrendingCoin> trending;
 
@@ -21,8 +20,7 @@ class TrendingLoaded extends TrendingState {
 }
 
 class TrendingError extends TrendingState {
-
-  const TrendingError( this.error);
+  const TrendingError(this.error);
   final String error;
 
   @override

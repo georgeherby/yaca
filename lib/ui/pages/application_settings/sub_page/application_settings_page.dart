@@ -11,6 +11,7 @@ class ApplicationSettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const ScaffoldWithBack(title: 'Settings', body: ApplicationSettingsView());
+    return const ScaffoldWithBack(
+        title: 'Settings', body: ApplicationSettingsView());
   }
 }

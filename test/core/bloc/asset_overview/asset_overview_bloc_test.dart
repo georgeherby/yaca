@@ -25,7 +25,8 @@ class MockFavouritesDao extends Mock implements FavouritesDao {}
 class MockMarketOverviewRepository extends Mock
     implements MarketOverviewRepository {}
 
-class MockApplicationSettingsBloc extends Mock implements ApplicationSettingsBloc {}
+class MockApplicationSettingsBloc extends Mock
+    implements ApplicationSettingsBloc {}
 
 class MockAssetOverviewPreferences extends Mock
     implements AssetOverviewPreference {}
@@ -54,8 +55,8 @@ void main() {
         when(() => mockApplicationSettingsBloc.stream)
             .thenAnswer((_) => Stream.value(ApplicationSettingsInitial()));
 
-        when(() => mockApplicationSettingsBloc.state).thenAnswer(
-            (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
             mockMarketOverviewRepository, mockAssetOverviewPreferences);
@@ -71,10 +72,11 @@ void main() {
       'both apis return empty',
       build: () {
         when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockApplicationSettingsBloc.state).thenAnswer(
-            (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
@@ -103,10 +105,11 @@ void main() {
       'asset api is empty, favourite returns records',
       build: () {
         when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockApplicationSettingsBloc.state).thenAnswer(
-            (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
@@ -146,10 +149,11 @@ void main() {
       'asset api returns records favourite returns matching record for one',
       build: () {
         when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockApplicationSettingsBloc.state).thenAnswer(
-            (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
@@ -189,17 +193,21 @@ void main() {
     );
     blocTest('throw error if the asset api fails',
         build: () {
-          when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) => Stream.value(
-              ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
+          when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+              Stream.value(ApplicationSettingsLoaded(
+                  ThemeMode.system, defaultCurrency)));
 
-          when(() => mockApplicationSettingsBloc.state).thenAnswer(
-              (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+          when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+              ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
           when(() => mockMarketOverviewRepository
               .fetchCoinMarkets(defaultCurrency)).thenThrow(Exception('ERROR'));
 
-          return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-              mockMarketOverviewRepository, mockAssetOverviewPreferences);
+          return AssetOverviewBloc(
+              mockApplicationSettingsBloc,
+              mockFavouritesDao,
+              mockMarketOverviewRepository,
+              mockAssetOverviewPreferences);
         },
         expect: () => [
               const AssetOverviewLoading(),
@@ -210,11 +218,12 @@ void main() {
         });
     blocTest('throw error if the asset api succeeds but favourites fails',
         build: () {
-          when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) => Stream.value(
-              ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
+          when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+              Stream.value(ApplicationSettingsLoaded(
+                  ThemeMode.system, defaultCurrency)));
 
-          when(() => mockApplicationSettingsBloc.state).thenAnswer(
-              (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+          when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+              ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
           when(() => mockMarketOverviewRepository
                   .fetchCoinMarkets(defaultCurrency))
@@ -223,8 +232,11 @@ void main() {
           when(mockFavouritesDao.getAll)
               .thenThrow(Exception('Error getting favourites'));
 
-          return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-              mockMarketOverviewRepository, mockAssetOverviewPreferences);
+          return AssetOverviewBloc(
+              mockApplicationSettingsBloc,
+              mockFavouritesDao,
+              mockMarketOverviewRepository,
+              mockAssetOverviewPreferences);
         },
         expect: () => [
               const AssetOverviewLoading(),
@@ -262,8 +274,11 @@ void main() {
             [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      final bloc = AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferences);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
           mockApplicationSettingsBloc.stream,
@@ -364,8 +379,11 @@ void main() {
             [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      final bloc = AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferences);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
           mockApplicationSettingsBloc.stream,
@@ -447,8 +465,11 @@ void main() {
           [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
     );
 
-    final bloc = AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-        mockMarketOverviewRepository, mockAssetOverviewPreferences);
+    final bloc = AssetOverviewBloc(
+        mockApplicationSettingsBloc,
+        mockFavouritesDao,
+        mockMarketOverviewRepository,
+        mockAssetOverviewPreferences);
 
     await expectLater(
         mockApplicationSettingsBloc.stream,
@@ -507,10 +528,11 @@ void main() {
       'Initial load - uses default sorting by rank in ascending order',
       build: () {
         when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockApplicationSettingsBloc.state).thenAnswer(
-            (_) => ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
@@ -578,8 +600,11 @@ void main() {
             [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      final bloc = AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferences);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
           mockApplicationSettingsBloc.stream,
@@ -664,8 +689,11 @@ void main() {
             [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      final bloc = AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferences);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
           mockApplicationSettingsBloc.stream,
@@ -754,8 +782,11 @@ void main() {
             [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      final bloc = AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferences);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
           mockApplicationSettingsBloc.stream,

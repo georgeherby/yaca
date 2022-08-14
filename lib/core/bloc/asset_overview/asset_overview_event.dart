@@ -32,7 +32,6 @@ class AssetFavourited extends AssetOverviewEvent {
 }
 
 class AssetSorted extends AssetOverviewEvent {
-
   const AssetSorted(this.allMarketCoins, this.sortType, this.sortOrder);
   final List<MarketCoin> allMarketCoins;
   final SortType sortType;

@@ -20,7 +20,6 @@ class SearchLoading extends SearchState {
 }
 
 class SearchLoaded extends SearchState {
-
   const SearchLoaded(this.filteredList);
   final List<CoinShort> filteredList;
   @override
@@ -28,7 +27,6 @@ class SearchLoaded extends SearchState {
 }
 
 class SearchError extends SearchState {
-
   const SearchError(this.error);
   final String error;
   @override

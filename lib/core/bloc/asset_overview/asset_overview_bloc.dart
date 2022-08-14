@@ -26,7 +26,6 @@ part 'asset_overview_event.dart';
 part 'asset_overview_state.dart';
 
 class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
-
   AssetOverviewBloc(this._settingsBloc, this._favouriteDao,
       this._marketOverviewRepository, this._assetOverviewPreference)
       : super(const AssetOverviewInitial()) {

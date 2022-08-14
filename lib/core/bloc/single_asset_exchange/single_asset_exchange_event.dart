@@ -5,7 +5,6 @@ abstract class SingleAssetExchangeEvent extends Equatable {
 }
 
 class SingleAssetExchangeLoad extends SingleAssetExchangeEvent {
-
   const SingleAssetExchangeLoad({required this.marketCoinId});
   final String marketCoinId;
 

@@ -19,7 +19,8 @@ class AssetOverviewLoading extends AssetOverviewState {
 }
 
 class AssetOverviewLoaded extends AssetOverviewState {
-  const AssetOverviewLoaded(this.allAssets, this.favourites, this.sortType, this.sortOrder);
+  const AssetOverviewLoaded(
+      this.allAssets, this.favourites, this.sortType, this.sortOrder);
   final List<MarketCoin> allAssets;
   final List<MarketCoin> favourites;
   final SortType sortType;
@@ -31,7 +32,6 @@ class AssetOverviewLoaded extends AssetOverviewState {
 }
 
 class AssetOverviewError extends AssetOverviewState {
-
   const AssetOverviewError(this.error);
   final String error;
 

@@ -17,7 +17,6 @@ class SingleAssetExchangeLoading extends SingleAssetExchangeState {
 }
 
 class SingleAssetExchangeLoaded extends SingleAssetExchangeState {
-
   const SingleAssetExchangeLoaded(this.exchangeTickers);
   final List<Ticker> exchangeTickers;
 
@@ -26,7 +25,6 @@ class SingleAssetExchangeLoaded extends SingleAssetExchangeState {
 }
 
 class SingleAssetExchangeError extends SingleAssetExchangeState {
-
   const SingleAssetExchangeError(this.error);
   final String error;
 

@@ -15,7 +15,6 @@ class GetAssetListEvent extends SearchBaseEvent {
 }
 
 class SearchEvent extends SearchBaseEvent {
-
   const SearchEvent({required this.query});
   final String? query;
 

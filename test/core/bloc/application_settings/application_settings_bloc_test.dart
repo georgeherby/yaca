@@ -45,7 +45,8 @@ void main() {
           expect(bloc.state, equals(ApplicationSettingsInitial()));
         });
 
-    blocTest('emits ApplicationSettingsLoaded when Event is LoadApplicationSettings',
+    blocTest(
+        'emits ApplicationSettingsLoaded when Event is LoadApplicationSettings',
         build: () {
           when(mockTheme.getThemeMode)
               .thenAnswer((_) => Future.value(ThemeMode.system));
@@ -54,15 +55,19 @@ void main() {
 
           return ApplicationSettingsBloc(mockTheme, mockCurrency);
         },
-        act: (ApplicationSettingsBloc bloc) => bloc.add(const LoadApplicationSettings()),
-        expect: () =>
-            [ApplicationSettingsLoaded(ThemeMode.system, AvailableCurrencies.gbp)],
+        act: (ApplicationSettingsBloc bloc) =>
+            bloc.add(const LoadApplicationSettings()),
+        expect: () => [
+              ApplicationSettingsLoaded(
+                  ThemeMode.system, AvailableCurrencies.gbp)
+            ],
         verify: (_) {
           verify(mockTheme.getThemeMode).called(1);
           verify(mockCurrency.get).called(1);
         });
 
-    blocTest('emits ApplicationSettingsLoaded when Event is UpdateCurrencyOptionEvent',
+    blocTest(
+        'emits ApplicationSettingsLoaded when Event is UpdateCurrencyOptionEvent',
         build: () {
           when(() => mockCurrency.set(AvailableCurrencies.gbp.currencyCode))
               .thenAnswer((_) => Future.value());
@@ -71,13 +76,15 @@ void main() {
         },
         act: (ApplicationSettingsBloc bloc) => bloc.add(
             UpdateCurrencyOptionEvent(AvailableCurrencies.gbp, ThemeMode.dark)),
-        expect: () =>
-            [ApplicationSettingsLoaded(ThemeMode.dark, AvailableCurrencies.gbp)],
+        expect: () => [
+              ApplicationSettingsLoaded(ThemeMode.dark, AvailableCurrencies.gbp)
+            ],
         verify: (_) {
           verifyNever(() => mockTheme.setThemeMode(any()));
         });
 
-    blocTest('emits ApplicationSettingsLoaded when Event is UpdateThemeOptionEvent',
+    blocTest(
+        'emits ApplicationSettingsLoaded when Event is UpdateThemeOptionEvent',
         build: () {
           when(() => mockTheme.setThemeMode(ThemeMode.light))
               .thenAnswer((_) => Future.value());
@@ -86,8 +93,10 @@ void main() {
         },
         act: (ApplicationSettingsBloc bloc) => bloc.add(
             UpdateThemeOptionEvent(AvailableCurrencies.btc, ThemeMode.light)),
-        expect: () =>
-            [ApplicationSettingsLoaded(ThemeMode.light, AvailableCurrencies.btc)],
+        expect: () => [
+              ApplicationSettingsLoaded(
+                  ThemeMode.light, AvailableCurrencies.btc)
+            ],
         verify: (_) {
           verifyNever(() => mockCurrency.set(any()));
         });
