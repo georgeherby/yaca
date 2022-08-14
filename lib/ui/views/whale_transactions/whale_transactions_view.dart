@@ -10,7 +10,7 @@ import 'package:ionicons/ionicons.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/exceptions/missing_config_exception.dart';
 import 'package:yaca/core/extensions/platform.dart';
-import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:yaca/ui/utils/view_builder/view_state.dart';
 import 'package:yaca/ui/utils/view_builder/view_state_builder.dart';

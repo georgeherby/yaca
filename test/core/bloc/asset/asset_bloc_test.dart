@@ -9,7 +9,7 @@ import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/repositories/api/coingecko/single_asset_repository.dart';
 import 'mock/singleasset_data.dart';
 
-class MockSingleAssetRespository extends Mock implements AssetRespository {}
+class MockSingleAssetRespository extends Mock implements AssetRepository {}
 
 void main() {
   final mockSingleAssetRespository = MockSingleAssetRespository();
@@ -23,7 +23,7 @@ void main() {
     blocTest(
       'verify state is AssetInitial when bloc is created',
       build: () {
-        return AssetBloc(singleAssetRespository: mockSingleAssetRespository);
+        return AssetBloc(singleAssetRepository: mockSingleAssetRespository);
       },
       verify: (AssetBloc bloc) {
         expect(bloc.state, equals(AssetInitial()));
@@ -37,7 +37,7 @@ void main() {
                   coinId, chosenCurrency))
               .thenAnswer((invocation) => Future.value(assetHistorySplitsBtc));
 
-          return AssetBloc(singleAssetRespository: mockSingleAssetRespository);
+          return AssetBloc(singleAssetRepository: mockSingleAssetRespository);
         },
         act: (AssetBloc bloc) => bloc
             .add(AssetLoad(marketCoinId: coinId, currencyCode: chosenCurrency)),
@@ -53,7 +53,7 @@ void main() {
                   coinId, chosenCurrency))
               .thenAnswer((invocation) => Future.value(assetHistorySplitsBtc));
 
-          return AssetBloc(singleAssetRespository: mockSingleAssetRespository);
+          return AssetBloc(singleAssetRepository: mockSingleAssetRespository);
         },
         act: (AssetBloc bloc) => bloc
             .add(AssetLoad(marketCoinId: coinId, currencyCode: chosenCurrency)),
@@ -65,7 +65,7 @@ void main() {
           when(() => mockSingleAssetRespository.fetchFullAssetHistory(
               coinId, chosenCurrency)).thenThrow(Exception('Error'));
 
-          return AssetBloc(singleAssetRespository: mockSingleAssetRespository);
+          return AssetBloc(singleAssetRepository: mockSingleAssetRespository);
         },
         act: (AssetBloc bloc) => bloc
             .add(AssetLoad(marketCoinId: coinId, currencyCode: chosenCurrency)),

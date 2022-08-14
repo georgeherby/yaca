@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:coingecko_api/data/market.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/string.dart';
 import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/favourites.dart';
@@ -35,7 +35,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
     on<AssetSorted>(_onAssetSort);
 
     subscription = _settingsBloc.stream.listen((stateOfSettings) {
-      if (stateOfSettings is AppSettingsLoaded) {
+      if (stateOfSettings is ApplicationSettingsLoaded) {
         debugPrint('Initial load');
         add(const AssetOverviewLoad());
       }
@@ -43,7 +43,7 @@ class AssetOverviewBloc extends Bloc<AssetOverviewEvent, AssetOverviewState> {
   }
   late StreamSubscription subscription;
 
-  final AppSettingsBloc _settingsBloc;
+  final ApplicationSettingsBloc _settingsBloc;
   final FavouritesDao _favouriteDao;
   final MarketOverviewRepository _marketOverviewRepository;
   final AssetOverviewPreference _assetOverviewPreference;

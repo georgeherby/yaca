@@ -13,9 +13,9 @@ import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/core/bloc/global_market/global_market_bloc.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/extensions/sort_order.dart';
 import 'package:yaca/core/models/api/market_coins.dart';
@@ -46,7 +46,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
   @override
   Widget build(BuildContext context) {
     final chosenCurrency =
-        BlocProvider.of<AppSettingsBloc>(context).state.currency;
+        BlocProvider.of<ApplicationSettingsBloc>(context).state.currency;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -104,8 +104,6 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             ChoiceChip(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.padded,
                               tooltip: _showAllAssets
                                   ? 'Show favourites only'
                                   : 'Show all assets',
@@ -117,7 +115,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               selected: !_showAllAssets,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                      kCornerRadiusCirlcular)),
+                                      kCornerRadiusCircular)),
                               label: Icon(
                                 _showAllAssets
                                     ? Ionicons.star_outline
@@ -131,8 +129,6 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               ),
                             ),
                             ActionChip(
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.padded,
                               onPressed: () async {
                                 await showModalBottomSheet(
                                     context: context,
@@ -157,7 +153,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               labelPadding: const EdgeInsets.only(right: 8.0),
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(
-                                      kCornerRadiusCirlcular)),
+                                      kCornerRadiusCircular)),
                               label: Text(
                                   _getLabelForCurrentSortType(state.sortType)),
                             )

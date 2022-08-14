@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/extensions/chosen_currency.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
@@ -87,7 +87,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                     widget.currencyString +
                         compactNumberFormat(context).format(
                           widget.marketCap!.getForCurrency(
-                              BlocProvider.of<AppSettingsBloc>(context)
+                              BlocProvider.of<ApplicationSettingsBloc>(context)
                                   .state
                                   .currency
                                   .currencyCode),
@@ -127,7 +127,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
                     widget.currencyString +
                         compactNumberFormat(context).format(
                           widget.totalVolume!.getForCurrency(
-                              BlocProvider.of<AppSettingsBloc>(context)
+                              BlocProvider.of<ApplicationSettingsBloc>(context)
                                   .state
                                   .currency
                                   .currencyCode),

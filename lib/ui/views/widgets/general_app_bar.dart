@@ -77,7 +77,7 @@ class GeneralAppBar extends StatelessWidget with PreferredSizeWidget {
                       key: const Key('settings-cog-buton'),
                       tooltip: 'Open settings',
                       onPressed: () =>
-                          context.router.push(const AppSettingsHomeRoute()),
+                          context.router.push(const ApplicationSettingsHomeRoute()),
                       icon: const Icon(Ionicons.cog_outline),
                     )
                   : Container()

@@ -6,7 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';

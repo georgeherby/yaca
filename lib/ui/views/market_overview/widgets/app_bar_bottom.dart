@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
+import 'package:yaca/core/bloc/global_market/global_market_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/market_overview/widgets/global_market_marque.dart';
 import 'package:yaca/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
@@ -34,16 +34,17 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.primary,
               borderRadius: const BorderRadius.all(
-                  Radius.circular(kCornerRadiusCirlcular)),
+                  Radius.circular(kCornerRadiusCircular)),
             ),
             child: BlocBuilder<GlobalMarketBloc, GlobalMarketState>(
               builder: (context, state) {
                 if (state is GlobalMarketLoaded) {
                   return GlobalMarketMarque(
-                    currencyString: BlocProvider.of<AppSettingsBloc>(context)
-                        .state
-                        .currency
-                        .currencyString,
+                    currencyString:
+                        BlocProvider.of<ApplicationSettingsBloc>(context)
+                            .state
+                            .currency
+                            .currencyString,
                     marketCap: state.globalMarket.totalMarketCap,
                     marketCap24hPercentageChange:
                         state.globalMarket.marketCapChangePercentage24hUsd,

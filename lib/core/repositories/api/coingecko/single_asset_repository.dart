@@ -13,8 +13,8 @@ import 'package:coingecko_api/data/market_chart_data.dart';
 import 'package:yaca/core/models/api/asset_history_splits.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
-class AssetRespository {
-  AssetRespository(this._api);
+class AssetRepository {
+  AssetRepository(this._api);
   final CoinGeckoApi _api;
 
   Future<AssetHistorySplits> fetchFullAssetHistory(

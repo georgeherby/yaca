@@ -17,7 +17,7 @@ class FilledCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
+        borderRadius: BorderRadius.circular(kCornerRadiusCircular),
       ),
       color: Theme.of(context).colorScheme.surfaceVariant,
       surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,

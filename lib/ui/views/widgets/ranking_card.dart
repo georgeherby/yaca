@@ -14,7 +14,7 @@ class RankingCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondaryContainer,
         borderRadius:
-            const BorderRadius.all(Radius.circular(kCornerRadiusCirlcular / 2)),
+            const BorderRadius.all(Radius.circular(kCornerRadiusCircular / 2)),
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 2.0, horizontal: 6),

@@ -13,7 +13,6 @@ import 'package:yaca/core/bloc/search/search_bloc.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/search/trending_view.dart';
-import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class SearchView extends StatelessWidget {
   const SearchView({super.key});
@@ -69,46 +68,36 @@ class SearchView extends StatelessWidget {
                   flex: 3,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                    child: ElevatedCard(
-                      // externalPadding: getValueForScreenType<EdgeInsets>(
-                      //   context: context,
-                      //   mobile: const EdgeInsets.symmetric(horizontal: 8.0),
-                      //   tablet: const EdgeInsets.only(
-                      //       left: 8.0, right: 8.0, bottom: 8.0),
-                      //   desktop: const EdgeInsets.only(
-                      //       left: 8.0, right: 8.0, bottom: 8.0),
-                      // ),
-                      child: ListView.separated(
-                          separatorBuilder: (BuildContext context, int index) {
-                            return const Divider(
-                              indent: 8,
-                              endIndent: 8,
-                              height: kDividerWeighting,
-                              thickness: kDividerWeighting,
-                            );
-                          },
-                          itemCount: state.filteredList.length,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            return ListTile(
-                              title: Text(state.filteredList[index].name),
-                              trailing: ConstrainedBox(
-                                  constraints: BoxConstraints.loose(
-                                      const Size.fromWidth(kIconSize * 2.5)),
-                                  child: Text(
-                                      state.filteredList[index].symbol
-                                          .toUpperCase(),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium)),
-                              onTap: () => context.router.push(
-                                AssetRoute(
-                                  id: state.filteredList[index].id,
-                                ),
+                    child: ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider(
+                            indent: 8,
+                            endIndent: 8,
+                            height: kDividerWeighting,
+                            thickness: kDividerWeighting,
+                          );
+                        },
+                        itemCount: state.filteredList.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(state.filteredList[index].name),
+                            trailing: ConstrainedBox(
+                                constraints: BoxConstraints.loose(
+                                    const Size.fromWidth(kIconSize * 2.5)),
+                                child: Text(
+                                    state.filteredList[index].symbol
+                                        .toUpperCase(),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyMedium)),
+                            onTap: () => context.router.push(
+                              AssetRoute(
+                                id: state.filteredList[index].id,
                               ),
-                            );
-                          }),
-                    ),
+                            ),
+                          );
+                        }),
                   ),
                 ),
               ],

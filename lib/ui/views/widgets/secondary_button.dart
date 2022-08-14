@@ -16,7 +16,7 @@ class SecondaryButton extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kCornerRadiusCirlcular)),
+            borderRadius: BorderRadius.circular(kCornerRadiusCircular)),
       ),
       onPressed: onTap,
       child: Text(

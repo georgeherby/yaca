@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:yaca/core/bloc/single_asset_exchange/single_asset_exchange_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
-import 'package:yaca/ui/views/asset/widgets/exchange_list_with_filter.dart';
+import 'package:yaca/ui/views/single_asset/widgets/exchange_list_with_filter.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';

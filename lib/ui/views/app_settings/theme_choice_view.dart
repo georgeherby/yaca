@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
@@ -69,7 +69,7 @@ class ThemeChoiceView extends StatelessWidget {
     IconData icon,
     ThemeMode themeToUse,
   ) {
-    final bloc = BlocProvider.of<AppSettingsBloc>(context);
+    final bloc = BlocProvider.of<ApplicationSettingsBloc>(context);
 
     return ListTile(
       onTap: () {

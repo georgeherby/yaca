@@ -20,7 +20,7 @@ class ElevatedCard extends StatelessWidget {
     return Card(
       margin: margin,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
+        borderRadius: BorderRadius.circular(kCornerRadiusCircular),
       ),
       elevation: 1,
       color: Theme.of(context).colorScheme.surface,

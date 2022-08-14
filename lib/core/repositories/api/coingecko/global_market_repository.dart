@@ -10,8 +10,8 @@ import 'package:coingecko_api/data/global_coin_data.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
-class GlobalMarketRespository {
-  GlobalMarketRespository(this._api);
+class GlobalMarketRepository {
+  GlobalMarketRepository(this._api);
   final CoinGeckoApi _api;
 
   Future<GlobalCoinData> fetchMarketOverview(

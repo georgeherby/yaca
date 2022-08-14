@@ -34,8 +34,8 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: isPhoneOnly
           ? ClipRRect(
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(kCornerRadiusCirlcular * 3),
-                topRight: Radius.circular(kCornerRadiusCirlcular * 3),
+                topLeft: Radius.circular(kCornerRadiusCircular * 3),
+                topRight: Radius.circular(kCornerRadiusCircular * 3),
               ),
               child: NavigationBar(
                 labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
@@ -115,8 +115,8 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: IconButton(
                       tooltip: 'Open settings',
-                      onPressed: () =>
-                          context.router.push(const AppSettingsHomeRoute()),
+                      onPressed: () => context.router
+                          .push(const ApplicationSettingsHomeRoute()),
                       icon: Icon(Ionicons.cog_outline,
                           size: Theme.of(context).iconTheme.size),
                     ),

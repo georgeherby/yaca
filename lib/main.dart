@@ -12,21 +12,21 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:yaca/core/bloc/globalmarket/globalmarket_bloc.dart';
+import 'package:yaca/core/bloc/global_market/global_market_bloc.dart';
 import 'package:yaca/core/bloc/search/search_bloc.dart';
-import 'package:yaca/core/bloc/singleasset_exchange/singleasset_exchange_bloc.dart';
+import 'package:yaca/core/bloc/single_asset_exchange/single_asset_exchange_bloc.dart';
 import 'package:yaca/core/bloc/trending/trending_bloc.dart';
 import 'package:yaca/core/bloc/utils/all_bloc_observer.dart';
-import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
 import 'package:yaca/core/models/favourites.dart';
 import 'package:yaca/core/repositories/api/coingecko/coin_list_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/exchange_ticker_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/global_market_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/market_overview_repository.dart';
 import 'package:yaca/core/repositories/api/coingecko/trending_asset_repository.dart';
-import 'package:yaca/core/repositories/api/whalealerts/whale_transactions_repository.dart';
+import 'package:yaca/core/repositories/api/whale_alerts/whale_transactions_repository.dart';
 import 'package:yaca/core/repositories/favourites_repository.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:yaca/core/repositories/preferences/asset_overview_preference.dart';
@@ -54,10 +54,7 @@ void main() async {
   Hive.registerAdapter(FavouritesAdapter());
   // Opening the box
   await Hive.openBox<Favourites>('favouritesBox');
-  BlocOverrides.runZoned(
-    () {},
-    blocObserver: AllBlocObserver(),
-  );
+  Bloc.observer = AllBlocObserver();
   runApp(const MyApp());
 }
 
@@ -93,29 +90,31 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(
             create: (BuildContext context) => ApiTokensPreference()),
         RepositoryProvider(
-            create: (BuildContext context) => GlobalMarketRespository(_api)),
+            create: (BuildContext context) => GlobalMarketRepository(_api)),
         RepositoryProvider(
             create: (BuildContext context) => MarketOverviewRepository(_api)),
         RepositoryProvider(
-            create: (BuildContext context) => ExchangeTickerRespository(_api)),
+            create: (BuildContext context) => ExchangeTickerRepository(_api)),
         RepositoryProvider(
-            create: (BuildContext context) => CoinListReposiotry(_api)),
+            create: (BuildContext context) => CoinListRepository(_api)),
         RepositoryProvider(
             create: (BuildContext context) => TrendingAssetRepository(_api)),
       ],
       child: MultiBlocProvider(
         providers: [
-          BlocProvider<AppSettingsBloc>(
-              create: (BuildContext context) => AppSettingsBloc(
+          BlocProvider<ApplicationSettingsBloc>(
+              create: (BuildContext context) => ApplicationSettingsBloc(
                     context.read<ThemePreferenceRepository>(),
                     context.read<CurrencyPreferenceRepository>(),
-                  )..add(const LoadAppSettings())),
+                  )..add(const LoadApplicationSettings())),
         ],
-        child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+        child: BlocBuilder<ApplicationSettingsBloc, ApplicationSettingsState>(
           builder: (context, state) {
-            if (state is AppSettingsLoaded) {
+            if (state is ApplicationSettingsLoaded) {
               final currencyCode =
-                  BlocProvider.of<AppSettingsBloc>(context).state.currency;
+                  BlocProvider.of<ApplicationSettingsBloc>(context)
+                      .state
+                      .currency;
               return MultiBlocProvider(
                 providers: [
                   BlocProvider<FilterListBloc<WhaleTransaction, String>>(
@@ -126,12 +125,12 @@ class _MyAppState extends State<MyApp> {
                                       context.read<ApiTokensPreference>()))),
                   BlocProvider<GlobalMarketBloc>(
                     create: (BuildContext context) => GlobalMarketBloc(
-                      context.read<GlobalMarketRespository>(),
+                      context.read<GlobalMarketRepository>(),
                     )..add(GlobalMarketLoad(currencyCode)),
                   ),
                   BlocProvider<AssetOverviewBloc>(
                     create: (BuildContext context) => AssetOverviewBloc(
-                      BlocProvider.of<AppSettingsBloc>(context),
+                      BlocProvider.of<ApplicationSettingsBloc>(context),
                       FavouritesDao(box: box),
                       context.read<MarketOverviewRepository>(),
                       context.read<AssetOverviewPreference>(),
@@ -140,7 +139,7 @@ class _MyAppState extends State<MyApp> {
                   BlocProvider<SearchBloc>(
                       lazy: false,
                       create: (BuildContext context) => SearchBloc(
-                            context.read<CoinListReposiotry>(),
+                            context.read<CoinListRepository>(),
                           )..add(const GetAssetListEvent())),
                   BlocProvider<TrendingBloc>(
                       lazy: false,
@@ -149,8 +148,8 @@ class _MyAppState extends State<MyApp> {
                           )..add(const LoadTrending())),
                   BlocProvider<SingleAssetExchangeBloc>(
                     create: (BuildContext context) => SingleAssetExchangeBloc(
-                      exchangeTickerRespository:
-                          context.read<ExchangeTickerRespository>(),
+                      exchangeTickerRepository:
+                          context.read<ExchangeTickerRepository>(),
                     ),
                   )
                 ],

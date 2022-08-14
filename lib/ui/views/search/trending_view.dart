@@ -64,7 +64,7 @@ class TrendingView extends StatelessWidget {
                             child: ElevatedCard(
                               child: InkWell(
                                 borderRadius: BorderRadius.circular(
-                                    kCornerRadiusCirlcular),
+                                    kCornerRadiusCircular),
                                 onTap: () => context.router.push(
                                   AssetRoute(
                                     id: asset.id,

@@ -18,7 +18,7 @@ class SearchBloc extends Bloc<SearchBaseEvent, SearchState> {
     on<SearchEvent>(_onSearchEvent);
   }
   late List<CoinShort> _listOfAllAssetForSearch;
-  final CoinListReposiotry coinListReposiotry;
+  final CoinListRepository coinListReposiotry;
 
   @override
   void onTransition(Transition<SearchBaseEvent, SearchState> transition) {

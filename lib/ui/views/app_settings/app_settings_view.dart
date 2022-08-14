@@ -10,18 +10,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:yaca/app_router.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
+import 'package:yaca/core/extensions/theme_mode.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/app_router.dart';
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
-import 'package:yaca/core/extensions/theme_mode.dart';
 import 'package:yaca/ui/consts/constants.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 // � Flutter imports:
 
-class AppSettingsView extends StatelessWidget {
-  const AppSettingsView({super.key});
+class ApplicationSettingsView extends StatelessWidget {
+  const ApplicationSettingsView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,8 @@ class AppSettingsView extends StatelessWidget {
             children: [
               ListTile(
                 onTap: () async {
-                  await context.router.push(const AppSettingsCurrencyRoute());
+                  await context.router
+                      .push(const ApplicationSettingsCurrencyRoute());
                 },
                 title: const Text('Currency'),
                 leading: Column(
@@ -61,7 +62,7 @@ class AppSettingsView extends StatelessWidget {
                   children: [
                     Text(
                       context
-                          .watch<AppSettingsBloc>()
+                          .watch<ApplicationSettingsBloc>()
                           .state
                           .currency
                           .currencyString
@@ -80,7 +81,7 @@ class AppSettingsView extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
-                  context.router.push(const AppSettingsThemeRoute());
+                  context.router.push(const ApplicationSettingsThemeRoute());
                 },
                 title: const Text('Theme'),
                 leading: Column(
@@ -95,7 +96,7 @@ class AppSettingsView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Icon(
-                        BlocProvider.of<AppSettingsBloc>(context)
+                        BlocProvider.of<ApplicationSettingsBloc>(context)
                             .state
                             .theme
                             .toIcon(),
@@ -126,7 +127,8 @@ class AppSettingsView extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ListTile(
-                onTap: () => context.router.push(const AppSettingsWhaleRoute()),
+                onTap: () =>
+                    context.router.push(const ApplicationSettingsWhaleRoute()),
                 title: const Text('Whale Transactions'),
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,

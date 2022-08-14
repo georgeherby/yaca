@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:coingecko_api/data/market_sparkline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/extensions/list.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
@@ -121,7 +121,7 @@ class MobileRow extends StatelessWidget {
                 if (price != null)
                   Text(
                     price!.currencyFormatWithPrefix(
-                        BlocProvider.of<AppSettingsBloc>(context)
+                        BlocProvider.of<ApplicationSettingsBloc>(context)
                             .state
                             .currency
                             .currencyString,

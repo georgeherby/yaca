@@ -21,7 +21,7 @@ class FilledButton extends StatelessWidget {
         surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
         shadowColor: Theme.of(context).colorScheme.shadow,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(kCornerRadiusCirlcular),
+          borderRadius: BorderRadius.circular(kCornerRadiusCircular),
         ),
       ),
       onPressed: onTap,
