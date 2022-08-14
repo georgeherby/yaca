@@ -1,10 +1,10 @@
 name: main_workflow 
 
 on:
-  push:
-    branches-ignore:
-      - main
-      - 'releases/**'
+  # push:
+  #   branches-ignore:
+  #     - main
+  #     - 'releases/**'
   pull_request:
 
 jobs:
