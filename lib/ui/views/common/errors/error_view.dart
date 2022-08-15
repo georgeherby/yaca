@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:ionicons/ionicons.dart';
 
 class ErrorView extends StatelessWidget {
   const ErrorView({super.key, this.onRefresh, required this.error});
@@ -21,10 +20,10 @@ class ErrorView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Ionicons.bug_outline, size: 48),
+              const Icon(Icons.bug_report_outlined, size: 48),
               const SizedBox(height: 16),
               const Text(
-                  'Error occured. Please try again. If you still face issues, please contact the developer with details in the section below.'),
+                  'Error occurred. Please try again. If you still face issues, please contact the developer with details in the section below.'),
               const SizedBox(height: 16),
               Theme(
                 data: ThemeData(dividerColor: Colors.transparent),

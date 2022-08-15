@@ -8,7 +8,7 @@ import 'package:coingecko_api/data/market_chart_data.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/models/api/asset_history_splits.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/single_asset/widgets/asset_graph.dart';
 
 class _AssetGraphChipConfigurations {

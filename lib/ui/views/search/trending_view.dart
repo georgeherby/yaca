@@ -10,7 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/trending/trending_bloc.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/ranking_card.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';

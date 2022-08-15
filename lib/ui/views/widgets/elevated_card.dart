@@ -1,6 +1,6 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 
 class ElevatedCard extends StatelessWidget {
   const ElevatedCard({

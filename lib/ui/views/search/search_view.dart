@@ -5,12 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/search/search_bloc.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/search/trending_view.dart';
 
@@ -31,7 +30,7 @@ class SearchView extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => context.router.pop(),
-          icon: Icon(Ionicons.chevron_back_outline,
+          icon: Icon(Icons.chevron_left_rounded,
               size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
         ),
         centerTitle: false,
@@ -50,8 +49,8 @@ class SearchView extends StatelessWidget {
               onPressed: () {
                 _resetSearch(context, textController);
               },
-              icon: Icon(Ionicons.close_outline,
-                  color: Theme.of(context).appBarTheme.iconTheme?.color,
+              icon: Icon(Icons.close_rounded,
+                  color: Theme.of(context).appBarTheme.actionsIconTheme?.color,
                   size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
             ),
           ),

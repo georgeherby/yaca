@@ -9,7 +9,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 void main() {
-  final cogFinder = find.byKey(const Key('settings-cog-buton'));
+  final cogFinder = find.byKey(const Key('settings-cog-button'));
   final macosChevronFinder = find.byKey(const Key('back-chevron-macos'));
   final otherOsChevronFinder = find.byKey(const Key('back-chevron-other-os'));
 

@@ -13,7 +13,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/constants/colours.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 

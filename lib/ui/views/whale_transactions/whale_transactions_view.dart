@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/exceptions/missing_config_exception.dart';
@@ -55,7 +54,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
     return Scaffold(
       appBar: GeneralAppBar(
         platform: Theme.of(context).platform,
-        title: const AppBarTitle('Whale Transcations'),
+        title: const AppBarTitle('Whale Transactions'),
         leadingButtonType: Theme.of(context).platform.onlyMobile(context)
             ? LeadingButtonType.settings
             : null,
@@ -63,11 +62,11 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
           if (Theme.of(context).platform.isDesktop())
             IconButton(
                 icon: Icon(
-                  Ionicons.sync_outline,
+                  Icons.refresh_rounded,
                   size: Theme.of(context).platform == TargetPlatform.macOS &&
                           !kIsWeb
                       ? 20
-                      : Theme.of(context).iconTheme.size,
+                      : Theme.of(context).appBarTheme.actionsIconTheme?.size,
                 ),
                 onPressed: _refreshPosts)
           else
@@ -94,7 +93,7 @@ class _WhaleTransactionViewState extends State<WhaleTransactionView> {
               onRefresh: () async => _refreshPosts(), error: error.toString());
         },
         onRateLimited: (BuildContext context, error) {
-          return RatelimtedView(onRefresh: () async => _refreshPosts());
+          return RateLimitedView(onRefresh: () async => _refreshPosts());
         },
       ),
     );

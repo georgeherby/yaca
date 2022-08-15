@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/constants/colours.dart';
 
 // � Package imports:
 // � Flutter imports:

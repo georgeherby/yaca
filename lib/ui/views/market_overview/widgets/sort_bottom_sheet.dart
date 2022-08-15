@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -77,8 +76,8 @@ class SortBottomSheet extends StatelessWidget {
       SortOrder currentSortOrder) {
     return currentSortType == sortToMatch
         ? Icon(currentSortOrder.isAscending()
-            ? Ionicons.arrow_up_outline
-            : Ionicons.arrow_down_outline)
+            ? Icons.arrow_upward_rounded
+            : Icons.arrow_downward_rounded)
         : null;
   }
 }

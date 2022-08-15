@@ -8,7 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:yaca/ui/views/widgets/tonal_button.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';

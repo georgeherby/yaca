@@ -9,7 +9,7 @@ import 'package:yaca/core/bloc/application_settings/application_settings_bloc.da
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
@@ -166,7 +166,7 @@ class TabletRow extends StatelessWidget {
                 return IconButton(
                     icon: FavouriteIcon(
                       isSelected: isFavourited,
-                      size: 18,
+                      size: blockSize * 6,
                     ),
                     onPressed: onFavourite);
               }

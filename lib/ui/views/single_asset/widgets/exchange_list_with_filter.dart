@@ -5,15 +5,14 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:coingecko_api/data/ticker.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:macos_ui/macos_ui.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/models/filter.dart';
-import 'package:yaca/ui/consts/colours.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/colours.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
@@ -168,7 +167,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ),
                     const Spacer(flex: 5),
                     Icon(
-                      Ionicons.chevron_forward_outline,
+                      Icons.chevron_left_rounded,
                       color:
                           Theme.of(context).iconTheme.color?.withOpacity(0.6),
                     )

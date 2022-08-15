@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
@@ -21,8 +20,8 @@ import 'package:yaca/core/extensions/sort_order.dart';
 import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 import 'package:yaca/core/models/sort_type.dart';
-import 'package:yaca/ui/consts/colours.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/colours.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/common/errors/timeout_view.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view_loading.dart';
@@ -72,14 +71,17 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
             if (Theme.of(context).platform.isDesktop())
               IconButton(
                   icon: Icon(
-                    Ionicons.sync_outline,
-                    size: !Theme.of(context).platform.phoneOrTablet() ? 20 : 22,
+                    Icons.refresh_rounded,
+                    size: !Theme.of(context).platform.phoneOrTablet()
+                        ? 20
+                        : Theme.of(context).appBarTheme.actionsIconTheme?.size,
                   ),
                   tooltip: 'Refresh',
                   onPressed: () => _onRefresh(context, chosenCurrency))
             else
               IconButton(
-                icon: const Icon(Ionicons.search_outline),
+                icon: Icon(Icons.search_rounded,
+                    size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
                 onPressed: () {
                   context.router.push(const SearchRoute());
                 },
@@ -99,7 +101,7 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -118,8 +120,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                                       kCornerRadiusCircular)),
                               label: Icon(
                                 _showAllAssets
-                                    ? Ionicons.star_outline
-                                    : Ionicons.star,
+                                    ? Icons.star_outline_rounded
+                                    : Icons.star_rounded,
                                 size: 16,
                                 color: _showAllAssets
                                     ? Theme.of(context)
@@ -143,8 +145,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
                               },
                               avatar: Icon(
                                 state.sortOrder.isAscending()
-                                    ? Ionicons.arrow_up_outline
-                                    : Ionicons.arrow_down_outline,
+                                    ? Icons.arrow_upward_rounded
+                                    : Icons.arrow_downward_rounded,
                                 size: 16,
                                 color: Theme.of(context)
                                     .colorScheme

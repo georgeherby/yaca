@@ -32,8 +32,8 @@ import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
 import 'package:yaca/core/repositories/preferences/asset_overview_preference.dart';
 import 'package:yaca/core/repositories/preferences/currency_preference.dart';
 import 'package:yaca/core/repositories/preferences/theme_preference.dart';
-import 'package:yaca/ui/consts/constants.dart';
-import 'package:yaca/ui/consts/lib_color_schemes.g.dart';
+import 'package:yaca/ui/constants/constants.dart';
+import 'package:yaca/ui/constants/lib_color_schemes.g.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
 import 'package:yaca/firebase_options.dart';
 

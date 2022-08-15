@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/extensions/chosen_currency.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/percentage_formatters.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';

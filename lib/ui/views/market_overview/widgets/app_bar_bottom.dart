@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/bloc/global_market/global_market_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/market_overview/widgets/global_market_marque.dart';
 import 'package:yaca/ui/views/market_overview/widgets/shimmer_app_bar_data_block.dart';
 
@@ -58,7 +57,7 @@ class AppBarBottom extends StatelessWidget with PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      const Icon(Ionicons.alert_circle_outline),
+                      const Icon(Icons.error_outline_rounded),
                       Text(state.error)
                     ],
                   );

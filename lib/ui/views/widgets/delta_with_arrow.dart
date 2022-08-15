@@ -2,10 +2,9 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/constants/colours.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/percentage_formatters.dart';
 
@@ -32,8 +31,8 @@ class DeltaWithArrow extends StatelessWidget {
         children: [
           Icon(
             priceChangeDelta! < 0
-                ? Ionicons.arrow_down_outline
-                : Ionicons.arrow_up_outline,
+                ? Icons.arrow_downward_rounded
+                : Icons.arrow_upward_rounded,
             color: useTextColorForArrow ? textColor ?? color : color,
             size: textSize ?? 18,
           ),

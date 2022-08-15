@@ -11,7 +11,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/models/api/market_coins.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/desktop_header.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/desktop_row.dart';

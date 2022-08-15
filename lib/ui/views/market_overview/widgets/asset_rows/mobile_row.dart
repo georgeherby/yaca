@@ -151,7 +151,7 @@ class MobileRow extends StatelessWidget {
                   onPressed: onFavourite,
                   icon: FavouriteIcon(
                     isSelected: isFavourited,
-                    size: 14,
+                    size: blockSize * 4,
                   ),
                 );
               }

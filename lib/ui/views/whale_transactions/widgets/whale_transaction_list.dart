@@ -7,7 +7,7 @@ import 'package:intl/intl.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';

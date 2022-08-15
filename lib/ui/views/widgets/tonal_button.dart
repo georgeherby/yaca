@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 
 class TonalButton extends StatelessWidget {
   const TonalButton({super.key, required this.buttonText, required this.onTap});

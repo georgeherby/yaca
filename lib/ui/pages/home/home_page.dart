@@ -1,17 +1,17 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view.dart';
 import 'package:yaca/ui/views/whale_transactions/whale_transactions_view.dart';
 
@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
                 selectedIndex: _selectedIndex,
                 destinations: [
                   const NavigationDestination(
-                    icon: Icon(Ionicons.bar_chart_outline),
-                    selectedIcon: Icon(Ionicons.bar_chart),
+                    icon: Icon(Icons.ssid_chart_rounded),
+                    selectedIcon: Icon(Icons.ssid_chart),
                     label: 'Market',
                     tooltip: 'Market overview',
                   ),
@@ -82,8 +82,8 @@ class _HomePageState extends State<HomePage> {
                     labelType: NavigationRailLabelType.all,
                     destinations: [
                       const NavigationRailDestination(
-                        icon: Icon(Ionicons.bar_chart_outline),
-                        selectedIcon: Icon(Ionicons.bar_chart),
+                        icon: Icon(Icons.ssid_chart_rounded),
+                        selectedIcon: Icon(Icons.ssid_chart),
                         label: Text(
                           'Market',
                         ),
@@ -117,8 +117,8 @@ class _HomePageState extends State<HomePage> {
                       tooltip: 'Open settings',
                       onPressed: () => context.router
                           .push(const ApplicationSettingsHomeRoute()),
-                      icon: Icon(Ionicons.cog_outline,
-                          size: Theme.of(context).iconTheme.size),
+                      icon: Icon(CupertinoIcons.settings,
+                          size: Theme.of(context).appBarTheme.iconTheme?.size),
                     ),
                   ),
                 ),

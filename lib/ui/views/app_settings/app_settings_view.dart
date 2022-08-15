@@ -9,13 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 // � Flutter imports:
@@ -52,7 +51,7 @@ class ApplicationSettingsView extends StatelessWidget {
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Ionicons.cash_outline,
+                    Icon(Icons.payments_outlined,
                         color: Theme.of(context).colorScheme.onSurface),
                   ],
                 ),
@@ -60,17 +59,13 @@ class ApplicationSettingsView extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      context
-                          .watch<ApplicationSettingsBloc>()
-                          .state
-                          .currency
-                          .currencyString
-                          .toUpperCase(),
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
+                    Icon(context
+                        .watch<ApplicationSettingsBloc>()
+                        .state
+                        .currency
+                        .currencyIcon),
                     const VerticalDivider(color: Colors.transparent),
-                    Icon(Ionicons.chevron_forward_outline,
+                    Icon(Icons.chevron_right_rounded,
                         color: Theme.of(context).colorScheme.onSurface),
                   ],
                 ),
@@ -87,7 +82,7 @@ class ApplicationSettingsView extends StatelessWidget {
                 leading: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Ionicons.color_palette_outline,
+                    Icon(Icons.color_lens_outlined,
                         color: Theme.of(context).colorScheme.onSurface),
                   ],
                 ),
@@ -102,7 +97,7 @@ class ApplicationSettingsView extends StatelessWidget {
                             .toIcon(),
                         color: Theme.of(context).colorScheme.onSurface),
                     const VerticalDivider(color: Colors.transparent),
-                    Icon(Ionicons.chevron_forward_outline,
+                    Icon(Icons.chevron_right_rounded,
                         color: Theme.of(context).colorScheme.onSurface),
                   ],
                 ),
@@ -142,7 +137,7 @@ class ApplicationSettingsView extends StatelessWidget {
                   ],
                 ),
                 trailing: Icon(
-                  Ionicons.chevron_forward_outline,
+                  Icons.chevron_right_rounded,
                   color: Theme.of(context).colorScheme.onSurface,
                 ),
               ),

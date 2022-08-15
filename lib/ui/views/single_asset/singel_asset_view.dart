@@ -18,8 +18,8 @@ import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/bloc/single_asset_exchange/single_asset_exchange_bloc.dart';
 import 'package:yaca/core/extensions/platform.dart';
 import 'package:yaca/core/extensions/string.dart';
-import 'package:yaca/ui/consts/colours.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/colours.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:yaca/ui/views/single_asset/widgets/asset_graph_with_switcher.dart';
@@ -106,7 +106,10 @@ class SingleAssetView extends StatelessWidget {
                         isSelected: isFavourite,
                         size: Theme.of(context).platform == TargetPlatform.macOS
                             ? 20
-                            : 22,
+                            : Theme.of(context)
+                                .appBarTheme
+                                .actionsIconTheme
+                                ?.size,
                       ),
                       onPressed: () =>
                           BlocProvider.of<AssetOverviewBloc>(context).add(

@@ -13,14 +13,14 @@ class SelectableIcon extends StatelessWidget {
   final IconData selectedIcon;
   final IconData unSelectedIcon;
   final bool isSelected;
-  final double size;
+  final double? size;
   final Color selectedColor;
 
   @override
   Widget build(BuildContext context) {
     return Icon(
       isSelected ? selectedIcon : unSelectedIcon,
-      size: size,
+      size: size ?? Theme.of(context).iconTheme.size,
       color: isSelected
           ? selectedColor
           : (Theme.of(context).colorScheme.onSurface),
