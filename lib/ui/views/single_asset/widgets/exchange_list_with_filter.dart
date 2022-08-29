@@ -142,7 +142,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                               'Trust score is ${tickers[index].trustScore.toUpperCase()}',
                           selectedColor: _trustScoreToColor(
                               context, tickers[index].trustScore.toUpperCase()),
-                          unselectedolor: Theme.of(context).dividerColor,
+                          unselectedColor: Theme.of(context).dividerColor,
                         ),
                       ),
                     if (isPhoneOnly) Container() else const Spacer(flex: 5),
