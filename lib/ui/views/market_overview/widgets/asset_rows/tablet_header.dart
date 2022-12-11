@@ -24,7 +24,7 @@ class TabletHeader extends StatelessWidget {
                     children: [
                       Text(
                         '7d',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -37,7 +37,7 @@ class TabletHeader extends StatelessWidget {
                     children: [
                       Text(
                         '24h',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -50,7 +50,7 @@ class TabletHeader extends StatelessWidget {
                     children: [
                       Text(
                         '1h',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -62,7 +62,7 @@ class TabletHeader extends StatelessWidget {
             flex: 25,
             child: Text(
               'Price',
-              style: Theme.of(context).textTheme.subtitle2,
+              style: Theme.of(context).textTheme.titleSmall,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.end,
@@ -70,7 +70,7 @@ class TabletHeader extends StatelessWidget {
           ),
           const Padding(
             padding: EdgeInsets.all(8.0),
-            child: SizedBox(width: 36),
+            child: SizedBox(width: 32),
           ),
         ],
       ),

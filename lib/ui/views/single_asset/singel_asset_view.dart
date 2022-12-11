@@ -29,7 +29,6 @@ import 'package:yaca/ui/views/widgets/app_bar_title.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 import 'package:yaca/ui/views/widgets/favourite_icon.dart';
-import 'package:yaca/ui/views/widgets/filled_button.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
 import 'package:yaca/ui/views/widgets/elevated_card.dart';
@@ -552,8 +551,8 @@ class SingleAssetView extends StatelessWidget {
                             child: Padding(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 4.0),
-                              child: FilledButton(
-                                onTap: () async {
+                              child: FilledButton.tonal(
+                                onPressed: () async {
                                   BlocProvider.of<SingleAssetExchangeBloc>(
                                           context)
                                       .add(SingleAssetExchangeLoad(
@@ -561,7 +560,7 @@ class SingleAssetView extends StatelessWidget {
                                   await context.router
                                       .push(const AssetExchangeRoute());
                                 },
-                                buttonText: 'View markets',
+                                child: const Text('View markets'),
                               ),
                             ),
                           ),

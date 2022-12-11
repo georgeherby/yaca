@@ -76,7 +76,7 @@ class TabletRow extends StatelessWidget {
                   child: Text(
                     name,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -166,7 +166,7 @@ class TabletRow extends StatelessWidget {
                 return IconButton(
                     icon: FavouriteIcon(
                       isSelected: isFavourited,
-                      size: blockSize * 6,
+                      size: blockSize * 4,
                     ),
                     onPressed: onFavourite);
               }

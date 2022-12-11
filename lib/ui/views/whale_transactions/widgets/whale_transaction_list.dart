@@ -70,7 +70,7 @@ class WhaleTransactionList extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     formatDate.format(date),
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 1,
                   ),
                 ],

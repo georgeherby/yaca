@@ -103,7 +103,7 @@ class TrendingView extends StatelessWidget {
                                           Text(asset.symbol,
                                               style: Theme.of(context)
                                                   .textTheme
-                                                  .caption),
+                                                  .bodySmall),
                                         ],
                                       ),
                                     ],
