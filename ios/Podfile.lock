@@ -9,14 +9,14 @@ PODS:
   - Firebase/Performance (10.3.0):
     - Firebase/CoreOnly
     - FirebasePerformance (~> 10.3.0)
-  - firebase_analytics (10.0.7):
+  - firebase_analytics (10.1.0):
     - Firebase/Analytics (= 10.3.0)
     - firebase_core
     - Flutter
-  - firebase_core (2.4.0):
+  - firebase_core (2.4.1):
     - Firebase/CoreOnly (= 10.3.0)
     - Flutter
-  - firebase_performance (0.9.0-7):
+  - firebase_performance (0.9.0-9):
     - Firebase/Performance (= 10.3.0)
     - firebase_core
     - Flutter
@@ -182,9 +182,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Firebase: f92fc551ead69c94168d36c2b26188263860acd9
-  firebase_analytics: fd9cc19a31206f636cb3f7775b4b2ad41f4503d2
-  firebase_core: 6f2f753e316765799d88568232ed59e300ff53db
-  firebase_performance: 4705884ed3d6f96b3f10666335f9469cdab981b9
+  firebase_analytics: 9f3a4cb560a59976b2c48707abae2d4cb94bcb3a
+  firebase_core: bf59c32d2e53814f558efa20840c1902fa2fe461
+  firebase_performance: 17c38f6a6ef97737aaf5fc4c0e48591e74c25fda
   FirebaseABTesting: e6660693429b4663573c82f8d2f1041deff1753a
   FirebaseAnalytics: 036232b6a1e2918e5f67572417be1173576245f3
   FirebaseCore: 988754646ab3bd4bdcb740f1bfe26b9f6c0d5f2a
@@ -207,4 +207,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 0cde81dc4d0d4612c53dec78970c21542632366d
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

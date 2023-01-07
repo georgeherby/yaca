@@ -78,6 +78,7 @@ class WhaleApiTokenView extends StatelessWidget {
                     child: TonalButton(
                       buttonText: 'Save',
                       onTap: () async {
+                        final router = context.router;
                         if (_formKey.currentState!.validate()) {
                           debugPrint('Saving ${tokenController.text}');
                           final FilterListBloc bloc = BlocProvider.of<
@@ -88,7 +89,7 @@ class WhaleApiTokenView extends StatelessWidget {
                               .saveWhalesApiToken(tokenController.text);
 
                           bloc.loadElements();
-                          await context.router.pop();
+                          await router.pop();
                         }
                       },
                     ),

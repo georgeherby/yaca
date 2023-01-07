@@ -12,7 +12,7 @@ environment:
 dependencies:
   auto_route: ^5.0.1
   cached_network_image: ^3.2.1
-  coingecko_api: ^1.0.2+2
+  coingecko_api: ^1.1.0+2
   cupertino_icons: ^1.0.5
   entry: ^0.0.7
   equatable: ^2.0.3
