@@ -566,7 +566,8 @@ class SingleAssetView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if (state.coin.description?.translations['en'] != null)
+                      if (state.coin.description?.translations['en'] != null &&
+                          state.coin.description!.translations['en']!.isNotEmpty)
                         _buildElevatedCard(
                           context,
                           false,

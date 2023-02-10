@@ -166,8 +166,10 @@ class _MyAppState extends State<MyApp> {
                         ThemeData.light().textTheme,
                       ),
                       visualDensity: VisualDensity.adaptivePlatformDensity,
-                      applyElevationOverlayColor: true,
-                      colorScheme: lightColorScheme),
+                      applyElevationOverlayColor: true,    
+                      colorScheme: lightColorScheme
+                      
+                      ),
                   darkTheme: ThemeData.dark().copyWith(
                       useMaterial3: true,
                       scaffoldBackgroundColor: darkColorScheme.background,

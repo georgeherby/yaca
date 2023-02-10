@@ -63,7 +63,8 @@ class ApplicationSettingsView extends StatelessWidget {
                         .watch<ApplicationSettingsBloc>()
                         .state
                         .currency
-                        .currencyIcon),
+                        .currencyIcon,
+                        color: Theme.of(context).colorScheme.onSurface),
                     const VerticalDivider(color: Colors.transparent),
                     Icon(Icons.chevron_right_rounded,
                         color: Theme.of(context).colorScheme.onSurface),
