@@ -167,7 +167,7 @@ class _ExchangeListWithFilterState extends State<ExchangeListWithFilter> {
                     ),
                     const Spacer(flex: 5),
                     Icon(
-                      Icons.chevron_left_rounded,
+                      Icons.open_in_new_rounded,
                       color:
                           Theme.of(context).iconTheme.color?.withOpacity(0.6),
                     )
