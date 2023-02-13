@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/colours.dart';
+import 'package:yaca/ui/constants/colours.dart';
 
 // � Package imports:
 // � Flutter imports:
@@ -17,19 +17,18 @@ import 'package:yaca/ui/consts/colours.dart';
 // � Flutter imports:
 
 class SimpleSparkLine extends StatelessWidget {
+  const SimpleSparkLine({super.key, required this.data, required this.width});
   final List<double> data;
   final double width;
-  const SimpleSparkLine({Key? key, required this.data, required this.width})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     if (data.isNotEmpty) {
-      var maxPrice = data.reduce(max);
-      var minPrice = data.reduce(min);
-      var lastPrice = data.last;
-      var firstPrice = data.first;
-      var graphColor =
+      final maxPrice = data.reduce(max);
+      final minPrice = data.reduce(min);
+      final lastPrice = data.last;
+      final firstPrice = data.first;
+      final graphColor =
           (lastPrice > firstPrice).toPositiveNegativeColorFromBool(context);
 
       return LineChart(

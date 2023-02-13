@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 enum ScreenSize { small, medium, large }
+
 extension PlatformFunctions on TargetPlatform {
   bool isMobilePlatform() {
     return [TargetPlatform.android, TargetPlatform.iOS].contains(this);
@@ -27,7 +28,8 @@ extension ScreenTypeChecker on ScreenSize {
   }
 }
 
-ScreenSize getScreenSize(Size size, TargetPlatform targetPlatform, bool isWeb) {
+ScreenSize getScreenSize(Size size, TargetPlatform targetPlatform,
+    {required bool isWeb}) {
   var deviceWidth = size.shortestSide;
 
   if (isWeb || targetPlatform.isDesktopPlatform()) {

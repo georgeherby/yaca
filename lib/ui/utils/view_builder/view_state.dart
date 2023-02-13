@@ -34,9 +34,8 @@ class Loading extends ViewState {
 /// initial loading ends with [Success] or [Empty] result. It may contain
 /// the data that has already been loaded.
 class Refreshing<T extends Object> extends ViewState {
-  final T data;
-
   const Refreshing(this.data);
+  final T data;
 
   @override
   List<Object> get props => [data];
@@ -56,9 +55,8 @@ class Empty extends ViewState {
 /// State indicating that data was loaded successfully and is not null nor empty.
 /// [T] - list element type.
 class Success<T extends Object> extends ViewState {
-  final T data;
-
   const Success(this.data);
+  final T data;
 
   @override
   List<Object> get props => [data];
@@ -70,9 +68,8 @@ class Success<T extends Object> extends ViewState {
 /// State indicating that loading or refreshing has failed. It contains an
 /// exact [error] that has occurred.
 class Failure extends ViewState {
-  final Exception? error;
-
   const Failure(this.error) : assert(error != null);
+  final Exception? error;
 
   @override
   List<Object?> get props => [error];

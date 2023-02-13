@@ -9,23 +9,23 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:yaca/ui/views/widgets/general_app_bar.dart';
 
 void main() {
-  final cogFinder = find.byKey(const Key('settings-cog-buton'));
+  final cogFinder = find.byKey(const Key('settings-cog-button'));
   final macosChevronFinder = find.byKey(const Key('back-chevron-macos'));
   final otherOsChevronFinder = find.byKey(const Key('back-chevron-other-os'));
 
   group('Android', () {
-    var platform = TargetPlatform.android;
+    const platform = TargetPlatform.android;
     group('mobile', () {
-      var width = ResponsiveSizingConfig.instance.breakpoints.tablet - 1;
+      final width = ResponsiveSizingConfig.instance.breakpoints.tablet - 1;
 
       testWidgets('On screen with no back page', (WidgetTester tester) async {
         tester.binding.window.physicalSizeTestValue = Size(width, 800);
 
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: const Text('title'),
-              actions: const [],
+              title: Text('title'),
+              actions: [],
               platform: platform,
               leadingButtonType: LeadingButtonType.settings),
         )));
@@ -39,11 +39,11 @@ void main() {
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
-          MaterialApp(
+          const MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: const Text('title'),
-                  actions: const [],
+                  title: Text('title'),
+                  actions: [],
                   platform: platform,
                   leadingButtonType: LeadingButtonType.back),
             ),
@@ -59,17 +59,17 @@ void main() {
     });
 
     group('tablet', () {
-      var width = ResponsiveSizingConfig.instance.breakpoints.tablet;
+      final width = ResponsiveSizingConfig.instance.breakpoints.tablet;
 
       testWidgets('On screen with no back page', (WidgetTester tester) async {
         tester.binding.window.physicalSizeTestValue = Size(width, 800);
         tester.binding.window.devicePixelRatioTestValue = 1.0;
 
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: const Text('title'),
-              actions: const [],
+              title: Text('title'),
+              actions: [],
               platform: platform,
               leadingButtonType: null),
         )));
@@ -83,11 +83,11 @@ void main() {
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
-          MaterialApp(
+          const MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: const Text('title'),
-                  actions: const [],
+                  title: Text('title'),
+                  actions: [],
                   platform: platform,
                   leadingButtonType: LeadingButtonType.back),
             ),
@@ -104,18 +104,18 @@ void main() {
   });
 
   group('iOS', () {
-    var platform = TargetPlatform.iOS;
+    const platform = TargetPlatform.iOS;
     group('mobile', () {
-      var width = ResponsiveSizingConfig.instance.breakpoints.tablet - 1;
+      final width = ResponsiveSizingConfig.instance.breakpoints.tablet - 1;
 
       testWidgets('On screen with no back page', (WidgetTester tester) async {
         tester.binding.window.physicalSizeTestValue = Size(width, 800);
 
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: const Text('title'),
-              actions: const [],
+              title: Text('title'),
+              actions: [],
               platform: platform,
               leadingButtonType: LeadingButtonType.settings),
         )));
@@ -129,11 +129,11 @@ void main() {
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
-          MaterialApp(
+          const MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: const Text('title'),
-                  actions: const [],
+                  title: Text('title'),
+                  actions: [],
                   platform: platform,
                   leadingButtonType: LeadingButtonType.back),
             ),
@@ -149,17 +149,17 @@ void main() {
     });
 
     group('tablet', () {
-      var width = ResponsiveSizingConfig.instance.breakpoints.tablet;
+      final width = ResponsiveSizingConfig.instance.breakpoints.tablet;
 
       testWidgets('On screen with no back page', (WidgetTester tester) async {
         tester.binding.window.physicalSizeTestValue = Size(width, 800);
         tester.binding.window.devicePixelRatioTestValue = 1.0;
 
-        await tester.pumpWidget(MaterialApp(
+        await tester.pumpWidget(const MaterialApp(
             home: Scaffold(
           appBar: GeneralAppBar(
-              title: const Text('title'),
-              actions: const [],
+              title: Text('title'),
+              actions: [],
               platform: platform,
               leadingButtonType: null),
         )));
@@ -173,11 +173,11 @@ void main() {
       });
       testWidgets('On screen with back page', (WidgetTester tester) async {
         await tester.pumpWidget(
-          MaterialApp(
+          const MaterialApp(
             home: Scaffold(
               appBar: GeneralAppBar(
-                  title: const Text('title'),
-                  actions: const [],
+                  title: Text('title'),
+                  actions: [],
                   platform: platform,
                   leadingButtonType: LeadingButtonType.back),
             ),
@@ -193,14 +193,14 @@ void main() {
     });
   });
   group('MacOS', () {
-    var platform = TargetPlatform.macOS;
+    const platform = TargetPlatform.macOS;
 
     testWidgets('On screen with no back page', (WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
+      await tester.pumpWidget(const MaterialApp(
           home: Scaffold(
         appBar: GeneralAppBar(
-            title: const Text('title'),
-            actions: const [],
+            title: Text('title'),
+            actions: [],
             platform: platform,
             leadingButtonType: null),
       )));
@@ -214,11 +214,11 @@ void main() {
     });
     testWidgets('On screen with back page', (WidgetTester tester) async {
       await tester.pumpWidget(
-        MaterialApp(
+        const MaterialApp(
           home: Scaffold(
             appBar: GeneralAppBar(
-                title: const Text('title'),
-                actions: const [],
+                title: Text('title'),
+                actions: [],
                 platform: platform,
                 leadingButtonType: LeadingButtonType.back),
           ),

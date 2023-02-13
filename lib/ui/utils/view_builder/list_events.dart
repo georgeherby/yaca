@@ -14,9 +14,8 @@ abstract class ListEvent extends Equatable {
 ///
 /// [F] - the filter type.
 class LoadList<F extends Object?> extends ListEvent {
-  final F? filter;
-
   const LoadList([this.filter]);
+  final F? filter;
 
   @override
   List<Object> get props => filter != null ? [filter!] : [];
@@ -29,9 +28,8 @@ class LoadList<F extends Object?> extends ListEvent {
 ///
 /// [F] - the filter type.
 class RefreshList<F extends Object?> extends ListEvent {
-  final F? filter;
-
   const RefreshList([this.filter]);
+  final F? filter;
 
   @override
   List<Object> get props => filter != null ? [filter!] : [];

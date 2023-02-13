@@ -2,12 +2,10 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:ionicons/ionicons.dart';
 
 class TimeoutView extends StatelessWidget {
+  const TimeoutView({super.key, required this.onRefresh});
   final VoidCallback onRefresh;
-
-  const TimeoutView({Key? key, required this.onRefresh}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +19,12 @@ class TimeoutView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Ionicons.wifi_outline, size: 48),
+              const Icon(Icons.wifi_outlined, size: 48),
               const SizedBox(height: 16),
               const Text(
-                  "Connection timeout. Ensure you are connected to the internet and try again."),
+                  'Connection timeout. Ensure you are connected to the internet and try again.'),
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: onRefresh, child: const Text("Retry")),
+              ElevatedButton(onPressed: onRefresh, child: const Text('Retry')),
             ],
           ),
         ),

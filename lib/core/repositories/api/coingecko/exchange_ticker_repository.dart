@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:coingecko_api/coingecko_api.dart';
 import 'package:coingecko_api/data/ticker.dart';
 
-class ExchangeTickerRespository {
+class ExchangeTickerRepository {
+  ExchangeTickerRepository(this._api);
   final CoinGeckoApi _api;
-  ExchangeTickerRespository(this._api);
 
   Future<List<Ticker>> getExchangeTickerForCoin(String cryptoName) async {
     debugPrint('getExchangeTicker called for $cryptoName');

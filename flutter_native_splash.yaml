@@ -25,9 +25,35 @@ flutter_native_splash:
   # parameters from above. If the image_dark parameter is specified, color_dark or
   # background_image_dark must be specified.  color_dark and background_image_dark cannot both be
   # set.
-  color_dark: "#121313"
+  color_dark: "#191C1B"
   #background_image_dark: "assets/dark-background.png"
-  image-dark: assets/logo-1024-white.png
+  image_dark: assets/logo-1024-white.png
+
+  # Android 12 handles the splash screen differently than previous versions.  Please visit
+  # https://developer.android.com/guide/topics/ui/splash-screen
+  # Following are Android 12 specific parameter.
+  android_12:
+    # The image parameter sets the splash screen icon image.  If this parameter is not specified,
+    # the app's launcher icon will be used instead.
+    # Please note that the splash screen will be clipped to a circle on the center of the screen.
+    # App icon with an icon background: This should be 960×960 pixels, and fit within a circle
+    # 640 pixels in diameter.
+    # App icon without an icon background: This should be 1152×1152 pixels, and fit within a circle
+    # 768 pixels in diameter.
+    image: assets/logo-1024-white.png
+
+    # Splash screen background color.
+    color: "#638175"
+
+    # App icon background color.
+    icon_background_color: "#FFFFFF"
+
+    # The image_dark parameter and icon_background_color_dark set the image and icon background
+    # color when the device is in dark mode. If they are not specified, the app will use the
+    # parameters from above.
+    image_dark: assets/logo-1024-white.png
+    color_dark: "#191C1B"
+    icon_background_color_dark: "#FFFFFF"
 
   # The android, ios and web parameters can be used to disable generating a splash screen on a given
   # platform.

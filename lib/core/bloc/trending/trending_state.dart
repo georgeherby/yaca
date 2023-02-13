@@ -12,18 +12,16 @@ class TrendingInitial extends TrendingState {}
 class TrendingLoading extends TrendingState {}
 
 class TrendingLoaded extends TrendingState {
-  final List<SearchTrendingCoin> trending;
-
   const TrendingLoaded({required this.trending});
+  final List<SearchTrendingCoin> trending;
 
   @override
   List<Object> get props => [trending];
 }
 
 class TrendingError extends TrendingState {
+  const TrendingError(this.error);
   final String error;
-
-  const TrendingError( this.error);
 
   @override
   List<Object> get props => [error];

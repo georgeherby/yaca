@@ -1,13 +1,13 @@
 // 🌎 Project imports:
+import 'package:flutter/material.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
-import 'package:yaca/ui/views/widgets/icons/svg_icon.dart';
 
 class AvailableCurrencies {
   static ChosenCurrency usd = const ChosenCurrency(
     currencyName: 'US Dollar',
     currencyCode: 'USD',
     currencyType: CurrencyType.fiat,
-    currencyIcon: SvgIcon("assets/fiat_icons/usd.svg"),
+    currencyIcon: Icons.attach_money_rounded,
     currencyString: '\$',
   );
 
@@ -15,7 +15,7 @@ class AvailableCurrencies {
     currencyName: 'Euro',
     currencyCode: 'EUR',
     currencyType: CurrencyType.fiat,
-    currencyIcon: SvgIcon("assets/fiat_icons/eur.svg"),
+    currencyIcon: Icons.euro_rounded,
     currencyString: '€',
   );
 
@@ -23,7 +23,7 @@ class AvailableCurrencies {
     currencyName: 'British Pound',
     currencyCode: 'GBP',
     currencyType: CurrencyType.fiat,
-    currencyIcon: SvgIcon("assets/fiat_icons/gbp.svg"),
+    currencyIcon: Icons.currency_pound_rounded,
     currencyString: '£',
   );
 
@@ -31,24 +31,27 @@ class AvailableCurrencies {
     currencyName: 'Bitcoin',
     currencyCode: 'BTC',
     currencyType: CurrencyType.crypto,
-    currencyIcon: SvgIcon("assets/crypto_icons/btc.svg"),
+    currencyIcon: Icons.currency_bitcoin_rounded,
     currencyString: '₿',
   );
 
-  static ChosenCurrency eth = const ChosenCurrency(
-    currencyName: 'Ethereum',
-    currencyCode: 'ETH',
-    currencyType: CurrencyType.crypto,
-    currencyIcon: SvgIcon("assets/crypto_icons/eth.svg"),
-    currencyString: 'Ξ',
-  );
-  static ChosenCurrency ltc = const ChosenCurrency(
-    currencyName: 'Litecoin',
-    currencyCode: 'LTC',
-    currencyType: CurrencyType.crypto,
-    currencyIcon: SvgIcon("assets/crypto_icons/ltc.svg"),
-    currencyString: 'Ł',
-  );
+  //Took out as no Material Icons for this currency
+  // static ChosenCurrency eth = const ChosenCurrency(
+  //   currencyName: 'Ethereum',
+  //   currencyCode: 'ETH',
+  //   currencyType: CurrencyType.crypto,
+  //   currencyIcon: SvgIcon('assets/crypto_icons/eth.svg'),
+  //   currencyString: 'Ξ',
+  // );
+
+  //Took out as no Material Icons for this currency
+  // static ChosenCurrency ltc = const ChosenCurrency(
+  //   currencyName: 'Litecoin',
+  //   currencyCode: 'LTC',
+  //   currencyType: CurrencyType.crypto,
+  //   currencyIcon: SvgIcon('assets/crypto_icons/ltc.svg'),
+  //   currencyString: 'Ł',
+  // );
 
   //Taken out due to issues with number formatting on mobile home screen
   // static ChosenCurrency bnb = const ChosenCurrency(
@@ -61,8 +64,6 @@ class AvailableCurrencies {
 
   static List<ChosenCurrency> get listOfAvailableCurrencies => [
         btc,
-        eth,
-        ltc,
         eur,
         gbp,
         usd,

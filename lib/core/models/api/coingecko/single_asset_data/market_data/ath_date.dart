@@ -5,67 +5,6 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class AthDate extends Equatable {
-  final String aed;
-  final String ars;
-  final String aud;
-  final String bch;
-  final String bdt;
-  final String bhd;
-  final String bmd;
-  final String bnb;
-  final String brl;
-  final String btc;
-  final String cad;
-  final String chf;
-  final String clp;
-  final String cny;
-  final String czk;
-  final String dkk;
-  final String dot;
-  final String eos;
-  final String eth;
-  final String eur;
-  final String gbp;
-  final String hkd;
-  final String huf;
-  final String idr;
-  final String ils;
-  final String inr;
-  final String jpy;
-  final String krw;
-  final String kwd;
-  final String lkr;
-  final String ltc;
-  final String mmk;
-  final String mxn;
-  final String myr;
-  final String ngn;
-  final String nok;
-  final String nzd;
-  final String php;
-  final String pkr;
-  final String pln;
-  final String rub;
-  final String sar;
-  final String sek;
-  final String sgd;
-  final String thb;
-  final String tTry;
-  final String twd;
-  final String uah;
-  final String usd;
-  final String vef;
-  final String vnd;
-  final String xag;
-  final String xau;
-  final String xdr;
-  final String xlm;
-  final String xrp;
-  final String yfi;
-  final String zar;
-  final String bits;
-  final String link;
-  final String sats;
   const AthDate({
     required this.aed,
     required this.ars,
@@ -129,6 +68,135 @@ class AthDate extends Equatable {
     required this.link,
     required this.sats,
   });
+  factory AthDate.fromJson(String source) =>
+      AthDate.fromMap(json.decode(source));
+
+  factory AthDate.fromMap(Map<String, dynamic> map) {
+    return AthDate(
+      aed: map['aed'],
+      ars: map['ars'],
+      aud: map['aud'],
+      bch: map['bch'],
+      bdt: map['bdt'],
+      bhd: map['bhd'],
+      bmd: map['bmd'],
+      bnb: map['bnb'],
+      brl: map['brl'],
+      btc: map['btc'],
+      cad: map['cad'],
+      chf: map['chf'],
+      clp: map['clp'],
+      cny: map['cny'],
+      czk: map['czk'],
+      dkk: map['dkk'],
+      dot: map['dot'],
+      eos: map['eos'],
+      eth: map['eth'],
+      eur: map['eur'],
+      gbp: map['gbp'],
+      hkd: map['hkd'],
+      huf: map['huf'],
+      idr: map['idr'],
+      ils: map['ils'],
+      inr: map['inr'],
+      jpy: map['jpy'],
+      krw: map['krw'],
+      kwd: map['kwd'],
+      lkr: map['lkr'],
+      ltc: map['ltc'],
+      mmk: map['mmk'],
+      mxn: map['mxn'],
+      myr: map['myr'],
+      ngn: map['ngn'],
+      nok: map['nok'],
+      nzd: map['nzd'],
+      php: map['php'],
+      pkr: map['pkr'],
+      pln: map['pln'],
+      rub: map['rub'],
+      sar: map['sar'],
+      sek: map['sek'],
+      sgd: map['sgd'],
+      thb: map['thb'],
+      tTry: map['try'],
+      twd: map['twd'],
+      uah: map['uah'],
+      usd: map['usd'],
+      vef: map['vef'],
+      vnd: map['vnd'],
+      xag: map['xag'],
+      xau: map['xau'],
+      xdr: map['xdr'],
+      xlm: map['xlm'],
+      xrp: map['xrp'],
+      yfi: map['yfi'],
+      zar: map['zar'],
+      bits: map['bits'],
+      link: map['link'],
+      sats: map['sats'],
+    );
+  }
+  final String aed;
+  final String ars;
+  final String aud;
+  final String bch;
+  final String bdt;
+  final String bhd;
+  final String bmd;
+  final String bnb;
+  final String brl;
+  final String btc;
+  final String cad;
+  final String chf;
+  final String clp;
+  final String cny;
+  final String czk;
+  final String dkk;
+  final String dot;
+  final String eos;
+  final String eth;
+  final String eur;
+  final String gbp;
+  final String hkd;
+  final String huf;
+  final String idr;
+  final String ils;
+  final String inr;
+  final String jpy;
+  final String krw;
+  final String kwd;
+  final String lkr;
+  final String ltc;
+  final String mmk;
+  final String mxn;
+  final String myr;
+  final String ngn;
+  final String nok;
+  final String nzd;
+  final String php;
+  final String pkr;
+  final String pln;
+  final String rub;
+  final String sar;
+  final String sek;
+  final String sgd;
+  final String thb;
+  final String tTry;
+  final String twd;
+  final String uah;
+  final String usd;
+  final String vef;
+  final String vnd;
+  final String xag;
+  final String xau;
+  final String xdr;
+  final String xlm;
+  final String xrp;
+  final String yfi;
+  final String zar;
+  final String bits;
+  final String link;
+  final String sats;
 
   AthDate copyWith({
     String? aed,
@@ -324,76 +392,7 @@ class AthDate extends Equatable {
     };
   }
 
-  factory AthDate.fromMap(Map<String, dynamic> map) {
-    return AthDate(
-      aed: map['aed'],
-      ars: map['ars'],
-      aud: map['aud'],
-      bch: map['bch'],
-      bdt: map['bdt'],
-      bhd: map['bhd'],
-      bmd: map['bmd'],
-      bnb: map['bnb'],
-      brl: map['brl'],
-      btc: map['btc'],
-      cad: map['cad'],
-      chf: map['chf'],
-      clp: map['clp'],
-      cny: map['cny'],
-      czk: map['czk'],
-      dkk: map['dkk'],
-      dot: map['dot'],
-      eos: map['eos'],
-      eth: map['eth'],
-      eur: map['eur'],
-      gbp: map['gbp'],
-      hkd: map['hkd'],
-      huf: map['huf'],
-      idr: map['idr'],
-      ils: map['ils'],
-      inr: map['inr'],
-      jpy: map['jpy'],
-      krw: map['krw'],
-      kwd: map['kwd'],
-      lkr: map['lkr'],
-      ltc: map['ltc'],
-      mmk: map['mmk'],
-      mxn: map['mxn'],
-      myr: map['myr'],
-      ngn: map['ngn'],
-      nok: map['nok'],
-      nzd: map['nzd'],
-      php: map['php'],
-      pkr: map['pkr'],
-      pln: map['pln'],
-      rub: map['rub'],
-      sar: map['sar'],
-      sek: map['sek'],
-      sgd: map['sgd'],
-      thb: map['thb'],
-      tTry: map['try'],
-      twd: map['twd'],
-      uah: map['uah'],
-      usd: map['usd'],
-      vef: map['vef'],
-      vnd: map['vnd'],
-      xag: map['xag'],
-      xau: map['xau'],
-      xdr: map['xdr'],
-      xlm: map['xlm'],
-      xrp: map['xrp'],
-      yfi: map['yfi'],
-      zar: map['zar'],
-      bits: map['bits'],
-      link: map['link'],
-      sats: map['sats'],
-    );
-  }
-
   String toJson() => json.encode(toMap());
-
-  factory AthDate.fromJson(String source) =>
-      AthDate.fromMap(json.decode(source));
 
   @override
   bool get stringify => true;

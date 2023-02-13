@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 class AssetTextIcon extends StatelessWidget {
   const AssetTextIcon(
-      {Key? key, required this.assetSymbol, required this.iconSize})
-      : super(key: key);
+      {super.key, required this.assetSymbol, required this.iconSize});
 
   final String assetSymbol;
   final double iconSize;
@@ -14,7 +13,7 @@ class AssetTextIcon extends StatelessWidget {
     return CircleAvatar(
       minRadius: iconSize / 2,
       maxRadius: iconSize / 2,
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       child: Text(
         assetSymbol.toUpperCase(),
         overflow: TextOverflow.clip,
@@ -22,8 +21,8 @@ class AssetTextIcon extends StatelessWidget {
         textAlign: TextAlign.center,
         style: Theme.of(context)
             .textTheme
-            .caption
-            ?.copyWith(color: Colors.white.withOpacity(0.87)),
+            .bodySmall
+            ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
       ),
     );
   }

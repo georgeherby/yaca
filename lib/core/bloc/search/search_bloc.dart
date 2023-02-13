@@ -13,21 +13,20 @@ part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchBaseEvent, SearchState> {
-  late List<CoinShort> _listOfAllAssetForSearch;
-  final CoinListReposiotry coinListReposiotry;
-
   SearchBloc(this.coinListReposiotry) : super(const SearchInitial()) {
     on<GetAssetListEvent>(_onGetAssetListEvent);
     on<SearchEvent>(_onSearchEvent);
   }
+  late List<CoinShort> _listOfAllAssetForSearch;
+  final CoinListRepository coinListReposiotry;
 
   @override
   void onTransition(Transition<SearchBaseEvent, SearchState> transition) {
-    debugPrint("SearchBloc :: $transition");
+    debugPrint('SearchBloc :: $transition');
     super.onTransition(transition);
   }
 
-  void _onGetAssetListEvent(
+  Future<void> _onGetAssetListEvent(
     GetAssetListEvent event,
     Emitter<SearchState> emit,
   ) async {
@@ -40,14 +39,14 @@ class SearchBloc extends Bloc<SearchBaseEvent, SearchState> {
     }
   }
 
-  void _onSearchEvent(
+  Future<void> _onSearchEvent(
     SearchEvent event,
     Emitter<SearchState> emit,
   ) async {
     if (event.query == null) {
       emit(SearchLoaded(_listOfAllAssetForSearch));
     } else {
-      String query = event.query!.toLowerCase();
+      final String query = event.query!.toLowerCase();
       emit(SearchLoaded(_listOfAllAssetForSearch
           .where((element) =>
               element.name.toLowerCase().contains(query) ||

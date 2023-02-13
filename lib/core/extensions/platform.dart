@@ -21,7 +21,6 @@ extension PlatformCheck on TargetPlatform {
   }
 
   bool isMacOnly() {
-    return [TargetPlatform.macOS]
-        .contains(this);
+    return [TargetPlatform.macOS].contains(this);
   }
 }

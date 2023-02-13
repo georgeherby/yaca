@@ -8,22 +8,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 import 'package:yaca/core/extensions/chosen_currency.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/utils/percentage_formatters.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
 
 class GlobalMarketMarque extends StatefulWidget {
   const GlobalMarketMarque({
-    Key? key,
+    super.key,
     required this.currencyString,
     required this.marketCap,
     required this.marketCap24hPercentageChange,
     required this.totalVolume,
     required this.marketCapPercentage,
-  }) : super(key: key);
+  });
 
   final String currencyString;
   final Map<String, double>? marketCap;
@@ -73,83 +73,85 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               indent: kMarqueTapHeight / 4,
               endIndent: kMarqueTapHeight / 4,
             ),
-            widget.marketCap != null
-                ? Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'Total Market Cap:',
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontWeight: FontWeight.bold, color: _textColor),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        widget.currencyString +
-                            compactNumberFormat(context).format(
-                              widget.marketCap!.getForCurrency(
-                                  BlocProvider.of<AppSettingsBloc>(context)
-                                      .state
-                                      .currency
-                                      .currencyCode),
-                            ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(color: _textColor),
-                      ),
-                      const SizedBox(width: 4),
-                      DeltaWithArrow(
-                        widget.marketCap24hPercentageChange,
-                        isPercentage: true,
-                        textColor: _textColor,
-                        useTextColorForArrow: true,
-                      ),
-                      const VerticalDivider(
-                        thickness: 2,
-                        color: _textColor,
-                        indent: kMarqueTapHeight / 4,
-                        endIndent: kMarqueTapHeight / 4,
-                      ),
-                    ],
-                  )
-                : const SizedBox.shrink(),
-            widget.totalVolume != null
-                ? Row(
-                    children: [
-                      Text(
-                        '24h Volume:',
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                            fontWeight: FontWeight.bold, color: _textColor),
-                      ),
-                      const SizedBox(width: 4),
-                      Text(
-                        widget.currencyString +
-                            compactNumberFormat(context).format(
-                              widget.totalVolume!.getForCurrency(
-                                  BlocProvider.of<AppSettingsBloc>(context)
-                                      .state
-                                      .currency
-                                      .currencyCode),
-                            ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodyText1
-                            ?.copyWith(color: _textColor),
-                      ),
-                      const VerticalDivider(
-                        thickness: 2,
-                        color: _textColor,
-                        indent: kMarqueTapHeight / 4,
-                        endIndent: kMarqueTapHeight / 4,
-                      ),
-                    ],
-                  )
-                : const SizedBox.shrink(),
+            if (widget.marketCap != null)
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    'Total Market Cap:',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold, color: _textColor),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    widget.currencyString +
+                        compactNumberFormat(context).format(
+                          widget.marketCap!.getForCurrency(
+                              BlocProvider.of<ApplicationSettingsBloc>(context)
+                                  .state
+                                  .currency
+                                  .currencyCode),
+                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: _textColor),
+                  ),
+                  const SizedBox(width: 4),
+                  DeltaWithArrow(
+                    widget.marketCap24hPercentageChange,
+                    isPercentage: true,
+                    textColor: _textColor,
+                    useTextColorForArrow: true,
+                  ),
+                  const VerticalDivider(
+                    thickness: 2,
+                    color: _textColor,
+                    indent: kMarqueTapHeight / 4,
+                    endIndent: kMarqueTapHeight / 4,
+                  ),
+                ],
+              )
+            else
+              const SizedBox.shrink(),
+            if (widget.totalVolume != null)
+              Row(
+                children: [
+                  Text(
+                    '24h Volume:',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.bold, color: _textColor),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    widget.currencyString +
+                        compactNumberFormat(context).format(
+                          widget.totalVolume!.getForCurrency(
+                              BlocProvider.of<ApplicationSettingsBloc>(context)
+                                  .state
+                                  .currency
+                                  .currencyCode),
+                        ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.copyWith(color: _textColor),
+                  ),
+                  const VerticalDivider(
+                    thickness: 2,
+                    color: _textColor,
+                    indent: kMarqueTapHeight / 4,
+                    endIndent: kMarqueTapHeight / 4,
+                  ),
+                ],
+              )
+            else
+              const SizedBox.shrink(),
             Text(
               'Dominance:',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(fontWeight: FontWeight.bold, color: _textColor),
             ),
             const SizedBox(width: 4),
@@ -157,7 +159,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'BTC ${percentageFormat.format(widget.marketCapPercentage!["btc"]! / 100)}',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
@@ -165,7 +167,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'ETH ${percentageFormat.format(widget.marketCapPercentage!["eth"]! / 100)}',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),
@@ -173,7 +175,7 @@ class _GlobalMarketMarqueState extends State<GlobalMarketMarque> {
               'BNB ${percentageFormat.format(widget.marketCapPercentage!["bnb"]! / 100)}',
               style: Theme.of(context)
                   .textTheme
-                  .bodyText1
+                  .bodyMedium
                   ?.copyWith(color: _textColor),
             ),
             const SizedBox(width: 8),

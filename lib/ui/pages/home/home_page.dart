@@ -1,22 +1,22 @@
 // 🐦 Flutter imports:
 
 // 🐦 Flutter imports:
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/extensions/platform.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/market_overview/market_overview_view.dart';
 import 'package:yaca/ui/views/whale_transactions/whale_transactions_view.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -27,120 +27,109 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    var isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
+    final isPhoneOnly = Theme.of(context).platform.onlyMobile(context);
 
     return Scaffold(
+      extendBody: true,
       bottomNavigationBar: isPhoneOnly
-          ? NavigationBar(
-              onDestinationSelected: onTabTapped,
-              selectedIndex: _selectedIndex,
-              destinations: [
-                NavigationDestination(
-                  icon: Icon(
-                    Ionicons.bar_chart_outline,
-                    size: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .unselectedIconTheme
-                        ?.size,
+          ? ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(kCornerRadiusCircular * 3),
+                topRight: Radius.circular(kCornerRadiusCircular * 3),
+              ),
+              child: NavigationBar(
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+                onDestinationSelected: onTabTapped,
+                selectedIndex: _selectedIndex,
+                destinations: [
+                  const NavigationDestination(
+                    icon: Icon(Icons.ssid_chart_rounded),
+                    selectedIcon: Icon(Icons.ssid_chart),
+                    label: 'Market',
+                    tooltip: 'Market overview',
                   ),
-                  selectedIcon: Icon(
-                    Ionicons.bar_chart,
-                    size: Theme.of(context)
-                        .bottomNavigationBarTheme
-                        .selectedIconTheme
-                        ?.size,
-                  ),
-                  label: 'Market',
-                ),
-                NavigationDestination(
-                    icon: SvgPicture.asset('assets/whale_outline.svg',
-                        semanticsLabel: 'Whale unselected icon',
-                        height: kBottomNavBarIconSize,
-                        width: kBottomNavBarIconSize,
-                        color: Theme.of(context).iconTheme.color),
-                    selectedIcon: SvgPicture.asset('assets/whale_filled.svg',
-                        semanticsLabel: 'Whale selected icon',
-                        height: kBottomNavBarIconSize,
-                        width: kBottomNavBarIconSize,
-                        color: Theme.of(context).iconTheme.color),
-                    label: 'Whale transactions'),
-              ],
+                  NavigationDestination(
+                      icon: SvgPicture.asset('assets/whale_outline.svg',
+                          semanticsLabel: 'Whale unselected icon',
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onSurfaceVariant,
+                              BlendMode.srcIn),
+                      ),
+                      selectedIcon: SvgPicture.asset('assets/whale_filled.svg',
+                          semanticsLabel: 'Whale selected icon',
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onSecondaryContainer,
+                              BlendMode.srcIn
+                          ),),
+                      tooltip: 'Whale transactions',
+                      label: 'Whales'),
+                ],
+              ),
             )
           : null,
       body: SafeArea(
         bottom: false,
         child: Row(children: [
-          isPhoneOnly
-              ? Container()
-              : Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: NavigationRail(
-                        minWidth: 80.0,
-                        groupAlignment: 0.0,
-                        selectedIndex: _selectedIndex, //_selectedIndex,
-                        onDestinationSelected: onTabTapped,
-                        labelType: NavigationRailLabelType.all,
-                        destinations: [
-                          const NavigationRailDestination(
-                            icon: Icon(Ionicons.bar_chart_outline),
-                            selectedIcon: Icon(Ionicons.bar_chart),
-                            label: Text(
-                              'Market',
-                            ),
+          if (isPhoneOnly)
+            Container()
+          else
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: NavigationRail(
+                    minWidth: 80.0,
+                    groupAlignment: 0.0,
+                    selectedIndex: _selectedIndex, //_selectedIndex,
+                    onDestinationSelected: onTabTapped,
+                    labelType: NavigationRailLabelType.all,
+                    destinations: [
+                      const NavigationRailDestination(
+                        icon: Icon(Icons.ssid_chart_rounded),
+                        selectedIcon: Icon(Icons.ssid_chart),
+                        label: Text(
+                          'Market',
+                        ),
+                      ),
+                      NavigationRailDestination(
+                          icon: SvgPicture.asset(
+                            'assets/whale_outline.svg',
+                            semanticsLabel: 'Whale unselected icon',
+                            colorFilter: ColorFilter.mode(
+                                Theme.of(context).colorScheme.onSurfaceVariant,
+                                BlendMode.srcIn)
+                           
                           ),
-                          NavigationRailDestination(
-                              icon: SvgPicture.asset(
-                                'assets/whale_outline.svg',
-                                semanticsLabel: 'Whale unselected icon',
-                                height: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
-                                width: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
-                                color: Theme.of(context)
-                                    .navigationRailTheme
-                                    .unselectedIconTheme
-                                    ?.color,
-                              ),
-                              selectedIcon: SvgPicture.asset(
-                                'assets/whale_filled.svg',
-                                semanticsLabel: 'Whale selected icon',
-                                height: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
-                                width: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.size,
-                                color: Theme.of(context)
-                                    .navigationRailTheme
-                                    .selectedIconTheme
-                                    ?.color,
-                              ),
-                              label: const Text(
-                                'Whales',
-                              ))
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      child: IconButton(
-                        tooltip: 'Open settings',
-                        onPressed: () =>
-                            context.router.push(const AppSettingsHomeRoute()),
-                        icon: Icon(Ionicons.cog_outline,
-                            size: Theme.of(context).iconTheme.size),
-                      ),
-                    ),
-                    const SizedBox(height: 8)
-                  ],
+                          selectedIcon: SvgPicture.asset(
+                            'assets/whale_filled.svg',
+                            semanticsLabel: 'Whale selected icon',
+                            colorFilter: ColorFilter.mode(
+                                Theme.of(context).colorScheme.onSecondaryContainer,
+                                BlendMode.srcIn
+                            )
+                          ),
+                          label: const Text(
+                            'Whales',
+                          ))
+                    ],
+                  ),
                 ),
+                Container(
+                  width: 80,
+                  color: Theme.of(context).colorScheme.surface,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: IconButton(
+                      tooltip: 'Open settings',
+                      onPressed: () => context.router
+                          .push(const ApplicationSettingsHomeRoute()),
+                      icon: Icon(CupertinoIcons.settings,
+                          size: Theme.of(context).appBarTheme.iconTheme?.size),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           Expanded(
             child: showPage(_selectedIndex),
           )
@@ -149,7 +138,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void onTabTapped(int index) async {
+  Future<void> onTabTapped(int index) async {
     if (_selectedIndex != index) {
       // await FirebaseAnalytics.instance
       //     .setCurrentScreen(screenName: getScreenName(index));
@@ -162,9 +151,9 @@ class _HomePageState extends State<HomePage> {
   String getScreenName(int index) {
     switch (index) {
       case 0:
-        return "market_overview";
+        return 'market_overview';
       case 1:
-        return "whale_transactions";
+        return 'whale_transactions';
       default:
         throw Exception('Unknown page index: $index');
     }

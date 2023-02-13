@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
@@ -12,16 +11,14 @@ import 'package:yaca/core/models/api/market_coins.dart';
 import 'package:yaca/core/models/sort_type.dart';
 
 class SortBottomSheet extends StatelessWidget {
+  const SortBottomSheet(
+      {super.key,
+      required this.assets,
+      required this.sortType,
+      required this.sortOrder});
   final SortType sortType;
   final SortOrder sortOrder;
   final List<MarketCoin> assets;
-
-  const SortBottomSheet(
-      {Key? key,
-      required this.assets,
-      required this.sortType,
-      required this.sortOrder})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,26 +26,24 @@ class SortBottomSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        ListTile(
-          dense: true,
-          tileColor: Theme.of(context).scaffoldBackgroundColor,
+        AppBar(
+          leading: Container(),
+          leadingWidth: 0,
+          backgroundColor: Theme.of(context).colorScheme.surface,
+          surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+          centerTitle: false,
           title: Text(
             'Sort By',
             style: Theme.of(context)
                 .textTheme
-                .subtitle1
+                .bodyMedium
                 ?.copyWith(fontWeight: FontWeight.bold),
           ),
         ),
         ListTile(
+          selected: sortType == SortType.sortByRank,
           trailing: _trailingWidget(SortType.sortByRank, sortType, sortOrder),
-          title: Text(
-            'Rank',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                fontWeight: sortType == SortType.sortByRank
-                    ? FontWeight.bold
-                    : FontWeight.normal),
-          ),
+          title: const Text('Rank'),
           onTap: () {
             BlocProvider.of<AssetOverviewBloc>(context).add(AssetSorted(
               assets,
@@ -60,15 +55,10 @@ class SortBottomSheet extends StatelessWidget {
           },
         ),
         ListTile(
+          selected: sortType == SortType.sortBy24hPercentageChange,
           trailing: _trailingWidget(
               SortType.sortBy24hPercentageChange, sortType, sortOrder),
-          title: Text(
-            '24h % change',
-            style: Theme.of(context).textTheme.bodyText1?.copyWith(
-                fontWeight: sortType == SortType.sortBy24hPercentageChange
-                    ? FontWeight.bold
-                    : FontWeight.normal),
-          ),
+          title: const Text('24h % change'),
           onTap: () {
             BlocProvider.of<AssetOverviewBloc>(context).add(AssetSorted(
               assets,
@@ -86,8 +76,8 @@ class SortBottomSheet extends StatelessWidget {
       SortOrder currentSortOrder) {
     return currentSortType == sortToMatch
         ? Icon(currentSortOrder.isAscending()
-            ? Ionicons.arrow_up_outline
-            : Ionicons.arrow_down_outline)
+            ? Icons.arrow_upward_rounded
+            : Icons.arrow_downward_rounded)
         : null;
   }
 }

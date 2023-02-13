@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 class DesktopHeader extends StatelessWidget {
+  const DesktopHeader({super.key, required this.blockSize});
   final double blockSize;
-  const DesktopHeader({Key? key, required this.blockSize}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class DesktopHeader extends StatelessWidget {
               children: [
                 Text(
                   'Last 7 days',
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             ),
@@ -35,7 +35,7 @@ class DesktopHeader extends StatelessWidget {
                     children: [
                       Text(
                         '7d',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -48,7 +48,7 @@ class DesktopHeader extends StatelessWidget {
                     children: [
                       Text(
                         '24h',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -61,7 +61,7 @@ class DesktopHeader extends StatelessWidget {
                     children: [
                       Text(
                         '1h',
-                        style: Theme.of(context).textTheme.subtitle2,
+                        style: Theme.of(context).textTheme.titleSmall,
                       ),
                     ],
                   ),
@@ -77,7 +77,7 @@ class DesktopHeader extends StatelessWidget {
               children: [
                 Text(
                   'Price',
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ],
             ),

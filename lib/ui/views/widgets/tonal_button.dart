@@ -1,0 +1,33 @@
+// 🐦 Flutter imports:
+import 'package:flutter/material.dart';
+
+// 🌎 Project imports:
+import 'package:yaca/ui/constants/constants.dart';
+
+class TonalButton extends StatelessWidget {
+  const TonalButton({super.key, required this.buttonText, required this.onTap});
+
+  final String buttonText;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        elevation: 0,
+        backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+        foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+        surfaceTintColor: Theme.of(context).colorScheme.surfaceTint,
+        shadowColor: Theme.of(context).colorScheme.shadow,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(kCornerRadiusCircular),
+        ),
+      ),
+      onPressed: onTap,
+      child: Text(
+        buttonText,
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
+      ),
+    );
+  }
+}

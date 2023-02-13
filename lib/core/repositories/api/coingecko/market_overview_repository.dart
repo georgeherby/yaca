@@ -10,12 +10,12 @@ import 'package:coingecko_api/data/market.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
 class MarketOverviewRepository {
-  final CoinGeckoApi _api;
   MarketOverviewRepository(this._api);
+  final CoinGeckoApi _api;
 
   Future<List<Market>> fetchCoinMarkets(ChosenCurrency chosenCurrency,
       {List<String> specficCoinIds = const []}) async {
-    var currencyCode = chosenCurrency.currencyCode;
+    final currencyCode = chosenCurrency.currencyCode;
     debugPrint('fetchCoinMarkets called for currency $currencyCode');
 
     const assetsPerPage = 200;

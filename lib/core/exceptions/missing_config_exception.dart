@@ -1,7 +1,6 @@
 class MissingConfigException implements Exception {
-  final String nameOfConfig;
-
   MissingConfigException(this.nameOfConfig);
+  final String nameOfConfig;
 
   @override
   String toString() => 'Missing $nameOfConfig config ';

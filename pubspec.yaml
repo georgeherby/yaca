@@ -7,44 +7,43 @@ publish_to: "none"
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.17.1-0 <3.0.0" # Dart
-  flutter: ^3.0.1
+  sdk: ">=2.19.2-0 <3.0.0" # Dart
 
 dependencies:
-  auto_route: ^4.0.1
+  auto_route: ^5.0.1
   cached_network_image: ^3.2.1
-  coingecko_api: ^1.0.2+2
-  cupertino_icons: ^1.0.4
+  coingecko_api: ^1.1.0+2
+  cupertino_icons: ^1.0.5
+  entry: ^0.0.7
   equatable: ^2.0.3
-  firebase_analytics: ^9.1.8
-  firebase_core: ^1.17.0
-  firebase_performance: ^0.8.0+12
-  fl_chart: ^0.50.6
+  firebase_analytics: ^10.0.7
+  firebase_core: ^2.4.0
+  firebase_performance: ^0.9.0+10
+  fl_chart: ^0.60.0
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.0.1
-  flutter_html: ^3.0.0-alpha.3
-  flutter_native_splash: ^2.2.0+1
-  flutter_platform_widgets: ^1.20.0
-  flutter_svg: ^1.0.3
-  google_fonts: ^3.0.0
-  hive: ^2.2.1
+  flutter_bloc: ^8.1.1
+  flutter_html: ^3.0.0-alpha.5
+  flutter_native_splash: ^2.2.17
+  flutter_platform_widgets: ^3.0.0
+  flutter_svg: ^2.0.1
+  google_fonts: ^4.0.3
+  hive: ^2.2.3
   hive_flutter: ^1.1.0
   html: ^0.15.0
   http: ^0.13.4
   intl: ^0.17.0
-  ionicons: ^0.1.2
-  macos_ui: ^1.4.1+1
-  palette_generator: ^0.3.3
-  path_provider: ^2.0.10
-  provider: ^6.0.2
+  macos_ui: ^1.10.0
+  palette_generator: ^0.3.3+1
+  path_provider: ^2.0.12
+  provider: ^6.0.3
   responsive_builder:
     git:
       url: https://github.com/georgeherby/responsive_builder.git
       ref: master
-  shared_preferences: ^2.0.15
+  shared_preferences: ^2.0.17
   shimmer: ^2.0.0
-  url_launcher: ^6.1.2
+  url_launcher: ^6.1.8
 
 flutter_icons:
   android: false
@@ -54,18 +53,15 @@ flutter_icons:
   image_path: "assets/icon-1024.png"
 
 dev_dependencies:
-  auto_route_generator: ^4.0.0
-  bloc_test: ^9.0.3
-  build_runner: ^2.1.11
-  dart_code_metrics: ^4.15.2
-  flutter_launcher_icons:
-    git:
-      url: https://github.com/dirkbo/flutter_launcher_icons.git
-      ref: desktop_linux_
+  auto_route_generator: ^5.0.3
+  bloc_test: ^9.1.0
+  build_runner: ^2.3.3
+  dart_code_metrics: ^5.5.0
+  # flutter_launcher_icons: ^0.11.0
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
-  hive_generator: ^1.1.3
+  hive_generator: ^2.0.0
   import_sorter: ^4.6.0
   mocktail: ^0.3.0
 flutter:

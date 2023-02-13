@@ -3,38 +3,29 @@ import 'package:flutter/material.dart';
 
 // 📦 Package imports:
 import 'package:intl/intl.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/core/config/currency.dart';
-import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class WhaleTransactionList extends StatelessWidget {
+  const WhaleTransactionList(
+      {super.key, required this.transactions, required this.onRefresh});
   final List<WhaleTransaction> transactions;
   final ValueGetter<Future<void>> onRefresh;
-
-  const WhaleTransactionList(
-      {Key? key, required this.transactions, required this.onRefresh})
-      : super(key: key);
 
   static const double sidePadding = 12;
 
   @override
   Widget build(BuildContext context) {
-    var currencyString = AvailableCurrencies.usd.currencyString;
+    final currencyString = AvailableCurrencies.usd.currencyString;
 
-    return MaterialSurface(
-      externalPadding: getValueForScreenType<EdgeInsets>(
-        context: context,
-        mobile: const EdgeInsets.symmetric(horizontal: 8.0),
-        tablet: const EdgeInsets.only(bottom: 8.0),
-        desktop: const EdgeInsets.only(bottom: 8.0),
-      ),
+    return ElevatedCard(
       fullScreen: true,
       child: RefreshableList(
         onRefresh: onRefresh,
@@ -48,10 +39,10 @@ class WhaleTransactionList extends StatelessWidget {
           },
           itemCount: transactions.length,
           itemBuilder: (context, index) {
-            var transaction = transactions[index];
-            var date = DateTime.fromMillisecondsSinceEpoch(
+            final transaction = transactions[index];
+            final date = DateTime.fromMillisecondsSinceEpoch(
                 transaction.timestamp * 1000);
-            var formatDate = DateFormat('HH:mm EEE dd MMM');
+            final formatDate = DateFormat('HH:mm EEE dd MMM');
 
             return ListTile(
               isThreeLine: true,
@@ -79,7 +70,7 @@ class WhaleTransactionList extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     formatDate.format(date),
-                    style: Theme.of(context).textTheme.caption,
+                    style: Theme.of(context).textTheme.bodySmall,
                     maxLines: 1,
                   ),
                 ],
@@ -90,7 +81,8 @@ class WhaleTransactionList extends StatelessWidget {
                 children: [
                   Text(
                     transaction.amountUsd.currencyFormatWithPrefix(
-                        currencyString, context, false),
+                        currencyString, context,
+                        showDecimals: false),
                     textAlign: TextAlign.end,
                   ),
                   Text(
