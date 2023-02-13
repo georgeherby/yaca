@@ -51,13 +51,16 @@ class _HomePageState extends State<HomePage> {
                   NavigationDestination(
                       icon: SvgPicture.asset('assets/whale_outline.svg',
                           semanticsLabel: 'Whale unselected icon',
-                          color:
-                              Theme.of(context).colorScheme.onSurfaceVariant),
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onSurfaceVariant,
+                              BlendMode.srcIn),
+                      ),
                       selectedIcon: SvgPicture.asset('assets/whale_filled.svg',
                           semanticsLabel: 'Whale selected icon',
-                          color: Theme.of(context)
-                              .colorScheme
-                              .onSecondaryContainer),
+                          colorFilter: ColorFilter.mode(
+                              Theme.of(context).colorScheme.onSecondaryContainer,
+                              BlendMode.srcIn
+                          ),),
                       tooltip: 'Whale transactions',
                       label: 'Whales'),
                 ],
@@ -92,15 +95,18 @@ class _HomePageState extends State<HomePage> {
                           icon: SvgPicture.asset(
                             'assets/whale_outline.svg',
                             semanticsLabel: 'Whale unselected icon',
-                            color:
+                            colorFilter: ColorFilter.mode(
                                 Theme.of(context).colorScheme.onSurfaceVariant,
+                                BlendMode.srcIn)
+                           
                           ),
                           selectedIcon: SvgPicture.asset(
                             'assets/whale_filled.svg',
                             semanticsLabel: 'Whale selected icon',
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSecondaryContainer,
+                            colorFilter: ColorFilter.mode(
+                                Theme.of(context).colorScheme.onSecondaryContainer,
+                                BlendMode.srcIn
+                            )
                           ),
                           label: const Text(
                             'Whales',

@@ -33,8 +33,9 @@ class TrendingView extends StatelessWidget {
                 'assets/flame.svg',
                 width: 12,
                 height: 12,
-                color: Theme.of(context).colorScheme.error,
-              ),
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.error, BlendMode.srcIn
+              ),),
               const SizedBox(width: 4),
               Text('TRENDING SEARCHES',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(

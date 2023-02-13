@@ -58,7 +58,8 @@ class _MarketOverviewViewState extends State<MarketOverviewView> {
               SvgPicture.asset(
                 'assets/logo.svg',
                 height: kIconSizeMacAppBar,
-                color: Theme.of(context).iconTheme.color?.withOpacity(1),
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context).iconTheme.color!.withOpacity(1), BlendMode.srcIn),
               ),
               const SizedBox(width: 4),
               const AppBarTitle(kAppName)

@@ -133,7 +133,9 @@ class ApplicationSettingsView extends StatelessWidget {
                       'assets/whale_outline.svg',
                       height: Theme.of(context).iconTheme.size,
                       width: Theme.of(context).iconTheme.size,
-                      color: Theme.of(context).colorScheme.onSurface,
+                      colorFilter: ColorFilter.mode(
+                          Theme.of(context).colorScheme.onSurface,
+                          BlendMode.srcIn),
                     ),
                   ],
                 ),
