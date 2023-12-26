@@ -19,7 +19,7 @@ dependencies:
   firebase_analytics: ^9.1.8
   firebase_core: ^1.17.0
   firebase_performance: ^0.8.0+12
-  fl_chart: ^0.50.6
+  fl_chart: ^0.66.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.0.1
