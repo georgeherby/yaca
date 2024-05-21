@@ -32,10 +32,10 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: AssetPage(key: args.key, id: args.id));
     },
-    AppSettingsHomeRoute.name: (routeData) {
+    ApplicationSettingsHomeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData,
-          child: const AppSettingsHomePage(),
+          child: const ApplicationSettingsHomePage(),
           fullscreenDialog: true);
     },
     AssetDetailsRoute.name: (routeData) {
@@ -46,21 +46,21 @@ class _$AppRouter extends RootStackRouter {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const AssetExchangePage());
     },
-    AppSettingsRoute.name: (routeData) {
+    ApplicationSettingsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AppSettingsPage());
+          routeData: routeData, child: const ApplicationSettingsPage());
     },
-    AppSettingsCurrencyRoute.name: (routeData) {
+    ApplicationSettingsCurrencyRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AppSettingsCurrencyPage());
+          routeData: routeData, child: const ApplicationSettingsCurrencyPage());
     },
-    AppSettingsThemeRoute.name: (routeData) {
+    ApplicationSettingsThemeRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AppSettingsThemePage());
+          routeData: routeData, child: const ApplicationSettingsThemePage());
     },
-    AppSettingsWhaleRoute.name: (routeData) {
+    ApplicationSettingsWhaleRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
-          routeData: routeData, child: const AppSettingsWhalePage());
+          routeData: routeData, child: const ApplicationSettingsWhalePage());
     }
   };
 
@@ -74,16 +74,18 @@ class _$AppRouter extends RootStackRouter {
           RouteConfig(AssetExchangeRoute.name,
               path: 'exchanges', parent: AssetRoute.name)
         ]),
-        RouteConfig(AppSettingsHomeRoute.name, path: '/settings', children: [
-          RouteConfig(AppSettingsRoute.name,
-              path: '', parent: AppSettingsHomeRoute.name),
-          RouteConfig(AppSettingsCurrencyRoute.name,
-              path: 'currency', parent: AppSettingsHomeRoute.name),
-          RouteConfig(AppSettingsThemeRoute.name,
-              path: 'theme', parent: AppSettingsHomeRoute.name),
-          RouteConfig(AppSettingsWhaleRoute.name,
-              path: 'whale', parent: AppSettingsHomeRoute.name)
-        ])
+        RouteConfig(ApplicationSettingsHomeRoute.name,
+            path: '/settings',
+            children: [
+              RouteConfig(ApplicationSettingsRoute.name,
+                  path: '', parent: ApplicationSettingsHomeRoute.name),
+              RouteConfig(ApplicationSettingsCurrencyRoute.name,
+                  path: 'currency', parent: ApplicationSettingsHomeRoute.name),
+              RouteConfig(ApplicationSettingsThemeRoute.name,
+                  path: 'theme', parent: ApplicationSettingsHomeRoute.name),
+              RouteConfig(ApplicationSettingsWhaleRoute.name,
+                  path: 'whale', parent: ApplicationSettingsHomeRoute.name)
+            ])
       ];
 }
 
@@ -130,13 +132,13 @@ class AssetRouteArgs {
 }
 
 /// generated route for
-/// [AppSettingsHomePage]
-class AppSettingsHomeRoute extends PageRouteInfo<void> {
-  const AppSettingsHomeRoute({List<PageRouteInfo>? children})
-      : super(AppSettingsHomeRoute.name,
+/// [ApplicationSettingsHomePage]
+class ApplicationSettingsHomeRoute extends PageRouteInfo<void> {
+  const ApplicationSettingsHomeRoute({List<PageRouteInfo>? children})
+      : super(ApplicationSettingsHomeRoute.name,
             path: '/settings', initialChildren: children);
 
-  static const String name = 'AppSettingsHomeRoute';
+  static const String name = 'ApplicationSettingsHomeRoute';
 }
 
 /// generated route for
@@ -157,36 +159,37 @@ class AssetExchangeRoute extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [AppSettingsPage]
-class AppSettingsRoute extends PageRouteInfo<void> {
-  const AppSettingsRoute() : super(AppSettingsRoute.name, path: '');
+/// [ApplicationSettingsPage]
+class ApplicationSettingsRoute extends PageRouteInfo<void> {
+  const ApplicationSettingsRoute()
+      : super(ApplicationSettingsRoute.name, path: '');
 
-  static const String name = 'AppSettingsRoute';
+  static const String name = 'ApplicationSettingsRoute';
 }
 
 /// generated route for
-/// [AppSettingsCurrencyPage]
-class AppSettingsCurrencyRoute extends PageRouteInfo<void> {
-  const AppSettingsCurrencyRoute()
-      : super(AppSettingsCurrencyRoute.name, path: 'currency');
+/// [ApplicationSettingsCurrencyPage]
+class ApplicationSettingsCurrencyRoute extends PageRouteInfo<void> {
+  const ApplicationSettingsCurrencyRoute()
+      : super(ApplicationSettingsCurrencyRoute.name, path: 'currency');
 
-  static const String name = 'AppSettingsCurrencyRoute';
+  static const String name = 'ApplicationSettingsCurrencyRoute';
 }
 
 /// generated route for
-/// [AppSettingsThemePage]
-class AppSettingsThemeRoute extends PageRouteInfo<void> {
-  const AppSettingsThemeRoute()
-      : super(AppSettingsThemeRoute.name, path: 'theme');
+/// [ApplicationSettingsThemePage]
+class ApplicationSettingsThemeRoute extends PageRouteInfo<void> {
+  const ApplicationSettingsThemeRoute()
+      : super(ApplicationSettingsThemeRoute.name, path: 'theme');
 
-  static const String name = 'AppSettingsThemeRoute';
+  static const String name = 'ApplicationSettingsThemeRoute';
 }
 
 /// generated route for
-/// [AppSettingsWhalePage]
-class AppSettingsWhaleRoute extends PageRouteInfo<void> {
-  const AppSettingsWhaleRoute()
-      : super(AppSettingsWhaleRoute.name, path: 'whale');
+/// [ApplicationSettingsWhalePage]
+class ApplicationSettingsWhaleRoute extends PageRouteInfo<void> {
+  const ApplicationSettingsWhaleRoute()
+      : super(ApplicationSettingsWhaleRoute.name, path: 'whale');
 
-  static const String name = 'AppSettingsWhaleRoute';
+  static const String name = 'ApplicationSettingsWhaleRoute';
 }

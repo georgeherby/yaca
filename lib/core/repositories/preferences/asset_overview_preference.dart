@@ -11,17 +11,17 @@ class AssetOverviewPreference {
   static const _defaultSortType = SortType.sortByRank;
 
   Future setSortType(SortType sortType) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_sortTypeKey, sortType.toString());
   }
 
   Future setSortOrder(SortOrder sortOrder) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(_sortOrderKey, sortOrder.toString());
   }
 
   Future<SortOrder> getSortOrder() async {
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     final sortOrder = prefs.getString(_sortOrderKey);
     if (sortOrder == null) {
@@ -33,14 +33,14 @@ class AssetOverviewPreference {
   }
 
   Future<SortType> getSortType() async {
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
 
     final sortType = prefs.getString(_sortTypeKey);
     if (sortType == null) {
       return _defaultSortType;
     }
 
-    var list = SortType.values;
+    const list = SortType.values;
     return list.firstWhere((element) => element.toString() == sortType,
         orElse: () => _defaultSortType);
   }

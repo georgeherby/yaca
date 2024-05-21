@@ -9,8 +9,7 @@ import 'package:yaca/ui/views/widgets/asset_text_icon.dart';
 
 class AssetNetworkIcon extends StatelessWidget {
   const AssetNetworkIcon(this.iconUrl,
-      {Key? key, required this.assetSymbol, required this.iconSize})
-      : super(key: key);
+      {super.key, required this.assetSymbol, required this.iconSize});
 
   final String iconUrl;
   final String assetSymbol;

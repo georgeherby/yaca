@@ -10,43 +10,42 @@ import 'package:flutter_svg/flutter_svg.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/trending/trending_bloc.dart';
-import 'package:yaca/ui/consts/colours.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/ranking_card.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class TrendingView extends StatelessWidget {
-  const TrendingView({Key? key}) : super(key: key);
-  static const kTrendingTileWidth = 100.0;
-  static const kTrendingTileHeight = 100.0;
+  const TrendingView({super.key});
+  static const _kPadding = 8.0;
+  static const _kTrendingTileWidth = 100.0 + (_kPadding * 2);
+  static const _kTrendingTileHeight = 100.0 + (_kPadding * 2);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
           child: Row(
             children: [
               SvgPicture.asset(
-                "assets/flame.svg",
+                'assets/flame.svg',
                 width: 12,
                 height: 12,
-                color: kNegativeRedDark,
-              ),
+                colorFilter: ColorFilter.mode(
+                    Theme.of(context).colorScheme.error, BlendMode.srcIn
+              ),),
               const SizedBox(width: 4),
-              Text("TRENDING SEARCHES",
-                  style: Theme.of(context)
-                      .textTheme
-                      .caption
-                      ?.copyWith(fontWeight: FontWeight.w600, fontSize: 12)),
+              Text('TRENDING SEARCHES',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.onBackground)),
             ],
           ),
         ),
-        const SizedBox(height: 8),
         SizedBox(
-          height: kTrendingTileHeight,
+          height: _kTrendingTileHeight,
           child: BlocBuilder<TrendingBloc, TrendingState>(
             builder: (context, state) {
               if (state is TrendingLoaded) {
@@ -54,66 +53,70 @@ class TrendingView extends StatelessWidget {
                   padding: EdgeInsets.zero,
                   scrollDirection: Axis.horizontal,
                   children: <Widget>[
-                    const SizedBox(width: 8.0),
+                    const SizedBox(width: 4),
                     ...List.generate(state.trending.length, (index) {
-                      var asset = state.trending[index];
+                      final asset = state.trending[index];
                       return Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                            width: kTrendingTileWidth,
-                            height: kTrendingTileHeight,
-                            child: GestureDetector(
-                              onTap: () => context.router.push(
-                                AssetRoute(
-                                  id: asset.id,
+                            width: _kTrendingTileWidth,
+                            height: _kTrendingTileHeight,
+                            child: ElevatedCard(
+                              child: InkWell(
+                                borderRadius: BorderRadius.circular(
+                                    kCornerRadiusCircular),
+                                onTap: () => context.router.push(
+                                  AssetRoute(
+                                    id: asset.id,
+                                  ),
                                 ),
-                              ),
-                              child: MaterialSurface(
-                                contentPadding:
-                                    const EdgeInsets.symmetric(vertical: 4),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    AssetIconWeb(asset.small,
-                                        assetSymbol: asset.symbol.toUpperCase(),
-                                        iconSize: kIconSize),
-                                    const SizedBox(height: 8),
-                                    Text(
-                                      asset.name,
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          ?.copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        RankingCard(
-                                            ranking: asset.marketCapRank),
-                                        const SizedBox(width: 4),
-                                        Text(asset.symbol,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption),
-                                      ],
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: const EdgeInsets.all(_kPadding),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      AssetIconWeb(asset.small,
+                                          assetSymbol:
+                                              asset.symbol.toUpperCase(),
+                                          iconSize: kIconSize),
+                                      const SizedBox(height: 8),
+                                      Text(
+                                        asset.name,
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.bold),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          RankingCard(
+                                              ranking: asset.marketCapRank),
+                                          const SizedBox(width: _kPadding),
+                                          Text(asset.symbol,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                          const SizedBox(width: 8.0),
                         ],
                       );
                     }),
+                    const SizedBox(width: 4),
                   ],
                 );
               } else if (state is TrendingError) {

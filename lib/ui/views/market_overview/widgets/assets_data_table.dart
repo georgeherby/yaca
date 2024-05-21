@@ -11,7 +11,7 @@ import 'package:responsive_builder/responsive_builder.dart';
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/models/api/market_coins.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/desktop_header.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/desktop_row.dart';
@@ -19,24 +19,23 @@ import 'package:yaca/ui/views/market_overview/widgets/asset_rows/mobile_row.dart
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/tablet_header.dart';
 import 'package:yaca/ui/views/market_overview/widgets/asset_rows/tablet_row.dart';
 import 'package:yaca/ui/views/widgets/refresh_list.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
 
 class AssetsDataTable extends StatelessWidget {
-  final bool favouriteOnly;
-  final List<MarketCoin> marketCoins;
-  final Function(MarketCoin, bool) onFavourite;
-  final ValueGetter<Future<void>> onRefresh;
   const AssetsDataTable({
-    Key? key,
+    super.key,
     required this.favouriteOnly,
     required this.marketCoins,
     required this.onFavourite,
     required this.onRefresh,
-  }) : super(key: key);
+  });
+  final bool favouriteOnly;
+  final List<MarketCoin> marketCoins;
+  final Function(MarketCoin, bool) onFavourite;
+  final ValueGetter<Future<void>> onRefresh;
 
   @override
   Widget build(BuildContext context) {
-    var blockSize = MediaQuery.of(context).size.width / 100;
+    final blockSize = MediaQuery.of(context).size.width / 100;
 
     return Padding(
       padding: getValueForScreenType<EdgeInsets>(
@@ -52,74 +51,71 @@ class AssetsDataTable extends StatelessWidget {
               tablet: TabletHeader(blockSize: blockSize),
               mobile: Container()),
           Expanded(
-            child: MaterialSurface(
-              fullScreen: true,
-              child: favouriteOnly && marketCoins.isEmpty
-                  ? Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: const [Center(child: Text('No Favourites'))])
-                  : RefreshableList(
-                      onRefresh: onRefresh,
-                      child: ListView.separated(
-                        physics: const ClampingScrollPhysics(),
-                        separatorBuilder: (BuildContext context, int index) {
-                          return const Divider(
-                            indent: 8,
-                            endIndent: 8,
-                            height: kDividerWeighting,
-                            thickness: kDividerWeighting,
-                          );
-                        },
-                        shrinkWrap: false,
-                        itemCount: marketCoins.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          var mc = marketCoins[index];
+            child: favouriteOnly && marketCoins.isEmpty
+                ? Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: const [Center(child: Text('No Favourites'))])
+                : RefreshableList(
+                    onRefresh: onRefresh,
+                    child: ListView.separated(
+                      physics: const ClampingScrollPhysics(),
+                      separatorBuilder: (BuildContext context, int index) {
+                        return const Divider(
+                          indent: 8,
+                          endIndent: 8,
+                          height: kDividerWeighting,
+                          thickness: kDividerWeighting,
+                        );
+                      },
+                      shrinkWrap: false,
+                      itemCount: marketCoins.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final mc = marketCoins[index];
 
-                          return InkWell(
-                            onTap: () async {
-                              await context.router.push(
-                                AssetRoute(
-                                  id: mc.market.id,
-                                ),
-                              );
-                            },
-                            child: SizedBox(
-                              height: getValueForScreenType<double>(
-                                context: context,
-                                desktop: 62,
-                                tablet: 60,
-                                mobile: 60,
+                        return InkWell(
+                          onTap: () async {
+                            await context.router.push(
+                              AssetRoute(
+                                id: mc.market.id,
                               ),
-                              child: _buildRow(context, blockSize,
-                                  rank: mc.market.marketCapRank!,
-                                  symbol: mc.market.symbol,
-                                  name: mc.market.name,
-                                  sparkline: mc.market.sparklineIn7d,
-                                  iconUrl: mc.market.image != null
-                                      ? mc.market.image!
-                                          .replaceFirst("/large/", "/small/")
-                                      : null,
-                                  sevenDayChange: mc.priceChange7d,
-                                  sevenDayPercentageChange: mc
-                                      .market.priceChangePercentage7dInCurrency,
-                                  oneDayChange: mc.market.priceChange24h,
-                                  oneDayPercentageChange: mc.market
-                                      .priceChangePercentage24hInCurrency,
-                                  oneHourChange: mc.priceChange1h,
-                                  oneHourPercentageChange: mc
-                                      .market.priceChangePercentage1hInCurrency,
-                                  price: mc.market.currentPrice,
-                                  isFavourited: mc.isFavourited,
-                                  onFavourite: () =>
-                                      onFavourite(mc, !mc.isFavourited)),
+                            );
+                          },
+                          child: SizedBox(
+                            height: getValueForScreenType<double>(
+                              context: context,
+                              desktop: 62,
+                              tablet: 60,
+                              mobile: 60,
                             ),
-                          );
-                        },
-                      ),
+                            child: _buildRow(context, blockSize,
+                                rank: mc.market.marketCapRank!,
+                                symbol: mc.market.symbol,
+                                name: mc.market.name,
+                                sparkline: mc.market.sparklineIn7d,
+                                iconUrl: mc.market.image != null
+                                    ? mc.market.image!
+                                        .replaceFirst('/large/', '/small/')
+                                    : null,
+                                sevenDayChange: mc.priceChange7d,
+                                sevenDayPercentageChange:
+                                    mc.market.priceChangePercentage7dInCurrency,
+                                oneDayChange: mc.market.priceChange24h,
+                                oneDayPercentageChange: mc
+                                    .market.priceChangePercentage24hInCurrency,
+                                oneHourChange: mc.priceChange1h,
+                                oneHourPercentageChange:
+                                    mc.market.priceChangePercentage1hInCurrency,
+                                price: mc.market.currentPrice,
+                                isFavourited: mc.isFavourited,
+                                onFavourite: () =>
+                                    onFavourite(mc, !mc.isFavourited)),
+                          ),
+                        );
+                      },
                     ),
-            ),
+                  ),
           ),
         ],
       ),

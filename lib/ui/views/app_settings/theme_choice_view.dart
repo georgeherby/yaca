@@ -4,24 +4,24 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/extensions/theme_mode.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class ThemeChoiceView extends StatelessWidget {
-  const ThemeChoiceView({Key? key}) : super(key: key);
+  const ThemeChoiceView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose theme',
-      body: MaterialSurface(
-        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+      body: ElevatedCard(
+        // externalPadding:
+        //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView(
           padding: EdgeInsets.zero,
           shrinkWrap: true,
@@ -29,8 +29,8 @@ class ThemeChoiceView extends StatelessWidget {
             _buildRow(
               context,
               'System theme',
-              "Apply theme being used device wide",
-              Ionicons.color_palette_outline,
+              'Apply theme being used device wide',
+              Icons.color_lens_outlined,
               ThemeMode.system,
             ),
             const Divider(
@@ -40,8 +40,8 @@ class ThemeChoiceView extends StatelessWidget {
             _buildRow(
               context,
               'Light theme',
-              "Apply theme with light colors",
-              Ionicons.sunny_outline,
+              'Apply theme with light colors',
+              Icons.light_mode_outlined,
               ThemeMode.light,
             ),
             const Divider(
@@ -51,8 +51,8 @@ class ThemeChoiceView extends StatelessWidget {
             _buildRow(
               context,
               'Dark theme',
-              "Apply theme with dark colors",
-              Ionicons.moon_outline,
+              'Apply theme with dark colors',
+              Icons.dark_mode_outlined,
               ThemeMode.dark,
             )
           ],
@@ -68,22 +68,26 @@ class ThemeChoiceView extends StatelessWidget {
     IconData icon,
     ThemeMode themeToUse,
   ) {
-    var bloc = BlocProvider.of<AppSettingsBloc>(context);
+    final bloc = BlocProvider.of<ApplicationSettingsBloc>(context);
 
     return ListTile(
       onTap: () {
         bloc.add(UpdateThemeOptionEvent(bloc.state.currency, themeToUse));
         context.router.pop();
       },
-      leading: Icon(themeToUse.toIcon() ?? Ionicons.color_palette_outline),
+      leading: Icon(themeToUse.toIcon() ?? Icons.color_lens_outlined,
+          color: bloc.state.theme == themeToUse
+              ? Theme.of(context).colorScheme.primary
+              : Theme.of(context).colorScheme.onSurface),
       title: Text(title),
       selected: bloc.state.theme == themeToUse,
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          bloc.state.theme == themeToUse
-              ? const Icon(Ionicons.checkmark_outline)
-              : const SizedBox(height: 0),
+          if (bloc.state.theme == themeToUse)
+            const Icon(Icons.chevron_right_rounded)
+          else
+            const SizedBox(height: 0),
         ],
       ),
     );

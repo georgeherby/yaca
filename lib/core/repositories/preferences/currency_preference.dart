@@ -9,15 +9,15 @@ class CurrencyPreferenceRepository {
   static const _defaultCurrency = 'USD';
 
   Future set(String value) async {
-    var formattedValue = value.toUpperCase();
+    final formattedValue = value.toUpperCase();
     debugPrint('CurrencyPreference.set = $formattedValue');
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_currencyCode, formattedValue);
   }
 
   Future<String> get() async {
-    var prefs = await SharedPreferences.getInstance();
-    var preference = prefs.getString(_currencyCode);
+    final prefs = await SharedPreferences.getInstance();
+    final preference = prefs.getString(_currencyCode);
 
     debugPrint('CurrencyPreference.get = $preference');
     return (preference ?? _defaultCurrency).toUpperCase();

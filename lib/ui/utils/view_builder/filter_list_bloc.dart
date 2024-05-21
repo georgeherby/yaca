@@ -24,15 +24,14 @@ import 'package:yaca/ui/utils/view_builder/view_state.dart';
 /// [T] - the type of list elements.
 /// [F] - the type of filter.
 class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
-  final FilterListRepository<T, F> _repository;
-  F? _filter;
-
   FilterListBloc(FilterListRepository<T, F> repository)
       : _repository = repository,
         super(const Initial()) {
     on<LoadList<F>>(_onLoadList);
     on<RefreshList<F>>(_onRefreshList);
   }
+  final FilterListRepository<T, F> _repository;
+  F? _filter;
 
   @override
   void onTransition(Transition<ListEvent, ViewState> transition) {
@@ -58,12 +57,13 @@ class FilterListBloc<T, F extends Object?> extends Bloc<ListEvent, ViewState> {
   /// loading indicator.
   void refreshElements({F? filter}) => add(RefreshList(filter));
 
-  void _onLoadList(LoadList<F> event, Emitter<ViewState> emit) async {
+  Future<void> _onLoadList(LoadList<F> event, Emitter<ViewState> emit) async {
     emit(const Loading());
     await _getListState(filter, emit);
   }
 
-  void _onRefreshList(RefreshList<F> event, Emitter<ViewState> emit) async {
+  Future<void> _onRefreshList(
+      RefreshList<F> event, Emitter<ViewState> emit) async {
     if (_isRefreshPossible(event)) {
       final elements = _getCurrentStateElements();
       emit(Refreshing(elements));

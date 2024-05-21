@@ -22,7 +22,7 @@ extension DoublePerCurrencyExt on DoublePerCurrency {
         return ltc;
       default:
         throw Exception(
-            "Currency not supported ${chosenCurrency.currencyCode}");
+            'Currency not supported ${chosenCurrency.currencyCode}');
     }
   }
 }

@@ -2,12 +2,10 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:ionicons/ionicons.dart';
 
-class RatelimtedView extends StatelessWidget {
+class RateLimitedView extends StatelessWidget {
+  const RateLimitedView({super.key, required this.onRefresh});
   final VoidCallback onRefresh;
-
-  const RatelimtedView({Key? key, required this.onRefresh}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +19,12 @@ class RatelimtedView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Ionicons.wifi_outline, size: 48),
+              const Icon(Icons.wifi_rounded, size: 48),
               const SizedBox(height: 16),
               const Text(
-                  "You are being rate limited. Please try again in a few minutes."),
+                  'You are being rate limited. Please try again in a few minutes.'),
               const SizedBox(height: 16),
-              ElevatedButton(onPressed: onRefresh, child: const Text("Retry")),
+              ElevatedButton(onPressed: onRefresh, child: const Text('Retry')),
             ],
           ),
         ),

@@ -10,14 +10,12 @@ part 'trending_event.dart';
 part 'trending_state.dart';
 
 class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
-  final TrendingAssetRepository _trendingAssetRepository;
-
   TrendingBloc(this._trendingAssetRepository) : super(TrendingInitial()) {
     on<LoadTrending>((event, emit) async {
       emit(TrendingLoading());
 
       try {
-        List<SearchTrendingCoin> assets =
+        final List<SearchTrendingCoin> assets =
             await _trendingAssetRepository.getTrendingAssets();
         emit(TrendingLoaded(trending: assets));
       } catch (e) {
@@ -25,4 +23,5 @@ class TrendingBloc extends Bloc<TrendingEvent, TrendingState> {
       }
     });
   }
+  final TrendingAssetRepository _trendingAssetRepository;
 }

@@ -6,8 +6,8 @@ import 'package:shimmer/shimmer.dart';
 
 class ShimmerAppBarDataBlock extends StatelessWidget {
   const ShimmerAppBarDataBlock({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

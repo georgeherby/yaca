@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_single_quotes
+
 // 🎯 Dart imports:
 import 'dart:convert';
 

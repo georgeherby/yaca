@@ -12,12 +12,12 @@ class ThemePreferenceRepository {
 
   Future setThemeMode(ThemeMode themeMode) async {
     debugPrint('setThemeMode = $themeMode');
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     await prefs.setString(_themeMode, themeMode.toStr());
   }
 
   Future<ThemeMode> getThemeMode() async {
-    var prefs = await SharedPreferences.getInstance();
+    final prefs = await SharedPreferences.getInstance();
     debugPrint('getTheme = ${prefs.getString(_themeMode)}');
 
     if (prefs.getString(_themeMode) != null) {

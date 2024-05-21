@@ -5,11 +5,10 @@ import 'package:coingecko_api/data/market.dart';
 import 'package:equatable/equatable.dart';
 
 class MarketCoin extends Equatable {
+  const MarketCoin({required this.market, this.favouriteCacheId});
   final Market market;
 
   final int? favouriteCacheId;
-
-  const MarketCoin({required this.market, this.favouriteCacheId});
 
   MarketCoin copyWith({
     Market? market,
@@ -25,12 +24,15 @@ class MarketCoin extends Equatable {
 
   bool get isFavourited => favouriteCacheId != null;
 
-  double? get priceChange1h => market.priceChangePercentage1hInCurrency != null && market.currentPrice != null
+  double? get priceChange1h => market.priceChangePercentage1hInCurrency !=
+              null &&
+          market.currentPrice != null
       ? (market.priceChangePercentage1hInCurrency! / 100) * market.currentPrice!
       : null;
 
-  double? get priceChange7d => market.priceChangePercentage7dInCurrency != null &&
-              market.currentPrice != null
+  double? get priceChange7d => market.priceChangePercentage7dInCurrency !=
+              null &&
+          market.currentPrice != null
       ? (market.priceChangePercentage7dInCurrency! / 100) * market.currentPrice!
       : null;
 

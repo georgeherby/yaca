@@ -1,4 +1,4 @@
-body, html {
+body {
   margin:0;
   height:100%;
   background: #638175;
@@ -36,7 +36,7 @@ body, html {
   body {
     margin:0;
     height:100%;
-    background: #121313;
+    background: #191C1B;
     
     background-size: 100% 100%;
   }

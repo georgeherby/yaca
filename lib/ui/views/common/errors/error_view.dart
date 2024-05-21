@@ -2,14 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:ionicons/ionicons.dart';
 
 class ErrorView extends StatelessWidget {
+  const ErrorView({super.key, this.onRefresh, required this.error});
   final VoidCallback? onRefresh;
   final String error;
-
-  const ErrorView({Key? key, this.onRefresh, required this.error})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,10 +20,10 @@ class ErrorView extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Icon(Ionicons.bug_outline, size: 48),
+              const Icon(Icons.bug_report_outlined, size: 48),
               const SizedBox(height: 16),
               const Text(
-                  "Error occured. Please try again. If you still face issues, please contact the developer with details in the section below."),
+                  'Error occurred. Please try again. If you still face issues, please contact the developer with details in the section below.'),
               const SizedBox(height: 16),
               Theme(
                 data: ThemeData(dividerColor: Colors.transparent),
@@ -38,8 +35,8 @@ class ErrorView extends StatelessWidget {
                   iconColor: Theme.of(context).iconTheme.color,
                   collapsedIconColor: Theme.of(context).iconTheme.color,
                   title: Text(
-                    "Error details",
-                    style: Theme.of(context).textTheme.bodyText1,
+                    'Error details',
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   children: [
                     Text(error),
@@ -47,10 +44,10 @@ class ErrorView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 16),
-              onRefresh != null
-                  ? ElevatedButton(
-                      onPressed: onRefresh, child: const Text("Retry"))
-                  : Container(),
+              if (onRefresh != null)
+                ElevatedButton(onPressed: onRefresh, child: const Text('Retry'))
+              else
+                Container(),
             ],
           ),
         ),

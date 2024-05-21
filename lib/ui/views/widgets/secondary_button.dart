@@ -2,12 +2,11 @@
 import 'package:flutter/material.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 
 class SecondaryButton extends StatelessWidget {
   const SecondaryButton(
-      {Key? key, required this.buttonText, required this.onTap})
-      : super(key: key);
+      {super.key, required this.buttonText, required this.onTap});
 
   final String buttonText;
   final VoidCallback onTap;
@@ -17,12 +16,12 @@ class SecondaryButton extends StatelessWidget {
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(kCornerRadiusCirlcular)),
+            borderRadius: BorderRadius.circular(kCornerRadiusCircular)),
       ),
       onPressed: onTap,
       child: Text(
         buttonText,
-        style: TextStyle(color: Theme.of(context).textTheme.button?.color),
+        style: TextStyle(color: Theme.of(context).colorScheme.onSurface),
       ),
     );
   }

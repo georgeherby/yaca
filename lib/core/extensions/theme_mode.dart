@@ -2,10 +2,9 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-import 'package:ionicons/ionicons.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 
 extension ThemeModeToString on ThemeMode {
   String toStr() {
@@ -23,9 +22,9 @@ extension ThemeModeToString on ThemeMode {
   IconData? toIcon() {
     switch (this) {
       case ThemeMode.dark:
-        return Ionicons.moon_outline;
+        return Icons.dark_mode_outlined;
       case ThemeMode.light:
-        return Ionicons.sunny_outline;
+        return Icons.light_mode_outlined;
       case ThemeMode.system:
       default:
         return null;

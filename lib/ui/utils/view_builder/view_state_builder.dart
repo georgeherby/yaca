@@ -55,8 +55,8 @@ typedef ViewStateBuilderCondition = bool Function(
 class ViewStateBuilder<T extends Object, B extends Bloc<dynamic, ViewState>>
     extends BlocBuilder<B, ViewState> {
   ViewStateBuilder({
-    Key? key,
-    required B bloc,
+    super.key,
+    required B super.bloc,
     InitialBuilder? onReady,
     LoadingBuilder? onLoading,
     RefreshingBuilder<T>? onRefreshing,
@@ -64,11 +64,8 @@ class ViewStateBuilder<T extends Object, B extends Bloc<dynamic, ViewState>>
     EmptyBuilder? onEmpty,
     ErrorBuilder? onError,
     ErrorBuilder? onRateLimited,
-    ViewStateBuilderCondition? buildWhen,
+    super.buildWhen,
   }) : super(
-          key: key,
-          bloc: bloc,
-          buildWhen: buildWhen,
           builder: (BuildContext context, ViewState state) {
             if (state is Initial) {
               return onReady?.call(context) ?? const SizedBox();
@@ -83,7 +80,7 @@ class ViewStateBuilder<T extends Object, B extends Bloc<dynamic, ViewState>>
               return onEmpty?.call(context) ?? const SizedBox();
             } else if (state is Failure) {
               return onError?.call(context, state.error) ?? const SizedBox();
-            }else if (state is RateLimited) {
+            } else if (state is RateLimited) {
               return onRateLimited?.call(context, state) ?? const SizedBox();
             } else {
               return const SizedBox();

@@ -4,25 +4,25 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ionicons/ionicons.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class CurrencyChoiceView extends StatelessWidget {
-  const CurrencyChoiceView({Key? key}) : super(key: key);
+  const CurrencyChoiceView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScaffoldWithBack(
       title: 'Choose currency',
-      body: MaterialSurface(
-        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+      body: ElevatedCard(
+        // externalPadding:
+        //     const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
         child: ListView.separated(
           separatorBuilder: (context, index) => const Divider(
               thickness: kDividerWeighting, height: kDividerWeighting),
@@ -43,7 +43,7 @@ class CurrencyChoiceView extends StatelessWidget {
 
   Widget _buildRow(
       BuildContext context, ChosenCurrency currencyToUse, bool isLastRow) {
-    var bloc = BlocProvider.of<AppSettingsBloc>(context);
+    final bloc = BlocProvider.of<ApplicationSettingsBloc>(context);
 
     return ListTile(
       onTap: () {
@@ -57,23 +57,23 @@ class CurrencyChoiceView extends StatelessWidget {
               data: ThemeData(
                   iconTheme: IconThemeData(
                       color: bloc.state.currency == currencyToUse
-                          ? Theme.of(context).listTileTheme.selectedColor
-                          : Theme.of(context).listTileTheme.iconColor)),
-              child: currencyToUse.currencyIcon),
+                          ? Theme.of(context).colorScheme.primary
+                          : Theme.of(context).colorScheme.onSurface)),
+              child: Icon(currencyToUse.currencyIcon)),
         ],
       ),
       title: Text(currencyToUse.currencyName),
       subtitle: Text(
-        "${currencyToUse.currencyCode} ${currencyToUse.currencyString}",
-        style: Theme.of(context).textTheme.caption,
+        '${currencyToUse.currencyCode} ${currencyToUse.currencyString}',
       ),
       selected: bloc.state.currency == currencyToUse,
       trailing: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          bloc.state.currency == currencyToUse
-              ? const Icon(Ionicons.checkmark_outline)
-              : const SizedBox(height: 0),
+          if (bloc.state.currency == currencyToUse)
+            const Icon(Icons.chevron_right_rounded)
+          else
+            const SizedBox(height: 0),
         ],
       ),
     );

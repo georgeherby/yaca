@@ -5,23 +5,22 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:yaca/core/models/favourites.dart';
 
 class FavouritesDao {
+  const FavouritesDao({required this.box});
   final Box<Favourites> box;
 
-  const FavouritesDao({required this.box});
-
   Future<int> insertFavourite(Favourites favourite) async {
-    return await box.add(Favourites(
+    return box.add(Favourites(
         name: favourite.name,
         coinId: favourite.coinId,
         symbol: favourite.symbol));
   }
 
   Future<void> delete(int idToDelete) async {
-    return await box.delete(idToDelete);
+    return box.delete(idToDelete);
   }
 
   Future<List<Favourites>> getAll() {
-    var list = <Favourites>[];
+    final list = <Favourites>[];
 
     box.toMap().forEach((key, value) {
       list.add(Favourites(

@@ -6,17 +6,17 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/models/api/whalealerts/whale_transactions.dart';
+import 'package:yaca/core/models/api/whale_alerts/whale_transactions.dart';
 import 'package:yaca/core/repositories/preferences/api_tokens_preference.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/view_builder/filter_list_bloc.dart';
-import 'package:yaca/ui/views/widgets/primary_button.dart';
+import 'package:yaca/ui/views/widgets/tonal_button.dart';
 import 'package:yaca/ui/views/widgets/scaffold_with_back.dart';
 import 'package:yaca/ui/views/widgets/secondary_button.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
+import 'package:yaca/ui/views/widgets/elevated_card.dart';
 
 class WhaleApiTokenView extends StatelessWidget {
-  WhaleApiTokenView({Key? key}) : super(key: key);
+  WhaleApiTokenView({super.key});
 
   final _formKey = GlobalKey<FormState>();
 
@@ -34,8 +34,7 @@ class WhaleApiTokenView extends StatelessWidget {
     updateText(context);
     return ScaffoldWithBack(
       title: 'Whale Transactions',
-      body: MaterialSurface(
-        externalPadding: const EdgeInsets.symmetric(horizontal: 8.0),
+      body: ElevatedCard(
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(mainAxisSize: MainAxisSize.min, children: [
@@ -62,7 +61,7 @@ class WhaleApiTokenView extends StatelessWidget {
                   Expanded(
                     child: SecondaryButton(
                       onTap: () async {
-                        FilterListBloc filterListBloc = BlocProvider.of<
+                        final FilterListBloc filterListBloc = BlocProvider.of<
                             FilterListBloc<WhaleTransaction, String>>(context);
 
                         await RepositoryProvider.of<ApiTokensPreference>(
@@ -76,12 +75,13 @@ class WhaleApiTokenView extends StatelessWidget {
                   ),
                   const SizedBox(width: 16),
                   Expanded(
-                    child: PrimaryButton(
+                    child: TonalButton(
                       buttonText: 'Save',
                       onTap: () async {
+                        final router = context.router;
                         if (_formKey.currentState!.validate()) {
                           debugPrint('Saving ${tokenController.text}');
-                          FilterListBloc bloc = BlocProvider.of<
+                          final FilterListBloc bloc = BlocProvider.of<
                                   FilterListBloc<WhaleTransaction, String>>(
                               context);
                           await RepositoryProvider.of<ApiTokensPreference>(
@@ -89,7 +89,7 @@ class WhaleApiTokenView extends StatelessWidget {
                               .saveWhalesApiToken(tokenController.text);
 
                           bloc.loadElements();
-                          await context.router.pop();
+                          await router.pop();
                         }
                       },
                     ),

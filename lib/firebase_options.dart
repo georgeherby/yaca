@@ -61,7 +61,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '243267923096',
     projectId: 'yaca-827e3',
     storageBucket: 'yaca-827e3.appspot.com',
-    iosClientId: '243267923096-5r7626hmfib25j45vr135eh4c8bo15m6.apps.googleusercontent.com',
+    iosClientId:
+        '243267923096-5r7626hmfib25j45vr135eh4c8bo15m6.apps.googleusercontent.com',
     iosBundleId: 'app.yaca.ios',
   );
 
@@ -71,7 +72,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '243267923096',
     projectId: 'yaca-827e3',
     storageBucket: 'yaca-827e3.appspot.com',
-    iosClientId: '243267923096-2dk44p925jhlhrrhcvnogmo5hqc3gjen.apps.googleusercontent.com',
+    iosClientId:
+        '243267923096-2dk44p925jhlhrrhcvnogmo5hqc3gjen.apps.googleusercontent.com',
     iosBundleId: 'app.yaca.macos',
   );
 }

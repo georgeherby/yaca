@@ -5,12 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:yaca/ui/utils/screen_chooser/screen_builder.dart';
 
 class RefreshableList extends StatelessWidget {
+  const RefreshableList(
+      {super.key, required this.onRefresh, required this.child});
   final Widget child;
   final ValueGetter<Future<void>> onRefresh;
-
-  const RefreshableList(
-      {Key? key, required this.onRefresh, required this.child})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +24,6 @@ class RefreshableList extends StatelessWidget {
   }
 
   Widget _buildRefreshIndicator(BuildContext context) {
-    return RefreshIndicator(
-        onRefresh: onRefresh,
-        child: child);
+    return RefreshIndicator(onRefresh: onRefresh, child: child);
   }
 }

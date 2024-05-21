@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
 import 'package:yaca/core/config/currency.dart';
 import 'package:yaca/core/models/api/market_coins.dart';
@@ -25,17 +25,18 @@ class MockFavouritesDao extends Mock implements FavouritesDao {}
 class MockMarketOverviewRepository extends Mock
     implements MarketOverviewRepository {}
 
-class MockAppSettingsBloc extends Mock implements AppSettingsBloc {}
+class MockApplicationSettingsBloc extends Mock
+    implements ApplicationSettingsBloc {}
 
-class MockAssetOverviewPreferneces extends Mock
+class MockAssetOverviewPreferences extends Mock
     implements AssetOverviewPreference {}
 
 void main() {
-  var mockFavouritesDao = MockFavouritesDao();
-  var mockMarketOverviewRepository = MockMarketOverviewRepository();
-  var mockAppSettingsBloc = MockAppSettingsBloc();
-  var mockAssetOverviewPreferneces = MockAssetOverviewPreferneces();
-  var defaultCurrency = AvailableCurrencies.usd;
+  final mockFavouritesDao = MockFavouritesDao();
+  final mockMarketOverviewRepository = MockMarketOverviewRepository();
+  final mockApplicationSettingsBloc = MockApplicationSettingsBloc();
+  final mockAssetOverviewPreferences = MockAssetOverviewPreferences();
+  final defaultCurrency = AvailableCurrencies.usd;
   setUpAll(() {
     registerFallbackValue(SortType.sortByRank);
     registerFallbackValue(SortOrder.ascending);
@@ -43,22 +44,22 @@ void main() {
   setUp(() {
     reset(mockFavouritesDao);
     reset(mockMarketOverviewRepository);
-    reset(mockAppSettingsBloc);
-    reset(mockAssetOverviewPreferneces);
+    reset(mockApplicationSettingsBloc);
+    reset(mockAssetOverviewPreferences);
   });
 
   group('AssetOverviewBloc when the settings are not loaded', () {
     blocTest(
       'verify state is AssetOverviewInitial when bloc is created',
       build: () {
-        when(() => mockAppSettingsBloc.stream)
-            .thenAnswer((_) => Stream.value(AppSettingsInitial()));
+        when(() => mockApplicationSettingsBloc.stream)
+            .thenAnswer((_) => Stream.value(ApplicationSettingsInitial()));
 
-        when(() => mockAppSettingsBloc.state).thenAnswer(
-            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
-        return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-            mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+        return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
+            mockMarketOverviewRepository, mockAssetOverviewPreferences);
       },
       verify: (AssetOverviewBloc bloc) {
         expect(bloc.state, equals(const AssetOverviewInitial()));
@@ -70,27 +71,28 @@ void main() {
     blocTest(
       'both apis return empty',
       build: () {
-        when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+        when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockAppSettingsBloc.state).thenAnswer(
-            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) => Future.value(List.empty()));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value(List.empty()));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferences.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferences.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
 
-        return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-            mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+        return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
+            mockMarketOverviewRepository, mockAssetOverviewPreferences);
       },
       verify: (AssetOverviewBloc bloc) {
         expect(
@@ -102,11 +104,12 @@ void main() {
     blocTest(
       'asset api is empty, favourite returns records',
       build: () {
-        when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+        when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockAppSettingsBloc.state).thenAnswer(
-            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
@@ -117,16 +120,16 @@ void main() {
                 specficCoinIds: [btcFavouriteWithID.coinId]))
             .thenAnswer((_) => Future.value([btcMarketCoin]));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferences.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferences.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
-        return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-            mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+        return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
+            mockMarketOverviewRepository, mockAssetOverviewPreferences);
       },
       verify: (AssetOverviewBloc bloc) {
         expect(
@@ -145,27 +148,28 @@ void main() {
     blocTest(
       'asset api returns records favourite returns matching record for one',
       build: () {
-        when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+        when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockAppSettingsBloc.state).thenAnswer(
-            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferences.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferences.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
 
-        return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-            mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+        return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
+            mockMarketOverviewRepository, mockAssetOverviewPreferences);
       },
       verify: (AssetOverviewBloc bloc) {
         expect(
@@ -189,42 +193,50 @@ void main() {
     );
     blocTest('throw error if the asset api fails',
         build: () {
-          when(() => mockAppSettingsBloc.stream).thenAnswer((_) => Stream.value(
-              AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+          when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+              Stream.value(ApplicationSettingsLoaded(
+                  ThemeMode.system, defaultCurrency)));
 
-          when(() => mockAppSettingsBloc.state).thenAnswer(
-              (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+          when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+              ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
           when(() => mockMarketOverviewRepository
               .fetchCoinMarkets(defaultCurrency)).thenThrow(Exception('ERROR'));
 
-          return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-              mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+          return AssetOverviewBloc(
+              mockApplicationSettingsBloc,
+              mockFavouritesDao,
+              mockMarketOverviewRepository,
+              mockAssetOverviewPreferences);
         },
         expect: () => [
               const AssetOverviewLoading(),
               AssetOverviewError(Exception('ERROR').toString())
             ],
         verify: (_) {
-          verifyNever(() => mockFavouritesDao.getAll());
+          verifyNever(mockFavouritesDao.getAll);
         });
     blocTest('throw error if the asset api succeeds but favourites fails',
         build: () {
-          when(() => mockAppSettingsBloc.stream).thenAnswer((_) => Stream.value(
-              AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+          when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+              Stream.value(ApplicationSettingsLoaded(
+                  ThemeMode.system, defaultCurrency)));
 
-          when(() => mockAppSettingsBloc.state).thenAnswer(
-              (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+          when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+              ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
           when(() => mockMarketOverviewRepository
                   .fetchCoinMarkets(defaultCurrency))
               .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
-          when(() => mockFavouritesDao.getAll())
+          when(mockFavouritesDao.getAll)
               .thenThrow(Exception('Error getting favourites'));
 
-          return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-              mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+          return AssetOverviewBloc(
+              mockApplicationSettingsBloc,
+              mockFavouritesDao,
+              mockMarketOverviewRepository,
+              mockAssetOverviewPreferences);
         },
         expect: () => [
               const AssetOverviewLoading(),
@@ -240,35 +252,38 @@ void main() {
 
       var mockFavouritesDaoCallCount = 0;
 
-      var responses = [
+      final responses = [
         Future.value([btcFavouriteWithID]),
         Future.value([btcFavouriteWithID, ethFavouriteWithId]),
       ];
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
       when(() => mockFavouritesDao.insertFavourite(ethFavouriteNoId))
           .thenAnswer((_) => Future.value(ethFavouriteWithId.id));
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferences.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferences.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       whenListen(
-        mockAppSettingsBloc,
+        mockApplicationSettingsBloc,
         Stream.fromIterable(
-            [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
+            [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
-          mockAppSettingsBloc.stream,
-          emitsInOrder(<AppSettingsState>[
-            AppSettingsLoaded(ThemeMode.system, defaultCurrency)
+          mockApplicationSettingsBloc.stream,
+          emitsInOrder(<ApplicationSettingsState>[
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)
           ]));
 
       // Tap favourite
@@ -341,36 +356,39 @@ void main() {
           .thenAnswer((_) => Future.value([btcMarketCoin]));
 
       var mockFavouritesDaoCallCount = 0;
-      var responses = [
+      final responses = [
         Future.value(<Favourites>[btcFavouriteWithID]),
         Future.value(<Favourites>[]),
       ];
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
       when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferences.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferences.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
       whenListen(
-        mockAppSettingsBloc,
+        mockApplicationSettingsBloc,
         Stream.fromIterable(
-            [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
+            [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
-          mockAppSettingsBloc.stream,
-          emitsInOrder(<AppSettingsState>[
-            AppSettingsLoaded(ThemeMode.system, defaultCurrency)
+          mockApplicationSettingsBloc.stream,
+          emitsInOrder(<ApplicationSettingsState>[
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)
           ]));
 
       // Tap favourite
@@ -424,36 +442,39 @@ void main() {
         .thenAnswer((_) => Future.value([btcMarketCoin, ethMarketCoin]));
 
     var mockFavouritesDaoCallCount = 0;
-    var responses = [
+    final responses = [
       Future.value(<Favourites>[btcFavouriteWithID]),
       Future.value(<Favourites>[]),
     ];
 
-    when(() => mockFavouritesDao.getAll())
+    when(mockFavouritesDao.getAll)
         .thenAnswer((_) => responses[mockFavouritesDaoCallCount++]);
 
     when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
         .thenAnswer((_) => Future.value());
 
-    when(() => mockAssetOverviewPreferneces.getSortOrder())
+    when(mockAssetOverviewPreferences.getSortOrder)
         .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-    when(() => mockAssetOverviewPreferneces.getSortType())
+    when(mockAssetOverviewPreferences.getSortType)
         .thenAnswer((_) => Future.value(SortType.sortByRank));
 
     whenListen(
-      mockAppSettingsBloc,
+      mockApplicationSettingsBloc,
       Stream.fromIterable(
-          [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
+          [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
     );
 
-    var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-        mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+    final bloc = AssetOverviewBloc(
+        mockApplicationSettingsBloc,
+        mockFavouritesDao,
+        mockMarketOverviewRepository,
+        mockAssetOverviewPreferences);
 
     await expectLater(
-        mockAppSettingsBloc.stream,
-        emitsInOrder(<AppSettingsState>[
-          AppSettingsLoaded(ThemeMode.system, defaultCurrency)
+        mockApplicationSettingsBloc.stream,
+        emitsInOrder(<ApplicationSettingsState>[
+          ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)
         ]));
 
     // Tap favourite
@@ -506,28 +527,29 @@ void main() {
     blocTest(
       'Initial load - uses default sorting by rank in ascending order',
       build: () {
-        when(() => mockAppSettingsBloc.stream).thenAnswer((_) =>
-            Stream.value(AppSettingsLoaded(ThemeMode.system, defaultCurrency)));
+        when(() => mockApplicationSettingsBloc.stream).thenAnswer((_) =>
+            Stream.value(
+                ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)));
 
-        when(() => mockAppSettingsBloc.state).thenAnswer(
-            (_) => AppSettingsLoaded(ThemeMode.system, defaultCurrency));
+        when(() => mockApplicationSettingsBloc.state).thenAnswer((_) =>
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency));
 
         when(() =>
                 mockMarketOverviewRepository.fetchCoinMarkets(defaultCurrency))
             .thenAnswer((_) =>
                 Future.value([bnbMarketCoin, btcMarketCoin, ethMarketCoin]));
 
-        when(() => mockFavouritesDao.getAll())
+        when(mockFavouritesDao.getAll)
             .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-        when(() => mockAssetOverviewPreferneces.getSortOrder())
+        when(mockAssetOverviewPreferences.getSortOrder)
             .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-        when(() => mockAssetOverviewPreferneces.getSortType())
+        when(mockAssetOverviewPreferences.getSortType)
             .thenAnswer((_) => Future.value(SortType.sortByRank));
 
-        return AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-            mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+        return AssetOverviewBloc(mockApplicationSettingsBloc, mockFavouritesDao,
+            mockMarketOverviewRepository, mockAssetOverviewPreferences);
       },
       verify: (AssetOverviewBloc bloc) {
         expect(
@@ -557,34 +579,37 @@ void main() {
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferences.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferences.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
-      when(() => mockAssetOverviewPreferneces.setSortOrder(any<SortOrder>()))
+      when(() => mockAssetOverviewPreferences.setSortOrder(any<SortOrder>()))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.setSortType(any<SortType>()))
+      when(() => mockAssetOverviewPreferences.setSortType(any<SortType>()))
           .thenAnswer((_) => Future.value());
 
       whenListen(
-        mockAppSettingsBloc,
+        mockApplicationSettingsBloc,
         Stream.fromIterable(
-            [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
+            [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
-          mockAppSettingsBloc.stream,
-          emitsInOrder(<AppSettingsState>[
-            AppSettingsLoaded(ThemeMode.system, defaultCurrency)
+          mockApplicationSettingsBloc.stream,
+          emitsInOrder(<ApplicationSettingsState>[
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)
           ]));
 
       // Tap sort
@@ -643,34 +668,37 @@ void main() {
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferences.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferences.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
-      when(() => mockAssetOverviewPreferneces.setSortOrder(any<SortOrder>()))
+      when(() => mockAssetOverviewPreferences.setSortOrder(any<SortOrder>()))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.setSortType(any<SortType>()))
+      when(() => mockAssetOverviewPreferences.setSortType(any<SortType>()))
           .thenAnswer((_) => Future.value());
 
       whenListen(
-        mockAppSettingsBloc,
+        mockApplicationSettingsBloc,
         Stream.fromIterable(
-            [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
+            [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
-          mockAppSettingsBloc.stream,
-          emitsInOrder(<AppSettingsState>[
-            AppSettingsLoaded(ThemeMode.system, defaultCurrency)
+          mockApplicationSettingsBloc.stream,
+          emitsInOrder(<ApplicationSettingsState>[
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)
           ]));
 
       // Tap sort
@@ -730,37 +758,40 @@ void main() {
           .thenAnswer((_) =>
               Future.value([btcMarketCoin, ethMarketCoin, bnbMarketCoin]));
 
-      when(() => mockFavouritesDao.getAll())
+      when(mockFavouritesDao.getAll)
           .thenAnswer((_) => Future.value([btcFavouriteWithID]));
 
       when(() => mockFavouritesDao.delete(btcFavouriteWithID.id!))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.getSortOrder())
+      when(mockAssetOverviewPreferences.getSortOrder)
           .thenAnswer((_) => Future.value(SortOrder.ascending));
 
-      when(() => mockAssetOverviewPreferneces.getSortType())
+      when(mockAssetOverviewPreferences.getSortType)
           .thenAnswer((_) => Future.value(SortType.sortByRank));
 
-      when(() => mockAssetOverviewPreferneces.setSortOrder(any<SortOrder>()))
+      when(() => mockAssetOverviewPreferences.setSortOrder(any<SortOrder>()))
           .thenAnswer((_) => Future.value());
 
-      when(() => mockAssetOverviewPreferneces.setSortType(any<SortType>()))
+      when(() => mockAssetOverviewPreferences.setSortType(any<SortType>()))
           .thenAnswer((_) => Future.value());
 
       whenListen(
-        mockAppSettingsBloc,
+        mockApplicationSettingsBloc,
         Stream.fromIterable(
-            [AppSettingsLoaded(ThemeMode.system, defaultCurrency)]),
+            [ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)]),
       );
 
-      var bloc = AssetOverviewBloc(mockAppSettingsBloc, mockFavouritesDao,
-          mockMarketOverviewRepository, mockAssetOverviewPreferneces);
+      final bloc = AssetOverviewBloc(
+          mockApplicationSettingsBloc,
+          mockFavouritesDao,
+          mockMarketOverviewRepository,
+          mockAssetOverviewPreferences);
 
       await expectLater(
-          mockAppSettingsBloc.stream,
-          emitsInOrder(<AppSettingsState>[
-            AppSettingsLoaded(ThemeMode.system, defaultCurrency)
+          mockApplicationSettingsBloc.stream,
+          emitsInOrder(<ApplicationSettingsState>[
+            ApplicationSettingsLoaded(ThemeMode.system, defaultCurrency)
           ]));
 
       // Tap sort

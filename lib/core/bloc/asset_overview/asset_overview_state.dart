@@ -19,11 +19,12 @@ class AssetOverviewLoading extends AssetOverviewState {
 }
 
 class AssetOverviewLoaded extends AssetOverviewState {
+  const AssetOverviewLoaded(
+      this.allAssets, this.favourites, this.sortType, this.sortOrder);
   final List<MarketCoin> allAssets;
   final List<MarketCoin> favourites;
   final SortType sortType;
   final SortOrder sortOrder;
-  const AssetOverviewLoaded(this.allAssets, this.favourites, this.sortType, this.sortOrder);
 
   @override
   List<Object> get props =>
@@ -31,9 +32,8 @@ class AssetOverviewLoaded extends AssetOverviewState {
 }
 
 class AssetOverviewError extends AssetOverviewState {
-  final String error;
-
   const AssetOverviewError(this.error);
+  final String error;
 
   @override
   List<Object> get props => [error];

@@ -7,7 +7,7 @@ import 'package:coingecko_api/data/market.dart';
 // 🌎 Project imports:
 import 'package:yaca/core/models/favourites.dart';
 
-var btcMarketCoin = Market.fromJson(json.decode("""{
+var btcMarketCoin = Market.fromJson(json.decode('''{
     "id": "bitcoin",
     "symbol": "btc",
     "name": "Bitcoin",
@@ -43,9 +43,9 @@ var btcMarketCoin = Market.fromJson(json.decode("""{
     "price_change_percentage_1h_in_currency": 2.784916880625378,
     "price_change_percentage_24h_in_currency": 0.48799977704933944,
     "price_change_percentage_7d_in_currency": 14.105313934001021
-  }"""));
+  }'''));
 
-var ethMarketCoin = Market.fromJson(json.decode("""
+var ethMarketCoin = Market.fromJson(json.decode('''
   {
     "id": "ethereum",
     "symbol": "eth",
@@ -90,9 +90,9 @@ var ethMarketCoin = Market.fromJson(json.decode("""
     "price_change_percentage_24h_in_currency": -1.1736305610305673,
     "price_change_percentage_7d_in_currency": 15.2361448707508
   }
-"""));
+'''));
 
-var bnbMarketCoin = Market.fromJson(json.decode("""
+var bnbMarketCoin = Market.fromJson(json.decode('''
   {
     "id": "binancecoin",
     "symbol": "bnb",
@@ -132,7 +132,7 @@ var bnbMarketCoin = Market.fromJson(json.decode("""
     "price_change_percentage_24h_in_currency": -4.916310387082272,
     "price_change_percentage_7d_in_currency": 9.246870262724698
   }
-"""));
+'''));
 
 var btcFavouriteWithID =
     const Favourites(id: 12, name: 'bitcoin', coinId: 'bitcoin', symbol: 'btc');

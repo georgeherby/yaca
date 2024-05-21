@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 // 📦 Package imports:
 import 'package:coingecko_api/data/market_sparkline.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:yaca/core/bloc/application_settings/application_settings_bloc.dart';
 
 // 🌎 Project imports:
-import 'package:yaca/core/bloc/appsettings/appsettings_bloc.dart';
 import 'package:yaca/core/bloc/asset_overview/asset_overview_bloc.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/utils/currency_formatters.dart';
 import 'package:yaca/ui/views/widgets/asset_icon_web.dart';
 import 'package:yaca/ui/views/widgets/delta_with_arrow.dart';
@@ -17,6 +17,22 @@ import 'package:yaca/ui/views/widgets/favourite_icon.dart';
 import 'package:yaca/ui/views/widgets/ranking_card.dart';
 
 class TabletRow extends StatelessWidget {
+  const TabletRow(this.blockSize,
+      {super.key,
+      required this.rank,
+      required this.symbol,
+      required this.name,
+      required this.iconUrl,
+      required this.sparkline,
+      required this.sevenDayPercentageChange,
+      required this.sevenDayChange,
+      required this.oneDayPercentageChange,
+      required this.oneDayChange,
+      required this.oneHourPercentageChange,
+      required this.oneHourChange,
+      required this.price,
+      required this.isFavourited,
+      required this.onFavourite});
   final double blockSize;
   final int rank;
   final String symbol;
@@ -32,24 +48,6 @@ class TabletRow extends StatelessWidget {
   final double? price;
   final bool isFavourited;
   final VoidCallback onFavourite;
-
-  const TabletRow(this.blockSize,
-      {Key? key,
-      required this.rank,
-      required this.symbol,
-      required this.name,
-      required this.iconUrl,
-      required this.sparkline,
-      required this.sevenDayPercentageChange,
-      required this.sevenDayChange,
-      required this.oneDayPercentageChange,
-      required this.oneDayChange,
-      required this.oneHourPercentageChange,
-      required this.oneHourChange,
-      required this.price,
-      required this.isFavourited,
-      required this.onFavourite})
-      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +76,7 @@ class TabletRow extends StatelessWidget {
                   child: Text(
                     name,
                     maxLines: 1,
-                    style: Theme.of(context).textTheme.subtitle2,
+                    style: Theme.of(context).textTheme.titleSmall,
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
@@ -91,7 +89,7 @@ class TabletRow extends StatelessWidget {
                     Flexible(
                       child: Text(
                         symbol.toUpperCase(),
-                        style: Theme.of(context).textTheme.caption,
+                        style: Theme.of(context).textTheme.bodySmall,
                         overflow: TextOverflow.ellipsis,
                       ),
                     ),
@@ -151,7 +149,7 @@ class TabletRow extends StatelessWidget {
             child: price != null
                 ? Text(
                     price!.currencyFormatWithPrefix(
-                        BlocProvider.of<AppSettingsBloc>(context)
+                        BlocProvider.of<ApplicationSettingsBloc>(context)
                             .state
                             .currency
                             .currencyString,
@@ -168,7 +166,7 @@ class TabletRow extends StatelessWidget {
                 return IconButton(
                     icon: FavouriteIcon(
                       isSelected: isFavourited,
-                      size: 18,
+                      size: blockSize * 4,
                     ),
                     onPressed: onFavourite);
               }

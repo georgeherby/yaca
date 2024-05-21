@@ -5,19 +5,16 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:ionicons/ionicons.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 // 🌎 Project imports:
 import 'package:yaca/app_router.dart';
 import 'package:yaca/core/bloc/search/search_bloc.dart';
-import 'package:yaca/ui/consts/constants.dart';
+import 'package:yaca/ui/constants/constants.dart';
 import 'package:yaca/ui/views/common/errors/error_view.dart';
 import 'package:yaca/ui/views/search/trending_view.dart';
-import 'package:yaca/ui/views/widgets/surface.dart';
 
 class SearchView extends StatelessWidget {
-  const SearchView({Key? key}) : super(key: key);
+  const SearchView({super.key});
 
   void _resetSearch(BuildContext context, TextEditingController controller) {
     context.read<SearchBloc>().add(const SearchEvent(query: null));
@@ -33,11 +30,12 @@ class SearchView extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () => context.router.pop(),
-          icon: Icon(Ionicons.chevron_back_outline,
+          icon: Icon(Icons.chevron_left_rounded,
               size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
         ),
+        centerTitle: false,
         title: TextFormField(
-          autofocus: true,
+          autofocus: false,
           controller: textController,
           onChanged: (value) {
             if (value.isNotEmpty) {
@@ -51,8 +49,8 @@ class SearchView extends StatelessWidget {
               onPressed: () {
                 _resetSearch(context, textController);
               },
-              icon: Icon(Ionicons.close_outline,
-                  color: Theme.of(context).appBarTheme.iconTheme?.color,
+              icon: Icon(Icons.close_rounded,
+                  color: Theme.of(context).appBarTheme.actionsIconTheme?.color,
                   size: Theme.of(context).appBarTheme.actionsIconTheme?.size),
             ),
           ),
@@ -65,21 +63,19 @@ class SearchView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const TrendingView(),
-                const SizedBox(
-                  height: 8.0,
-                ),
                 Expanded(
                   flex: 3,
-                  child: MaterialSurface(
-                    externalPadding: getValueForScreenType<EdgeInsets>(
-                      context: context,
-                      mobile: const EdgeInsets.symmetric(horizontal: 8.0),
-                      tablet: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, bottom: 8.0),
-                      desktop: const EdgeInsets.only(
-                          left: 8.0, right: 8.0, bottom: 8.0),
-                    ),
-                    child: ListView.builder(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    child: ListView.separated(
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider(
+                            indent: 8,
+                            endIndent: 8,
+                            height: kDividerWeighting,
+                            thickness: kDividerWeighting,
+                          );
+                        },
                         itemCount: state.filteredList.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
@@ -93,12 +89,7 @@ class SearchView extends StatelessWidget {
                                         .toUpperCase(),
                                     style: Theme.of(context)
                                         .textTheme
-                                        .caption
-                                        ?.copyWith(
-                                            fontSize: Theme.of(context)
-                                                .textTheme
-                                                .bodyText1
-                                                ?.fontSize))),
+                                        .bodyMedium)),
                             onTap: () => context.router.push(
                               AssetRoute(
                                 id: state.filteredList[index].id,

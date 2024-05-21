@@ -17,19 +17,17 @@ class AssetLoading extends AssetState {
 }
 
 class AssetLoaded extends AssetState {
+  const AssetLoaded(this.coin, this.assetHistorySplits);
   final Coin coin;
   final AssetHistorySplits assetHistorySplits;
-
-  const AssetLoaded(this.coin, this.assetHistorySplits);
 
   @override
   List<Object> get props => [coin, assetHistorySplits];
 }
 
 class AssetError extends AssetState {
-  final String error;
-
   const AssetError(this.error);
+  final String error;
 
   @override
   List<Object> get props => [error];

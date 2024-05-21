@@ -12,192 +12,222 @@ void main() {
     group('is Mobile', () {
       group('web', () {
         test('if width is 599, height 600 (android)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.android, true);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.android,
+              isWeb: true);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 599 (android)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.android, true);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.android,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 949, height 950 (android)', () {
-          var result =
-              getScreenSize(const Size(949, 950), TargetPlatform.android, true);
+          final result = getScreenSize(
+              const Size(949, 950), TargetPlatform.android,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 950, height 949 (android)', () {
-          var result =
-              getScreenSize(const Size(950, 949), TargetPlatform.android, true);
+          final result = getScreenSize(
+              const Size(950, 949), TargetPlatform.android,
+              isWeb: true);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 599, height 600 (iOS)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.iOS, true);
+          final result = getScreenSize(const Size(599, 600), TargetPlatform.iOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 950, height 949 (iOS)', () {
-          var result =
-              getScreenSize(const Size(950, 949), TargetPlatform.iOS, true);
+          final result = getScreenSize(const Size(950, 949), TargetPlatform.iOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 949, height 950 (iOS)', () {
-          var result =
-              getScreenSize(const Size(949, 950), TargetPlatform.iOS, true);
+          final result = getScreenSize(const Size(949, 950), TargetPlatform.iOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 600, height 599 (iOS)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.iOS, true);
+          final result = getScreenSize(const Size(600, 599), TargetPlatform.iOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 599, height 600 (macOS)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.macOS, true);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.macOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 599 (macOS)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.macOS, true);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.macOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 949, height 950 (macOS)', () {
-          var result =
-              getScreenSize(const Size(949, 950), TargetPlatform.macOS, true);
+          final result = getScreenSize(
+              const Size(949, 950), TargetPlatform.macOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 950, height 949 (macOS)', () {
-          var result =
-              getScreenSize(const Size(950, 949), TargetPlatform.macOS, true);
+          final result = getScreenSize(
+              const Size(950, 949), TargetPlatform.macOS,
+              isWeb: true);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 599, height 600 (windows)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.windows, true);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.windows,
+              isWeb: true);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 599 (windows)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.windows, true);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.windows,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 949, height 950 (windows)', () {
-          var result =
-              getScreenSize(const Size(949, 950), TargetPlatform.windows, true);
+          final result = getScreenSize(
+              const Size(949, 950), TargetPlatform.windows,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 950, height 949 (windows)', () {
-          var result =
-              getScreenSize(const Size(950, 949), TargetPlatform.windows, true);
+          final result = getScreenSize(
+              const Size(950, 949), TargetPlatform.windows,
+              isWeb: true);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 599, height 600 (linux)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.linux, true);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.linux,
+              isWeb: true);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 599 (linux)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.linux, true);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.linux,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 949, height 950 (linux)', () {
-          var result =
-              getScreenSize(const Size(949, 950), TargetPlatform.linux, true);
+          final result = getScreenSize(
+              const Size(949, 950), TargetPlatform.linux,
+              isWeb: true);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 950, height 949 (linux)', () {
-          var result =
-              getScreenSize(const Size(950, 949), TargetPlatform.linux, true);
+          final result = getScreenSize(
+              const Size(950, 949), TargetPlatform.linux,
+              isWeb: true);
           expect(result, equals(ScreenSize.large));
         });
       });
       group('not web', () {
         test('if width is 600, height 599 (android)', () {
-          var result = getScreenSize(
-              const Size(600, 599), TargetPlatform.android, false);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.android,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 599, height 600 (android)', () {
-          var result = getScreenSize(
-              const Size(599, 600), TargetPlatform.android, false);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.android,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 949 (android)', () {
-          var result = getScreenSize(
-              const Size(600, 949), TargetPlatform.android, false);
+          final result = getScreenSize(
+              const Size(600, 949), TargetPlatform.android,
+              isWeb: false);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 1000, height 600 (android)', () {
-          var result = getScreenSize(
-              const Size(1000, 950), TargetPlatform.android, false);
+          final result = getScreenSize(
+              const Size(1000, 950), TargetPlatform.android,
+              isWeb: false);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 600, height 599 (ios)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.iOS, false);
+          final result = getScreenSize(const Size(600, 599), TargetPlatform.iOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 599, height 600 (ios)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.iOS, false);
+          final result = getScreenSize(const Size(599, 600), TargetPlatform.iOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 949 (ios)', () {
-          var result =
-              getScreenSize(const Size(600, 949), TargetPlatform.iOS, false);
+          final result = getScreenSize(const Size(600, 949), TargetPlatform.iOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 1000, height 600 (ios)', () {
-          var result =
-              getScreenSize(const Size(1000, 950), TargetPlatform.iOS, false);
+          final result = getScreenSize(
+              const Size(1000, 950), TargetPlatform.iOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.large));
         });
 
         test('if width is 599, height 600 (macOS)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.macOS, false);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.macOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 599 (macOS)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.macOS, false);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.macOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 950, height 599 (macOS)', () {
-          var result =
-              getScreenSize(const Size(950, 599), TargetPlatform.macOS, false);
+          final result = getScreenSize(
+              const Size(950, 599), TargetPlatform.macOS,
+              isWeb: false);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 599, height 600 (windows)', () {
-          var result = getScreenSize(
-              const Size(599, 600), TargetPlatform.windows, false);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.windows,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 950, height 599 (windows)', () {
-          var result = getScreenSize(
-              const Size(950, 599), TargetPlatform.windows, false);
+          final result = getScreenSize(
+              const Size(950, 599), TargetPlatform.windows,
+              isWeb: false);
           expect(result, equals(ScreenSize.large));
         });
         test('if width is 600, height 599 (windows)', () {
-          var result = getScreenSize(
-              const Size(600, 599), TargetPlatform.windows, false);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.windows,
+              isWeb: false);
           expect(result, equals(ScreenSize.medium));
         });
 
         test('if width is 599, height 600 (linux)', () {
-          var result =
-              getScreenSize(const Size(599, 600), TargetPlatform.linux, false);
+          final result = getScreenSize(
+              const Size(599, 600), TargetPlatform.linux,
+              isWeb: false);
           expect(result, equals(ScreenSize.small));
         });
         test('if width is 600, height 599 (linux)', () {
-          var result =
-              getScreenSize(const Size(600, 599), TargetPlatform.linux, false);
+          final result = getScreenSize(
+              const Size(600, 599), TargetPlatform.linux,
+              isWeb: false);
           expect(result, equals(ScreenSize.medium));
         });
         test('if width is 950, height 599 (linux)', () {
-          var result =
-              getScreenSize(const Size(950, 599), TargetPlatform.linux, false);
+          final result = getScreenSize(
+              const Size(950, 599), TargetPlatform.linux,
+              isWeb: false);
           expect(result, equals(ScreenSize.large));
         });
       });

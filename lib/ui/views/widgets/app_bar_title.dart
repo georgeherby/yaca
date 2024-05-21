@@ -6,19 +6,18 @@ import 'package:flutter/material.dart';
 import 'package:yaca/core/extensions/platform.dart';
 
 class AppBarTitle extends StatelessWidget {
-  final String title;
-
   const AppBarTitle(
     this.title, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Theme.of(context).platform.isDesktop() && !kIsWeb
         ? Text(
             title,
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyMedium,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
           )

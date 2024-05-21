@@ -13,10 +13,9 @@ import 'package:coingecko_api/data/market_chart_data.dart';
 import 'package:yaca/core/models/api/asset_history_splits.dart';
 import 'package:yaca/core/models/settings/chosen_currency.dart';
 
-class AssetRespository {
+class AssetRepository {
+  AssetRepository(this._api);
   final CoinGeckoApi _api;
-
-  AssetRespository(this._api);
 
   Future<AssetHistorySplits> fetchFullAssetHistory(
       String coinId, ChosenCurrency currencyCode) async {
@@ -24,9 +23,9 @@ class AssetRespository {
         'fetchFullAssetHistory $coinId called for currency $currencyCode');
 
     return AssetHistorySplits(
-      last24Hours: (await _getAssetHistory(coinId, currencyCode, 1)),
-      last3Month: (await _getAssetHistory(coinId, currencyCode, 90)),
-      allMonths: (await _getAssetHistory(coinId, currencyCode, null)),
+      last24Hours: await _getAssetHistory(coinId, currencyCode, 1),
+      last3Month: await _getAssetHistory(coinId, currencyCode, 90),
+      allMonths: await _getAssetHistory(coinId, currencyCode, null),
     );
   }
 
